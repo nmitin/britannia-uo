@@ -20,40 +20,40 @@ program handlePartyAdd(character)
 	// Check to see if character is the leader of their party and the party size
 	if ( Lower(TypeOf(party)) == "array" )
 		if ( party[1] != character.serial )
-			SendSysMessage(character, "You may only add members to the party if you are the leader.");
+			SendSysMessage(character, "Добавлять участников может только лидер партии.");
 			return 0;
 		endif
 
 		if ( party.Size() + CInt(GetObjProperty(character, "#PartyCanidates")) > PARTY_MAX_SIZE )
-			SendSysMessage(character, "You may only have "+PARTY_MAX_SIZE+" in your party (this includes candidates).");
+			SendSysMessage(character, "В партии может быть не более "+PARTY_MAX_SIZE+" участников (включая кандидатов).");
 			return 0;
 		endif
 	endif
 
-	SendSysMessage(character, "Who would you like to add to your party?");
+	SendSysMessage(character, "Кого добавить в партию?");
 	var targ := Target(character);
 
 	// Do target checks
 	if ( targ == error )
 		SendSysMessage(character, "Отменено.", color := 33);
 	elseif ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(character, "You may only add living things to your party!", color := 33);
+		SendSysMessage(character, "В партию можно добавлять только живых существ!", color := 33);
 		return 0;
 	elseif ( targ.IsA(POLCLASS_NPC) )
-		SendSysMessage(character, "The creature ignores your offer.", color := 33);
+		SendSysMessage(character, "Существо игнорирует ваше предложение.", color := 33);
 		return 0;
 	elseif ( targ.acctname )
 		if ( targ.serial == character.serial )
-			SendSysMessage(character, "You cannot add yourself to a party.", color := 33);
+			SendSysMessage(character, "Нельзя добавить себя в партию.", color := 33);
 			return 0;
 		elseif ( GetObjProperty(targ, PARTY_JOINING_PROP) )
-			SendSysMessage(character, "That person is already considering joining a party.", color := 33);
+			SendSysMessage(character, "Этот человек уже рассматривает приглашение в партию.", color := 33);
 			return 0;
 		elseif ( targ.serial in (party) )
-			SendSysMessage(character, "This person is already in your party!", color := 33);
+			SendSysMessage(character, "Этот человек уже в вашей партии!", color := 33);
 			return 0;
 		elseif ( GetObjProperty(targ, PARTY_PROP) )
-			SendSysMessage(character, "This person is already in a party!", color := 33);
+			SendSysMessage(character, "Этот человек уже в партии!", color := 33);
 			return 0;
 		endif
 	endif
@@ -72,8 +72,8 @@ program handlePartyAdd(character)
 	packet.SetInt32(OFFSET_PARTY_INVITE_PLAYERID, character.serial); // Set leader's serial
 	packet.SendPacket(targ); // Send the invite packet to the target
 
-	SendSysMessage(character, "You have invited them to join the party.", color := 56);
-	SendSysMessage(targ, "You are invited to join the party. Type /accept to join or /decline to decline the offer.", color := 56);
+	SendSysMessage(character, "Вы пригласили их в партию.", color := 56);
+	SendSysMessage(targ, "Вас приглашают в партию. Введите /accept, чтобы принять, или /decline, чтобы отказаться.", color := 56);
 
 	Detach();
 

@@ -16,7 +16,7 @@ program UseGuildStone( mobile, item )
             guild := FindGuild( guild_id );
 
         if( !guild && !mobile.cmdlevel > 3 )
-                SendSysMessage( mobile, "That guild stone has no members! Page a staff!" );
+                SendSysMessage( mobile, "У этого камня гильдии нет участников! Сообщите администрации!" );
                 return 0;
         endif
 

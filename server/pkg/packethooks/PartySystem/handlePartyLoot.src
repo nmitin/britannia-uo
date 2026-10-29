@@ -16,10 +16,10 @@ program handlePartyLoot(params)
 
 	if ( loot )
 		SetObjProperty(character, PARTY_LOOT_PROP, 1);
-		SendSysMessage(character, "You have chosen to allow your party to loot your corpse.");
+		SendSysMessage(character, "Вы разрешили партии обыскивать ваш труп.");
 	else
 		EraseObjProperty(character, PARTY_LOOT_PROP);
-		SendSysMessage(character, "You have chosen to prevent your party from looting your corpse.");
+		SendSysMessage(character, "Вы запретили партии обыскивать ваш труп.");
 	endif
 
 	return 1;

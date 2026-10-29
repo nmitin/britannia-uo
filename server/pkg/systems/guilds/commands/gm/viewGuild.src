@@ -15,16 +15,16 @@ program textcmd_openGuild( mobile )
                 return 0;
         endif
 
-        SendSysMessage( mobile, "Select a player to view guild." );
+        SendSysMessage( mobile, "Выберите игрока, чтобы посмотреть гильдию." );
         var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
         if( !targ )
                 SendSysMessage( mobile, "Отменено." );
                 return 0;
         elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
-                SendSysMessage( mobile, "You must select a player." );
+                SendSysMessage( mobile, "Нужно выбрать игрока." );
                 return 0;
         elseif( !targ.guildid )
-                SendSysMessage( mobile, "This player is not a member of any guild." );
+                SendSysMessage( mobile, "Этот игрок не состоит ни в одной гильдии." );
                 return 0;
         endif
 

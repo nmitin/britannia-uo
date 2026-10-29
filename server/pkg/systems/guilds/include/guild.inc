@@ -59,32 +59,32 @@ endfunction
 
 function RecruitAPlayer( mobile, guild )
 
-	SendSysMessage( mobile, "Who would you like to recruit into the guild?", 3, 88 );
+	SendSysMessage( mobile, "Кого вы хотите завербовать в гильдию?", 3, 88 );
 	var targ := Target( mobile );
 	if( !targ )
 		SendSysMessage( mobile, "Отменено.", 3, 33 );
 	elseif( targ.serial == mobile.serial )
-		SendSysMessage( mobile, "You shall consider therapy.", 3, 44 );
+		SendSysMessage( mobile, "Вам стоит обратиться к психотерапевту.", 3, 44 );
 	elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
-		SendSysMessage( mobile, "You must target a player.", 3, 33 );
+		SendSysMessage( mobile, "Нужно указать игрока.", 3, 33 );
 	elseif( targ.guildid )
-		SendSysMessage( mobile, targ.name+" is already in a guild.", 3, 44 );
+		SendSysMessage( mobile, targ.name+" уже состоит в гильдии.", 3, 44 );
 	endif
 
 	foreach recruit in ( guild.GetProp( "Recruit" ))
 		if( targ.serial == recruit.serial )
-			SendSysMessage( mobile, targ.name+" is already recruited for the guild.", 3, 44 );
+			SendSysMessage( mobile, targ.name+" уже завербован в гильдию.", 3, 44 );
 		endif
 		SleepMS(5);
 	endforeach
 
-	SendSysMessage( mobile, "We are waiting the answer...", 3, 68 );
+	SendSysMessage( mobile, "Ждём ответа...", 3, 68 );
 
 	if( !YesNo( targ, "Would you like to join the guild "+guild.GetProp( "Name" )+"?", "I accept", "I decline", 10 ))
-		SendSysMessage( mobile, targ.name+" has declined the invitation.", 3, 44 );
+		SendSysMessage( mobile, targ.name+" отклонил приглашение.", 3, 44 );
 	else
-		SendSysMessage( mobile, targ.name+" has been recruited for the guild.", 3, 68 );
-		SendSysMessage( targ, "You have been recruited for the guild.", 3, 68 );
+		SendSysMessage( mobile, targ.name+" завербован в гильдию.", 3, 68 );
+		SendSysMessage( targ, "Вас завербовали в гильдию.", 3, 68 );
 
 		var recruit := guild.GetProp( "Recruit" );
 		if( !recruit )
@@ -111,7 +111,7 @@ function ViewRecruits( mobile, guild )
 	var num := guild_recruits.Size();
 
 	if( !num || guild_recruits.errortext )
-		SendSysMessage( mobile, "There are no recruits listed in the roster.", color := 40 );
+		SendSysMessage( mobile, "В списке нет новобранцев.", color := 40 );
 		return 1;
 	endif
 
@@ -167,7 +167,7 @@ function ViewRecruits( mobile, guild )
 			// If the guild member has already voted against the recruit, prevent the member
 			// from voting against the recruit again.
 			if( mobile.serial in guild_recruits[input].voteagainst )
-				SendSysMessage( mobile, "You can only cast one vote against " + guild_recruits[input].name + ".", color := 33 );
+				SendSysMessage( mobile, "Можно отдать только один голос против " + guild_recruits[input].name + ".", color := 33 );
 				return;
 			endif
 			// This determines if the guild member has voted for the recruit
@@ -182,7 +182,7 @@ function ViewRecruits( mobile, guild )
 			// If the guild member has already voted for the recruit, prevent the member
 			// from voting for the recruit again.
 			if( mobile.serial in guild_recruits[input].votefor )
-				SendSysMessage( mobile, "You can only cast one vote for " + guild_recruits[input].name + ".", color := 33 );
+				SendSysMessage( mobile, "Можно отдать только один голос за " + guild_recruits[input].name + ".", color := 33 );
 				return;
 			endif
 			// This determines if the guild member has voted against the recruit
@@ -345,7 +345,7 @@ function ToggleTitle( mobile, guild )
 	if( !GetObjProperty( mobile, "Guild_Abbr" ))
 		var guild_title := GetObjProperty( mobile, "Guild_Title" );
 		if( !guild_title )
-			SendSysMessage( mobile, "You do not have a guild title yet.", 3, 68 );
+			SendSysMessage( mobile, "У вас ещё нет титула гильдии.", 3, 68 );
 			mobile.title_guild := abbr;
 		else
 			mobile.title_guild := guild_title+" "+temp_name;
@@ -362,12 +362,12 @@ function Resign( mobile, guild )
 
 	if( mobile.serial == guild.GetProp( "Master" ))
 		if( guild.members.Size() > 1 )
-			SendSysMessage( mobile, "You must pass the leadership before leaving the guild.", 3, 33 );
+			SendSysMessage( mobile, "Перед выходом из гильдии нужно передать лидерство.", 3, 33 );
 		else
 			if( !Yesno( mobile, "Are you sure you want to disband the guild?", "Yes, I am.", "No, do not disband the guild." ))
 				return 1;
 			else
-				SendSysMessage( mobile, "You are no longer a member of "+guild.GetProp( "Name" )+".", 3, 68 );
+				SendSysMessage( mobile, "Вы больше не член "+guild.GetProp( "Name" )+".", 3, 68 );
 				EraseObjProperty( mobile, "Guild_Title" );
 				EraseObjProperty( mobile, "Guild_Abbr" );
 				EraseObjProperty( mobile, "GuildChat" );
@@ -413,7 +413,7 @@ function Resign( mobile, guild )
 		if( !Yesno( mobile, "Are you sure you want to leave the guild?", "Yes, I am.", "No, I do not leave the guild." ))
 			return 1;
 		else
-			SendSysMessage( mobile, "You are no longer a member of "+guild.GetProp( "Name" )+".", 3, 68 );
+			SendSysMessage( mobile, "Вы больше не член "+guild.GetProp( "Name" )+".", 3, 68 );
 			EraseObjProperty( mobile, "Guild_Title" );
 			EraseObjProperty( mobile, "Guild_Abbr" );
 			mobile.title_guild := "";
@@ -484,7 +484,7 @@ function PlaceGuildStone( mobile )
 
 	var sign := GetHouseSign( mobile );
 	if( !sign )
-		SendSysMessage( mobile, "You nust be inside a house to place a guild stone.", color := 33 );
+		SendSysMessage( mobile, "Чтобы поставить камень гильдии, нужно находиться в доме.", color := 33 );
 		return 0;
 	endif
 	var guild := FindGuild( mobile.guildid );
@@ -494,10 +494,10 @@ function PlaceGuildStone( mobile )
 		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 0;
 	elseif( !CheckLosAt( mobile, targ.x, targ.y, targ.z ));
-		SendSysMessage( mobile, "Cannot see this!", 3, 33 );
+		SendSysMessage( mobile, "Это не видно!", 3, 33 );
 		return 0;
 	elseif( !sign.IsLocationInsideHouse( targ ) );
-		SendSysMessage( mobile, "This is not in a house!", 3, 33 );
+		SendSysMessage( mobile, "Это не в доме!", 3, 33 );
 		return 0;
 	endif
 
@@ -505,10 +505,10 @@ function PlaceGuildStone( mobile )
 	var guild_info := guild.GetProp( "GuildStone" );
 
 	if( !sign.IsOwner( mobile ))
-		SendSysMessage( mobile, "This is not in your house!", 3, 33 );
+		SendSysMessage( mobile, "Это не в вашем доме!", 3, 33 );
 		return 0;
 	elseif( guild_house && guild_house != guild_info )
-		SendSysMessage( mobile, "There is already a guild stone in this building.", 3, 33 );
+		SendSysMessage( mobile, "В этом здании уже есть камень гильдии.", 3, 33 );
 		return 0;
 	endif
 
@@ -583,10 +583,10 @@ function ChangeGuildName( mobile, guild )
 		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 1;
 	elseif( !ValidStr( new_name ))
-		SendSysMessage( mobile, "Guild name contains illegal characters.", 3, 33 );
+		SendSysMessage( mobile, "Название гильдии содержит недопустимые символы.", 3, 33 );
 		return 1;
 	elseif( !ValidName( new_name ))
-		SendSysMessage( mobile, "Guild name already exists.", 3, 33 );
+		SendSysMessage( mobile, "Такое название гильдии уже существует.", 3, 33 );
 		return 1;
 	endif
 
@@ -595,10 +595,10 @@ function ChangeGuildName( mobile, guild )
 		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 1;
 	elseif( !ValidStr( new_abbr ))
-		SendSysMessage( mobile, "Guild abbreviation contains illegal characters.", 3, 33 );
+		SendSysMessage( mobile, "Сокращение гильдии содержит недопустимые символы.", 3, 33 );
 		return 1;
 	elseif( !ValidName( new_abbr ))
-		SendSysMessage( mobile, "Guild abbreviation already exists.", 3, 33 );
+		SendSysMessage( mobile, "Такое сокращение гильдии уже существует.", 3, 33 );
 		return 1;
 	endif
 
@@ -608,7 +608,7 @@ function ChangeGuildName( mobile, guild )
 	endif
 
 	if( !mobile.SpendGold( regist_fee ) && mobile.cmdlevel < 3 )
-		SendSysMessage( mobile, "You do not have enough gold to cover the fee.", 3, 33 );
+		SendSysMessage( mobile, "У вас недостаточно золота для оплаты.", 3, 33 );
 		return 1;
 	endif
 
@@ -629,7 +629,7 @@ function ChangeGuildName( mobile, guild )
 		SetName( guildstone, new_name );
 	endif
 
-	SendSysMessage( mobile, "Guild name and abbreviation has been changed.", 3, 66 );
+	SendSysMessage( mobile, "Название и сокращение гильдии изменены.", 3, 66 );
 
 endfunction
 
@@ -684,7 +684,7 @@ function GrantTitle( mobile, guild )
                 SendSysMessage( mobile, "Отменено.", 3, 33 );
                 return 1;
         elseif( !ValidStr( new_title ))
-			SendSysMessage( mobile, "Title contains illegal characters.", 3, 33 );
+			SendSysMessage( mobile, "Титул содержит недопустимые символы.", 3, 33 );
 			return 1;
         endif
 
@@ -756,7 +756,7 @@ function RecruitStatus( mobile, guild )
 	num := guild_recruits.Size();
 
 	if( !num || guild_recruits.errortext )
-		SendSysMessage( mobile, "There are no recruits listed in the roster.", color := 40 );
+		SendSysMessage( mobile, "В списке нет новобранцев.", color := 40 );
 		return 1;
 	endif
 
@@ -803,14 +803,14 @@ function RecruitStatus( mobile, guild )
 
 	var player_ref := SystemFindObjectBySerial( guild_recruits[input].serial );
 	if( !Yesno( mobile, "Are you sure you want to add "+player_ref.name+" to the guild?", "Yes.", "No." ))
-		SendSysMessage( player_ref, "Your application for "+guild.GetProp( "Name" )+" has been rejected.", 3, 33 );
+		SendSysMessage( player_ref, "Ваша заявка на "+guild.GetProp( "Name" )+" отклонён.", 3, 33 );
 	else
 		foreach member in ( guild.members )
-			SendSysMessage( member, player_ref.name+" has been added to the guild.", 3, 66 );
+			SendSysMessage( member, player_ref.name+" добавлен в гильдию.", 3, 66 );
 			SleepMS(5);
 		endforeach
 
-		SendSysMessage( player_ref, "You are now a member of "+guild.GetProp( "Name" )+". You can use .c to see a list of options.", 3, 88 );
+		SendSysMessage( player_ref, "Теперь вы член "+guild.GetProp( "Name" )+". Введите .c, чтобы увидеть список возможностей.", 3, 88 );
 
 		guild.AddMember( player_ref );
 		player_ref.title_guild := "["+guild.GetProp( "Abbr" )+"]";
@@ -829,7 +829,7 @@ function DismissMember( mobile, guild )
 	var num := guild_members.Size();
 	if( (!num) || (guild_members.errortext) || (guild_members) )
 	// if( !guild_members )
-		SendSysMessage( mobile, "You are the only member of your guild.", color := 40 );
+		SendSysMessage( mobile, "Вы единственный член вашей гильдии.", color := 40 );
 		return 1;
 	endif
 
@@ -874,8 +874,8 @@ function DismissMember( mobile, guild )
 
 	var player_ref := guild_members[input];
 	if( Yesno( mobile, "Are you sure you want to dismiss "+player_ref.name+"?", "Yes.", "No." ))
-		SendSysMessage( mobile, player_ref.name+" has been removed from the guild.", 3, 68 );
-		SendSysMessage( player_ref, "You are no longer member of "+guild.GetProp( "Name" )+".", 3, 68 );
+		SendSysMessage( mobile, player_ref.name+" исключён из гильдии.", 3, 68 );
+		SendSysMessage( player_ref, "Вы больше не член "+guild.GetProp( "Name" )+".", 3, 68 );
 		ReportText( player_ref.name+" resigned from "+guild.GetProp( "Name" )+" by "+mobile.name+" Serial: "+mobile.serial, REPORT_SYSLOG );
 
 		guild.RemoveMember( player_ref );
@@ -934,7 +934,7 @@ function DeclareWar( mobile, guild )
 	var guild_ref := total_guild[input];
 
 	if( Yesno( mobile, "Are you sure you want to declare war against "+guild_ref.GetProp( "Name" )+"?", "Yes.", "No." ))
-		SendSysMessage( mobile, "Your declaration of war is now official!", 3, 68 );
+		SendSysMessage( mobile, "Ваше объявление войны теперь официально!", 3, 68 );
 
 		guild.AddEnemyGuild( guild_ref );
 		Broadcast( "The guild "+guild.GetProp( "Name" )+" declares war against "+guild_ref.GetProp( "Name" )+".", 3, 33 );
@@ -1019,7 +1019,7 @@ function DeclarePeace( mobile, guild )
 	endif
 
 	if( Yesno( mobile, "Are you sure you want to declare an alliance with "+guild_ref.GetProp( "Name" )+"?", "Yes.", "No." ))
-		SendSysMessage( mobile, "Your alliance has been made.", 3, 66 );
+		SendSysMessage( mobile, "Ваш союз заключён.", 3, 66 );
 
 		guild.AddAllyGuild( guild_ref );
 		Broadcast( "The guild "+guild.GetProp( "Name" )+" declares an alliance with "+guild_ref.GetProp( "Name" )+" for "+days_peace+" days.", 3, 68 );
@@ -1099,8 +1099,8 @@ function TransferLeader( mobile, guild )
 
 	var player_ref := guild_members[input];
 	if( Yesno( mobile, "Are you sure you want to transfer leadership to "+player_ref.name+"?", "Yes.", "No." ))
-		SendSysMessage( mobile, player_ref.name+" is now the Guild Master.", 3, 68 );
-		SendSysMessage( player_ref, "You are now the Guild Master of "+guild.GetProp( "Name" )+".", 3, 68 );
+		SendSysMessage( mobile, player_ref.name+" теперь глава гильдии.", 3, 68 );
+		SendSysMessage( player_ref, "Теперь вы глава гильдии "+guild.GetProp( "Name" )+".", 3, 68 );
 		guild.SetProp( "Master", player_ref.serial );
 		DestroyGuildStone( guild );
 		guild_master_menu := 0;
@@ -1148,12 +1148,12 @@ function DisbandGuild( who )
 
 	var gm_guild_id := who.guildid;
 	if( !gm_guild_id )
-		SendSysMessage( who, "You do not appear to be in a guild.", color := 40 );
+		SendSysMessage( who, "Похоже, вы не состоите в гильдии.", color := 40 );
 		return 0;
 	endif
 	var gm_guild := FindGuild( gm_guild_id );
 	if( gm_guild.members.size() > 1)
-		SendSysMessage( who, "You must remove the guild members before you disband the guild.", color := 40 );
+		SendSysMessage( who, "Перед роспуском гильдии нужно удалить всех участников.", color := 40 );
 		return 0;
 	endif
 
@@ -1170,7 +1170,7 @@ function DisbandGuild( who )
 
 	DestroyGuild( gm_guild );
 
-	SendSysMessage( who, "Guild was successfully disbanded.", 3, 68 );
+	SendSysMessage( who, "Гильдия успешно распущена.", 3, 68 );
 	return 1;
 endfunction
 
@@ -1200,12 +1200,12 @@ function RemoveGuildColor( who )
 	endif
 	var guild_color := who.guild.getprop("GuildColor");
 	if( !guild_color )
-		SendSysMessage( who, "Your guild has not purchased a color.", color := 40 );
+		SendSysMessage( who, "Ваша гильдия не приобрела цвет.", color := 40 );
 		return 1;
 	endif
 
 	MakeColorAvailableForPurchase( guild_color );
-	SendSysMessage( who, "Your guild's color has been removed.", color := 66 );
+	SendSysMessage( who, "Цвет вашей гильдии убран.", color := 66 );
 	var guild_members := who.guild.members;
 	var equipped_items := {};
 	foreach person in guild_members
@@ -1215,22 +1215,22 @@ function RemoveGuildColor( who )
 				item.color := 0;
 			endif
 		endforeach
-		SendSysMessage( person, "The guild master has removed the current guild color.", color := 88 );
-		SendSysMessage( person, "Your equipped guild colored items are no longer colored.", color := 88 );
-		SendSysMessage( person, "Any unequipped guild colored items will lose their color when equipped.", color := 88 );
+		SendSysMessage( person, "Глава гильдии убрал текущий цвет.", color := 88 );
+		SendSysMessage( person, "Надетые предметы цвета гильдии больше не окрашены.", color := 88 );
+		SendSysMessage( person, "Не надетые предметы цвета гильдии потеряют цвет при надевании.", color := 88 );
 	endforeach
 	var guild_stone := SystemFindObjectBySerial( who.guild.getprop("GuildStone") );
 	var guild_settings := GC_GetSettingsCfgElem( "GuildSettings" );
 	guild_stone.color := CInt(guild_settings.DefaultGuildStoneColor);
 	who.guild.setprop("GuildColor", 0);
 
-	SendSysMessage( who, "The guild color has been removed.", color := 66 );
+	SendSysMessage( who, "Цвет гильдии убран.", color := 66 );
 
 endfunction
 
 function DyeClothes( who )
 
-	SendSysMessage( who, "Press <ESC> when finished.", color := 88 );
+	SendSysMessage( who, "По завершении нажмите <ESC>.", color := 88 );
 	var done :=0;
 	var clothing := 0;
 	while(!done)
@@ -1239,31 +1239,31 @@ function DyeClothes( who )
 		if( !clothing )
 			done := 1;
 		elseif( !clothing.item.IsClothes() )
-			SendSysMessage( who, "You can only dye clothes with a guild color.", color := 33 );
+			SendSysMessage( who, "Красить одежду можно только цветом гильдии.", color := 33 );
 		else
 			clothing.item.color := who.guild.getprop( "GuildColor" );
 			SetObjProperty( clothing.item, "GuildColor", who.guild.getprop( "GuildColor" ) );
 		endif
 
 	endwhile
-	SendSysMessage( who, "Finished dying clothes.", color := 56 );
+	SendSysMessage( who, "Покраска одежды завершена.", color := 56 );
 
 endfunction
 
 function ColorGuildStone( who )
 
-	SendSysMessage( who, "Select the guild stone:", color := 88 );
+	SendSysMessage( who, "Выберите камень гильдии:", color := 88 );
 	var guild_stone := Target( who );
 	if( guild_stone.objtype != 0x2A390 )
-		SendSysMessage( who, "That is not a guild stone.", color := 33 );
+		SendSysMessage( who, "Это не камень гильдии.", color := 33 );
 		return 0;
 	endif
 	if( !guild_stone.getprop("GuildID") )
-		SendSysMessage( who, "That stone is not affiliated with a guild.", color := 33 );
+		SendSysMessage( who, "Этот камень не связан с гильдией.", color := 33 );
 		return 0;
 	endif
 	if( who.guildid != guild_stone.getprop("GuildID") )
-		SendSysMessage( who, "That is not your guild stone.", color := 33 );
+		SendSysMessage( who, "Это не ваш камень гильдии.", color := 33 );
 		return 0;
 	endif
 	var guild_color := SelectColor(who, guild_stone);

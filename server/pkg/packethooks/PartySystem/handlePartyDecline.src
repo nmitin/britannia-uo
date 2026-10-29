@@ -23,8 +23,8 @@ program handlePartyDecline(params)
 
 	if ( leader != error )
 		// Not sure if OSI sends this message to every party member
-		SendPartyMessage(leader, invitee, "Does not wish to join the party.");
-		SendSysMessage(invitee, "You notify them that you do not wish to join the party.");
+		SendPartyMessage(leader, invitee, "Не желает присоединяться к партии.");
+		SendSysMessage(invitee, "Вы сообщаете, что не хотите присоединяться к партии.");
 	endif
 
 	return 1;

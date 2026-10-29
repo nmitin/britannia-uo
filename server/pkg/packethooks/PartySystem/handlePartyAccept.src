@@ -24,13 +24,13 @@ program handlePartyAccept(params)
 		EraseObjProperty(invitee, PARTY_JOINING_PROP);
 		SetObjProperty(leader, "#PartyCanidates", CInt(GetObjProperty(leader, "#PartyCanidates"))-1);
 	else
-		SendSysMessage(invitee, "You have not been invited to a party.");
+		SendSysMessage(invitee, "Вас не приглашали в партию.");
 		return 0;
 	endif
 
 	// Maybe the leader logged off
 	if ( !leader )
-		SendSysMessage(invitee, "Unable to find party creator!");
+		SendSysMessage(invitee, "Не удалось найти создателя партии!");
 		return 0;
 	endif
 
@@ -42,7 +42,7 @@ program handlePartyAccept(params)
 	else
 		// Check if the party.Size() isn't too big
 		if ( party.Size() + CInt(GetObjProperty(leader, "#PartyCanidates")) > PARTY_MAX_SIZE )
-			SendSysMessage(leader, "You may only have "+PARTY_MAX_SIZE+" in your party (this includes candidates).");
+			SendSysMessage(leader, "В партии может быть не более "+PARTY_MAX_SIZE+" участников (включая кандидатов).");
 			return 0;
 		endif
 	endif
@@ -74,7 +74,7 @@ program handlePartyAccept(params)
 		endif
 	endforeach
 
-	SendSysMessage(invitee, "You have been added to the party.");
+	SendSysMessage(invitee, "Вас добавили в партию.");
 
 	// Sleep 1 second to allow the client to request the status of the other party member
 	// If you don't do this, then sometimes the client wont know the name that goes along
@@ -82,7 +82,7 @@ program handlePartyAccept(params)
 	Detach();
 	Sleep(1);
 	
-	SendPartyMessage(party, invitee, "joined the party.");
+	SendPartyMessage(party, invitee, "присоединился к партии.");
 
 	return 1;
 endprogram

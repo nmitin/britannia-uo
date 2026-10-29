@@ -58,10 +58,10 @@ program Guild_Create( mobile )
                     guild_abbr := GFExtractData( input, abbreviation_temp );
 
 		if( !guild_name )
-			SendSysMessage( mobile, "You must provide a guild name.", 3, 68 );
+			SendSysMessage( mobile, "Нужно указать название гильдии.", 3, 68 );
 			return 0;
 		elseif( !guild_abbr )
-			SendSysMessage( mobile, "You must provide a guild abbreviation.", 3, 68 );
+			SendSysMessage( mobile, "Нужно указать сокращение гильдии.", 3, 68 );
 			return 0;
 		endif
 
@@ -90,10 +90,10 @@ function AddGuild( guild_GM, guild_name, guild_abbr )
 		SendSysMessageCL( guild_GM, 501143, color := 33 ); // That name is too long.
 		return 0;
 	elseif( !ValidStr( guild_name ))
-		SendSysMessage( guild_GM, "Guild name contains illegal characters.", 3, 33 );
+		SendSysMessage( guild_GM, "Название гильдии содержит недопустимые символы.", 3, 33 );
 		return 0;
 	elseif( !ValidName( guild_name ))
-		SendSysMessage( guild_GM, "Guild name already exists.", 3, 33 );
+		SendSysMessage( guild_GM, "Такое название гильдии уже существует.", 3, 33 );
 		return 0;
 	endif
 
@@ -101,13 +101,13 @@ function AddGuild( guild_GM, guild_name, guild_abbr )
                 SendSysMessageCL( guild_GM, 1042023, color := 33 ); // Cancelled.
                 return 0;
 	elseif( Len( guild_abbr ) > CInt( settings.MaxAbbrLen ))
-		SendSysMessage( guild_GM, "Guild abbreviation is too long.", 3, 33 );
+		SendSysMessage( guild_GM, "Сокращение гильдии слишком длинное.", 3, 33 );
 		return 0;
 	elseif( !ValidStr( guild_abbr ))
-		SendSysMessage( guild_GM, "Guild abbreviation contains illegal characters.", 3, 33 );
+		SendSysMessage( guild_GM, "Сокращение гильдии содержит недопустимые символы.", 3, 33 );
 		return 0;
 	elseif( !ValidName( guild_abbr ))
-		SendSysMessage( guild_GM, "Guild abbreviation already exists.", 3, 33 );
+		SendSysMessage( guild_GM, "Такое сокращение гильдии уже существует.", 3, 33 );
 		return 0;
 	endif
 
@@ -133,10 +133,10 @@ function AddGuild( guild_GM, guild_name, guild_abbr )
 		guild.AddMember( guild_GM );
 		guild_GM.title_guild := "GuildMaster ["+guild_abbr+"]";
 
-		SendSysMessage( guild_GM, "Guild was successfully created.", 3, 68 );
+		SendSysMessage( guild_GM, "Гильдия успешно создана.", 3, 68 );
 		ReportText( guild.GetProp( "Name" )+" successfully created by "+guild_GM.name+" Serial: "+guild_GM.serial, REPORT_SYSLOG );
 	else
-		SendSysMessage( guild_GM, "Guild creation failed.", 3, 33 );
+		SendSysMessage( guild_GM, "Не удалось создать гильдию.", 3, 33 );
 		SysLog( "Error creating guild -> ["+guild.errortext+"] + CharSerial -> ["+guild_gm.serial+"]" );
 	endif
 

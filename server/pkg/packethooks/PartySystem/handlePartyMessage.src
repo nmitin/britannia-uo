@@ -17,7 +17,7 @@ program handlePartyMessage(params)
 	var msg := params[3];
 
 	if ( targ_id == character.serial )
-		SendSysMessage(character, "Note to self: "+CAscZ(msg), character.uclang);
+		SendSysMessage(character, "Заметка себе: "+CAscZ(msg), character.uclang);
 		return 1;
 	endif
 

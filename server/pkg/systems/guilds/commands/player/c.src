@@ -24,7 +24,7 @@ program textcmd_guildchat( mobile, text )
 	endif
 
         if( !mobile.guildid )
-                SendSysMessage( mobile, "You are not a member of any guild.", 3, 68 );
+                SendSysMessage( mobile, "Вы не состоите ни в одной гильдии.", 3, 68 );
                 return 0;
         endif
 
@@ -126,7 +126,7 @@ function SendOptions( mobile );
         endif
 
         SetObjProperty( mobile, "GuildChat", mobile_options );
-        SendSysMessage( mobile, "Options saved.", 3, 68 );
+        SendSysMessage( mobile, "Настройки сохранены.", 3, 68 );
 
         return 1;
 endfunction

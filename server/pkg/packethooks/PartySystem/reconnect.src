@@ -37,8 +37,8 @@ function ReconnectParty(character, party)
 	endfor
 
 	packet.SendPacket(character);
-	SendPartyMessage(party, character, "rejoined the party.");
-	SendSysMessage(character, "You have rejoined the party.");
+	SendPartyMessage(party, character, "снова в партии.");
+	SendSysMessage(character, "Вы снова в партии.");
 
 	return 1;
 endfunction
