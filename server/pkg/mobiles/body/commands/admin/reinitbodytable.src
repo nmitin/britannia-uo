@@ -5,7 +5,7 @@ program reinitbodytable_textcmd( mobile )
 
 	var script := Start_Script( ":body:scripts/initialize/initializeBodyTable" );
 	if ( script.errortext )
-		SendSysMessage( mobile, "Unable to start script -> "+script.errortext, 0x3, 0x22 );
+		SendSysMessage( mobile, "Не удалось запустить скрипт -> "+script.errortext, 0x3, 0x22 );
 		return 0;
 	endif
 

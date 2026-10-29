@@ -29,7 +29,7 @@ program textcmd_lastDamage( mobile )
                 endif
                 
                 answer := SystemFindObjectBySerial( Last_Damage[1] );
-                SendSysMessage( mobile, "I see it was damaged by "+answer.name+" by "+type+" damage." );
+                SendSysMessage( mobile, "Вижу, это было повреждено "+answer.name+" by "+type+" уроном." );
         else
                 SendSysMessage( mobile, "Нет, ничего не нахожу..." );
                 return 0;

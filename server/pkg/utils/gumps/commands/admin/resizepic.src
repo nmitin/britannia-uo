@@ -6,7 +6,7 @@ Program GumpTest(who, gump_id)
 	gump_id := CInt(gump_id);
 
 	if ( !gump_id )
-		SendSysMessage(who, "Error - no gump ID to resize was sent.");
+		SendSysMessage(who, "Ошибка — не передан ID гумпа для изменения размера.");
 		return 0;
 	endif
 

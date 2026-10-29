@@ -75,7 +75,7 @@ function CheckForDivineRes(who, corpse)
 		EraseObjProperty(corpse, "DivineRes");
 		EraseObjProperty(who, "DivineRes");
 		Resurrect(who);
-		PrintTextAbove(who, who.name + " has been restored by the Gods!");
+		PrintTextAbove(who, who.name + " восстановлен богами!");
 		PlaySoundEffect(who, 0x11e);
 		var itemlist := EnumerateItemsInContainer(corpse);
 		var mypack := GetEquipmentByLayer(who, 0x15);

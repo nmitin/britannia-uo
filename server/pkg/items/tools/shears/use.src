@@ -27,13 +27,13 @@ program shears(who, shears)
 	endif
 
 	if((!CheckLineOfSight(who, sheep)) or (Distance(who, sheep) > 2))
-		SendSysMessage(who, "That sheep is too far away!", color := 33);
+		SendSysMessage(who, "Эта овца слишком далеко!", color := 33);
 		return 0;
 	endif
 
 
 	if (sheep.mobile.graphic == CID_SHEERED_SHEEP)
-		SendSysMessage(who, "You cannot get any more wool from that sheep", color := 33);
+		SendSysMessage(who, "Больше шерсти с этой овцы не получить", color := 33);
 		return 0;
 	elseif(sheep.mobile.graphic == CID_SHEEP)
 		if(sheep.graphic == 207)

@@ -9,7 +9,7 @@ include ":security:commandReport";
 
 program textcmd_darknessTest( mobile )
 
-	SendSysMessage( mobile, "Who would you like to test?" );
+	SendSysMessage( mobile, "Кого вы хотите проверить?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
                 SendSysMessage( mobile, "Отменено." );

@@ -14,7 +14,7 @@ program addteleporter(who)
   var whereto := TargetCoordinates(who);
   where_to_realm := who.realm; // Added to record where the user was after selecting destination.
   if (!whereto)
-    SendSysMessage(who, "Targetting cancelled");
+    SendSysMessage(who, "Выбор цели отменён");
     return;
   endif
   // added realm support to teleporters cfg file

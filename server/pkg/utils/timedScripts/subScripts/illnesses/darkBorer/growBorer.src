@@ -30,19 +30,19 @@ program PoisonScript(params)
 		endif
 
 		case ( duration )
-			89: SendSysMessage(mobile, "You have a sore stomach."); break;
-			60: SendSysMessage(mobile, "You feel a knot in your stomach."); break;
-			50: SendSysMessage(mobile, "Your stomach size begins to expand outward."); break;
+			89: SendSysMessage(mobile, "У вас болит живот."); break;
+			60: SendSysMessage(mobile, "Вы чувствуете узел в животе."); break;
+			50: SendSysMessage(mobile, "Ваш живот начинает раздуваться."); break;
 			40: SendSysMessage(mobile, "Вы чувствуете резкую боль в животе."); break;
 			35: SendSysMessage(mobile, "Вы чувствуете резкую боль в животе."); break;
-			25: SendSysMessage(mobile, "You feel something sharp poking at your innards."); break;
-			15: SendSysMessage(mobile, "You feel intensely sharp pains coming from all over the inside of your torso."); break;
-			10: SendSysMessage(mobile, "You feel your innards being shreaded to bits!"); break;
-			1: SendSysMessage(mobile, "You feel something preparing to burst out of your body!"); break;
+			25: SendSysMessage(mobile, "Вы чувствуете, как что-то острое колет внутри."); break;
+			15: SendSysMessage(mobile, "Вас пронзает острая боль по всему животу."); break;
+			10: SendSysMessage(mobile, "Вы чувствуете, как ваши внутренности разрываются на части!"); break;
+			1: SendSysMessage(mobile, "Вы чувствуете, что что-то готово вырваться наружу!"); break;
 		endcase
 	dowhile( duration > 0 );
 
-	PrintTextAbove(mobile, "*A dark borer that was incubating in "+mobile.name+"'s stomach rips its way out!*", 3, 55);
+	PrintTextAbove(mobile, "*Тёмный сверлильщик, созревавший в "+mobile.name+": живот — вырывается наружу!*", 3, 55);
 	CreateNPCFromTemplate(":brainai:darkborer", mobile.x, mobile.y, mobile.z, 0, mobile.realm);
 	KillMobile(mobile);
 

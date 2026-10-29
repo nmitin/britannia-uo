@@ -364,7 +364,7 @@ function identifyit(who, item)
   if(GetObjProperty(the_item, "charges") )
     ncharges := CStr(GetObjProperty(the_item, "charges") );
     if(ncharges)
-      SendSysMessage(who, "It has " + ncharges + " charges.");
+      SendSysMessage(who, "У него " + ncharges + " зарядов.");
     endif
   endif
   if(GetObjProperty(the_item, "type") == "cursed")

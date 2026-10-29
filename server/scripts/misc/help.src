@@ -9,7 +9,7 @@ use os;
 program Help(mobile)
 	var script := Start_Script(":help:helpSystem/helpSystem", mobile);
 	if ( script.errortext )
-		SendSysMessage(mobile, "Error starting help system ->"+script.errortext);
+		SendSysMessage(mobile, "Ошибка запуска системы помощи ->"+script.errortext);
 		SysLog("Error starting help system->"+script.errortext);
 		return 0;
 	endif

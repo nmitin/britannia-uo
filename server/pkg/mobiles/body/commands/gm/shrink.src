@@ -10,19 +10,19 @@ include ":itemutils:layers";
 
 program shrink_textcmd( mobile )
 
-	SendSysMessage( mobile, "What would you like to shrink?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Что вы хотите уменьшить?", 0x3, 0x42 );
 	var use_on := Target( mobile );
 	if( !use_on )
 	     SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 	     return 0;
 	elseif( !use_on.IsA( POLCLASS_NPC ) )
-	     SendSysMessage( mobile, "This can only be used on NPCs.", 0x3, 0x32 );
+	     SendSysMessage( mobile, "Это можно применять только к NPC.", 0x3, 0x32 );
 	     return 0;
 	endif
 
 	var shrunken_npc := CreateItemInBackpack( mobile, SetupShrunkenNPC( use_on ), 1 );
 	if( shrunken_npc.errortext )
-		SendSysMessage( mobile, "Could not shrink npc, inventory may be full.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Не удалось уменьшить NPC: возможно, инвентарь полон.", 0x3, 0x22 );
 		return 0;
 	endif
 	SaveShrunkenInventory( use_on, shrunken_npc );

@@ -73,18 +73,18 @@ program GumpTest(who)
 		SendSysMessage(who, "Отменено.");
 		return 0;
 	elseif ( input[okay_btn] )
-		SendSysMessage(who, "*** OKAY button was pressed! ***");
+		SendSysMessage(who, "*** Нажата кнопка OKAY! ***");
 	elseif ( input[CANCEL_BTN] )
-		SendSysMessage(who, "*** CANCEL button was pressed! ***");
+		SendSysMessage(who, "*** Нажата кнопка CANCEL! ***");
 	endif
 	
-	SendSysMessage(who, "Gump buttons/objects found enabled.");
+	SendSysMessage(who, "Кнопки/объекты гумпа включены.");
 	foreach key in (input.keys)
 		var value := input[key];
 		if ( value[2, 2] ==": " )
-			SendSysMessage(who, "Text Entry ["+key+"] ->"+GFExtractData(input, key));
+			SendSysMessage(who, "Текстовый ввод ["+key+"] ->"+GFExtractData(input, key));
 		else
-			SendSysMessage(who, "Button Input ["+key+"] -> "+value);
+			SendSysMessage(who, "Ввод кнопки ["+key+"] -> "+value);
 		endif
 		SleepMS(2);
 	endforeach

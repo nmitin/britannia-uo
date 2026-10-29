@@ -17,13 +17,13 @@ program textcmd_ResGump(who)
 		if ( targ.IsA(POLCLASS_CORPSE) )
 			targ := SystemFindObjectBySerial(targ.ownerserial);
 			if ( !targ )
-				SendSysMessage(who, "No owner could be found for that corpse.");
+				SendSysMessage(who, "Владелец трупа не найден.");
 				return 0;
 			endif
 		endif
 		
 		if ( !targ.dead )
-			SendSysMessage(who, "Target is not dead.");
+			SendSysMessage(who, "Цель не мертва.");
 			return 0;
 		endif
 	endif

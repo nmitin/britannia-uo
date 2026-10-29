@@ -137,7 +137,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 			if ( amount >= 2 )
 				amount /= 2;
 			endif
-			SendSysMessage( mobile, "You failed to harvest any materials and made parts of the resource unusable." );
+			SendSysMessage( mobile, "Не удалось ничего собрать, часть ресурса испорчена." );
 			quantity -= amount;
 			
 			if( quantity < 0 )

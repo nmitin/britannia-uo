@@ -20,7 +20,7 @@ program entranced()
 	endforeach
 
 	if (follower == "no")
-		say("* The enchantment is broken! *");
+		say("* Чары разрушены! *");
 		me.script := GetObjProperty(me, "script");
 		RestartScript(me);
 		EraseObjProperty(me, "entrancedscript");

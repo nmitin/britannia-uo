@@ -23,9 +23,9 @@ program cmd_shutdown( cmd )
   endcase
   for(i := 1; i <= 3; i := i + 1)
     nexttime := basetime - ((basetime/3) * (i-1));
-    print("System Message: " + nexttime +" minutes to shutdown!");
+    print("Системное сообщение: " + nexttime +" минут до выключения!");
     foreach onlinechr in EnumerateOnlineCharacters()
-      SendSysMessage(onlinechr, "System Message: " + nexttime +" minutes to shutdown!",3,38);
+      SendSysMessage(onlinechr, "Системное сообщение: " + nexttime +" минут до выключения!",3,38);
     endforeach
     sleep( 60 * basetime / 3 );
   endfor

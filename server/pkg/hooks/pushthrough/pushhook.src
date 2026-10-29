@@ -1,5 +1,5 @@
 // Script for use under POL v0.95
-// Copyright (C) 2003 Jacobo Lata Fern�ndez
+// Copyright (C) 2003 Jacobo Lata Fern�ndez
 // choofi@infoactiva.net
 //
 //
@@ -62,7 +62,7 @@ exported function pushthrough( who , obstacles )
 	if( str_walker < str_obstacle )
 		return 0;
 	else
-		SendSysMessage( who , "You shove " + mobile.name + " out of your way" );
+		SendSysMessage( who , "Вы отталкиваете " + mobile.name + " с дороги" );
 		return 1;
 	endif
 endfunction

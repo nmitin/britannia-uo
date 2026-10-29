@@ -27,6 +27,6 @@ program bodytype_textcmd( mobile )
 		mob_type := "Human";
 	endif
 
-	SendSysMessage( mobile, "This appears to be a "+mob_type+" creature with graphic of "+targ.graphic+" and shrink graphic: "+shrink+".", 0x3, 0x42 );
+	SendSysMessage( mobile, "Похоже, это "+mob_type+" существо с графикой "+targ.graphic+" и графикой уменьшения: "+shrink+".", 0x3, 0x42 );
 	return 1;
 endprogram

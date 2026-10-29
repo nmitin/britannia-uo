@@ -50,7 +50,7 @@ program UseStuff(character, stuff)
   key_id := CStr(stuff.objtype) + "+" + CStr(use_on.objtype);
   elem := FindConfigElem(config, key_id);
   if(!elem)
-    SendSysMessage(character, "You don't know how to use these together!");
+    SendSysMessage(character, "Вы не знаете, как использовать это вместе!");
     return;
   endif
   skill := GetConfigString(elem, "skill");
@@ -112,17 +112,17 @@ program UseStuff(character, stuff)
                 SubtractAmount(use_on, 1);
             endif
             PlaySoundEffect(character, success_sound);
-            SendSysMessage(character, "You place the " + desc  + " in your backpack");
+            SendSysMessage(character, "Вы кладёте " + desc  + " в рюкзак");
             if (leftover)
                 CreateItemInBackpack(character, leftover, leftover_amount);
             endif
         else
             PlaySoundEffect(character, failure_sound);
             if (destroy_failure)
-                SendSysMessage(character, "You fail, and destroy the material");
+                SendSysMessage(character, "Вы провалились и уничтожили материал");
                 SubtractAmount(stuff, 1);
             else
-                SendSysMessage(character, "You fail to produce the item");
+                SendSysMessage(character, "Не удалось создать предмет");
             endif
 
             if  (destroy_target_failure)

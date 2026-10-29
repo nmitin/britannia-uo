@@ -11,10 +11,10 @@ program textcmd_notify( mobile )
 
         if( !status )
              SetObjProperty( mobile, "Notify", 1 );
-             SendSysMessage( mobile, "*Staff Notify Messages ON*", 3, 70 );
+             SendSysMessage( mobile, "*Уведомления администрации ВКЛ*", 3, 70 );
         else
              EraseObjProperty( mobile, "Notify" );
-             SendSysMessage( mobile, "*Staff Notify Messages OFF*", 3, 33 );
+             SendSysMessage( mobile, "*Уведомления администрации ВЫКЛ*", 3, 33 );
         endif
 
         return 1;

@@ -22,7 +22,7 @@ var topicos;
 program messageboard( character, quadro )
 
     if (Distance(character, quadro) > 2)
-        SendSysMessage(character, "You are very far to read the Forum of the City.");
+        SendSysMessage(character, "Вы слишком далеко, чтобы читать городской форум.");
         return;
     endif
 
@@ -117,9 +117,9 @@ function LerMsg(character, quadro, index)
     if (resultado[0] == remover.keyid)
         if ((diasatras > 10)||(data[5] == character.name))
             EraseObjProperty(quadro, topicos[index]);
-            SendSysMessage(character, "Erased topic with success!");
+            SendSysMessage(character, "Тема успешно удалена!");
         else
-            SendSysMessage(character, "The topic needs to have at least 10 days to be erased.");
+            SendSysMessage(character, "Тему можно удалить не раньше чем через 10 дней.");
         endif
     elseif(resultado[0] == reply.keyid)
         Replymsg(character, data[5]);
@@ -190,7 +190,7 @@ function Postarmsg(character, quadro);
         set_critical(1);
         SetObjProperty(quadro, CStr(ReadGameClock()), topico);
         set_critical(0);
-        SendSysMessage(character, "Topic posted.");
+        SendSysMessage(character, "Тема опубликована.");
     else
         SendSysMessage(character, "Отменено.");
     endif
@@ -210,11 +210,11 @@ function Replymsg(byref character, nome)
                 SendSysMessage(character, "Отменено.");
                 return;
             endif
-            SendSysMessage(onlinechr, character.name + " answered your topic in the forum: " + themessage);
+            SendSysMessage(onlinechr, character.name + " ответил в вашей теме на форуме: " + themessage);
             return;
         endif
     endforeach
-    SendSysMessage(character, "The author doesn't meet online at the moment.");
+    SendSysMessage(character, "Автор сейчас не в сети.");
 
 endfunction
 

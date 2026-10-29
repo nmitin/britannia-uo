@@ -429,7 +429,7 @@ function release()
 	    SetObjProperty(me, "guardkill", 1);
 	    KillMobile(me);
 	else
-	    say("*Argh*");
+	    say("*Аргх*");
 	    return;
 	endif
 	set_critical(0);

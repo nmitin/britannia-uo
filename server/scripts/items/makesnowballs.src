@@ -6,11 +6,11 @@ program make_snow_balls (who, scoopsofsnow)
 
 //	DestroyItem(dung);
         if (scoopsofsnow.amount < 3)
-            SendSysMessage( who, "You need atleast three scoops of snow to make a snowball.");
+            SendSysMessage( who, "Для снежка нужно минимум три пригоршни снега.");
             return;
         endif
         SubtractAmount( scoopsofsnow, 3 );
         CreateItemInContainer(who.backpack, 0x705a, 1);
-        SendSysMessage(who, "You roll some of the snow into a snowball.");
+        SendSysMessage(who, "Вы скатали снежок.");
 
 endprogram

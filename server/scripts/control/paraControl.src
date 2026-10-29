@@ -31,7 +31,7 @@ program paracontrol(field)
         send_attack(cast_on, boss, 46);
         if(!GetObjProperty(cast_on,"#pfield"))
           if(SkillCheck( cast_on, RESISTING_SPELLS, 40, 40 ) > 0)
-            PrintTextAbovePrivate(cast_on, "You resist the spell", cast_on);
+            PrintTextAbovePrivate(cast_on, "Вы сопротивляетесь заклинанию", cast_on);
 	        PlaySoundEffect(cast_on, SFX_SPELL_WEAKEN);
 	        PlayObjectCenteredEffect( cast_on, FX_CURSE_EFFECT, 5,5);
           else

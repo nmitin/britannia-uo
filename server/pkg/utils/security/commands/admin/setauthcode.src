@@ -19,7 +19,7 @@ function SetCode( who )
 
              var code := SendTextEntryGump( who, "Enter a new Authorization Code.", TE_CANCEL_ENABLE,TE_STYLE_NORMAL, 10 );
              if( !code )
-                      SendSysMessage( who, "You must enter a valid Authorization Code", 3, 33 );
+                      SendSysMessage( who, "Нужно ввести действительный код авторизации", 3, 33 );
                       return 0;
              endif
 

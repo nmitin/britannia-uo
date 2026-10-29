@@ -15,7 +15,7 @@ program reconnect(who)
   endif
   foreach staff in ppl
     if((staff.cmdlevel > 0) && (CInt(GetObjProperty(staff, "LogNotify") ) == 1) )
-      SendSysMessage(staff, CStr(who.name) + " (Account name: " + CStr(who.acctname) + ") переподключился. IP: " + CStr(who.ip) );
+      SendSysMessage(staff, CStr(who.name) + " (Аккаунт: " + CStr(who.acctname) + ") переподключился. IP: " + CStr(who.ip) );
     endif
   endforeach
 endprogram

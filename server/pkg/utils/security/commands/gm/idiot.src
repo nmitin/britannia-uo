@@ -7,7 +7,7 @@ use uo;
 
 program textcmd_idiot( mobile )
 
-	SendSysMessage( mobile, "What would you like to check?" );
+	SendSysMessage( mobile, "Что вы хотите проверить?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
                 SendSysMessage( mobile, "Отменено." );
@@ -16,11 +16,11 @@ program textcmd_idiot( mobile )
 
         var idiot := GetObjProperty( targ, "Idiot" );
         if( !idiot )
-                SendSysMessage( mobile, "No Idiot has been found.", 3, 70 );
+                SendSysMessage( mobile, "Идиот не найден.", 3, 70 );
                 return 0;
         endif
         
-        SendSysMessage( mobile, "Idiot has been found! Serial: "+idiot, 3, 33 );
+        SendSysMessage( mobile, "Идиот найден! Серийный номер: "+idiot, 3, 33 );
 
         return 1;
 endprogram

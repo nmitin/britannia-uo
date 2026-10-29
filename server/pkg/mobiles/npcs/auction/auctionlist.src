@@ -36,9 +36,9 @@ foreach chr in EnumerateOnlineCharacters()
 
    if (getobjproperty(chr,"auction") == "yes")
 	if (bid == 0)
-	  SendSysMessage(chr,item.desc+" did not sell.",FONT_NORMAL,34);
+	  SendSysMessage(chr,item.desc+" не продан.",FONT_NORMAL,34);
 	else
-	  SendSysMessage(chr,item.desc+" sold for "+bid,FONT_NORMAL,70);
+	  SendSysMessage(chr,item.desc+" продан за "+bid,FONT_NORMAL,70);
 	endif
    endif
 

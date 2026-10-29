@@ -30,7 +30,7 @@ program textcmd_areyousure( who )
 
     var keys := GFSendGump( who );
     if ( keys == error )
-    	SendSysMessage( who, "Failed to open yes/no gump!" );
+    	SendSysMessage( who, "Не удалось открыть гумп да/нет!" );
     	return;
     endif
 
@@ -39,7 +39,7 @@ program textcmd_areyousure( who )
     elseif ( keys[0] == cancel.keyid )
 		SendSysMessage( who, "Отменено." );
 	else
-		SendSysMessage( who, "Unexpected exit... gump error?" );
+		SendSysMessage( who, "Неожиданный выход... ошибка гумпа?" );
     endif
 
 endprogram

@@ -33,7 +33,7 @@ program context_menu( mobile, obj )
 
 	case( ret )
 		1018323:	ContextMenu_RotateObject( mobile, obj );
-		1114299:	SendSysMessage( mobile, "Not yet enabled.", 0x3, 0x32 );
+		1114299:	SendSysMessage( mobile, "Ещё не включено.", 0x3, 0x32 );
 
 		// 1154112:
 		// 1154113:

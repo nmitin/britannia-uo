@@ -21,7 +21,7 @@ program job (parms)
 	set_critical (1);
 	if (GetObjProperty (player, "#workingonajob"))
 		if (GetProcess (GetObjProperty (player, "#workingonajob")))
-			PrintTextAbovePrivate (merchant, "You're already working on something.", player, color := 33);
+			PrintTextAbovePrivate (merchant, "Вы уже чем-то заняты.", player, color := 33);
 			return;
 		endif
 	endif
@@ -40,7 +40,7 @@ program job (parms)
 	endforeach
 	SetObjProperty (merchant, "#jobsgiven", merchantjobs);
 	if (len (merchantjobs.keys()) >= JOBS_AVAILABLE_PER_MERCHANT)
-		PrintTextAbovePrivate(merchant, "I don't have any work available right now, I'm afraid", player, color := 33);
+		PrintTextAbovePrivate(merchant, "Боюсь, сейчас у меня нет работы", player, color := 33);
 		return;
 	endif
 
@@ -60,20 +60,20 @@ program job (parms)
 	SetGlobalProperty ("#jobs_for_account_"+player.acctname, playerjobs);
 
 	if (playerjobvalue >= PLAYER_MAX_JOBVALUE_PER_DAY)
-  		PrintTextAbovePrivate(merchant, "I don't have any work for you.  Come back tomorrow.", player, color := 33);
+  		PrintTextAbovePrivate(merchant, "У меня нет для вас работы. Приходите завтра.", player, color := 33);
 		return;
 	endif
 
 	var jobtype := GetJobType (player, merchant);
 	if (jobtype == -1)
-		PrintTextAbovePrivate(merchant, "I don't think there's anything you can help me with right now.", player, color := 33);
+		PrintTextAbovePrivate(merchant, "Думаю, сейчас вы ничем не поможете.", player, color := 33);
 		EraseObjProperty (player, "#workingonajob");
 		return;
 	endif
 
 	var itemtype := GetItemTypeByJobType (jobtype);
 	if (!itemtype)
-		PrintTextAbovePrivate (merchant, "I don't think there's anything you can help me with right now.", player, color := 33);
+		PrintTextAbovePrivate (merchant, "Думаю, сейчас вы ничем не поможете.", player, color := 33);
 		EraseObjProperty (player, "#workingonajob");
 		return;
 	endif
@@ -82,9 +82,9 @@ program job (parms)
 	var amount := RandomInt(10)+10;
 	var endtime := ReadGameClock() + 300;
 
-	PrintTextAbovePrivate (merchant, "If you will make " + amount + " " + itemname + ", I will pay you for them.", player, color := 88);
+	PrintTextAbovePrivate (merchant, "Если вы изготовите " + amount + " " + itemname + ", я заплачу за них.", player, color := 88);
 	if (!confirmationSizable (player,"Accept?") )
-		PrintTextAbovePrivate (merchant, "Very well.", player, color := 33);
+		PrintTextAbovePrivate (merchant, "Хорошо.", player, color := 33);
 		EraseObjProperty (player, "#workingonajob");
 		return;
 	endif
@@ -108,12 +108,12 @@ program job (parms)
 	SetObjProperty (bag, "merchant", merchant.serial);
 	SetObjProperty (bag, "jobtype", jobtype);
 
-	PrintTextAbovePrivate (merchant, "Just hand me the bag when you are done.", player, color := 88);
+	PrintTextAbovePrivate (merchant, "Просто отдайте мне мешок, когда закончите.", player, color := 88);
 
 	var worknoise := GetWorkNoise (jobtype);
 	var workaction := GetWorkAction (jobtype);
 
-	SendSysMessage (player, "You begin working", color := 66);
+	SendSysMessage (player, "Вы начинаете работать", color := 66);
 	while (amount)
 		DoWorkNoiseAndAction (player, worknoise, workaction);
 		var it := CreateItemInContainer (bag, 0x1F021, 1);
@@ -132,14 +132,14 @@ program job (parms)
 			DestroyItem(bag);
 		endif
 		if (	(!player) or (!bag) or (!it) or (player.dead) or (distance(player,merchant) > 5) or (ReadGameClock() > endtime) )
-			SendSysMessage (player, "You stop working.", color := 33);
+			SendSysMessage (player, "Вы прекращаете работать.", color := 33);
 			EraseObjProperty (player, "#workingonajob");
 			return;
 		endif
 	endwhile
 
 	if (player)
-		SendSysMessage (player, "You finish working", color := 66);
+		SendSysMessage (player, "Вы закончили работу", color := 66);
 		if (!amount)
 			EraseObjProperty (player, "bag");
 		endif

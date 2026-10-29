@@ -11,7 +11,7 @@ program trash(item)
       endif
     endforeach
     if(count)
-      PrintTextAbove(item, "Destroying items in trash");
+      PrintTextAbove(item, "Уничтожение предметов в мусоре");
     endif
     count := 0;
     sleep(120);

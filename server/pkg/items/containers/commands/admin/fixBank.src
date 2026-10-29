@@ -44,7 +44,7 @@ program textcommand_fixbank( mobile )
 
                 var move := MoveItemToContainer( obj, chest );
                 if( move.errortext )
-                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" в сундуке -->"+move.errortext );
+                        SendSysMessage( mobile, "Ошибка перемещения объекта: "+obj.serial+" в сундуке -->"+move.errortext );
                         move_all_to_chest := 0;
 
                 endif
@@ -83,7 +83,7 @@ program textcommand_fixbank( mobile )
 
                 var move := MoveItemToContainer( obj, new_bank );
                 if( move.errortext )
-                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" в новом банке -->"+move.errortext );
+                        SendSysMessage( mobile, "Ошибка перемещения объекта: "+obj.serial+" в новом банке -->"+move.errortext );
                         move_all_to_new_bank := 0;
                         continue;
                 endif

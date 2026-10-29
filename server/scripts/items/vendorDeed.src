@@ -41,7 +41,7 @@ program makevendor(who, deed)
       // SendSysMessageCL(who, 503241, color := 33); // You cannot place this vendor or barkeep.  Make sure the house is public and has sufficient storage available.
       // return;
     // endif
-	SendSysMessage(who, "Where would you  like to place the vendor?", color := 88);
+	SendSysMessage(who, "Где разместить торговца?", color := 88);
 	var location := TargetCoordinates(who);
 	if(!location)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
@@ -56,7 +56,7 @@ program makevendor(who, deed)
       SendSysMessageCL( who, 503250, color := 33); // Vendor was unable to be created there.
       return;
     else
-      SendSysMessage(who, "You have successfully created a vendor.", color := 66);
+      SendSysMessage(who, "Торговец успешно создан.", color := 66);
       SetObjProperty(place, "master", who.serial);
       SetObjProperty(place, "mn", who.name);
       SetObjProperty(place, "r", 1500);

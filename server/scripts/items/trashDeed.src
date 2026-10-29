@@ -7,7 +7,7 @@ const TRASH_BARREL := 0x17007;
 program maketrash( who, deed )
 
   ReserveItem(deed);
-  SendSysMessage( who, "Where would you like your trash can");
+  SendSysMessage( who, "Где разместить мусорный бак?");
   var where := TargetCoordinates( who );
   var place;
   if(!where)
@@ -17,15 +17,15 @@ program maketrash( who, deed )
     if(!checkfortrashcans(where, who.realm))
       place := CreateItemAtLocation( where.x, where.y, where.z, TRASH_BARREL, 1, who.realm );
     else
-      SendSysMessage( who, "You cannot place your trash can here");
+      SendSysMessage( who, "Здесь нельзя разместить мусорный бак");
       return;
     endif
   endif
   if(!place)
-    SendSysMessage( who, "Your trash can has not been created");
+    SendSysMessage( who, "Мусорный бак не создан");
     return;
   else
-    SendSysMessage( who, "You have successfully created a trash can");
+    SendSysMessage( who, "Мусорный бак успешно создан");
     DestroyItem(deed);
   endif
 endprogram

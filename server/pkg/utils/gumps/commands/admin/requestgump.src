@@ -9,8 +9,8 @@ program PromptDemo(who)
 	
 	var input := RequestGump(who, question, option, pre_val, 1);
 	if ( input == error )
-		SendSysMessage(who, "You clicked 'CANCEL'");
+		SendSysMessage(who, "Вы нажали «CANCEL»");
 	else
-		SendSysMessage(who, "You typed ->"+input);
+		SendSysMessage(who, "Вы ввели ->"+input);
 	endif
 endprogram

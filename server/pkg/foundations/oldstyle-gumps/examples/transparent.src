@@ -36,7 +36,7 @@ var layout := {
 program testtrans(who)
 
 	var box := SendDialogGump( who, layout, data );
-	SendSysMessage(who, "TransGump closed (retv: " + CStr(box[0]) + ")");
+	SendSysMessage(who, "TransGump закрыт (retv: " + CStr(box[0]) + ")");
 
 endprogram
 

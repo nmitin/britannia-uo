@@ -13,7 +13,7 @@ program checkname(who)
     var newname := SendTextEntryGump( who, "You have selected a name that is not valid on this shard.", TE_CANCEL_DISABLE, TE_STYLE_NORMAL, 20, "Please select a new name");
     var elem := FindConfigElem(cfg, lower(newname));
     if(!elem)
-      SendSysMessage(who, "Good choice, " + newname + "!");
+      SendSysMessage(who, "Хороший выбор, " + newname + "!");
       who.name := newname;
       return;
     endif

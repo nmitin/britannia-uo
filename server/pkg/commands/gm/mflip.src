@@ -2,7 +2,7 @@ use uo;
 use basic;
 
 program flip (me)
-  SendSysMessage(me, "Select the furniture you wish to re-orient.");
+  SendSysMessage(me, "Выберите мебель для поворота.");
   var targetfurniture := Target(me);
   if (!targetfurniture.objtype)
     SendSysMessage(me, "Нужно выбрать предмет!");

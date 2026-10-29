@@ -122,17 +122,17 @@ function DisplayNPCSelectionMenu (who)
 	endif
 
 	var thegroup := NPC_Groups [selection.index];
-	SendSysMessage (who, "You chose " + thegroup);
+	SendSysMessage (who, "Вы выбрали " + thegroup);
 
 	var elem := FindConfigElem (Groups_cfg, thegroup);
 	if (!elem)
-		SendSysMessage (who, "Whoops!  Big error!", color := 33);
+		SendSysMessage (who, "Ой! Большая ошибка!", color := 33);
 		return;
 	endif
 
 	var thenpctypes := GetConfigStringArray (elem, "npc");
 	if (!thenpctypes or !len (thenpctypes))
-		SendSysMessage (who, "No NPCs in that group.", color := 33);
+		SendSysMessage (who, "В этой группе нет NPC.", color := 33);
 		return;
 	endif
 

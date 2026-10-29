@@ -273,10 +273,10 @@ function ProcessSpeech(ev)
       AllCommand(SYSEVENT_ALL_GUARD_CMD, what);
 	endif
   elseif(evtext[mename + " fetch"]  || (evtext[mename + " get"]))
-    say("very well");
+    say("очень хорошо");
 	fetch();
   elseif(evtext[mename + " drop"])
-    say("As you wish");
+    say("Как пожелаете");
 	drop();
   elseif((evtext[mename + " info"]) || (evtext[mename + " status"]))
     var clk := GetObjProperty(me, "Timer") - ReadGameClock();
@@ -367,7 +367,7 @@ endfunction
 
 function meditationloop()
   PlaySoundEffect(me, 0xfa);
-  say("*meditating*");
+  say("*медитирует*");
   var ev;
   var healparms := array;
   healparms[1] := "#MOB";
@@ -378,7 +378,7 @@ function meditationloop()
 	ev := wait_for_event(2);
 	case (ev.type)
       EVID_DAMAGED: if(TS_GetTimerNames(me, "P").size() > 1)
-                      say("An Nox");
+                      say("Ан Нокс");
                       start_script( ":spells:cure", healparms );
                       sleep(2);
                     endif

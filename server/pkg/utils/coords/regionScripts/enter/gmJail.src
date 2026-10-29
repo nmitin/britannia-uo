@@ -10,10 +10,10 @@ program EnterRegionZone(mobile, region_name)
 	mobile.Enable("invul");
 	
 	if ( mobile.cmdlevel )
-		SendSysMessage(mobile, "Ahh another hard day of work in the office. (Entering "+region_name+")");
+		SendSysMessage(mobile, "Ах, ещё один тяжёлый день в офисе. (Вход в "+region_name+")");
 		return 1;
 	else 
-		SendSysMessage(mobile, "You are in the GM jail. Please wait for someone to assist you.");
+		SendSysMessage(mobile, "Вы в тюрьме ГМ. Дождитесь помощи.");
 		return 1;
 	endif
 	

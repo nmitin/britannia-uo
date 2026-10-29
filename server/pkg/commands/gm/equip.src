@@ -1,14 +1,14 @@
 use uo;
 
 program textcmd_equip( speaker )
-    SendSysMessage( speaker, "What shall be equipped?" );
+    SendSysMessage( speaker, "Что надеть?" );
 
     var what := Target( speaker );
     if (!what)
         return;
     endif
 
-    SendSysMessage( speaker, "On whom shall " + what.desc + " be equipped?" );
+    SendSysMessage( speaker, "На кого надеть " + what.desc + "?" );
     var who := Target( speaker );
     if (!who)
         return;
@@ -18,6 +18,6 @@ program textcmd_equip( speaker )
     if (res)
         SendSysMessage( speaker, "Готово!" );
     else
-        SendSysMessage( speaker, "Unable to equip item: " + res.errortext );
+        SendSysMessage( speaker, "Не удалось надеть предмет: " + res.errortext );
     endif
 endprogram

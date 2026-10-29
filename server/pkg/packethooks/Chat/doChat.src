@@ -57,7 +57,7 @@ exported function handleOpenChatWindow( character, byref packet )
     // Validate chat name
     if ( chat_name == character.acctname )
       SendSysMessage( character,
-                      "For security reasons, you can not use your account name for your chat name."
+                      "В целях безопасности нельзя использовать имя аккаунта как имя в чате."
                       );
       return 0;
     endif

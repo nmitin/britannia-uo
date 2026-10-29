@@ -5,7 +5,7 @@ include ":landtiles:landTiles";
 
 program landtilename_textcmd( mobile )
 
-	SendSysMessage( mobile, "Target the location to fetch the land tile's name.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Укажите место, чтобы получить имя ландшафта.", 0x3, 0x42 );
 	var targ := TargetCoordinates( mobile );
 
 	var landtile_info := FindLandTileInfo( Hex( GetMapInfo( targ.x, targ.y, targ.realm ).landtile ) );
@@ -14,7 +14,7 @@ program landtilename_textcmd( mobile )
 		return 0;
 	endif
 
-	SendSysMessage( mobile, "The name of the land tile is: "+landtile_info.Name, 0x3, 0x42 );
+	SendSysMessage( mobile, "Имя ландшафта: "+landtile_info.Name, 0x3, 0x42 );
 
 	return 1;
 endprogram

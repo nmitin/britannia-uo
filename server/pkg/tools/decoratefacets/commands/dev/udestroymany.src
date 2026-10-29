@@ -20,7 +20,7 @@ program textcmd_udestroyRadius(who, text)
     endif
 	SendSysMessage(who, "Эта команда уничтожает только предметы,", color := 88);
 	SendSysMessage(who, "размещённые командой decoratefacets", color := 88);
-	SendSysMessage(who, "Press <esc> to exit.", color := 88);
+	SendSysMessage(who, "Нажмите <ESC> для выхода.", color := 88);
     while(1)
 		trg := TargetCoordinates(who);
 		if(!trg)

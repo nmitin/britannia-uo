@@ -6,7 +6,7 @@ include ":itemutils:itemUtil_ex";
 
 program shrunkennpc_usescript( mobile, item )
 
-	SendSysMessage( mobile, "Where would you like to unshrink your pocket npc?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Где увеличить карманного NPC?", 0x3, 0x42 );
 	var loc := TargetCoordinates( mobile );
 	if( !loc )
 		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );

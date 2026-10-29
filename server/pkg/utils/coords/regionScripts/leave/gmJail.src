@@ -7,10 +7,10 @@ use uo;
 program EnterRegionZone(mobile, region_name)
 
 	if ( mobile.cmdlevel >= 2 )
-		SendSysMessage(mobile, "Off to go check on the players. (Leaving "+region_name+")");
+		SendSysMessage(mobile, "Пойду проверю игроков. (Выход из "+region_name+")");
 		return 1;
 	else
-		SendSysMessage(mobile, "Go on, get out of here and behave for once.");
+		SendSysMessage(mobile, "Иди отсюда и веди себя хорошо.");
 		mobile.Disable("invul");
 		return 1;
 	endif

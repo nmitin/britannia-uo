@@ -10,8 +10,8 @@ program PromptDemo(who)
 	var result := YesNo(who, prompt, yes, no);
 
 	if ( result )
-		SendSysMessage(who, "You selected 'YES'");
+		SendSysMessage(who, "Вы выбрали «YES»");
 	else
-		SendSysMessage(who, "You selected 'NO'");
+		SendSysMessage(who, "Вы выбрали «NO»");
 	endif
 endprogram

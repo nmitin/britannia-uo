@@ -9,7 +9,7 @@ program console_online( unused cmd )
 
     names.sort();
 
-    var msg := "System Message: " + names.size() + " Character";
+    var msg := "Системное сообщение: " + names.size() + " Character";
     if ( names.size() == 1 )
         msg := msg + " is";
     else

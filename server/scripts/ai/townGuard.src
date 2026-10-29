@@ -98,7 +98,7 @@ program CastleGuard()
 		endif
 
 		if(CInt(GetObjProperty(me,"poison_level")) > 1)
-			say("An Nox");
+			say("Ан Нокс");
 			sleep(2);
 			EraseObjProperty(me,"poison_level");
 		endif
@@ -198,7 +198,7 @@ function sleepmode()
 
 	while (1)
 		if(CInt(GetObjProperty(me,"poison_level")) > 1)
-			say("An Nox");
+			say("Ан Нокс");
 			start_script( ":spells:cure", parms );
 			sleep(2);
 		endif

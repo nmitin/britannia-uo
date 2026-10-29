@@ -113,7 +113,7 @@ program stablemaster()
                                       MerchantTrain(me, ev.source, text);
                                     elseif(text["stable"])
                                     if(len(mystorage) >= 50)
-                                      say("Im afraid im booked solid at the moment, please come again later");
+                                      say("Боюсь, сейчас я занят, приходите позже");
                                     else
                                       player := ev.source;
                                       TurnToward(ev.source);
