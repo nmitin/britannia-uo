@@ -99,7 +99,7 @@ function CreateBoards(who, tool, objtype)
 				set_critical(0);
 				CheckToolWear (who, tool, craft_skill);
 			else
-				SendSysMessage(who, "You don't have enough room in your backpack!");
+				SendSysMessage(who, "В рюкзаке недостаточно места!");
 				return 0;
 			endif
 		endif
@@ -146,14 +146,14 @@ function CarpentryItems(who, tool, objtype, amt)
 
 	if( skillid2 )
 		if( (skill2 >= AP_GetSkill(who, skillid2)) )
-			SendSysMessage(who, "You do not have the required skill.");
+			SendSysMessage(who, "У вас недостаточный навык.");
 			return 0;
 		endif
 	endif
 
 	while(counter < amt)
 		if((who.x != x) || (who.y != y))
-			SendSysMessage(who, "You stop woodworking.");
+			SendSysMessage(who, "Вы прекращаете столярничать.");
 			break;
 		endif
 
@@ -184,7 +184,7 @@ function CarpentryItems(who, tool, objtype, amt)
 							SetObjProperty(thekey, "LockID", LockID);
 							SetObjProperty(theitem,"LockID", LockID);
 							SetObjProperty(theitem,"LockPickDiff", AP_GetSkill(who, TINKERING));
-							SendSysMessage(who, "Your tinker skill was sufficient to make the item lockable.");
+							SendSysMessage(who, "Вашего навыка ремесленника хватило, чтобы сделать предмет запираемым.");
 						endif
 					endif
 				endif

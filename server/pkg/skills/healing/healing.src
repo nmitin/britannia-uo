@@ -347,7 +347,7 @@ function cure(who, patient, counter, healing)
 		elseif(TS_GetTimerNames(patient, "P").size() == 0)
 			SendSysMessage(who,"Вы начинаете лечить " + patient.name + ".");
 			if(patient != who)
-				SendSysMessage(patient, who.name + " starts to heal you.");
+				SendSysMessage(patient, who.name + " начинает вас лечить.");
 			endif
 			heal(who, patient, counter, healing);
 			break;
@@ -395,8 +395,8 @@ function resurrect_pc(who, patient, counter)
 		var chp := AP_GetVital(who, VITALID_LIFE);
 		sleep(1);
 		if(!GetObjProperty(who, "HealTimer"))
-			SendSysMessage(who, "You stop reviving your patient.");
-			SendSysMessage(patient, who.name + " has stopped reviving you.");
+			SendSysMessage(who, "Вы прекращаете воскрешать пациента.");
+			SendSysMessage(patient, who.name + " перестал воскрешать вас.");
 			break;
 		elseif(clock != GetObjProperty(who, "HealTimer"))
 			break;
@@ -412,7 +412,7 @@ function resurrect_pc(who, patient, counter)
 		elseif(!patient.dead)
 			SendSysMessage(who, "Вы начинаете лечить " + patient.name + ".");
 			if(who != patient)
-				SendSysMessage(patient, who.name + " starts to heal you.");
+				SendSysMessage(patient, who.name + " начинает вас лечить.");
 			endif
 			heal(who, patient, counter, healing);
 			break;
@@ -436,10 +436,10 @@ function resurrect_pc(who, patient, counter)
 				endif
 					SendSysMessageCL(who, 500965, color := 66); // You are able to resurrect your patient.
 				else
-					SendSysMessage(who, "The patient refused resurrection." );
+					SendSysMessage(who, "Пациент отказался от воскрешения." );
 				endif
 			else
-				SendSysMessage(who, "You could not resurrect him.");
+				SendSysMessage(who, "Вам не удалось его воскресить.");
 			endif
 			break;
 		endif

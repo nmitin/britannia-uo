@@ -26,7 +26,7 @@ program use_scissors(who, tool)
 	EraseObjProperty(who, "#IsMeditating");
 	EraseObjProperty(who, "#HealTimer");
 
-	SendSysMessage(who, "Select an item to cut.");
+	SendSysMessage(who, "Выберите предмет для разрезания.");
 	var cloth := Target(who);
 	if ( !(cloth in EnumerateItemsInContainer(who.backpack)) )
 			SendSysMessage(who, "Этого предмета нет в рюкзаке.");
@@ -47,7 +47,7 @@ function cutItems(who, item, tool)
 		SendSysMessage(who, "Вы не можете это использовать.");
 		return;
 	elseif ( item in ListEquippedItems(who) )
-		SendSysMessage(who, "You cannot cut something being worn!");
+		SendSysMessage(who, "Нельзя разрезать то, что надето!");
 		return;
 	elseif ( !(item in EnumerateItemsInContainer(who.backpack)) )
 		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
@@ -71,11 +71,11 @@ function cutItems(who, item, tool)
 			endif
 			var created := CreateItemInBackpack(who, "bandage", bandage_amount);
 			if(!created)
-				SendSysMessage(who, "Вы роняете " + bandage_amount + " bandages at your feet.", color := 56);
+				SendSysMessage(who, "Вы роняете " + bandage_amount + " бинтов у ваших ног.", color := 56);
 				created := CreateItemAtLocation(who.x, who.y, who.z, "bandage", bandage_amount, who.realm);
 			endif
 			created.color := item.color;
-			SendSysMessage(who, "Вы кладёте " + bandage_amount + " bandages in your backpack.", color := 66);
+			SendSysMessage(who, "Вы кладёте " + bandage_amount + " бинтов в рюкзаке.", color := 66);
 			DestroyItem(item);
 			CheckToolWear(who, tool, TAILORING);
 			return;
@@ -91,11 +91,11 @@ function cutItems(who, item, tool)
 			endif
 			var created := CreateItemInBackpack(who, base_resource, leather_amount);
 			if(!created)
-				SendSysMessage(who, "Вы роняете " + leather_amount + " pieces of cut leather at your feet.", color := 56);
+				SendSysMessage(who, "Вы роняете " + leather_amount + " кусков раскроенной кожи у ваших ног.", color := 56);
 				created := CreateItemAtLocation(who.x, who.y, who.z, base_resource, leather_amount, who.realm);
 			endif
 			created.color := item.color;
-			SendSysMessage(who, "Вы кладёте " + leather_amount + " pieces of cut leather in your backpack.", color := 66);
+			SendSysMessage(who, "Вы кладёте " + leather_amount + " кусков раскроенной кожи в рюкзаке.", color := 66);
 			DestroyItem(item);
 			CheckToolWear(who, tool, TAILORING);
 			return;

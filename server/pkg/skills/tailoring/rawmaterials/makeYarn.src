@@ -30,7 +30,7 @@ program make_Yarn(who,wool)
 	EraseObjProperty(who, "#IsMeditating");
 	EraseObjProperty(who, "#HealTimer");
 
-	SendSysMessage(who, "Select the spinning wheel to use");
+	SendSysMessage(who, "Выберите прялку");
 	var tool := Target(who);
 	if (!tool)
 		SendSysMessage(who, "Отменено.");
@@ -63,22 +63,22 @@ program make_Yarn(who,wool)
 		tool.graphic := spinwheel;
 		makeYarn(who, wool);
  	else
-		SendSysMessage(who, "You can only use wool on a spinning wheel.");
+		SendSysMessage(who, "Шерсть можно использовать только на прялке.");
  	endif
 endprogram
 
 function makeYarn(who,item)
 	if (item.amount <= 0 )
-		SendSysMessage(who, "You don't have any wool!");
+		SendSysMessage(who, "У вас нет шерсти!");
 		return;
 	endif
 
 	if(SubtractAmount(item, 1))
 		var yarn := CreateItemInBackpack(who, UOBJ_YARN, 3);
 		if (!yarn)
-			SendSysMessage(who, "You fail to create yarn.");
+			SendSysMessage(who, "Не удалось создать пряжу.");
 		else
-			SendSysMessage(who, "You spin some wool and create some yarn.");
+			SendSysMessage(who, "Вы прядёте шерсть и создаёте пряжу.");
 		endif
 	endif
 endfunction

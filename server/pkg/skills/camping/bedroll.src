@@ -18,10 +18,10 @@ program use_bedroll( who, bedroll )
   endif
    var items := ListItemsNearLocationOfType( who.x,who.y,who.z, 2, UOBJECT_CAMPFIRE, who.realm );
    if( len(items) == 0 )
-      SendSysMessage( who, "You must have a campfire nearby to use this." );
+      SendSysMessage( who, "Для этого нужен костёр поблизости." );
       return;
    else
-      SendSysMessage( who, "You must stand still to prepare your camp." );
+      SendSysMessage( who, "Чтобы разбить лагерь, нужно стоять на месте." );
    endif
 
    var x := who.x;
@@ -32,10 +32,10 @@ program use_bedroll( who, bedroll )
 
    while( ttl > 0 )
       if( (who.x != x) || (who.y != y) || (who.z != z) )
-         SendSysMessage( who, "You abandon your preparations to camp.");
+         SendSysMessage( who, "Вы бросаете подготовку к лагерю.");
          return;
       endif
-      SendSysMessage( who, "Нужно подождать " + ttl + " more seconds to log out." );
+      SendSysMessage( who, "Нужно подождать " + ttl + " ещё секунд до выхода." );
       ttl := ttl - 5;
       sleep(5);
    endwhile

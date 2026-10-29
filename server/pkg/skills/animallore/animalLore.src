@@ -19,7 +19,7 @@ program animal_lore(who)
   EraseObjProperty(who, "HealTimer");
   var targ := Target(who);
   if(!targ.isA(POLCLASS_NPC))
-	SendSysMessage(who, "You must target a creature", color := 33);
+	SendSysMessage(who, "Нужно указать существо", color := 33);
 	return;
   endif
   var elem := cfg[targ.npctemplate];
@@ -59,13 +59,13 @@ program animal_lore(who)
     else
 	  tameinfo := "The creature cannot be tamed";
     endif
-    PrintTextAbovePrivate(targ, "" +targ.name+" looks "+ phisical+ " and " + health +poison + ".", who);
+    PrintTextAbovePrivate(targ, "" +targ.name+" выглядит "+ phisical+ " and " + health +poison + ".", who);
     sleep(1);
     PrintTextAbovePrivate(targ, foodinfo, who);
     sleep(1);
     PrintTextAbovePrivate(targ, tameinfo, who);
   else
-	PrintTextAbovePrivate(targ, "You fail to understand anything about the animal", who);
+	PrintTextAbovePrivate(targ, "Вам не удалось ничего понять о животном", who);
   endif
 endprogram
 

@@ -9,7 +9,7 @@ program evidence( mobile, evidence )
 	if( !UseItem_check( mobile, evidence, DEFAULT_ITEM ) )
 		return 0;
 	elseif( !GetObjProperty( evidence, "VictimSerial" ) )
-		SendSysMessage( mobile, "This proves nothing!" );
+		SendSysMessage( mobile, "Это ничего не доказывает!" );
 		return 0;
 	endif
 
@@ -17,17 +17,17 @@ program evidence( mobile, evidence )
 		return 0;
 	endif
 
-	SendSysMessage( mobile,"Select the object to check the evidence against.", 0x3, 0x42 );
+	SendSysMessage( mobile,"Выберите предмет для сравнения улик.", 0x3, 0x42 );
 	var use_on := Target( mobile, TGTOPT_CHECK_LOS );
 	if( !use_on )
-		SendSysMessage( mobile, "Targetting cancelled", 0x3, 0x32 );
+		SendSysMessage( mobile, "Выбор цели отменён", 0x3, 0x32 );
 		return 0;
 	endif
 
 	if( use_on.serial == GetObjProperty( evidence, "VictimSerial" ) )
-		SendSysMessage( mobile, "This matches the evidence", 0x3, 0x42 );
+		SendSysMessage( mobile, "Это совпадает с уликами", 0x3, 0x42 );
 	else
-		SendSysMessage( mobile, "This does not match the evidence", 0x3, 0x32 );
+		SendSysMessage( mobile, "Это не совпадает с уликами", 0x3, 0x32 );
 	endif
 
 	return 1;

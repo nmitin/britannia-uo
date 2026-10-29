@@ -30,11 +30,11 @@ program spiritspeak(who)
 	endif
 
   if(SkillCheck( who, SPIRIT_SPEAK, -1,  pts ) > 0)
-    SendSysMessage(who, "You contact the netherworld.", color := 66);
+    SendSysMessage(who, "Вы связываетесь с потусторонним миром.", color := 66);
 	VS_AdjustVirtue(who, "spirituality", 1, 50);
 	TS_StartTimer(who, "SpiritSpeak", 60);
   else
-    SendSysMessage(who, "You fail to communicate with the netherworld.", color := 33);
+    SendSysMessage(who, "Вам не удалось связаться с потусторонним миром.", color := 33);
   endif
 endprogram
 

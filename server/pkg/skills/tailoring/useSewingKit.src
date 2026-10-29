@@ -93,7 +93,7 @@ function makeTailoringItems(who, what, amt, tool)
 
 	while ( counter < amt )
 		if ( (who.x != x) || (who.y != y) )
-			SendSysMessage(who, "You stop sewing.");
+			SendSysMessage(who, "Вы прекращаете шить.");
 			break;
 		endif
 		if ( !tool )
@@ -110,7 +110,7 @@ function makeTailoringItems(who, what, amt, tool)
 					if ( (skill2 <= AP_GetSkill(who, skillid2)) )
 						theitem := CreateCraftItem(who, craft_skill, item1, item1objtype, what, mat_1_amt, itemname, reqd);
 					else
-						SendSysMessage(who, "You do not have the required skill.");
+						SendSysMessage(who, "У вас недостаточный навык.");
 						return 0;
 					endif
 				else

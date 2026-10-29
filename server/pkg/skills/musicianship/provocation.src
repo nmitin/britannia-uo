@@ -65,7 +65,7 @@ program bard_provoke(who)
 	  SendSysMessage(who, "Цель слишком далеко.");
 	  return;
 	endif
-	SendSysMessage(who, "You provoke " + thetarg.name + " to attack " + newtarg.name + "!");
+	SendSysMessage(who, "Вы провоцируете " + thetarg.name + " атаковать " + newtarg.name + "!");
 	ev.source := newtarg;
 	if(newtarg.warmode)
 	  ev.type := EVID_PEACEMADE;
@@ -85,7 +85,7 @@ program bard_provoke(who)
 	  sleep(1);
 	endif
 	ev.type := EVID_DAMAGED;
-	PrintTextAbovePrivate(thetarg, "You enrage " + thetarg.name + "!", who);
+	PrintTextAbovePrivate(thetarg, "Вы злите " + thetarg.name + "!", who);
     SendEvent(thetarg, ev);
   endif
 endprogram

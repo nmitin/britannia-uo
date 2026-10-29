@@ -31,14 +31,14 @@ program use_dyes(who, dyes)
   var color := SelectColor(who, dyetub);
   if( color > 1001 )
 //    var account := who.acct;
-    SendSysMessage( who, "Bug abusers aren't tolerated here." );
+    SendSysMessage( who, "Здесь не терпят использующих ошибки." );
     who.frozen := 1;
-    SendSysMessage(who, "You have been banned for exploiting.");
+    SendSysMessage(who, "Вы забанены за использование ошибок.");
     SetObjProperty(who,"justbanned", 1);
     var characters := EnumerateOnlineCharacters();
     foreach chr in characters
       if(chr.cmdlevel > 1)
-        SendSysMessage(chr, "account " + who.acctname + " has been banned for dye exploiting.");
+        SendSysMessage(chr, "аккаунт " + who.acctname + " забанен за использование красителей.");
       endif
     endforeach
     sleep(5);

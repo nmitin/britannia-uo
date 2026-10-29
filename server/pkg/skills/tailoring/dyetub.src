@@ -163,7 +163,7 @@ program use_dyetub (character, dyetub)
 
 	if (GetObjProperty(dyetub, "fixedcolor"))
 		if (!character.cmdlevel && GetAttribute(character, TAILORING) < 70 && dyetub.color > 52)
-			SendSysMessage(character, "You are unable to make a decent color.");
+			SendSysMessage(character, "Вам не удалось получить хороший цвет.");
 			return;
 		else
 			DyeItems(character, dyetub);
@@ -197,7 +197,7 @@ program use_dyetub (character, dyetub)
 	//the current color option
 	elseif (basecolor == 2)
 		if (!character.cmdlevel && GetAttribute(character, TAILORING) < 70 && dyetub.color > 52)
-			SendSysMessage(character, "You're unable to make a decent color.");
+			SendSysMessage(character, "Вам не удалось получить хороший цвет.");
 			return;
 		else
 			DyeItems(character, dyetub);
@@ -206,14 +206,14 @@ program use_dyetub (character, dyetub)
 
 	//set the dyetub color permanently
 	elseif (basecolor == 3)
-		SendSysMessage(character, "The tub is now permanently this color!");
+		SendSysMessage(character, "Теперь чан навсегда этого цвета!");
 		SetObjProperty(dyetub, "fixedcolor", 1);
 		return;
 	endif
 
 	//display the second level of the menu
 	if (!character.cmdlevel && GetAttribute(character, TAILORING) < 70)
-		SendSysMessage(character, "You are unable make a decent color.");
+		SendSysMessage(character, "Вам не удалось получить хороший цвет.");
 		basecolor := 1;
 	endif
 
@@ -267,7 +267,7 @@ endprogram
 
 function DyeItems(character, dyetub)
 
-	SendSysMessage(character, "Dye What?");
+	SendSysMessage(character, "Что покрасить?");
 	var what := Target(character, TGTOPT_NOCHECK_LOS);
 	if (!what)
 		SendSysMessage(character, "Отменено.");
@@ -280,7 +280,7 @@ function DyeItems(character, dyetub)
 	endif
 
 	if (!IsDyableItem(character, what))
-		SendSysMessage(character, "You can't dye that!");
+		SendSysMessage(character, "Это нельзя покрасить!");
 		return;
 	endif
 
@@ -291,7 +291,7 @@ function DyeItems(character, dyetub)
 				PlaySoundEffect(character, 0x023f);
 				sleep(2);
 			else
-				SendSysMessage(character, "Can't dye "+item.desc);
+				SendSysMessage(character, "Нельзя покрасить "+item.desc);
 			endif
 		endforeach
 	endif

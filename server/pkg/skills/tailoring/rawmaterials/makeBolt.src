@@ -28,7 +28,7 @@ program make_Bolt(who, thread)
 	EraseObjProperty(who, "#IsMeditating");
 	EraseObjProperty(who, "#HealTimer");
 	
-	SendSysMessage(who, "Select the Loom to use.");
+	SendSysMessage(who, "Выберите ткацкий станок.");
 
 	var tool := Target(who);
 	if ( !tool )
@@ -37,7 +37,7 @@ program make_Bolt(who, thread)
 	endif
 
 	if ( (tool.objtype < UOBJ_LOOM_START) || (tool.objtype > UOBJ_LOOM_END))
-		SendSysMessage(who, "You can only use that on a loom.");
+		SendSysMessage(who, "Это можно использовать только на ткацком станке.");
 		return;
 	else
 		makeBolt(who, thread);
@@ -46,21 +46,21 @@ endprogram
 
 function makeBolt(who, item)
 	if ( item.amount <= 0 )
-		SendSysMessage(who, "You don't have any thread!");
+		SendSysMessage(who, "У вас нет ниток!");
 		return;
 	endif
 
 	if ( ( item.amount > 0 ) && ( item.amount <= 4 ) )
-		SendSysMessage(who, "You don't have enough thread to create a bolt.");
+		SendSysMessage(who, "Недостаточно ниток для рулона.");
 		return;
 	endif
 
 	if ( SubtractAmount(item, 5) )
 		var bolt := CreateItemInBackpack(who, UOBJ_BOLT, 1);
 		if ( !bolt )
-			SendSysMessage(who, "You fail to create the bolt of cloth.");
+			SendSysMessage(who, "Не удалось создать рулон ткани.");
 		else
-			SendSysMessage(who, "You work at the loom and create bolts.");
+			SendSysMessage(who, "Вы работаете за станком и создаёте рулоны.");
 		endif
 	endif
 endfunction

@@ -16,7 +16,7 @@ program track(who)
     var range := CInt((AP_GetSkill(who, TRACKING)/3));
     var nearby := ListMobilesNearLocation(who.x,who.y, who.z, range, who.realm);
     if(len(nearby) == 1)
-      SendSysMessage(who, "There don't seem to be any creatures nearby");
+      SendSysMessage(who, "Похоже, рядом нет существ");
       return;
     endif
     var track_list := CreateMenu("Select a category.");
@@ -86,15 +86,15 @@ program track(who)
         if(dir == "nearby")
           SendSysMessage(who, critter.name + " is " + dir);
         else
-          SendSysMessage(who, critter.name + " is to the " + dir);
+          SendSysMessage(who, critter.name + " находится " + dir);
         endif
         sleep(5);
       endwhile
-      SendSysMessage(who, "You have lost your quarry.");
+      SendSysMessage(who, "Вы потеряли след.");
       EraseObjProperty(who, "#trackingtimeout");
     endif
   else
-    SendSysMessage(who, "You fail to find any creatures nearby");
+    SendSysMessage(who, "Не удалось найти рядом существ");
   endif
 endprogram
 

@@ -20,20 +20,20 @@ program skill_hide(who)
 //    pts := 35;
 //  endif
   if(who.warmode)
-    PrintTextAbovePrivate(who, "You cannot hide while in War Mode.", who);
+    PrintTextAbovePrivate(who, "Нельзя скрываться в боевом режиме.", who);
     return 0;
   endif
   var range := getwhorange(GetAttribute(who, HIDING));
   var bystanders := ListHostiles(who, range, LH_FLAG_LOS);
   if(len(bystanders) > 0)
-    PrintTextAbovePrivate(who, "You cannot hide as there are hostiles in view!", who);
+    PrintTextAbovePrivate(who, "Нельзя скрыться: в поле зрения враги!", who);
     return 0;
   endif
   if(SkillCheck( who,HIDING, -1, pts/3) > 0)
     who.hidden := 1;
-    PrintTextAbovePrivate(who, "You have hidden yourself well", who);
+    PrintTextAbovePrivate(who, "Вы хорошо спрятались", who);
   else
-    PrintTextAbovePrivate(who, "You can't seem to hide here", who);
+    PrintTextAbovePrivate(who, "Здесь не удаётся спрятаться", who);
     who.hidden := 0;
   endif
 endprogram

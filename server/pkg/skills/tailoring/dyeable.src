@@ -8,7 +8,7 @@ var cfg  := ReadConfigFile( ":*:itemdesc" );
 
 program dyeable(who, dyetub)
   if(who.cmdlevel >= 2)
-    SendSysMessage (who, "Staff member using a dye tub. Choose the item:", color := 88);
+    SendSysMessage (who, "Администратор использует чан с краской. Выберите предмет:", color := 88);
     var item := Target(who);
     if(!item)
       SendSysMessage(who, "Отменено");
@@ -38,14 +38,14 @@ program dyeable(who, dyetub)
     return;
   endif
   if(!ReserveItem(item))
-    SendSysMessage(who, "That item is in use already!");
+    SendSysMessage(who, "Этот предмет уже используется!");
     return;
   elseif(!Accessible(who, item))
     SendSysMessage(who, "Вы не можете до этого дотянуться!");
     return;
   endif
   if (item.objtype == 0xfab) // a dye tub
-      SendSysMessage(who, "You cannot dye a dye tub. Use dyes to mix a colour in the tub.", color := 33);
+      SendSysMessage(who, "Нельзя покрасить чан с краской. Используйте красители, чтобы смешать цвет.", color := 33);
       return;
   endif
   var element  := FindConfigElem(cfg,  item.objtype);
@@ -57,7 +57,7 @@ program dyeable(who, dyetub)
       item.color := dyetub.color;
       PlaySoundEffect(who, 0x23f);
   else
-    SendSysMessage( who, "That item does not absorb the dye.", color := 33);
+    SendSysMessage( who, "Этот предмет не впитывает краску.", color := 33);
     return;
   endif
 endprogram

@@ -14,13 +14,13 @@ program UseWood( who, wood )
 		return;
 	endif
 	if(wood.movable == 0)
-		SendSysMessage(who, "You cannot light that.");
+		SendSysMessage(who, "Это нельзя поджечь.");
 		return;
 	endif
 	var camptimer := GetObjProperty(who, "CampTimer");
 	if(camptimer)
 		if(camptimer > ReadGameClock())
-			SendSysMessage(who, "You must wait a few moments to camp again.");
+			SendSysMessage(who, "Подождите немного, прежде чем снова разбить лагерь.");
 			return;
 		endif
 	endif
@@ -30,7 +30,7 @@ program UseWood( who, wood )
 		return;
 	endif
 	if(wood.container)
-		PrintTextAbovePrivate( wood, "Put that on the ground first!", who );
+		PrintTextAbovePrivate( wood, "Сначала положите это на землю!", who );
 		return;
 	endif
 
@@ -53,6 +53,6 @@ program UseWood( who, wood )
 		sleep(60);
 		DestroyItem(campfire);
 	else
-		PrintTextAbovePrivate( wood, "You couldn't manage to start the fire.", who );
+		PrintTextAbovePrivate( wood, "Вам не удалось развести огонь.", who );
 	endif
 endprogram

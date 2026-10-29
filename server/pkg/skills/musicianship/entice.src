@@ -14,13 +14,13 @@ program enticement(who)
     return;
   endif
   if(subject.script == ":musicianship:enticedAI")
-    SendSysMessage(who, "Seems already under influence.");
+    SendSysMessage(who, "Похоже, уже под действием эффекта.");
     return;
   endif
   var cfg := ReadConfigFile("::npcdesc");
   var diff := Cint(cfg[subject.npctemplate]."provoke");
   if(!diff)
-    SendSysMessage(who, "You can't entice him!");
+    SendSysMessage(who, "Вы не можете его соблазнить!");
     return;
   endif
   var instrument := findinstrument(who);
@@ -39,9 +39,9 @@ program enticement(who)
     subject.script := ":musicianship:enticedAI";
     RestartScript(subject);
     SendEvent(subject, ev);
-    PrintTextAbove(subject, subject.name+" seems enticed by the music");
+    PrintTextAbove(subject, subject.name+" словно заворожён музыкой");
   else
-    PrintTextAbovePrivate(subject, "Your music doesnt seem to have any effect.", who);
+    PrintTextAbovePrivate(subject, "Похоже, ваша музыка не действует.", who);
     if ((Randomint(10)+1)<= 3)
       var ev := {};
         ev.+source := who;
@@ -49,7 +49,7 @@ program enticement(who)
       SendEvent(subject,ev);
       ev.type := EVID_DAMAGED;
       SendEvent(subject, ev);
-      PrintTextAbove(subject, subject.name+" is irritated by the music of "+who.name);
+      PrintTextAbove(subject, subject.name+" раздражён музыкой "+who.name);
     endif
   endif
 endprogram
