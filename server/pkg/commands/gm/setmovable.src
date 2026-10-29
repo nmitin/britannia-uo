@@ -3,9 +3,9 @@ use uo;
 program textcmd_setmovable( who, movable )
     movable := CInt(movable);
     if (movable)
-        SendSysMessage( who, "Target the item to set movable" );
+        SendSysMessage( who, "Укажите предмет, чтобы сделать перемещаемым" );
     else
-        SendSysMessage( who, "Target the item to set unmovable" );
+        SendSysMessage( who, "Укажите предмет, чтобы сделать неперемещаемым" );
     endif
 
     var obj := Target( who );

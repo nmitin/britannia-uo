@@ -13,7 +13,7 @@ use uo;
 
 program textcmd_writequip( who, tag )
     if (!tag)
-        SendSysMessage( who, "Usage: .writequip [equiptag]" );
+        SendSysMessage( who, "Использование: .writequip [equiptag]" );
         return;
     endif
 

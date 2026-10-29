@@ -3,6 +3,6 @@ use uo;
 
 program textcmd_whereat( who )
 
-	SendSysMessage( who, "X=" + who.x + ", Y=" + who.y + ", Z=" + who.z + ", Realm: " +  who.realm, color := 88 );
+	SendSysMessage( who, "X=" + who.x + ", Y=" + who.y + ", Z=" + who.z + ", Мир: " +  who.realm, color := 88 );
 
 endprogram

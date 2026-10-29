@@ -4,19 +4,19 @@ use os;
 program textcmd_news( me, cmd )
 
 	if (!cmd)
-		SendSysMessage(me, "Usage: [read] [write] or [delete]");
+		SendSysMessage(me, "Использование: [read] [write] или [delete]");
 		return;
 	endif
 
 	if ( lower(cmd) == "delete" )
-		SendSysMessage(me, "News deleted!");
+		SendSysMessage(me, "Новость удалена!");
 		EraseGlobalProperty("news");
 	elseif ( lower(cmd) == "read" )
 		ReadNews(me);
 	elseif ( lower(cmd) == "write" )
 		WriteNews(me);
 	else
-		SendSysMessage(me, "Usage: [read] [write] or [delete]");
+		SendSysMessage(me, "Использование: [read] [write] или [delete]");
 		return;
 	endif
 
@@ -46,7 +46,7 @@ function WriteNews(me)
 		endif
 	until (!newsline);
 	SetGlobalProperty("news",news);
-	SendSysMessage(me,"News written!");
+	SendSysMessage(me,"Новость записана!");
 	ReadNews(me);
 
 endfunction
@@ -55,7 +55,7 @@ function ReadNews(me)
 
 	var news := GetGlobalProperty("news");
 	if (!news)
-		SendSysMessage(me,"No news is good news.");
+		SendSysMessage(me,"Отсутствие новостей — хорошая новость.");
 		return;
 	endif
 

@@ -2,7 +2,7 @@ use uo;
 
 program textcmd_destroy( who )
 	SendSysMessage( who, "Укажите, что уничтожить.", 1, 88 );
-	SendSysMessage( who, "Press <ESC> to exit.", 1, 88 );
+	SendSysMessage( who, "Нажмите <ESC> для выхода.", 1, 88 );
 	while(1)
 		var tgt := Target( who, TGTOPT_NOCHECK_LOS );
 		if(!tgt)
@@ -10,14 +10,14 @@ program textcmd_destroy( who )
 			return 0;
 		endif
 		if(GetObjProperty(tgt, "DecorateFacetsStatic"))
-			SendSysMessage(who, "That item cannot be destroyed.", 1, 33);
-			SendSysMessage(who, "Only a developer can destroy it ", 1, 33);
+			SendSysMessage(who, "Этот предмет нельзя уничтожить.", 1, 33);
+			SendSysMessage(who, "Уничтожить может только разработчик ", 1, 33);
 			continue;
 		endif
 		if(!tgt.isA(POLCLASS_NPC) || !tgt.client)
 			DestroyItem( tgt);
 		else
-		SendSysMessage( who, "You can only destroy items", 1, 33 );
+		SendSysMessage( who, "Уничтожать можно только предметы", 1, 33 );
 		endif
 	endwhile
 endprogram

@@ -12,7 +12,7 @@ program textcmd_whereat( who )
                 SendSysMessage (who, "Отменено.", color := 33);
                 return;
             endif
-           SendSysMessage( who, "X=" + where.x + ", Y=" + where.y + ", Z=" + where.z + ", Realm: " +  who.realm, color := 88 );
+           SendSysMessage( who, "X=" + where.x + ", Y=" + where.y + ", Z=" + where.z + ", Мир: " +  who.realm, color := 88 );
         endwhile
 //    endif
 

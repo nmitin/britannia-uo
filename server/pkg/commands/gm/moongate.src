@@ -92,7 +92,7 @@ program gump_gump( who )
 
 	var gate := GFSendGump( who, gump );
 	if(!gate[0] || (gate[0] == 666))
-		SendSysMessage(who, "No gate selected.", color := 33);
+		SendSysMessage(who, "Врата не выбраны.", color := 33);
 		return;
 	endif
 	if(gate[0] == 777)

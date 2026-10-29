@@ -1,7 +1,7 @@
 use uo;
 
 program showmember(who, membername)
-  SendSysMessage(who, "Display " + membername + " of what?");
+  SendSysMessage(who, "Показать " + membername + " чего?");
   var what := Target(who);
   if(what)
     var member := what.get_member(membername);

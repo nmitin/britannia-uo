@@ -6,8 +6,8 @@ program textcmd_eraseglobal( who, propertyname )
 
     var res := EraseGlobalProperty( propertyname );
     if (res != error)
-        SendSysMessage( who, "Property " + propertyname + " erased." );
+        SendSysMessage( who, "Свойство " + propertyname + " стёрто." );
     else
-        SendSysMessage( who, "Error erasing property: " + res.errortext );
+        SendSysMessage( who, "Ошибка стирания свойства: " + res.errortext );
     endif
 endprogram

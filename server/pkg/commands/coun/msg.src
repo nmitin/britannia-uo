@@ -34,7 +34,7 @@ program coun_message( who )
 	message := RequestGumpEx ( recipient, "Type your message to " + who.name + ":", "You can respond or press cancel.", "", CANCEL_BTN_ON );
 	if( !message )
 		SendSysMessageCL( recipient, 1042023, color := 33 ); // Cancelled.
-		SendSysMessage( who, recipient.name + " did not choose to respond.", color := 66);
+		SendSysMessage( who, recipient.name + " не пожелал ответить.", color := 66);
 		return 0;
 	endif
 	GumpPromptEx( who, message, 1, 1153 );

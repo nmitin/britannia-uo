@@ -50,9 +50,9 @@ program textcmd_setprop( who, text )
 
 	var props := SplitWords( text );
 	if( !props[1] )
-		SendSysmessage( who , "Syntax: .setprop [propname] [amount]" );
+		SendSysmessage( who , "Синтаксис: .setprop [имя] [значение]" );
 	elseif( !props[2] )
-		SendSysmessage( who , "Syntax: .setprop [propname] [amount]" );
+		SendSysmessage( who , "Синтаксис: .setprop [имя] [значение]" );
 	endif
 
 	var propname	:= props[1];
@@ -64,7 +64,7 @@ program textcmd_setprop( who, text )
 		amount_str := "";
 	endif
 
-	SendSysMessage( who, "Select an object" );
+	SendSysMessage( who, "Выберите объект" );
 	var obj := Target(who);
 	if( !obj )
 		return 0;
@@ -85,25 +85,25 @@ function ProcessMobileSetProp( who, mobile, propname, amount, amount_str )
 
 	var old_value := GetMobileProp( mobile, propname );
 	if( !old_value )
-		SendSysMessage( who, "This property don't exist for mobiles." );
+		SendSysMessage( who, "Это свойство не существует для мобилей." );
 		return 0;
 	endif
 
-	SendSysmessage( who, propname + " was: " + old_value );
+	SendSysmessage( who, propname + " было: " + old_value );
 
 	if( SetMobileProp( mobile, propname, amount, amount_str ) )
 		var new_value := GetMobileProp( mobile, propname );
 		if( new_value == old_value )
 			if( propname != "lightlevel" )
-				SendSysMessage( who, "Property unchanged." );
+				SendSysMessage( who, "Свойство не изменено." );
 			else
 				SendSysMessage( who, new_value );
 			endif
 		else
-			SendSysmessage( who, propname + " is now: " + new_value );
+			SendSysmessage( who, propname + " теперь: " + new_value );
 		endif
 	else
-		SendSysmessage( who, "Could not write to " + propname + "." );
+		SendSysmessage( who, "Не удалось записать в " + propname + "." );
 	endif
 
 	return 1;
@@ -115,25 +115,25 @@ function ProcessItemSetProp( who, item, propname, amount, amount_str )
 
 	var old_value := GetItemProp( item, propname );
 	if( !old_value )
-		SendSysMessage( who, "This property don't exist for items." );
+		SendSysMessage( who, "Это свойство не существует для предметов." );
 		return 0;
 	endif
 
-	SendSysmessage( who, propname + " was: " + old_value );
+	SendSysmessage( who, propname + " было: " + old_value );
 
 	if( SetItemProp( item, propname, amount, amount_str ) )
 		var new_value := GetItemProp( item, propname );
 		if( new_value == old_value )
 			if( propname != "lightlevel" )
-				SendSysMessage( who, "Property unchanged." );
+				SendSysMessage( who, "Свойство не изменено." );
 			else
 				SendSysMessage( who, new_value );
 			endif
 		else
-			SendSysmessage( who, propname + " is now: " + new_value );
+			SendSysmessage( who, propname + " теперь: " + new_value );
 		endif
 	else
-		SendSysmessage( who, "Could not write to " + propname + "." );
+		SendSysmessage( who, "Не удалось записать в " + propname + "." );
 	endif
 
 	return 1;

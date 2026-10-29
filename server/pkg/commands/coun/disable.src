@@ -13,5 +13,5 @@ use uo;
 
 program disable( who, priv )
     who.disable( priv );
-    SendSysMessage( who, "Setting '" + priv + "' is disabled." );
+    SendSysMessage( who, "Настройка «" + priv + "» отключена." );
 endprogram

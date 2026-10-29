@@ -49,7 +49,7 @@ program textcmd_kill( who )
 
 		else
 			if (!mob.isA(POLCLASS_NPC))
-				SendSysMessage(who,"Already dead!");
+				SendSysMessage(who,"Уже мёртв!");
 			else
 				Resurrect( mob );
 				MoveObjectToLocation(mob, 5288, 1176, 0, who.realm, MOVEOBJECT_FORCELOCATION);

@@ -3,7 +3,7 @@ use uo;
 
 
 program textcmd_where( who )
-    SendSysMessage( who, "Target the key to the ship" );
+    SendSysMessage( who, "Укажите ключ от корабля" );
 
     var tgt := Target( who );
     if (tgt)
@@ -11,12 +11,12 @@ program textcmd_where( who )
         if (shipserial)
             var ship := SystemFindBoatBySerial( shipserial );
             if (ship)
-                SendSysMessage( who, "That ship is located at ("+ship.x+","+ship.y+") in the realm of " + ship.realm + "." );
+                SendSysMessage( who, "Корабль находится в ("+ship.x+","+ship.y+" ) в мире " + ship.realm + "." );
             else
-                SendSysMessage( who, "That ship doesn't seem to exist." );
+                SendSysMessage( who, "Похоже, такого корабля нет." );
             endif
         else
-            SendSysMessage( who, "That isn't a key to a built ship." );
+            SendSysMessage( who, "Это не ключ от построенного корабля." );
         endif
       
     endif

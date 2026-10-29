@@ -29,7 +29,7 @@ function resign(guild,who)
   EraseObjProperty(who, "fealty");
   who.title_guild:="";
   EraseObjProperty(who, "abv");
-  SendSysMessage(who, "Вы больше не член "+guild.getprop("guildname")+".",3,70);
+  SendSysMessage(who, "Вы больше не член "+guild.getprop("имя гильдии")+".",3,70);
   var i,all:=guild.members;
   if(all.size() == 0)
     all := guild.allyguilds;

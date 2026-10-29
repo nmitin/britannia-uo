@@ -4,17 +4,17 @@ use os;
 //include "../pkg/world/weather/weather";
 
 program textcmd_moveitem( who )
-    SendSysMessage( who, "Select an npc to move." );
+    SendSysMessage( who, "Выберите NPC для перемещения." );
     var what := Target( who );
     if (what)
-            SendSysMessage( who, "Now select a location on the ground." );
+            SendSysMessage( who, "Теперь укажите место на земле." );
             var where := TargetCoordinates( who );
             if (where)
                 var result := MoveObjectToLocation( what, where.x, where.y, where.z, who.realm, MOVEOBJECT_FORCELOCATION );
                 if (result)
                     PrintTextAbovePrivate( what, "Готово!", who );
                 else
-                    SendSysMessage( who, "Unable to move npc: " + result.errortext, color := 33 );
+                    SendSysMessage( who, "Не удалось переместить NPC: " + result.errortext, color := 33 );
                 endif
             endif
     endif

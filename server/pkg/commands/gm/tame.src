@@ -2,7 +2,7 @@ use uo;
 use os;
 
 program tame( who )
-	SendSysMessage(who, "Tame what?", color := 88);
+	SendSysMessage(who, "Что приручить?", color := 88);
 	var npc := Target(who, TGTOPT_NOCHECK_LOS);
 	if (!npc)
 		SendSysMessage(who, "Отменено.", color := 33);

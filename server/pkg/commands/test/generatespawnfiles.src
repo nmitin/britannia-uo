@@ -7,7 +7,7 @@ program generatespawnfiles(who)
   var gps, rect, group, elem, npc;
   var spawngroups := OpenDataFile(":spawnregion:SpawnGroups");
   if(!spawngroups or spawngroups.errortext)
-    sendsysmessage(who, "error reading groups");
+    sendsysmessage(who, "ошибка чтения групп");
     return;
   endif
   foreach thing in (spawngroups.Keys())

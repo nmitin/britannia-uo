@@ -4,14 +4,14 @@ include ":keys:key";
 
 program relock( who )
 
-    SendSysMessage( who, "Target a KEY first." );
+    SendSysMessage( who, "Сначала укажите КЛЮЧ." );
     var key := Target( who, "" );
     if(! key)
        SendSysMessage( who, "Отменено." );
        return;
     endif
 
-    SendSysMessage( who, "Target a door or Container now." );
+    SendSysMessage( who, "Теперь укажите дверь или контейнер." );
     var lockeditem := Target( who, "" );
 
     if(! lockeditem)
@@ -23,6 +23,6 @@ program relock( who )
 
     SetObjProperty( lockeditem, "LockID", LockID );
 
-    SendSysMessage( who, "Changed the item to match that key." );
+    SendSysMessage( who, "Предмет изменён под этот ключ." );
 
 endprogram

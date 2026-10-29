@@ -19,7 +19,7 @@ program textcmd_makemap( who, mapname )
 		endif
 	endforeach
 
-	SendSysMessage( who, "I don't understand '" + mapname + "' as a map name." );
+	SendSysMessage( who, "Не понимаю «" + mapname + "» как название карты." );
 endprogram
 
 

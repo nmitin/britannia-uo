@@ -2,7 +2,7 @@ use uo;
 use boat;
 
 program destroy_boat( who )
-    SendSysMessage( who, "Target the tillerman" );
+    SendSysMessage( who, "Укажите рулевого" );
     var mast := TargetCoordinates(who);
     if (!mast)
         return;
@@ -16,8 +16,8 @@ program destroy_boat( who )
     endif
     printtextabove(boat, "BOAT");
     if (boat.has_offline_mobiles)
-      SendSysMessage( who, "Boat has offline mobiles on the deck." );
-      SendSysMessage( who, "Where should they be moved?" );
+      SendSysMessage( who, "На палубе есть офлайн-мобили." );
+      SendSysMessage( who, "Куда их переместить?" );
       var newloc := TargetCoordinates( who );
       if (newloc)
         boat.move_offline_mobiles( newloc.x, newloc.y, newloc.z );
@@ -25,6 +25,6 @@ program destroy_boat( who )
     endif
     var res := DestroyMulti( boat );
     if (!res)
-        SendSysMessage( who, "Can't delete: " + res.errortext );
+        SendSysMessage( who, "Не удалось удалить: " + res.errortext );
     endif
 endprogram

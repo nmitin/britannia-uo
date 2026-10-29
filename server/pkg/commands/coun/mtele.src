@@ -22,7 +22,7 @@ const TOKU_MAX_Y := 1447;
 program textcmd_tele( who )
 
 
-    SendSysMessage( who, "Where do you want to teleport?" );
+    SendSysMessage( who, "Куда вы хотите телепортироваться?" );
 
     while (1)
         var where := TargetCoordinates( who );

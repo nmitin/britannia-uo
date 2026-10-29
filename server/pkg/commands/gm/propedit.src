@@ -268,19 +268,19 @@ program CPropEditor(parms1, parms2)
 		var options := GetOptions(Lower(parms2));
 		If (options["multi"])
 			If (!who.multi)
-				SendSysMessage(who,"You must stand on the multi to edit its CProps.");
+				SendSysMessage(who,"Нужно стоять на мульти, чтобы править его CProps.");
 				Return;
 			Else
 				thing := who.multi;
 			EndIf
 
 		ElseIf (options["account"])
-			SendSysMessage(who, "Edit whose account CProps?");
+			SendSysMessage(who, "Чьи CProps аккаунта править?");
 			thing := Target(who,  TGTOPT_NOCHECK_LOS + TGTOPT_NEUTRAL);
 			If (thing.acct)
 				thing := thing.acct;
 			ElseIf (thing)
-				SendSysMessage(who, "That doesn't have an account!");
+				SendSysMessage(who, "У этого нет аккаунта!");
 				Return;
 			EndIf
 
@@ -288,12 +288,12 @@ program CPropEditor(parms1, parms2)
 			thing := SystemFindObjectBySerial(
 			CInt(options["serial"]), SYSFIND_SEARCH_OFFLINE_MOBILES);
 			If (!thing)
-				SendSysMessage(who, "Serial not found");
+				SendSysMessage(who, "Серийный номер не найден");
 				return;
 			EndIf
 
 		Else
-			SendSysMessage(who, "Edit CProps on what?");
+			SendSysMessage(who, "На чём править CProps?");
 			thing := Target(who, TGTOPT_NOCHECK_LOS + TGTOPT_NEUTRAL);
 		EndIf
 	EndIf
@@ -331,7 +331,7 @@ Function DoCPropGump(who, thing)
 	var propname_len := len(propnames);
 
 	If (propname_len > MAX_ITEMS)
-		SendSysMessage(who, "propedit displaying "+MAX_ITEMS+"/"+propname_len+" CProps!");
+		SendSysMessage(who, "propedit показывает "+MAX_ITEMS+"/"+propname_len+" CProps!");
 		propname_len := MAX_ITEMS;
 	EndIf
 
@@ -483,10 +483,10 @@ Function DoCPropGump(who, thing)
 	ElseIf (retval[ADD_BUTTON])
 		var add_prop_name := GetGumpText(retval[ADD_TEXTENTRY]);
 		If (!len(add_prop_name))
-			SendSysMessage(who, "No CProp name specified!");
+			SendSysMessage(who, "Не указано имя CProp!");
 			Return 1;
 		ElseIf (add_prop_name in propnames)
-			SendSysMessage(who, "There is already a CProp with that name!");
+			SendSysMessage(who, "CProp с таким именем уже есть!");
 			Return 1;
 		EndIf
 
@@ -575,7 +575,7 @@ Function DoArrayGump(who, thing, array_propname)
 	var array_val := GetCProp(thing, array_propname);
 	var array_len := len(array_val);
 	If (array_len > MAX_ITEMS)
-		SendSysMessage(who, "propedit can only display "+MAX_ITEMS+"/"+array_len+" array entries!");
+		SendSysMessage(who, "propedit может показывать только "+MAX_ITEMS+"/"+array_len+" записи массива!");
 		array_len := MAX_ITEMS;
 	EndIf
 
@@ -778,7 +778,7 @@ Function DoDictGump(who, thing, dict_propname)
 	var dict_keys := dict_val.keys();
 	var dict_size := len(dict_keys);
 	If (dict_size>MAX_ITEMS)
-		SendSysMessage(who, "propedit can only display "+MAX_ITEMS+"/"+dict_size+" dictionary entries!");
+		SendSysMessage(who, "propedit может показывать только "+MAX_ITEMS+"/"+dict_size+" записи словаря!");
 		dict_size := MAX_ITEMS;
 	EndIf
 
@@ -914,10 +914,10 @@ Function DoDictGump(who, thing, dict_propname)
 	ElseIf (retval[ADD_BUTTON])
 		var add_key_name := GetGumpText(retval[ADD_TEXTENTRY]);
 		If (!len(add_key_name))
-			SendSysMessage(who, "No key specified!");
+			SendSysMessage(who, "Ключ не указан!");
 			Return 1;
 		ElseIf (add_key_name in dict_keys)
-			SendSysMessage(who, "There is already a dictionary key with that name!");
+			SendSysMessage(who, "Ключ словаря с таким именем уже есть!");
 			Return 1;
 		EndIf
 
@@ -975,7 +975,7 @@ Function DoStructGump(who, thing, struct_propname)
 	var struct_keys := struct_val.keys();
 	var struct_size := len(struct_keys);
 	If (struct_size>MAX_ITEMS)
-		SendSysMessage(who, "propedit can only display "+MAX_ITEMS+"/"+struct_size+" struct entries!");
+		SendSysMessage(who, "propedit может показывать только "+MAX_ITEMS+"/"+struct_size+" записи структуры!");
 		struct_size := MAX_ITEMS;
 	EndIf
 
@@ -1111,10 +1111,10 @@ Function DoStructGump(who, thing, struct_propname)
 	ElseIf (retval[ADD_BUTTON])
 		var add_key_name := GetGumpText(retval[ADD_TEXTENTRY]);
 		If (!len(add_key_name))
-			SendSysMessage(who, "No key specified!");
+			SendSysMessage(who, "Ключ не указан!");
 			Return 1;
 		ElseIf (add_key_name in struct_keys)
-			SendSysMessage(who, "There is already a struct key with that name!");
+			SendSysMessage(who, "Ключ структуры с таким именем уже есть!");
 			Return 1;
 		EndIf
 
@@ -1131,7 +1131,7 @@ Function DoStructGump(who, thing, struct_propname)
 		Return 1;
 
 	ElseIf (retval[CONFIRM_DELETE_BUTTON])
-		SendSysMessage(who, "Not supported");
+		SendSysMessage(who, "Не поддерживается");
 		//	For (i := 1; i <= dict_size; i += 1)
 		//		If (retval[DEL_OFFSET + i])
 		//		dict_val.erase(dict_keys[i]);

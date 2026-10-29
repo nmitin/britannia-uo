@@ -4,7 +4,7 @@ use os;
 program EmptyBackpack(who)
 
 	var stuff := EnumerateItemsInContainer(who.backpack);
-	SendSysMessage(who, "Number of items = " + CStr(stuff.size()));
+	SendSysMessage(who, "Количество предметов = " + CStr(stuff.size()));
 	foreach thing in stuff
 		//MoveObjectToLocation(thing, who.x, who.y, who.z, who.realm, MOVEOBJECT_FORCELOCATION);
 		DestroyItem(thing);

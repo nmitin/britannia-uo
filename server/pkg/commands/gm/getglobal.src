@@ -5,7 +5,7 @@ program textcmd_getglobal( who, propname )
 
     var res := GetGlobalProperty( propname );
     if (res != error)
-        SendSysMessage( who, "Property " + propname + ": " + res );
+        SendSysMessage( who, "Свойство " + propname + ": " + res );
     else
         SendSysMessage( who, "Error getting property: " + res.errortext );
     endif

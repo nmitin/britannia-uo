@@ -5,12 +5,12 @@ include "include/client";
 program Shave( who, text )
 
         if ((text == "") or (!text))
-          SendSysMessage( who, "Please, define which part do you wish to shave (Head, Face)." );
+          SendSysMessage( who, "Укажите, что побрить (Head, Face)." );
           return;
         endif
 
    if ( text == "face" )
-   SendSysMessage( who, "Whose face should I shave?" );
+   SendSysMessage( who, "Чьё лицо побрить?" );
    var guy := Target( who, "" );
 
    var hair := GetEquipmentByLayer( guy, LAYER_BEARD );
@@ -18,7 +18,7 @@ program Shave( who, text )
    DestroyItem( hair );
 
    elseif ( text == "head" )
-   SendSysMessage( who, "Whose head should I shave?" );
+   SendSysMessage( who, "Чью голову побрить?" );
    var baldy := Target( who, "" );
 
    var hair := GetEquipmentByLayer( baldy, LAYER_HAIR );

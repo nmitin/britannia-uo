@@ -45,7 +45,7 @@ program textcmd_color( who )
 	endforeach
 	
 	//Sleep ( 2 );
-	SendSysMessage ( who, get_test_struct_key.name+" died at the age of "+get_test_struct_key.age+" on "+get_test_struct_key.deathdate+".", 0x3, 0x42 );
+	SendSysMessage ( who, get_test_struct_key.name+" умер в возрасте "+get_test_struct_key.age+" on "+get_test_struct_key.deathdate+".", 0x3, 0x42 );
 endprogram
 
 function TestArrayWithinArrayToDataFile ( byref elem )

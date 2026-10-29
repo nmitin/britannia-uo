@@ -6,7 +6,7 @@ include ":attributes:attributes";
 
 program textcmd_getprop( who, propname )
 
-	SendSysMessage( who, "Select an object" );
+	SendSysMessage( who, "Выберите объект" );
 	var obj := Target(who);
 	if( !obj )
 		return 0;
@@ -25,7 +25,7 @@ function ProcessMobileGetProp( who, mobile, propname )
 
 	var value := GetMobileProp( mobile, propname );
 	if( !value )
-		SendSysmessage( who, "Invalid prop name!" );
+		SendSysmessage( who, "Неверное имя свойства!" );
 	else
 		SendSysmessage( who, propname + ": " + value );
 	endif
@@ -37,7 +37,7 @@ function ProcessItemGetProp( who, item, propname )
 
 	var value := GetItemProp( item, propname );
 	if( !value )
-		SendSysmessage( who, "Invalid prop name!" );
+		SendSysmessage( who, "Неверное имя свойства!" );
 	else
 		SendSysmessage( who, propname + ": " + value );
 	endif

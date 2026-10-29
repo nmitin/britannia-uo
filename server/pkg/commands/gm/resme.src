@@ -25,6 +25,6 @@ program textcmd_resme( who )
       break;
     endforeach
   else
-    SendSysMessage( who, "But I'm not dead yet!" );
+    SendSysMessage( who, "Но я ещё не умер!" );
   endif
 endprogram

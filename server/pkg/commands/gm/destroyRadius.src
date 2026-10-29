@@ -11,7 +11,7 @@ program textcmd_destroyRadius( who, range )
     endif
     range := CInt(range);
     if (range > 8)
-        SendSysMessage (who, "Sorry but you must not spcify a range larger than 8");
+        SendSysMessage (who, "Диапазон не должен превышать 8");
         return;
     endif
     var tgt := ListItemsNearLocation(who.x, who.y, who.z, range, who.realm );

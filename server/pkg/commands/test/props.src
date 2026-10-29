@@ -9,7 +9,7 @@ program dot_props( who )
                 SendSysMessage( who, propname + ": " + what.getprop( propname ) );
             endforeach
         else
-            SendSysMessage( who, "No properties." );
+            SendSysMessage( who, "Нет свойств." );
         endif
     endif
 

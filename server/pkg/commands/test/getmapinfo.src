@@ -5,9 +5,9 @@ program textcmd_mapinfo( who )
 	if (where)
 	    var mi := GetMapInfo( where.x, where.y, who.realm );
 		if (mi)
-		    SendSysMessage( who, "GetMapInfo("+where.x+","+where.y+"): z="+mi.z+", landtile="+Hex(mi.landtile) );
+		    SendSysMessage( who, "GetMapInfo("+where.x+","+where.y+"): z="+mi.z+", ландшафт="+Hex(mi.landtile) );
 		else
-			SendSysMessage( who, "Error in GetMapInfo: " + mi.errortext );
+			SendSysMessage( who, "Ошибка в GetMapInfo: " + mi.errortext );
 		endif
 	endif
 endprogram

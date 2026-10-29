@@ -7,9 +7,9 @@ program textcmd_eraseobjproperty( who, propname )
     if (tgt)
         var res := EraseObjProperty( tgt, propname );
         if (res != error)
-            SendSysMessage( who, "Property " + propname + " erased." );
+            SendSysMessage( who, "Свойство " + propname + " стёрто." );
         else
-            SendSysMessage( who, "Error erasing property: " + res.errortext );
+            SendSysMessage( who, "Ошибка стирания свойства: " + res.errortext );
         endif
     endif
 endprogram

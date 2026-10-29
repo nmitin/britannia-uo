@@ -6,13 +6,13 @@ include "include/objtype";
 include "include/eventID";
 
 program bard_provoke(character)
-  SendSysMessage(character, "Select a creature you wish to provoke");
+  SendSysMessage(character, "Выберите существо для провокации");
   var thetarg := Target(character);
   if (!thetarg)
         SendSysMessage(character, "Выбор цели отменён.");
         return;
   endif
-  SendSysMessage(character, "Select the target");
+  SendSysMessage(character, "Выберите цель");
   var newtarg := Target(character);
   var ev := array;
   ev.+ type;

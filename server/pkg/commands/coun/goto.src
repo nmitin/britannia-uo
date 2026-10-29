@@ -36,8 +36,8 @@ program summon_player(who, whom)
 		endforeach
 	endif
 
-	SendSysMessage(who, "The player could not be summoned.", color := 33);
-	SendSysMessage(who, "The player name might be misspelled.", color := 33);
+	SendSysMessage(who, "Не удалось призвать игрока.", color := 33);
+	SendSysMessage(who, "Возможно, имя игрока написано с ошибкой.", color := 33);
 
 endprogram
 

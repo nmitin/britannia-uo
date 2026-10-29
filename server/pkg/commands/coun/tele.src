@@ -2,7 +2,7 @@ use uo;
 
 
 program textcmd_tele( who )
-  SendSysMessage( who, "Where do you want to teleport?" );
+  SendSysMessage( who, "Куда вы хотите телепортироваться?" );
   var where := TargetCoordinates( who );
   if(where)
     var result := MoveObjectToLocation( who, where.x, where.y, where.z, who.realm);

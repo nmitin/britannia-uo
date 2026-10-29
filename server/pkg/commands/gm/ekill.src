@@ -10,7 +10,7 @@ include ":attributes:attributes";
 program cast_fireball( caster, effect, sound )
 
 	if (!effect)
-			SendSysMessage(caster, "this command plays a moving effect, then kills the target. Usage: ekill <effect>");
+			SendSysMessage(caster, "команда проигрывает эффект и убивает цель. Использование: ekill <эффект>");
 			return;
 	endif
 

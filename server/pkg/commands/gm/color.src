@@ -6,7 +6,7 @@ include "include/client";
 
 program color(who, textline)
 	if (!textline)
-		SendSysMessage (who, "Usage is: color [integer] or 'none' (without the quotes)", color := 88);
+		SendSysMessage (who, "Использование: color [число] или none (без кавычек)", color := 88);
 		return;
 	endif
 

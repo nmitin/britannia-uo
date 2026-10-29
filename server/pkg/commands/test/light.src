@@ -3,7 +3,7 @@ use os;
 
 program mylight (who, text)
 
-        SendSysMessage(who,"Select target");
+        SendSysMessage(who,"Выберите цель");
         var targ := target( who, TGTOPT_NOCHECK_LOS );
 
 	if (text && text == "off")
@@ -19,31 +19,31 @@ program mylight (who, text)
 	if (text && text["level"])
 		var parms := SplitWords(text);
 		if (len(parms) != 3)
-			SendSysMessage(who, "Invalid setting.  Correct usage is:");
-			SendSysMessage(who, "light level [day or night] [0 to 30]");
-			SendSysMessage(who, "0 is normal daylight.  20 is normal night.");
+			SendSysMessage(who, "Неверная настройка. Правильное использование:");
+			SendSysMessage(who, "уровень света [day или night] [0–30]");
+			SendSysMessage(who, "0 — обычный день, 20 — обычная ночь.");
 			return;
 		endif
 
 		if (parms [2] != "day" && parms[2] != "night")
-			SendSysMessage(who, "Invalid setting.  Correct usage is:");
-			SendSysMessage(who, "light level [day or night] [0 to 30]");
-			SendSysMessage(who, "0 is normal daylight.  20 is normal night.");
+			SendSysMessage(who, "Неверная настройка. Правильное использование:");
+			SendSysMessage(who, "уровень света [day или night] [0–30]");
+			SendSysMessage(who, "0 — обычный день, 20 — обычная ночь.");
 			return;
 		endif
 
 		var lightlevel := CInt(parms[3]);
 		if (!lightlevel && lightlevel != 0)
-			SendSysMessage(who, "Invalid setting.  Correct usage is:");
-			SendSysMessage(who, "light level [day or night] [0 to 30]");
-			SendSysMessage(who, "0 is normal daylight.  20 is normal night.");
+			SendSysMessage(who, "Неверная настройка. Правильное использование:");
+			SendSysMessage(who, "уровень света [day или night] [0–30]");
+			SendSysMessage(who, "0 — обычный день, 20 — обычная ночь.");
 			return;
 		endif
 
 		if (lightlevel < 0 || lightlevel > 30)
-			SendSysMessage(who, "Invalid setting.  Correct usage is:");
-			SendSysMessage(who, "light level [day or night] [0 to 30]");
-			SendSysMessage(who, "0 is normal daylight.  20 is normal night.");
+			SendSysMessage(who, "Неверная настройка. Правильное использование:");
+			SendSysMessage(who, "уровень света [day или night] [0–30]");
+			SendSysMessage(who, "0 — обычный день, 20 — обычная ночь.");
 			return;
 		endif
 
@@ -66,7 +66,7 @@ program mylight (who, text)
         endif
  
         targ.setlightlevel (Cint(text), 3600);
-        SendSysMessage(who, targ.name + "'s light level is now: " + Cint(text));
+        SendSysMessage(who, targ.name + " : уровень света теперь: " + Cint(text));
  
  
 endprogram;

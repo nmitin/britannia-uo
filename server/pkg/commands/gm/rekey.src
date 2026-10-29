@@ -4,7 +4,7 @@ include ":keys:key";
 
 program rekey( who )
 
-    SendSysMessage( who, "Target a DOOR to rekey." );
+    SendSysMessage( who, "Укажите ДВЕРЬ для смены замка." );
     var lockeditem := Target( who, "" );
 
     if(! lockeditem)
@@ -22,9 +22,9 @@ program rekey( who )
 		key.SetLockId(LockID);
 //        SetObjProperty( key, "LockID", LockID );
 
-        SendSysMessage( who, "Created a key in your pack.", color := 66 );
+        SendSysMessage( who, "Создан ключ в рюкзаке.", color := 66 );
     else
-        SendSysMessage( who, "That cannot be locked.", color := 33 );
+        SendSysMessage( who, "Это нельзя запереть.", color := 33 );
     endif
 
 endprogram

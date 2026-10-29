@@ -14,8 +14,8 @@ use uo;
 program enable( who, priv )
     var res := who.enable( priv );
     if (res)
-        SendSysMessage( who, "Setting '" + priv + "' is enabled." );
+        SendSysMessage( who, "Настройка «" + priv + "» включена." );
     else
-        SendSysMessage( who, "You don't have that privilege." );
+        SendSysMessage( who, "У вас нет таких прав." );
     endif
 endprogram

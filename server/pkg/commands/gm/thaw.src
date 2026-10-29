@@ -1,16 +1,16 @@
 use uo;
 
 program hideme( gm )
-    SendSysMessage( gm, "Who do you wish to thaw?" );
+    SendSysMessage( gm, "Кого разморозить?" );
     var res := TargetCoordinates( gm );
     if (res.mobile)
         res.mobile.frozen := 0;
 	if (GetObjProperty(res.mobile, "frozen"))
 		EraseObjProperty(res.mobile,"frozen");
 	else
-		SendSysMessage( gm, "that wasn't frozen");
+		SendSysMessage( gm, "это не было заморожено");
 	endif
-        PrintTextAbovePrivate( res.mobile, res.mobile.name + " has been thawed", gm );
+        PrintTextAbovePrivate( res.mobile, res.mobile.name + " разморожен", gm );
     else
         SendSysMessage( gm, "Отменено" );
     endif

@@ -15,18 +15,18 @@ use uo;
 program textcmd_sfx( who, input )
 
     if ( ! input )
-        SendSysMessage( who, "No argument supplied. Usage: .sfx [sound]." );
+        SendSysMessage( who, "Аргумент не указан. Использование: .sfx [звук]." );
         return;
     endif
 
     var argarray := SplitWords( input ); // split the arguments.
     var soundfx := CInt( argarray[1] );
     if ( !soundfx )
-        SendSysMessage( who, "Not a valid soundid." );
+        SendSysMessage( who, "Неверный soundid." );
         return;
     endif
 
     PlaySoundEffect( who, soundfx );
-    SendSysMessage( who, "Playing SFX: " + CStr( soundfx ) + " / " + Hex( soundfx ) );
+    SendSysMessage( who, "Воспроизвожу звук: " + CStr( soundfx ) + " / " + Hex( soundfx ) );
 
 endprogram

@@ -12,9 +12,9 @@ for (i := 0; i <= Skill_List.size(); i := i + 1)
         print( "Setting Skill " + i + " to 0" );
         var res := AP_SetTrueSkill( who, Skill_List[i], 0 );
         if (res == error)
-            SendSysMessage( who, "Unable to set skill: " + res.errortext );
+            SendSysMessage( who, "Не удалось установить навык: " + res.errortext );
         else
-            SendSysMessage( who, "New Effective Skill: " + AP_GetSkill(who,Skill_List[i]) );
+            SendSysMessage( who, "Новый эффективный навык: " + AP_GetSkill(who,Skill_List[i]) );
         endif
     endfor
 endprogram

@@ -45,7 +45,7 @@ program make_a_tele( who, text )
 	if (!gate1 || !gate2)
 		DestroyItem(gate1);
 		DestroyItem(gate2);
-		SendSysMessage(who, "Creation of both gates failed.", color := 33);
+		SendSysMessage(who, "Не удалось создать оба портала.", color := 33);
 		return;
 	endif
 

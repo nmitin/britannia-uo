@@ -4,7 +4,7 @@ use cfgfile;
 program makeset(who, tsetname  )
   var cfg  := readconfigfile("sets");
   if (!cfg[tsetname])
-    sendsysmessage(who, "Invalid set!");
+    sendsysmessage(who, "Неверный набор!");
     return;
   endif
   var where := targetcoordinates(who);

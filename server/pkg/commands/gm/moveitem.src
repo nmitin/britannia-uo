@@ -5,7 +5,7 @@ program textcmd_moveitem( who )
     var what := TargetCoordinates( who );
     if (what)
       if(what.item)
-        SendSysMessage( who, "Now select a location on the ground." );
+        SendSysMessage( who, "Теперь укажите место на земле." );
         var where := TargetCoordinates( who );
         if (where)
           var itm := what.item;
