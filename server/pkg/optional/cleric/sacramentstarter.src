@@ -23,12 +23,12 @@ program start_rite(params, sacnum)
 	endif
 
 	if (who.squelched)
-		SendSysMessage(who, "Something prevents you from performing the sacrament.", color := 33);
+		SendSysMessage(who, "Что-то мешает вам совершить таинство.", color := 33);
 		FailCast(who);
 		return;
 
 	elseif (!ClericChant(who, sacramentnum))
-		SendSysMessage(who, "You break your concentration", color := 33);
+		SendSysMessage(who, "Вы теряете концентрацию", color := 33);
 		FailCast(who);
 		return;
 	endif

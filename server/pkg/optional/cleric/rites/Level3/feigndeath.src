@@ -9,7 +9,7 @@ program FeignDeath(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -21,7 +21,7 @@ program FeignDeath(params)
 	var temp;
 	Set_Critical(1);
 	foreach person in ListMobilesNearLocation(who.x, who.y, who.z, piety+2, who.realm)
-		if (GetObjProperty(person, "Devotion") == devotion && CheckLineOfSight(person,who))
+		if (GetObjProperty(person, "Преданность") == devotion && CheckLineOfSight(person,who))
 			person.frozen := 1;
 			person.hidden := 1;
 			slave := CreateNpcFromTemplate("clone", person.x, person.y, person.z, 0, person.realm);
@@ -31,7 +31,7 @@ program FeignDeath(params)
 			slave.name := person.name;
 			slave.graphic := person.graphic;
 			slave.facing := person.facing;
-			SetObjProperty(slave, "Devotion", GetObjProperty(person, "Devotion"));
+			SetObjProperty(slave, "Преданность", GetObjProperty(person, "Преданность"));
 			foreach item in ListEquippedItems(slave)
 				DestroyItem(item);
 			endforeach

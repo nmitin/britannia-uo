@@ -10,7 +10,7 @@ include ":itemUtils:itemdesc";
 
 program CreateClericMount(params)
 	var who := params[1];
-	var devotion := GetObjProperty(who, "Devotion" );
+	var devotion := GetObjProperty(who, "Преданность" );
 	var faith := Faiths_FindFaith( devotion );
 	var mount_info := SplitWords(faith.getprop("Mount"));
 	if(!mount_info)

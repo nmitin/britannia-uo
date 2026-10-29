@@ -146,21 +146,21 @@ endfunction
 
 function canopen(who, book)
 
-	if (!IsCleric(who) || GetObjProperty(who, "Devotion") != GetObjProperty(book, "Devotion"))
-		SendSysMessage(who, "This book is painful to read!");
+	if (!IsCleric(who) || GetObjProperty(who, "Преданность") != GetObjProperty(book, "Преданность"))
+		SendSysMessage(who, "Эту книгу больно читать!");
 		PerformAction(who, 0x14);
 		ApplyRawDamageEX(who, 5);
 		return 0;
 	endif
 
 	if (GetObjProperty(book, "Owner") == "Practice")
-		SendSysMessage (who, "This is a practice tome.");
+		SendSysMessage (who, "Это тренировочный фолиант.");
 		return 1;
 	elseif (!GetObjProperty(book, "Owner"))
 		SetObjProperty(book, "Owner", who.serial);
 		SetName(book, SendTextEntryGump( who, "From this point on, only you will be able to open this book.", cancel := TE_CANCEL_DISABLE, style := TE_STYLE_NORMAL, maximum := 30, line2 := "Book Name:" ));
 	elseif (who.serial != GetObjProperty(book, "Owner"))
-		SendSysMessage(who, "That is not your book.");
+		SendSysMessage(who, "Это не ваша книга.");
 		return 0;
 	endif
 

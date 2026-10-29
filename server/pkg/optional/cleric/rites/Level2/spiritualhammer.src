@@ -12,7 +12,7 @@ program spiritualhammer(params)
 
 	ClericReleaseScript(info.pid);
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -20,7 +20,7 @@ program spiritualhammer(params)
 	endif
 
 	var i, success;
-	SendSysMessage(who, "Select victim:", color := 88);
+	SendSysMessage(who, "Выберите жертву:", color := 88);
 	var victim := Target(who);
 	if (!victim.isA(POLCLASS_MOBILE))
 		SendSysMessage(who, "Недопустимая цель.");

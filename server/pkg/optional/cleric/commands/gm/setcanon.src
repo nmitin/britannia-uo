@@ -38,7 +38,7 @@ program setcanon(who)
 			var choicedata :=
 			{
 				"Set Canon",
-				"Devotion [" + GetObjProperty(book, "Devotion") + "]",
+				"Devotion [" + GetObjProperty(book, "Преданность") + "]",
 				"Add Rite",
 				"Remove Rite"
 			};
@@ -46,7 +46,7 @@ program setcanon(who)
 			input := input[0];
 			if (input == 1)
 				var Devotion := SendTextEntryGump( who, "Enter the new devotion", cancel := TE_CANCEL_DISABLE, style := TE_STYLE_NORMAL, maximum := 60);
-				SetObjProperty(book, "Devotion", Devotion);
+				SetObjProperty(book, "Преданность", Devotion);
 			elseif (input == 2)
 				var stuff := rites(who, book, "add");
 				foreach rite in (stuff.keys)

@@ -13,7 +13,7 @@ var faithsdb := Faiths_OpenDatafile();
 
 program altar(altar)
 
-	var devotion := GetObjProperty(altar, "Devotion");
+	var devotion := GetObjProperty(altar, "Преданность");
 	var	elem := faithsdb.FindElement(devotion);
 	var heretics := SplitWords(elem.GetProp("Opposition"));
 	var ev;
@@ -41,7 +41,7 @@ program altar(altar)
 		var characters := ListMobilesNearLocation(altar.x, altar.y, altar.z, range);
 		foreach character in characters
 			// If the character is of the same devotion as the religion then regenerate their mana.
-			if ( (GetObjProperty(character, "Devotion") == devotion) && !character.warmode)
+			if ( (GetObjProperty(character, "Преданность") == devotion) && !character.warmode)
 				// if (character.ip)
 					// SendSysMessage(character, "You feel peace and unity with your surroundings.", color := 56);
 				// endif
@@ -52,7 +52,7 @@ program altar(altar)
 				endif
 			endif
 			// If the devotion of the character is an opposing devotion deal damage.
-			if ( GetObjProperty(character, "Devotion") in heretics )
+			if ( GetObjProperty(character, "Преданность") in heretics )
 				PlayLightningBoltEffect(character);
 				PrintTextAbove(character, "* Heretic! *");
 				ApplyRawDamageEx(character, RandomDiceRoll("3d6"), DMG_ENERGY);

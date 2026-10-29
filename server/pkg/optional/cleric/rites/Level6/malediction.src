@@ -10,7 +10,7 @@ program malediction(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -27,7 +27,7 @@ program malediction(params)
 		return;
 	endif
 
-	PrintTextAbove(targ, targ.name + " has been cursed by the gods!");
+	PrintTextAbove(targ, targ.name + " проклят богами!");
 	PlayObjectCenteredEffect(targ, 0x374a, 20, 20);
 	PlaySoundEffect(targ, 482);
 
@@ -46,16 +46,16 @@ endprogram
 function StatLoss(mobile)
 	var dice := RandomDiceRoll("1d3");
 	if (dice == 1)
-		PrintTextAbove(mobile, "*" + mobile.name + " feels weaker*");
-		SendSysMessage(mobile, "You permanently lost 2 strength");
+		PrintTextAbove(mobile, "*" + mobile.name + " чувствует слабость*");
+		SendSysMessage(mobile, "Вы навсегда потеряли 2 силы");
 		AP_SetTrueStat(MOBILE, STRENGTH, AP_GetStat(mobile, STRENGTH) - 2);
 	elseif (dice == 2)
-		PrintTextAbove(mobile, "*" + mobile.name + " feels less nimble*");
-		SendSysMessage(mobile, "You permanently lost 2 dexterity");
+		PrintTextAbove(mobile, "*" + mobile.name + " чувствует себя менее ловким*");
+		SendSysMessage(mobile, "Вы навсегда потеряли 2 ловкости");
 		AP_SetTrueStat(MOBILE, DEXTERITY, AP_GetStat(mobile, DEXTERITY) - 2);
 	elseif (dice == 3)
-		PrintTextAbove(mobile, "*" + mobile.name + " feels less intelligent*");
-		SendSysMessage(mobile, "You permanently lost 2 intelligence");
+		PrintTextAbove(mobile, "*" + mobile.name + " чувствует себя менее умным*");
+		SendSysMessage(mobile, "Вы навсегда потеряли 2 интеллекта");
 		AP_SetTrueStat(MOBILE, INTELLIGENCE, AP_GetStat(mobile, INTELLIGENCE) - 2);
 	endif
 endfunction
@@ -72,7 +72,7 @@ function EquipmentDrop(mobile)
 			endforeach
 		endif
 	endforeach
-	PrintTextAbove(mobile, "*" + mobile.name + " feels colder*");
+	PrintTextAbove(mobile, "*" + mobile.name + " чувствует холод*");
 endfunction
 
 function MoveItem(mobile, item)

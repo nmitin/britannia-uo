@@ -5,11 +5,11 @@ include ":cleric:settings";
 
 program Logon(who)
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	// If the player is faithless then we set the CProp
 	// and don't need to process them.
 	if (!devotion)
-		SetObjProperty(who, "Devotion", "Faithless");
+		SetObjProperty(who, "Преданность", "Faithless");
 		return 0;
 	elseif(devotion == "Faithless")
 		return 0;
@@ -25,8 +25,8 @@ program Logon(who)
 	if(CInt(piety_timer / reward_time) - piety)
 		total_reward := CInt(piety_timer / reward_time) - piety;
 		piety := piety + total_reward;
-		SendSysMessage(who, "Your piety has been increased by " + CStr(total_reward) + ".", 3, 88);
-		SendSysMessage(who, "Your piety is now " + CStr(piety) + ".", 3, 88);
+		SendSysMessage(who, "Ваше благочестие выросло на " + CStr(total_reward) + ".", 3, 88);
+		SendSysMessage(who, "Ваше благочестие теперь " + CStr(piety) + ".", 3, 88);
 		SetObjProperty(who, "Piety", piety);
 		SetObjProperty(who, "PietyRewardTimer", piety_timer);
 	endif

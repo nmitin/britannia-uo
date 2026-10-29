@@ -10,8 +10,8 @@ include ":attributes:attributes";
 var faithsdb := Faiths_OpenDatafile();
 
 program UseAltar(who, altar_deed)
-	var altar_devotion := GetObjProperty(altar_deed, "Devotion");
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var altar_devotion := GetObjProperty(altar_deed, "Преданность");
+	var user_devotion := GetObjProperty(who, "Преданность");
 
 	if(!altar_deed in EnumerateItemsInContainer(who.backpack))
 		SendSysMessage(who, "This deed must be in your backpack to use it.", color := 33);
@@ -39,7 +39,7 @@ program UseAltar(who, altar_deed)
 		SendSysMessage(who, "You must be in a house to place an altar.", color := 33);
 		return;
 	endif
-	if(GetObjProperty(hsign, "Devotion"))
+	if(GetObjProperty(hsign, "Преданность"))
 		SendSysMessage(who, "This building is already consecrated unto another faith.", color := 33);
 		SendSysMessage(who, "You are prevented from placing the " + user_devotion + " altar in this unholy place!", color := 33);
 		PlayLightningBoltEffect(who);
@@ -71,7 +71,7 @@ program UseAltar(who, altar_deed)
 	var elem := faithsdb.FindElement(user_devotion);
 	var faith_colour := elem.getprop("Color");
 	altar.color := faith_colour;
-	SetObjProperty(altar, "Devotion", user_devotion);
+	SetObjProperty(altar, "Преданность", user_devotion);
 	SendSysMessage(who, "The altar has been set for the " + user_devotion + " faith", color := 66);
 	SendSysMessage(who, "and the building has been consecrated.", color := 66);
 	SetName(altar, "The " + user_devotion + " altar.");
@@ -89,7 +89,7 @@ program UseAltar(who, altar_deed)
 	endif
 	faith.setprop("AltarLoc", loc);
 	// Set the house Devotion.
-	SetObjProperty(hsign, "Devotion", user_devotion);
+	SetObjProperty(hsign, "Преданность", user_devotion);
 	SendSysMessage(who, "Where would you like the untrodden home to be?", color := 88);
 	var untrodden_home := TargetCoordinates(who);
 	faith.setprop("UntroddenHome", untrodden_home);

@@ -13,7 +13,7 @@ program chant(params)
 	var who := params[1];
 	var info := params[2];
 	var timeout;
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -35,7 +35,7 @@ program chant(params)
 			else
 				temp := temp+1;
 			endif
-			if (temp <= 5 && GetObjProperty(person, "Devotion") == devotion && CheckLineOfSight(person, who))
+			if (temp <= 5 && GetObjProperty(person, "Преданность") == devotion && CheckLineOfSight(person, who))
 				mobilelist.append(person);
 				person.resist_cold_mod := person.resist_cold_mod + arboost;
 				person.resist_energy_mod := person.resist_energy_mod + arboost;

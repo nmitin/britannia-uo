@@ -13,7 +13,7 @@ program start_rite(params, scroll)
 	var rs_pid := GetPid();
 
 	if(rs_pid == GetObjProperty(who, "RiteStarterPID"))
-		SendSysMessage(who, "You are currently casting a spell.", color := 33);
+		SendSysMessage(who, "Вы уже читаете заклинание.", color := 33);
 		return 0;
 	endif
 	SetObjProperty(who, "RiteStarterPID", rs_pid);
@@ -40,7 +40,7 @@ program start_rite(params, scroll)
 
 
 	if (who.squelched)
-		SendSysMessage(who, "Something is preventing you from casting.");
+		SendSysMessage(who, "Что-то мешает вам читать заклинание.");
 		FailRite(who);
 		return;
 
@@ -52,7 +52,7 @@ program start_rite(params, scroll)
 	*/
 
 	elseif (!ClericChant(who, ritenum, difficulty))
-		SendSysMessage(who, "You break your concentration");
+		SendSysMessage(who, "Вы теряете концентрацию");
 		FailRite(who);
 		return;
 
@@ -94,7 +94,7 @@ program start_rite(params, scroll)
 			ev := wait_for_event(1);
 		endwhile
 	else
-		SendSysMessage(who, "You lose concentration.");
+		SendSysMessage(who, "Вы теряете концентрацию.");
 	endif
 
 	EraseObjProperty(who, "#medding");
@@ -146,12 +146,12 @@ function CheckFocci(who, ritenum)
 		if (HasInPack(who, focus) >= amount)
 			consumelist.append(focus + " " + amount);
 		else
-			SendSysMessage(who, "You need a " + focusname(focus));
+			SendSysMessage(who, "Вам нужен " + focusname(focus));
 			return 0;
 		endif
 	endforeach
 
-	var piety := DevotionPiety(GetObjProperty(who, "Devotion"), who);
+	var piety := DevotionPiety(GetObjProperty(who, "Преданность"), who);
 //	var percent := (piety+(7*(7+piety))+1);
     var chance := RandomInt(GetAttribute (who, CLERIC_SKILL));
 	foreach focus in consumelist
@@ -163,7 +163,7 @@ function CheckFocci(who, ritenum)
 		for (i:=1; i<=amount; i:=i+1)
 			if (chance > (GetAttribute (who, CLERIC_SKILL) - 10))
 				ConsumeSubstance(who.backpack, focus, 1);
-				SendSysMessage(who, "You break a " + focusname(focus));
+				SendSysMessage(who, "Вы ломаете " + focusname(focus));
 			endif
 		endfor
 	endforeach

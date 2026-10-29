@@ -71,7 +71,7 @@ function totalmembers(faithname)
 	var count := 0;
 	foreach person in EnumerateOnlineCharacters()
 		if (person.cmdlevel < 2)
-			if (GetObjProperty(person, "Devotion") == faithname)
+			if (GetObjProperty(person, "Преданность") == faithname)
 				count := count+1;
 			endif
 		endif

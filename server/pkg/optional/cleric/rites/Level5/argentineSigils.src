@@ -9,7 +9,7 @@ include ":cleric:cleric";
 program argentinesigils(params)
 
 	var who := params[1];
-	SendSysMessage(who, "Select the object to meld into a sigil:");
+	SendSysMessage(who, "Выберите предмет для превращения в сигну:");
 	var targ := Target(who);
 	if (!Accessible(who, targ) )
 		SendSysMessage(who, "You cannot reach that.");
@@ -17,7 +17,7 @@ program argentinesigils(params)
 	endif
 
 	if ( !ReserveItem(targ) )
-		SendSysMessage(who, "That item is in use.");
+		SendSysMessage(who, "Этот предмет используется.");
 		return 0;
 	endif
 
@@ -36,7 +36,7 @@ endprogram
 function CraftMoonSigil(who, stone)
 
 	var piety := CInt( GetObjProperty(who, "Piety") );
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var gate_loc_x;
 	var dest := struct{"xcoord", "ycoord", "zcoord", "facet"};
 	// Looking for a moongate.
@@ -82,7 +82,7 @@ function CraftMoonSigil(who, stone)
 	endcase
 
 	SetName(sigil, "a Sigil of the " + signame + " Moon");
-	SetObjProperty(sigil, "Devotion", devotion);
+	SetObjProperty(sigil, "Преданность", devotion);
 	DestroyItem(stone);
 	return 1;
 

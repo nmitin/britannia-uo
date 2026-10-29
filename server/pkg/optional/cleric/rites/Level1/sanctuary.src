@@ -10,7 +10,7 @@ program sanctuary(params)
 	var x := who.x;
 	var y := who.y;
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := cint(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)

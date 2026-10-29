@@ -19,7 +19,7 @@ program DismountCleric(params)
 	if(mount_piece.UnEquipScript)
 		mount_piece.UnEquipScript := "";
 	endif
-	var devotion := GetObjProperty(who, "Devotion" );
+	var devotion := GetObjProperty(who, "Преданность" );
 	var faith := faithsdb.FindElement(devotion);
 	var mount_info := SplitWords(faith.GetProp("Mount"));
 	if(!mount_info)

@@ -13,7 +13,7 @@ program restoration(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -50,7 +50,7 @@ program restoration(params)
 	AP_SetVital(targ, HITS, AP_GetVitalMaximumValue(targ, HITS));
 
 	PlayObjectCenteredEffect(targ, 0x376a, 10, 30);
-	SendSysMessage(targ, "You have been fully restored.");
-	SendSysMessage(who, targ.name + " has been fully restored.");
+	SendSysMessage(targ, "Вы полностью восстановлены.");
+	SendSysMessage(who, targ.name + " полностью восстановлен.");
 
 endprogram

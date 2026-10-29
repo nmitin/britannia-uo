@@ -34,7 +34,7 @@ function CheckBook(number, canonlist)
 endfunction
 
 function FindCanons(who)
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var canonlist := {};
 	foreach item in EnumerateItemsInContainer(who.backpack.serial)
 		// if (item.objtype == BOOK)

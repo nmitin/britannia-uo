@@ -15,16 +15,16 @@ program setacolyte(params)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		return 0;
 
-	elseif (GetObjProperty(who, "Devotion") != GetObjProperty(targ, "Devotion"))
-		SendSysMessage(who, targ.name + " is not of your faith.", color := 33);
-		SendSysMessage(who, "You must indoctrinate this person first.", color := 33);
+	elseif (GetObjProperty(who, "Преданность") != GetObjProperty(targ, "Преданность"))
+		SendSysMessage(who, targ.name + " не вашей веры.", color := 33);
+		SendSysMessage(who, "Сначала нужно посвятить этого человека.", color := 33);
 		return 0;
 
 	elseif (IsCleric(targ))
-		SendSysMessage(who, targ.name + " is already a cleric.", color := 33);
+		SendSysMessage(who, targ.name + " уже клирик.", color := 33);
 		return;
 	elseif (!HPBoost(who) && !who.cmdlevel)
-		SendSysMessage(who, "You do not wield the symbol of your faith.", color := 33);
+		SendSysMessage(who, "Вы не держите символ своей веры.", color := 33);
 		return 0;
 	endif
 
@@ -32,15 +32,15 @@ program setacolyte(params)
 endprogram
 
 function makecleric(who, targ)
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var response := YesNo(targ, "Become a cleric of " + devotion + "?", "Yes", "No.");
 
 
 	if (response)
 		SetObjProperty(targ, "Cleric", GetObjProperty(who, "Cleric"));
 		SetObjProperty(targ, "Piety", 1);
-		SendSysMessage(who, targ.name + " is now a cleric of " + devotion);
-		SendSysMessage(targ, "You are now a cleric of " + devotion);
+		SendSysMessage(who, targ.name + " теперь клирик " + devotion);
+		SendSysMessage(targ, "Теперь вы клирик " + devotion);
 		// Add this new cleric to the devotion's cleric list.
 		var faith := Faiths_FindFaith(devotion);
 		var cleric_list := faith.getprop("ClericList");
@@ -51,8 +51,8 @@ function makecleric(who, targ)
 		faith.setprop("ClericList", cleric_list);
 		SetSkills (targ);
 	else
-		SendSysMessage(who, targ.name + " does not wish to be a cleric of " + devotion);
-		SendSysMessage(targ, "You have declined being a cleric of " + devotion);
+		SendSysMessage(who, targ.name + " не желает быть клириком " + devotion);
+		SendSysMessage(targ, "Вы отказались быть клириком " + devotion);
 	endif
 endfunction
 

@@ -21,7 +21,7 @@ program MakeCanon(params)
 	foreach thing in focci
 		temp := HasItem(who, thing);
 		if (temp < AMOUNT)
-			SendSysMessage(who, "You do not have enough material.");
+			SendSysMessage(who, "У вас недостаточно материала.");
 			return;
 		else
 			itemlist.append(temp);
@@ -34,7 +34,7 @@ program MakeCanon(params)
 	endforeach
 
 	var newbook := CreateItemInBackpack(who, CLERIC_BOOK, 1);
-	SetObjProperty(newbook, "Devotion", GetObjProperty(who,"Devotion"));
+	SetObjProperty(newbook, "Преданность", GetObjProperty(who,"Преданность"));
 endprogram
 
 function HasItem(who, objtype)

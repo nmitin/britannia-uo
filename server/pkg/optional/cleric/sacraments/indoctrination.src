@@ -7,24 +7,24 @@ include ":gumps:yesNo";
 
 program Indoctrination(params)
 	var who := params[1];
-	var devotion:= GetObjProperty(who, "Devotion");
+	var devotion:= GetObjProperty(who, "Преданность");
 
-	SendSysMessage(who, "Who do you wish to indoctrinate?", color := 88);
+	SendSysMessage(who, "Кого вы хотите посвятить?", color := 88);
 	var targ := target(who);
 
 	if (!targ.ip || targ==who)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		return;
-	elseif (GetObjProperty(targ, "Devotion") == devotion)
-		SendSysMessage(who, targ.name + " is already a member of " + devotion + ".", color := 33);
+	elseif (GetObjProperty(targ, "Преданность") == devotion)
+		SendSysMessage(who, targ.name + " уже член " + devotion + ".", color := 33);
 		return;
 	endif
 
 	if (!yesno(targ, "Do you wish to join " + devotion + "?"))
-		SendSysMessage(who, "The aspirant has declined.", color := 33);
+		SendSysMessage(who, "Претендент отказался.", color := 33);
 		return;
 	else
-		SetObjProperty(targ, "Devotion", devotion);
+		SetObjProperty(targ, "Преданность", devotion);
 		SetObjProperty(targ, "FaithMod", 1);
 		SetObjProperty(targ, "Piety", 0);
 		Print(targ.serial);
@@ -36,7 +36,7 @@ program Indoctrination(params)
 		endif
 		member_list.append(targ.serial);
 		faith.setprop("MemberList", member_list);
-		SendSysMessage(who, targ.name + " is now a member of " + devotion + ".", color := 66);
-		SendSysMessage(targ, "You are now a member of " + devotion + ".", color := 66);
+		SendSysMessage(who, targ.name + " теперь член " + devotion + ".", color := 66);
+		SendSysMessage(targ, "Теперь вы член " + devotion + ".", color := 66);
 	endif
 endprogram

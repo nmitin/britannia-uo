@@ -9,7 +9,7 @@ program mypiety(who, text)
 		return;
 	endif
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := GetObjProperty(who, "Piety");
 	SendSysMessage(who, "Your piety is " + piety);
 endprogram

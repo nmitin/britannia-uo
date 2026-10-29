@@ -5,11 +5,11 @@ include ":cleric:faiths";
 
 program DestroyAltarScript(altar)
 
-	var altar_devotion := GetObjProperty(altar, "Devotion");
+	var altar_devotion := GetObjProperty(altar, "Преданность");
 	var elem := Faiths_FindFaith( altar_devotion );
 	elem.eraseprop("AltarLoc");
 	var hsign := GetHouseSign(altar);
-	EraseObjProperty(hsign, "Devotion");
+	EraseObjProperty(hsign, "Преданность");
 
 endprogram
 

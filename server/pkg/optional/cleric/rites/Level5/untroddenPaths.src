@@ -10,7 +10,7 @@ program UntroddenPaths(params)
 	var sigil, type;
 	var dest := {};
 	var faithsdb := Faiths_OpenDatafile();
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var conc_clerics := GetConcentratingClerics(who, 5, "characters");
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
@@ -18,14 +18,14 @@ program UntroddenPaths(params)
 		piety := piety + pietyboost;
 	endif
 
-	SendSysMessage(who, "Select the sigil you wish to use or target yourself to go to your untrodden home:", color := 88);
+	SendSysMessage(who, "Выберите сигну или себя, чтобы отправиться в свой дом.", color := 88);
 	sigil := Target(who);
 	if(sigil == who)
 		var faith := faithsdb.FindElement(devotion);
 		var home := faith.GetProp("UntroddenHome");
 		if(!home)
-			SendSysMessage(who, "I couldn't find your untrodden home location.", color := 33);
-			SendSysMessage(who, "You are being sent to your altar.", color := 33);
+			SendSysMessage(who, "Не удалось найти ваш дом.", color := 33);
+			SendSysMessage(who, "Вас отправляют к вашему алтарю.", color := 33);
 			home := faith.getprop("AltarLoc");
 		endif
 		MoveObjectToLocation(who, home.x, home.y, home.z, home.realm, MOVEOBJECT_FORCELOCATION);

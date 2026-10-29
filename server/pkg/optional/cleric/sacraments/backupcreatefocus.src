@@ -29,7 +29,7 @@ var materiallist :=
 program createfocus(params)
 	var who := params[1];
 
-	SendSysMessage(who, "Select the material");
+	SendSysMessage(who, "Выберите материал");
 	var targ := Target(who);
 
 	if (!targ)
@@ -51,7 +51,7 @@ program createfocus(params)
 		return;
 	endif
 
-	var piety := DevotionPiety(GetObjProperty(who, "Devotion"));
+	var piety := DevotionPiety(GetObjProperty(who, "Преданность"));
 	var created;
 	while(1)
 		if (CheckMana(who, CInt(10/piety)))

@@ -30,7 +30,7 @@ program make_high_priest(who)
 		var cur_hp := faith.getprop("HighPriest");
 		victim := SystemFindObjectBySerial(cur_hp, SYSFIND_SEARCH_OFFLINE_MOBILES);
 	endif
-	var devotion := GetObjProperty(victim, "Devotion");
+	var devotion := GetObjProperty(victim, "Преданность");
 	if(!devotion || devotion == "Faithless")
 		SendSysMessage(who, "This person does not appear to be in a religion.", color := 33);
 		return 0;
@@ -45,7 +45,7 @@ program make_high_priest(who)
 	var cur_hp := faith.getprop("HighPriest");
 	if(victim.serial == cur_hp)
 		PlaySoundEffect(victim, 519);
-		SetObjProperty(victim, "Devotion", "Faithless");
+		SetObjProperty(victim, "Преданность", "Faithless");
 		EraseObjProperty ( victim, "Cleric");
 		EraseObjProperty (victim, "Piety");
 		EraseObjProperty (victim, "PietyRewardTimer");

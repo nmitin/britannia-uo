@@ -26,7 +26,7 @@ function maincast(parms, delivery, circle, noto);
 		if (caster.squelched)
 			return 0;
 		endif
-		if ( (GetObjProperty(caster, "Devotion") == "Fortune") and (circle > 5) )
+		if ( (GetObjProperty(caster, "Преданность") == "Fortune") and (circle > 5) )
 			SendSYsMessage(caster, "Your faith prevents this.");
 			return 0;
 		endif
@@ -37,7 +37,7 @@ function maincast(parms, delivery, circle, noto);
 	elseif (parms[1] == "#scroll")
 		spellscroll := 1;
 		caster := parms[2];
-		if ( (GetObjProperty(caster, "Devotion") == "Fortune") and (circle > 5) )
+		if ( (GetObjProperty(caster, "Преданность") == "Fortune") and (circle > 5) )
 			SendSYsMessage(caster, "Your faith prevents this.");
 			return 0;
 		endif
@@ -88,7 +88,7 @@ function maincast(parms, delivery, circle, noto);
 		endif
 	else
 		caster := parms;
-		if ( (GetObjProperty(caster, "Devotion") == "Fortune") and (circle > 5) )
+		if ( (GetObjProperty(caster, "Преданность") == "Fortune") and (circle > 5) )
 			SendSYsMessage(caster, "Your faith prevents this.");
 			return 0;
 		endif

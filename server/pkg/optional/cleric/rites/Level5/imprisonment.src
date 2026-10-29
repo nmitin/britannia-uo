@@ -10,12 +10,12 @@ program Imprisonment(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := GetConcentratingClerics(who, 5, "list");
 
 	if (len(pietyboost) < 1)
-		SendSysMessage(who, "More clerics are required for this rite.");
+		SendSysMessage(who, "Для этого обряда нужно больше клириков.");
 		return;
 	endif
 
@@ -31,7 +31,7 @@ program Imprisonment(params)
 	var dieroll := CStr((piety * 6) + "d20");
 	var success := RandomDiceRoll(dieroll);
 	if (success < 100)
-		SendSysMessage(who, "You fail to imprison the heretic.");
+		SendSysMessage(who, "Вам не удалось заточить еретика.");
 		return;
 	endif
 

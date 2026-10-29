@@ -7,7 +7,7 @@ program divination(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -27,5 +27,5 @@ program divination(params)
 	endforeach
 	sleep(1);
 
-	SendSysMessage(who, "You sense " + hostilecount + " hostiles " + range + " spaces around you.");
+	SendSysMessage(who, "Вы ощущаете " + hostilecount + " врагов " + range + " клеток вокруг.");
 endprogram

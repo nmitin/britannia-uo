@@ -13,8 +13,8 @@ program senseaura(params)
 	endif
 	SkillCheck(who, CLERIC_SKILL, 40, 80);
 	foreach person in ListMobilesInLineOfSight(who, 15)
-		if (GetObjProperty(person, "Devotion"))
-			PrintTextAbovePrivate(person, GetObjProperty(person, "Devotion"), who);
+		if (GetObjProperty(person, "Преданность"))
+			PrintTextAbovePrivate(person, GetObjProperty(person, "Преданность"), who);
 		endif
 	endforeach
 endprogram

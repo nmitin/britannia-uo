@@ -28,7 +28,7 @@ program makecanon(params)
 	foreach thing in focci
 		temp := HasItem(who, thing);
 		if (temp < AMOUNT)
-			SendSysMessage(who, "You do not have enough foci.");
+			SendSysMessage(who, "У вас недостаточно фокусов.");
 			return;
 		else
 			itemlist.append(temp);
@@ -36,7 +36,7 @@ program makecanon(params)
 	endforeach
 	temp := HasItem(who, BLANKSCROLL);
 	if (temp < AMOUNTSCROLLS)
-		SendSysMessage(who, "You do not have enough blank scrolls.");
+		SendSysMessage(who, "У вас недостаточно чистых свитков.");
 		return;
 		endif
   var practice := YesNo(who,"Create a practice Tome?");
@@ -47,7 +47,7 @@ program makecanon(params)
 	endforeach
 		ConsumeSubstance(who.backpack, BLANKSCROLL, 100);
 	var newbook := CreateItemInBackpack(who, CLERIC_BOOK, 1);
-	SetObjProperty(newbook, "Devotion", GetObjProperty(who,"Devotion"));
+	SetObjProperty(newbook, "Преданность", GetObjProperty(who,"Преданность"));
 	if (practice)
 		SetObjProperty (newbook, "Owner", "Practice");
 		SetName(newbook, "Practice Tome");

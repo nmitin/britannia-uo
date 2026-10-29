@@ -7,7 +7,7 @@ program dispelevil(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -18,7 +18,7 @@ program dispelevil(params)
 		if (mobile.npctemplate && CheckLineOfSight(who, mobile))
 			if (issummoned(mobile) && mobile.murderer != who.murderer)
 				PlayObjectCenteredEffect(mobile, 0x374a, 20, 20);
-				PrintTextAbove(mobile, "*begins to wither and die*");
+				PrintTextAbove(mobile, "*начинает увядать и умирать*");
 				mobile.Kill();
 			endif
 		endif

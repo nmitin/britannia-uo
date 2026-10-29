@@ -10,8 +10,8 @@ include ":attributes:attributes";
 var faiths_datafile := Faiths_OpenDatafile();
 
 program UseAltar(who, altar)
-	var altar_devotion := GetObjProperty(altar, "Devotion");
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var altar_devotion := GetObjProperty(altar, "Преданность");
+	var user_devotion := GetObjProperty(who, "Преданность");
 
 	// Do something special for members who "use" the altar.
 	if(user_devotion == altar_devotion)
@@ -96,7 +96,7 @@ function DisplayStatementOfFaith(who)
 	// Button 1
 	GFAddButton( gump, 194, 268, 247, 248, GF_CLOSE_BTN, 0 );
 	// HTML 1
-	var faith := Faiths_FindFaith(GetObjProperty(who, "Devotion"));
+	var faith := Faiths_FindFaith(GetObjProperty(who, "Преданность"));
 	var statement := faith.getprop("FaithStatement");
 	GFHTMLArea( gump, 69, 87, 300, 150, "<BaseFont Color=#E67300>" + statement + "</FONT>", 0, 0 );
 	GFSendGump( who, gump );
@@ -105,11 +105,11 @@ endfunction
 
 function ListClerics(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var players := EnumerateOnlineCharacters();
 	var cleric_list := {};
 	foreach player in players
-		if( (GetObjProperty(player, "Devotion") == user_devotion) && GetObjProperty(player, "Cleric"))
+		if( (GetObjProperty(player, "Преданность") == user_devotion) && GetObjProperty(player, "Cleric"))
 			cleric_list.append(player.name);
 		endif
 	endforeach
@@ -119,11 +119,11 @@ endfunction
 
 function ListMembers(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var players := EnumerateOnlineCharacters();
 	var member_list := {};
 	foreach player in players
-		if( (GetObjProperty(player, "Devotion") == user_devotion) && !GetObjProperty(player, "Cleric"))
+		if( (GetObjProperty(player, "Преданность") == user_devotion) && !GetObjProperty(player, "Cleric"))
 			member_list.append(player.name);
 		endif
 	endforeach
@@ -133,7 +133,7 @@ endfunction
 
 function ListAllies(who)
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var faith := faiths_datafile.FindElement(devotion);
 	var alliances := faith.getprop("Alliance");
 	if(!alliances)
@@ -146,7 +146,7 @@ endfunction
 
 function ListOpposition(who)
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var faith := faiths_datafile.FindElement(devotion);
 	var opposition := faith.getprop("Opposition");
 	if(!opposition)
@@ -160,7 +160,7 @@ endfunction
 // High priest functions
 function EditStatementOfFaith(who)
 
-	var faith := Faiths_FindFaith(GetObjProperty(who, "Devotion"));
+	var faith := Faiths_FindFaith(GetObjProperty(who, "Преданность"));
 	var statement := faith.getprop("FaithStatement");
 	if(statement.errortext)
 		statement := "";
@@ -189,14 +189,14 @@ endfunction
 
 function SummonClerics(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var faith := Faiths_FindFaith(user_devotion);
 	// cleric_list contains a list of the cleric's serials.
 	var cleric_list := faith.getprop("ClericList");
 	var cleric_names := {};
 	var players := EnumerateOnlineCharacters();
 	foreach player in players
-		if( (GetObjProperty(player, "Devotion") == user_devotion) && GetObjProperty(player, "Cleric"))
+		if( (GetObjProperty(player, "Преданность") == user_devotion) && GetObjProperty(player, "Cleric"))
 			cleric_names.append(player.name);
 		endif
 	endforeach
@@ -214,14 +214,14 @@ endfunction
 
 function SummonMembers(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var faith := Faiths_FindFaith(user_devotion);
 	// member_list contains a list of the cleric's serials.
 	var member_list := faith.getprop("MemberList");
 	var member_names := {};
 	var players := EnumerateOnlineCharacters();
 	foreach player in players
-		if( GetObjProperty(player, "Devotion") == user_devotion && !GetObjProperty(player, "Cleric"))
+		if( GetObjProperty(player, "Преданность") == user_devotion && !GetObjProperty(player, "Cleric"))
 			member_names.append(player.name);
 		endif
 	endforeach
@@ -241,7 +241,7 @@ endfunction
 
 function EditAllies(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var altar_faith := Faiths_FindFaith(user_devotion);
 	var faithdatafile := Faiths_OpenDatafile();
 	// member_list contains a list of the cleric's serials.
@@ -282,7 +282,7 @@ endfunction
 
 function EditOpposition(who)
 
-	var user_devotion := GetObjProperty(who, "Devotion");
+	var user_devotion := GetObjProperty(who, "Преданность");
 	var altar_faith := Faiths_FindFaith(user_devotion);
 	var faithdatafile := Faiths_OpenDatafile();
 	// member_list contains a list of the cleric's serials.
@@ -325,7 +325,7 @@ function MoveAltar(who, altar)
 		SendSysMessage(who, "Отменено.", color := 33);
 		return;
 	endif
-	var faith := Faiths_FindFaith(GetObjProperty(who, "Devotion"));
+	var faith := Faiths_FindFaith(GetObjProperty(who, "Преданность"));
 	faith.eraseprop("AltarLoc");
 	faith.eraseprop("UntroddenHome");
 	DestroyItem(altar);

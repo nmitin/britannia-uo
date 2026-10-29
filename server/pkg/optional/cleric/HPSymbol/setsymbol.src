@@ -8,8 +8,8 @@ program setsymbol(who, symbol)
 		SendSysMessage(who, "This symbol has already been set.", color := 33);
 		return;
 	endif
-	var user_devotion := GetObjProperty(who, "Devotion");
-	SetObjProperty(symbol, "Devotion", user_devotion);
+	var user_devotion := GetObjProperty(who, "Преданность");
+	SetObjProperty(symbol, "Преданность", user_devotion);
 	SetObjProperty(symbol, "Owner", who.serial);
 	// Save the location of this altar.
 	var faith := Faiths_FindFaith( user_devotion );

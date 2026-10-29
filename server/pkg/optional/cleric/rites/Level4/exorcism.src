@@ -10,7 +10,7 @@ program dispelmagic(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -107,12 +107,12 @@ function checkitem(who, item)
 		show := 1;
 	endif
 	if (show)
-		SendSysMessage(who, "The magical properties of " + item.desc + " fade.");
+		SendSysMessage(who, "Магические свойства " + item.desc + " угасают.");
 		PlayObjectCenteredEffect(who, 0x374a, 20, 20);
 	endif
 
 	if (GetObjProperty(item, "cursed"))
-		SendSysMessage(who, item.desc + " is destroyed in the process of lifting the curse.");
+		SendSysMessage(who, item.desc + " уничтожен при снятии проклятия.");
 		DestroyItem(item);
 	endif
 endfunction

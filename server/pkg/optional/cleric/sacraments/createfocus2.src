@@ -37,18 +37,18 @@ program createfocus(params)
 	var who := params[1];
 	var fname := "focus";
 	if (!checkmana(who, 25))
-		SendSysMessage(who, "Your mind is too tired to cast.", color := 33);
+		SendSysMessage(who, "Ваш разум слишком утомлён.", color := 33);
 		FailCast(who);
 		return;
 	endif
-	SendSysMessage(who, "Select the material:", color := 88);
+	SendSysMessage(who, "Выберите материал:", color := 88);
 	var targ := Target(who);
 
 	if (!targ)
 		SendSysMessage(who, 1042023, color := 33); // Cancelled.
 		return;
 	elseif (!FindObjtypeInContainer(who.backpack.serial, targ.objtype))
-		SendSysMessage (who, "You need to have the material in your backpack.", color := 33);
+		SendSysMessage (who, "Материал должен быть в вашем рюкзаке.", color := 33);
 		return;
 	endif
 	// Read the foci data from clerics datafile.
@@ -79,14 +79,14 @@ program createfocus(params)
 		return;
 	endif
 
-	var piety := DevotionPiety(GetObjProperty(who, "Devotion"));
+	var piety := DevotionPiety(GetObjProperty(who, "Преданность"));
 	var created;
 	CheckMana(who, CInt(10/piety));
 	ConsumeSubstance(who.backpack, targ.objtype, CInt(foci_info[2]));
     if (SkillCheck( who, CLERIC_SKILL, 40, 80 ) > 0)
 		SkillCheck( who, CLERIC_SKILL, 40, 80 );
 		created := CreateItemInBackpack( who, foci_info[4], 1 );
-		SendSysMessage(who, "Вы создали " + foci_info[3] + " focus.", color := 66);
+		SendSysMessage(who, "Вы создали " + foci_info[3] + " фокус.", color := 66);
 		PlaySoundEffect(who, 508);
 	endif
 endprogram

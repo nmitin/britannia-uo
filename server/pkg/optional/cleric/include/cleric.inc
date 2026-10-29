@@ -44,11 +44,11 @@ endfunction
 function DevotionType(what, rite)
 	//Tricky function to use. (what, riteinfo(num))
 	//Gets the devotion prop from what, and looks for it in the rite.
-	if (!GetConfigString(rite, "Devotion") || GetObjProperty(what, "Devotion") == "Faithless")
+	if (!GetConfigString(rite, "Преданность") || GetObjProperty(what, "Преданность") == "Faithless")
 		return 1;
 	endif
-	foreach devotion in GetConfigStringArray(rite, "Devotion")
-		if (GetObjProperty(what, "Devotion") == devotion)
+	foreach devotion in GetConfigStringArray(rite, "Преданность")
+		if (GetObjProperty(what, "Преданность") == devotion)
 			return 1;
 		endif
 	endforeach
@@ -67,7 +67,7 @@ function DevotionPiety(devotion, who:=0)
 // svar sects := getsects(devotion);
 	foreach player in EnumerateOnlineCharacters()
 		if (player.cmdlevel < 2)
-			if (GetObjProperty(player, "Devotion") == devotion)
+			if (GetObjProperty(player, "Преданность") == devotion)
 				infaith := infaith + 1;
 			endif
 			online := online+1;
@@ -101,9 +101,9 @@ function hpboost(who)
 	var is_hp := IsHP(who);
 	foreach item in ListEquippedItems(who)
 		if (item.objtype == HP_SYMBOL)
-			devotion := GetObjProperty(item, "Devotion");
+			devotion := GetObjProperty(item, "Преданность");
 			owner := GetObjProperty(item, "Owner");
-			if (who.serial == owner && is_hp && GetObjProperty(who, "Devotion") == devotion)
+			if (who.serial == owner && is_hp && GetObjProperty(who, "Преданность") == devotion)
 				return 1;
 			endif
 		endif
@@ -112,7 +112,7 @@ function hpboost(who)
 endfunction
 
 function IsHP(who)
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var faith := Faiths_FindFaith( devotion );
 	if(faith.getprop("HighPriest") == who.serial)
 		return 1;
@@ -126,10 +126,10 @@ function GetConcentratingClerics(who, range:=5, method := "piety", matchreligion
 	var piety;
 	var clericlist := { };
 	foreach person in ListMobilesInLineOfSight(who, range)
-		if (!matchreligion || GetObjProperty(person, "Devotion") == GetObjProperty(who, "Devotion"))
+		if (!matchreligion || GetObjProperty(person, "Преданность") == GetObjProperty(who, "Преданность"))
 			if(GetObjProperty(person, "#concentrating") == who.serial && person != who)
 				clericlist.append(person);
-				piety := piety + DevotionPiety(GetObjProperty(person, "Devotion"));
+				piety := piety + DevotionPiety(GetObjProperty(person, "Преданность"));
 				SendSysMessage(who, person.name + " is concentrating on you.");
 			endif
 		endif

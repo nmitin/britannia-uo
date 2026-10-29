@@ -14,25 +14,25 @@ program sanctuary(params)
 	var x := who.x;
 	var y := who.y;
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
 		piety := piety + pietyboost;
 	endif
-	SendSysMessage(who, "My piety is " + piety);
+	SendSysMessage(who, "Моё благочестие — " + piety);
 	while (protected(who, who.x, who.y, piety))
 		GrantPrivilege (who, "invul");
 		who.enable ("invul" );
-		SendSysMessage (who, "*Invulnerable*");
+		SendSysMessage (who, "*Неуязвим*");
 //		SendSysMessage (who, "Invulnerability time is " + (1000 * 60 * piety) / 2);
 //		sleepms((1000 * 60 * piety) /2);
 		count := count + 1;
 		sleep(3);
 	endwhile
 	RevokePrivilege (who, "invul" );
-	SendSysMessage (who, "*Vulnerable*");
-	SendSysMessage (who, "I was Invulnerable for " + count * 3 + "seconds.");
+	SendSysMessage (who, "*Уязвим*");
+	SendSysMessage (who, "Я был неуязвим " + count * 3 + "секунд.");
 endprogram
 
 function protected(who, x, y, piety)

@@ -9,7 +9,7 @@ program bladebarrier(params)
 	var who := params[1];
 	var info := params[2];
 
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 	var piety := DevotionPiety(devotion, who);
 	var pietyboost := CInt(GetConcentratingClerics(who, 5)/2);
 	if (pietyboost + piety <= 7)
@@ -54,7 +54,7 @@ function CreateNorthSouthField(who,xcoord,ycoord,zcoord,length := 5)
 		SetObjProperty(slave, "guardkill", 1);
 		if(!start_script(":cleric:bladebarrier/bladebarriercontrol", {slave}))
 			slave.frozen := 1;
-			PrintTextAbove(slave, "Error: Cant start blade control");
+			PrintTextAbove(slave, "Ошибка: не удалось запустить управление клинками");
 		endif
 		blades.append(slave);
 	endfor
@@ -71,7 +71,7 @@ function CreateEastWestField(who,xcoord,ycoord,zcoord,length := 5)
 		SetObjProperty(slave, "guardkill", 1);
 		if(!start_script("controlscripts/bladebarriercontrol", slave))
 			slave.frozen := 1;
-			PrintTextAbove(slave, "Error: Cant start blade control");
+			PrintTextAbove(slave, "Ошибка: не удалось запустить управление клинками");
 		endif
 		blades.append(slave);
 	endfor

@@ -8,12 +8,12 @@ include ":cleric:cleric";
 
 program setcanon(params)
 	var who := params[1];
-	var devotion := GetObjProperty(who, "Devotion");
+	var devotion := GetObjProperty(who, "Преданность");
 
-	SendSysMessage(who, "Select your canon.");
+	SendSysMessage(who, "Выберите свой канон.");
 	var mybook := Target(who);
 	if (GetObjProperty(mybook, "Owner") != who.serial)
-		SendSysMessage(who, "That is not your book.");
+		SendSysMessage(who, "Это не ваша книга.");
 		return;
 	endif
 
@@ -22,26 +22,26 @@ program setcanon(params)
 		SendSysMessage(who, 1042023, color := 33); // Cancelled.
 		return;
 	elseif (RiteInfo(input).Level == "*")
-		SendSysMessage(who, "You can not copy " + RiteInfo(input).Name);
+		SendSysMessage(who, "Вы не можете скопировать " + RiteInfo(input).Name);
 		return;
 	endif
 
-	SendSysMessage(who, "Select the book to copy " + RiteInfo(input).Name + " to.");
+	SendSysMessage(who, "Выберите книгу для копирования " + RiteInfo(input).Name + " to.");
 
 	var hisbook := Target(who);
 
 	if (hisbook.objtype != CLERIC_BOOK)
-		SendSysMessage(who, "That is not a clerical book.");
+		SendSysMessage(who, "Это не церковная книга.");
 		return;
 
-	elseif (GetObjProperty(hisbook, "Devotion") != GetObjProperty(mybook, "Devotion"))
-		SendSysMessage(who, "You can only teach people of of your religion.");
+	elseif (GetObjProperty(hisbook, "Преданность") != GetObjProperty(mybook, "Преданность"))
+		SendSysMessage(who, "Вы можете учить только людей своей религии.");
 		return;
 	elseif (GetObjProperty(hisbook, "Owner") == "Practice")
-			SendSysMessage (who, "That is a practice Tome and cannot hold rites.");
+			SendSysMessage (who, "Это тренировочный фолиант, он не хранит обряды.");
 			return;
 	elseif (HasRite(hisbook, input))
-		SendSysMessage(who, "This book already has that rite");
+		SendSysMessage(who, "В этой книге уже есть этот обряд");
 		return;
 
     elseif (SkillCheck(who, CLERIC_SKILL, RiteInfo(input).difficulty, 40) > 0)
@@ -52,9 +52,9 @@ program setcanon(params)
 		ritelist.append(input);
 		ritelist.sort();
 		SetObjProperty(hisbook, "Rites", ritelist);
-		SendSysMessage(who, "You copy the rite");
+		SendSysMessage(who, "Вы копируете обряд");
 	else
-		SendSysMessage(who, "You are unable to copy the rite.");
+		SendSysMessage(who, "Вам не удалось скопировать обряд.");
 	endif
 
 endprogram

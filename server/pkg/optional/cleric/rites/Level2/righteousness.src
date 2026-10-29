@@ -20,8 +20,8 @@ program righteousness(params)
 	if (!targ.murderer)
 		title := "Mark this person as a murderer?";
 		if (yesno(who, title))
-			SendSysMessage(who, targ.name + " is now a criminal");
-			SendSysMessage(targ, "You have been marked as a murderer.");
+			SendSysMessage(who, targ.name + " теперь преступник");
+			SendSysMessage(targ, "Вы отмечены как убийца.");
 			targ.murderer := 1;
 			PlayObjectCenteredEffect(targ, 0x374a, 20, 20);
 			PlaySoundEffect(targ, 482);
@@ -31,8 +31,8 @@ program righteousness(params)
 	else
 		title := "Remove the murderer mark from this person?";
 		if (yesno(who, title))
-			SendSysMessage(who, targ.name + " is no longer a criminal.");
-			SendSysMessage(targ, "You are no longer marked as a criminal.");
+			SendSysMessage(who, targ.name + " больше не преступник.");
+			SendSysMessage(targ, "Вы больше не отмечены как преступник.");
 			targ.murderer := 0;
 			PlayObjectCenteredEffect(targ, 14138, 10, 10);
 			PlaySoundEffect(targ, 491);
