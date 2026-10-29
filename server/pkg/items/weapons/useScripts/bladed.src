@@ -36,7 +36,7 @@ program use_blade(who, blade)
     EquipWeapon( who, blade );
   endif
 
-  SendSysMessage(who, "What would you like to use that on, " + who.name + "?");
+  SendSysMessage(who, "На что вы хотите это применить, " + who.name + "?");
   var use_on := TargetCoordinates(who);
   if(!use_on)
     return;
@@ -49,7 +49,7 @@ program use_blade(who, blade)
   Print(use_on.item.objtype);
   var checkme := use_on.item.objtype;
   if (use_on.mobile.graphic == CID_SHEERED_SHEEP)
-          SendSysMessage(who, "You cannot get any more wool from that sheep", color := 33);
+          SendSysMessage(who, "Больше шерсти с этой овцы не получить", color := 33);
           return 0;
   elseif (use_on.mobile.graphic == CID_SHEEP)
           process_wool(who, blade, use_on.mobile, craftingbag);
@@ -62,14 +62,14 @@ program use_blade(who, blade)
   elseif (is_tree(use_on.objtype ))
     CarveTree(who, blade, use_on.item, craftingbag);
   else
-    SendSysMessage(who, "I don't know how to use those items together.");
+    SendSysMessage(who, "Я не знаю, как использовать это вместе.");
   endif
 endprogram
 
 function process_wool(who, blade, sheep, craftingbag)
   blade := blade;
   if((!CheckLineOfSight(who, sheep)) || (Distance(who, sheep) > 2))
-    SendSysMessage(who, "That sheep is too far away!", color := 33);
+    SendSysMessage(who, "Эта овца слишком далеко!", color := 33);
     return 0;
   endif
   if(sheep.graphic == 207)
@@ -113,7 +113,7 @@ function CarveTree(who, blade, use_on, craftingbag)
   endif
   CreateItemInContainer(craftingbag, UOBJ_KINDLING, 1);
   DestroyItem(use_on);
-  SendSysMessage(who, "You chip off some kindling and put it in your backpack");
+  SendSysMessage(who, "Вы нащепали растопку и положили её в рюкзак");
   CheckToolWear (who, blade, CAMPING);
 endfunction
 
@@ -131,7 +131,7 @@ function CarveFish(who, blade, use_on, craftingbag)
   PlaySoundEffect(who, SFX_57);
   if(DestroyItem(use_on))
     CreateItemInContainer(craftingbag, UOBJ_FISHSTEAK, num_steaks);
-    SendSysMessage(who, "You carve the fish steaks and put them in your backpack");
+    SendSysMessage(who, "Вы нарезали рыбные стейки и положили их в рюкзак");
     CheckToolWear (who, blade, COOKING);
   endif
   sleep(1);
@@ -161,12 +161,12 @@ function Carve_Corpse(who, cadaver, blade, craftingbag)
     return;
   endif
   if(Distance(who, cadaver) > 2)
-    SendSysMessage(who, "You are not close enough");
+    SendSysMessage(who, "Вы недостаточно близко");
     return;
   endif
   var c_type := cadaver.corpsetype;
   if(GetObjProperty(cadaver, "cut") == "1")
-    SendSysMessage( who, "You cannot get any more from this corpse." );
+    SendSysMessage( who, "Больше из этого трупа ничего не получить." );
     foreach thing in EnumerateItemsInContainer(cadaver)
       MoveObjectToLocation(thing, cadaver.x, cadaver.y, cadaver.z, cadaver.realm, MOVEOBJECT_FORCELOCATION);
     endforeach
@@ -178,7 +178,7 @@ function Carve_Corpse(who, cadaver, blade, craftingbag)
   else
     if(c_type == 223) // Shorn sheep but we don't have one defined in the npcdesc.cfg file.
       CreateItemInContainer(cadaver, 0x9f1, 2);
-      SendSysMessage(who, "You place the items on the corpse.");
+      SendSysMessage(who, "Вы кладёте предметы на труп.");
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1, who.realm);
       sleep(120);
       DestroyItem(cadaver);
@@ -189,7 +189,7 @@ function Carve_Corpse(who, cadaver, blade, craftingbag)
     var conf := ReadConfigFile(":*:npcdesc");
     var tmplate := GetObjProperty(cadaver, "npctemplate");
     if(!tmplate)
-      SendSysMessage(who, "You cut the corpse, but fail to find anything useful.", 3, 40);
+      SendSysMessage(who, "Вы освежёвываете труп, но не находите ничего полезного.", 3, 40);
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1, who.realm);
       sleep(30);
       DestroyItem(cadaver);
@@ -226,7 +226,7 @@ function Carve_Corpse(who, cadaver, blade, craftingbag)
 		endif
         i := i + 1;
       endforeach
-      SendSysMessage(who, "You place the items on the corpse.");
+      SendSysMessage(who, "Вы кладёте предметы на труп.");
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1, who.realm);
       sleep(120);
       DestroyItem(cadaver);
@@ -239,7 +239,7 @@ endfunction
 function MakeWizardWeed(who, weed)
 
 	SubtractAmount(weed, 1);
-	SendSysMessage(who, "Select paper.");
+	SendSysMessage(who, "Выберите бумагу.");
 	var paper := target(who);
 	if (paper.objtype != 0xe34)
 		SendSysMessage(who, "Прервано.");
@@ -257,19 +257,19 @@ endfunction
 
 function make_jack_o_latern(who, blade, pumpkin)
     if((!CheckLineOfSight(who, pumpkin)) || (distance(who, pumpkin) > 2))
-     SendSysMessage(who, "The pumpkin is either not close enough or is not within line of sight.");
+     SendSysMessage(who, "Тыква либо слишком далеко, либо вне поля зрения.");
      return;
    endif
     if(pumpkin.graphic == 3178 || 3179)
      SubtractAmount(pumpkin, 1);
      var jol := CreateItemInContainer(craftingbag, 6228, 1);
 	if (jol)
-	     SendSysMessage(who, "You successfully create the Jack o' Lantern and put it in your pack.");
-	     SendSysMessage(who, "Have a happy Halloween!");
+	     SendSysMessage(who, "Вы сделали светильник Джека и положили его в рюкзак.");
+	     SendSysMessage(who, "Счастливого Хэллоуина!");
 		jol.color := 244;
 		SetName(jol, "a Jack o' Lantern");
 	endif
    else
-     SendSysMessage(who,"That ain't no pumpkin.");
+     SendSysMessage(who,"Это не тыква.");
    endif
  endfunction

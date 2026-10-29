@@ -19,25 +19,25 @@ program meditation(who)
 
 	var poisoned := CInt( GetObjProperty(who,"poison_level") );
 	if (poisoned >= 1)
-		SendSysMessage( who, "You cannot meditate while poisoned." );
+		SendSysMessage( who, "Нельзя медитировать, будучи отравленным." );
 		return 0;
 	endif
 
 	var lastmed := CInt( GetObjProperty(who, "LastMeditation") );
 	if (lastmed > ReadGameClock() )
 		EraseObjProperty(who, "#ISMEDITATING");
-		SendSysMessage(who, "You must rest for a bit.");
+		SendSysMessage(who, "Нужно немного отдохнуть.");
 		return 0;
 	endif
 
 	if(who.warmode)
-		SendSysMessage(who, "You cannot meditate in war mode");
+		SendSysMessage(who, "Нельзя медитировать в боевом режиме");
 		return 0;
 	endif
 
 	var loss := manaloss(who);
 	if(loss == "nomed")
-		SendSysMessage(who,"Regenerative forces cannot penetrate your armor.");
+		SendSysMessage(who,"Целительные силы не проникают сквозь вашу броню.");
 		return 0;
 	endif
 
@@ -49,7 +49,7 @@ program meditation(who)
 			start_script( ":virtue:prayerScripts/" + (GetObjProperty(shrinelist[1], "Virtue") ), { who, GetObjProperty(theshrine, "Virtue") } );
 			return 1;
 		else
-			PrintTextAbove(who, "Just meditating...");
+			PrintTextAbove(who, "Просто медитирую...");
 		endif
 	endif
 
@@ -60,7 +60,7 @@ program meditation(who)
 		if(loss < 0)
 			loss := 0;
 		endif
-		SendSysMessage(who, "You cannot focus your concentration.");
+		SendSysMessage(who, "Вы не можете сосредоточиться.");
 		lastmed := CInt(ReadGameClock()) + 15;
 		SetObjProperty(who, "LastMeditation", lastmed);
 		EraseObjProperty(who, "#ISMEDITATING");
@@ -86,25 +86,25 @@ program meditation(who)
 		var cmana := AP_GetVital(who, MANA);
 		lastmed := CInt(ReadGameClock()) + 60;
 		SetObjProperty(who, "LastMeditation", lastmed);
-		SendSysMessage(who, "You start to meditate.");
+		SendSysMessage(who, "Вы начинаете медитировать.");
 		PlaySoundEffect(who, SFX_MEDITATION);
-		PrintTextAbove(who, "* Meditating *");
+		PrintTextAbove(who, "* Медитация *");
 		SetObjProperty(who, "#ISMEDITATING", 1);
 
 		while( (oldstamina <= AP_GetVital(who, STAMINA)) && (oldx==who.x) && (oldy==who.y) && (poisoned < 1) && (!who.warmode) && (!IsThingOnHand(who)) && (!who.hidden) )
 			loss := manaloss(who);
 			if(loss == "nomed")
-				SendSysMessage(who,"Regenerative forces cannot penetrate your armor.", color := 33);
+				SendSysMessage(who,"Целительные силы не проникают сквозь вашу броню.", color := 33);
 				EraseObjProperty(who, "#ISMEDITATING");
 				return 0;
 			endif
 			if(AP_GetVital(who, MANA) >= AP_GetVitalMaximumValue(who, MANA))
-				SendSysMessage(who, "Your mana has recharged.", color := 66);
+				SendSysMessage(who, "Ваша мана восстановлена.", color := 66);
 				EraseObjProperty(who, "#ISMEDITATING");
 				return 1;
 			endif
 			if((AP_GetVital(who, HITS) < chp) || (AP_GetVital(who, MANA) < cmana))
-				SendSysMessage(who, "You lose your concentration.", color := 33);
+				SendSysMessage(who, "Вы теряете концентрацию.", color := 33);
 				EraseObjProperty(who, "#ISMEDITATING");
 				return 0;
 			endif
@@ -116,11 +116,11 @@ program meditation(who)
 //			poisoned := CInt( GetObjProperty(who,"poison_level") );
 			poisoned := who.poisoned;
 		endwhile
-		SendSysMessage(who, "You lose your concentration.", color := 33);
+		SendSysMessage(who, "Вы теряете концентрацию.", color := 33);
 		EraseObjProperty(who, "#ISMEDITATING");
 		return 0;
 	else
-		SendSysMessage(who, "You cannot focus your concentration.", color := 33);
+		SendSysMessage(who, "Вы не можете сосредоточиться.", color := 33);
 		lastmed := CInt(ReadGameClock()) + 15;
 		SetObjProperty(who, "LastMeditation", lastmed);
 		EraseObjProperty(who, "#ISMEDITATING");
@@ -150,7 +150,7 @@ function IsThingOnHand(who)
 		|| (hand1.graphic == 0x0e8a) || (hand1.graphic == 0x0efa) || (hand1.graphic == 0x2252) || (hand1.graphic == 0x2253)
 		|| (hand1.graphic == 0x2254) || (hand1.graphic == 0x2D50))
 	else
-      SendSysMessage(who,"Your equipment prevents meditation.", color := 33);
+      SendSysMessage(who,"Ваша экипировка мешает медитации.", color := 33);
       return 1;
 	endif
   elseif (hand2)
@@ -158,7 +158,7 @@ function IsThingOnHand(who)
 		|| (hand1.graphic == 0x0e8a) || (hand1.graphic == 0x0efa) || (hand1.graphic == 0x2252) || (hand1.graphic == 0x2253)
 		|| (hand1.graphic == 0x2254) || (hand1.graphic == 0x2D50))
 	else
-      SendSysMessage(who,"Your equipment prevents meditation.", color := 33);
+      SendSysMessage(who,"Ваша экипировка мешает медитации.", color := 33);
       return 1;
 	endif
   else

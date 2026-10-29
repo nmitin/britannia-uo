@@ -23,21 +23,21 @@ program use_bandages (parms)
     SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
     return;
   elseif(!CheckLineOfSight(who,patient))
-	SendSysMessage(who,"You cant see your patient.", color := 33);
+	SendSysMessage(who,"Вы не видите пациента.", color := 33);
 	return;
   elseif((AP_GetVital(patient, VITALID_LIFE) >= AP_GetStat(patient, STRENGTH)) && (TS_GetTimerNames(patient, "P").size() == 0))
-	SendSysMessage(who,"Your patient is at full heath", color := 66);
+	SendSysMessage(who,"Пациент полностью здоров", color := 66);
 	return;
   endif
   Detach();
   SetObjProperty(who, "HealTimer", clock);
   if(TS_GetTimerNames(patient, "P").size() > 0)
     if(!CheckLineOfSight(who,patient))
-      SendSysMessage(who,"You can't see your patient.", color := 33);
+      SendSysMessage(who,"Вы не видите пациента.", color := 33);
       return;
     endif
     if(Distance(who, patient) <= 2)
-      SendSysMessage(who,"You start to cure "+patient.name+".");
+      SendSysMessage(who,"Вы начинаете лечить отравление у "+patient.name+".");
       cure(who, patient, bandage);
     else
       SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
@@ -45,14 +45,14 @@ program use_bandages (parms)
     endif
   else
     if(!CheckLineOfSight(who,patient))
-	  SendSysMessage(who,"You can't see your patient.", color := 33);
+	  SendSysMessage(who,"Вы не видите пациента.", color := 33);
       return;
     endif
     if(Distance(who, patient) <= 2)
-      SendSysMessage(who,"You start to heal "+patient.name + ".", color := 66);
+      SendSysMessage(who,"Вы начинаете лечить "+patient.name + ".", color := 66);
       heal(who, patient, bandage);
     else
-      SendSysMessage(who, "Your Patient is too far away.", color := 33);
+      SendSysMessage(who, "Пациент слишком далеко.", color := 33);
       return;
     endif
   endif
@@ -86,7 +86,7 @@ function heal(who, patient, bandy)
       SendSysMessage(who, "Вы прекращаете лечить пациента.", color := 33);
       break;
     elseif(clock != GetObjProperty(who, "HealTimer"))
-      SendSysMessage(who, "You stop healing your patient to work on another.", color := 88);
+      SendSysMessage(who, "Вы прекращаете лечить пациента, чтобы заняться другим.", color := 88);
       break;
     endif
     chp:=AP_GetVital(who, VITALID_LIFE);
@@ -101,7 +101,7 @@ function heal(who, patient, bandy)
     endif
     if(AP_GetVital(who, VITALID_LIFE) < chp)
       if((RandomInt(100)+1) > who.dex)
-        SendSysMessage( who, "Your fingers slip.", color := 33 );
+        SendSysMessage( who, "Пальцы соскальзывают.", color := 33 );
         healamt := (healamt / 2);
       endif
     endif
@@ -112,7 +112,7 @@ function heal(who, patient, bandy)
     if(counter >= cycles)
       if(SkillCheck( who, VETERINARY, -1, 0 ) > 0)
         if(healamt <= 10)
-          SendSysMessage(who,"You finish applying the bandages, but they barely help.", color := 88);
+          SendSysMessage(who,"Вы закончили накладывать бинты, но они почти не помогли.", color := 88);
         endif
         if((patient.str - AP_GetVital(patient, VITALID_LIFE)) > healamt)
           HealDamage(patient, healamt);
@@ -123,13 +123,13 @@ function heal(who, patient, bandy)
           AwardRawSkillPoints(who, SKILLID_VETERINARY, (healamt * 2));
         endif
         if(AP_GetVital(patient, VITALID_LIFE) == AP_GetVitalMaximumValue(patient, VITALID_LIFE))
-		  SendSysMessage(who, "You have healed your patient completely.", color := 66);
+		  SendSysMessage(who, "Вы полностью вылечили пациента.", color := 66);
         else
-		  SendSysMessage(who, "You successfully heal " + patient.name+".", color := 66);
+		  SendSysMessage(who, "Вы успешно лечите " + patient.name+".", color := 66);
 	    endif
         break;
       else
-        SendSysMessage( who, "You could not heal your patient.", color := 33 );
+        SendSysMessage( who, "Вам не удалось вылечить пациента.", color := 33 );
       endif
     endif
     counter := counter + 1;
@@ -164,7 +164,7 @@ function cure(who, patient, bandy)
       SendSysMessage(who, "Вы прекращаете лечить пациента.", color := 33);
       break;
     elseif(clock != GetObjProperty(who, "HealTimer"))
-      SendSysMessage(who, "You stop healing your patient to work on another.", color := 88);
+      SendSysMessage(who, "Вы прекращаете лечить пациента, чтобы заняться другим.", color := 88);
       break;
     endif
     chp:=AP_GetVital(who, VITALID_LIFE);
@@ -179,7 +179,7 @@ function cure(who, patient, bandy)
     endif
 	if(AP_GetVital(who, VITALID_LIFE) < chp)
       if((RandomInt(100)+1) > who.dex)
-	    SendSysMessage( who, "Your fingers slip.", color := 33 );
+	    SendSysMessage( who, "Пальцы соскальзывают.", color := 33 );
         healamt := ((healamt * 3) / 4);
       endif
 	endif
@@ -188,16 +188,16 @@ function cure(who, patient, bandy)
         if((RandomInt(100) + 1) < healamt)
 			TS_CurePoison(patient, healamt/40, "P", 1);
           if (TS_GetTimerNames(patient, "P").size() > 0)
-            SendSysMessage(who, "You have partially cured your patient.", color := 88);
+            SendSysMessage(who, "Вы частично вылечили отравление пациента.", color := 88);
           else
-            SendSysMessage(who, "You have cured your patient completely.", color := 66);
+            SendSysMessage(who, "Вы полностью вылечили отравление пациента.", color := 66);
           endif
         else
-          SendSysMessage(who,"You finish applying the bandages, but they barely help.", color := 88);
+          SendSysMessage(who,"Вы закончили накладывать бинты, но они почти не помогли.", color := 88);
         endif
         break;
       else
-        SendSysMessage( who, "You could not heal it.", color := 33 );
+        SendSysMessage( who, "Вам не удалось это вылечить.", color := 33 );
       endif
     endif
     counter := counter + 1;

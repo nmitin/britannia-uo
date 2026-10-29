@@ -14,10 +14,10 @@ program tame( who )
   var conf := ReadConfigFile("::npcdesc");
   var elem;
   var points := 0;
-  SendSysMessage( who, "What do you want to tame?" );
+  SendSysMessage( who, "Кого вы хотите приручить?" );
   var thecreature := Target(who);
   if(!thecreature)
-    SendSysMessage(who, "cancelled.");
+    SendSysMessage(who, "отменено.");
     return;
   endif
   if(!CheckLineOfSight(who, thecreature))
@@ -25,26 +25,26 @@ program tame( who )
     return;
   endif
   if(Distance(who,thecreature) > 5)
-     SendSysMessage(who, "You are not close enough to tame that!");
+     SendSysMessage(who, "Вы слишком далеко, чтобы приручить это!");
     return;
   endif
   elem := FindConfigElem(conf, thecreature.npctemplate);
   if(!elem)
-    SendSysMessage(who, "You cannot tame this!");
+    SendSysMessage(who, "Это нельзя приручить!");
     return;
   endif
   var difficulty := CInt(GetConfigInt(elem, "tameskill"));
   points := (difficulty*2);
   if(!difficulty)
-    SendSysMessage(who, "You can't tame that!");
+    SendSysMessage(who, "Это нельзя приручить!");
     return;
   endif
   if (thecreature.script == "tamed")
-    SendSysMessage(who, "That creature looks pretty tame already.");
+    SendSysMessage(who, "Это существо и так выглядит ручным.");
     return;
   endif
   if (AP_GetSkill(who, TAMING) < (difficulty - 10))
-    SendSysMessage(who, "You have no chance of taming this creature!");
+    SendSysMessage(who, "У вас нет шансов приручить это существо!");
     return;
   endif
   if(GetObjProperty(thecreature, "prevtamed"));
@@ -91,33 +91,33 @@ program tame( who )
     else
       critterhp := AP_GetVital(thecreature, VITALID_LIFE);
       case(counter)
-        0: PrintTextAbove(who, "What a nice " + thename + ".");
-        1: PrintTextAbove(who, "I've always wanted a " + thename + " like you.");
-        2: PrintTextAbove(who, thename + ", will you be my friend?");
-        3: PrintTextAbove(who, "I wont hurt you.");
+        0: PrintTextAbove(who, "Какое милое " + thename + ".");
+        1: PrintTextAbove(who, "Я всегда хотел " + thename + " как ты.");
+        2: PrintTextAbove(who, thename + ", будешь моим другом?");
+        3: PrintTextAbove(who, "Я тебя не обижу.");
       endcase
       counter := counter + 1;
       sleep(4);
       if(AP_GetVital(thecreature, VITALID_LIFE) < critterhp)
-        SendSysMessage(who,"That creature is too angry to continue taming");
+        SendSysMessage(who,"Существо слишком разъярено, чтобы продолжать приручение");
         return;
       endif
       if(Distance(who,thecreature) > 5)
-        SendSysMessage(who, "You are not close enough to tame that!");
+        SendSysMessage(who, "Вы слишком далеко, чтобы приручить это!");
         return;
       endif
     endif
   endwhile
   if(who.dead)
-    SendSysMessage(who, "You cannot tame an animal while dead.", 3, 40);
+    SendSysMessage(who, "Нельзя приручать животных, будучи мёртвым.", 3, 40);
     return;
   endif
   if(thecreature.script == "tamed")
-    SendSysMessage(who, "That creature looks pretty tame already.");
+    SendSysMessage(who, "Это существо и так выглядит ручным.");
     return;
   endif
   if(SkillCheck( who, TAMING, difficulty + 10, points ) > 0)
-    SendSysMessage(who, "You successfully tame the " + thename);
+    SendSysMessage(who, "Вы успешно приручаете " + thename);
     Run_Script_To_Completion(":spawnregion:death", thecreature);
     thecreature.script := "tamed";
     SetObjProperty(thecreature, "master", who.serial);
@@ -133,7 +133,7 @@ program tame( who )
     endif
     orneriness := orneriness * 5;
     if(((RandomInt(99) + 1) + orneriness) > AP_GetSkill(who, TAMING))
-      SendSysMessage(who, "You seem to have upset the beast!");
+      SendSysMessage(who, "Похоже, вы разозлили зверя!");
       var ev := array;
       ev.+ type;
       ev.+ source;
@@ -143,7 +143,7 @@ program tame( who )
       ev.type := EVID_ENGAGED;
       SendEvent(thecreature, ev);
     else
-      SendSysMessage(who, "You failed to tame the creature.");
+      SendSysMessage(who, "Вам не удалось приручить существо.");
     endif
   endif
 endprogram

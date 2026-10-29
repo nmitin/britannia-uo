@@ -114,25 +114,25 @@ function WasTheLockPicked( who, what )
 		if (SkillCheck(who, FORENSIC_EVALUATION, -1, pts) > 0)
 			var picker := SystemFindObjectBySerial( last_picked, SYSFIND_SEARCH_OFFLINE_MOBILES );
 			PrintTextAboveCL( who, 1042749, picker.name, color := 66 ); // This lock was opened by ~1_PICKER_NAME~.
-			PrintTextAbove( who, "The lock was picked by " + picker.name, color := 56 );
+			PrintTextAbove( who, "Замок был вскрыт: " + picker.name, color := 56 );
 			return 1;
 		else
-			PrintTextAbove( who, "I cannot determine who might have tampered with this.", color := 40 );
+			PrintTextAbove( who, "Не могу определить, кто мог с этим возиться.", color := 40 );
 			SendSysMessageCL( who, 501001 ); // You cannot determine anything useful.
 			return 0;
 		endif
 	elseif( last_magic_unlocked )
 		var picker := SystemFindObjectBySerial( last_magic_unlocked, SYSFIND_SEARCH_OFFLINE_MOBILES );
 		if( AP_GetSkill(who, MAGERY) > 50 )
-			SendSysMessage( who, "This was magically unloced by " + picker.name + ".", color := 68 );
-			PrintTextAbove( who, picker.name + "used magic unlock to open this." );
+			SendSysMessage( who, "Это было магически открыто: " + picker.name + ".", color := 68 );
+			PrintTextAbove( who, picker.name + "применил магическое открытие." );
 		else
-			SendSysMessage( who, "Magic unlock was used on this but you cannot determine who did it.", color := 68 );
-			PrintTextAbove( who, "Magic unlock was used on this but I cannot determine who did it.", color := 68 );
+			SendSysMessage( who, "Здесь применили магическое открытие, но кто — не определить.", color := 68 );
+			PrintTextAbove( who, "Здесь применили магическое открытие, но кто — не определить.", color := 68 );
 		endif
 		return 1;
 	else
-		PrintTextAbove( who, "This hasn't been tampered with.", color := 66 );
+		PrintTextAbove( who, "С этим не возились.", color := 66 );
 		SendSysMessageCL( who, 501005, color := 66 ); // You notice nothing unusual.
 	endif
 
@@ -142,34 +142,34 @@ function SpeakTheFindings( byref who, byref kname, byref kpoison, byref kspell )
 
 	// Check for the killer's name.
 	if( kname )
-		SendSysMessage( who, kname + " appears to be the killer.", color := 68 );
+		SendSysMessage( who, kname + " похоже, убийца.", color := 68 );
 	else
-		SendSysMessage( who, "The killer's identity could not be confirmed.", color := 68 );
+		SendSysMessage( who, "Личность убийцы не подтверждена.", color := 68 );
 	endif
 	// If no spell was used then attempt to identify the other possible methods used.
 	if( !kspell )
 		if( kpoison )
-			SendSysMessage( who, "The victim died from poison.", color := 68 );
+			SendSysMessage( who, "Жертва умерла от яда.", color := 68 );
 			// A weapon was used in the attack but the killing "blow" was poison.
 			if( kweapon )
-				SendSysMessage( who, "The victim was attacked with a " + kweapon + "." );
+				SendSysMessage( who, "Жертва была атакована " + kweapon + "." );
 			endif
 		elseif( kweapon )
-			SendSysMessage( who, "It appears a " + kweapon + " was used to kill the subject.", color := 68 );
+			SendSysMessage( who, "Похоже, " + kweapon + " было использовано для убийства.", color := 68 );
 		else
-			SendSysMessage( who, "I cannot determine the weapon that was used to kill the victim.", color := 68 );
+			SendSysMessage( who, "Не могу определить оружие убийства.", color := 68 );
 		endif
 	// A certain amount of magery skill is required to detect death from a spell.
 	elseif( kspell )
 		if( AP_GetSkill(who, MAGERY) > 80 )
-			SendSysMessage( who, "The " + kspell + " spell was used to kill the subject.", color := 68 );
+			SendSysMessage( who, "The " + kspell + " заклинание было использовано для убийства.", color := 68 );
 		elseif( AP_GetSkill(who, MAGERY) > 50 )
-			SendSysMessage( who, "It appears the  " + kspell + " spell was used to kill the subject.", color := 68 );
+			SendSysMessage( who, "Похоже, " + kspell + " заклинание было использовано для убийства.", color := 68 );
 		else
-			SendSysMessage( who, "It appears supernatural means were used to kill the subject.", color := 68 );
+			SendSysMessage( who, "Похоже, убийство совершено сверхъестественными средствами.", color := 68 );
 		endif
 	else
-		SendSysMessage( who, "I could not determine what was used to kill the subject.", color := 68 );
+		SendSysMessage( who, "Не удалось определить, чем было совершено убийство.", color := 68 );
 	endif
 
 endfunction
@@ -185,19 +185,19 @@ function BuildTheCProp( byref who, byref what, byref kname, byref kpoison, byref
 
 	if( !kspell )
 		if( kpoison && kweapon)
-			strmessage := strmessage + "The victim was attacked with a " + kweapon + " but ";
+			strmessage := strmessage + "Жертва была атакована " + kweapon + " but ";
 			strmessage := strmessage + "poison caused the victim's death ";
 		elseif( kweapon )
 			strmessage := strmessage + "It a " + kweapon + " was used to kill the subject. <br>";
 		else
-			strmessage := strmessage + "I cannot determine the weapon that was used to kill the victim.";
+			strmessage := strmessage + "Не могу определить оружие убийства.";
 		endif
 	// A certain amount of magery skill is required to detect death from a spell.
 	elseif( kspell )
 		if( AP_GetSkill(who, MAGERY) > 80 )
-			strmessage := strmessage + "The " + kspell + " spell was used to kill the subject.";
+			strmessage := strmessage + "The " + kspell + " заклинание было использовано для убийства.";
 		elseif( AP_GetSkill(who, MAGERY) > 50 )
-			strmessage := strmessage + "It appears the " + kspell + " spell was used to kill the subject.";
+			strmessage := strmessage + "It appears the " + kspell + " заклинание было использовано для убийства.";
 		else
 			strmessage := strmessage + "It appears the victim was killed by supernatural power.";
 		endif
