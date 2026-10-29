@@ -1,0 +1,16 @@
+use uo;
+use http;
+
+program bptest()
+  foreach chr in EnumerateOnlineCharacters()
+    var bp := GetEquipmentByLayer(chr, 0x15);
+    SendSysMessage(chr, "BP before: " + bp);
+    if (!bp)
+      var nb := CreateItemAtLocation(chr.x, chr.y, chr.z, 0xe75, 1, chr.realm);
+      SendSysMessage(chr, "NEW: " + nb + " ERR: " + nb.errortext);
+      var eq := EquipItem(chr, nb);
+      SendSysMessage(chr, "EQUIP: " + eq);
+    endif
+  endforeach
+  WriteHtml("<html><body>ok</body></html>");
+endprogram
