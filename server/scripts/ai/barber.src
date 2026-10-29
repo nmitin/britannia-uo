@@ -66,11 +66,11 @@ program barber()
                                   if((ev.source.cmdlevel > 2) && (txt["showinventory"]))
                                     SendOpenSpecialContainer(ev.source, shop_sell);
                                   else
-                                    if(txt["buy"])
+                                    if(txt["buy"] || txt["купить"])
                                       TurnToward(ev.source);
                                       var res := SendBuyWindow( ev.source, shop_sell, me, shop_buy, VENDOR_SEND_AOS_TOOLTIP );
 									  res := res;
-                                    elseif (txt["sell"])
+                                    elseif (txt["sell"] || txt["продать"])
                                       if(GetObjProperty(shop_resale, "MyGold") >= 1000)
                                         TurnToward(ev.source);
                                         var count := ModifyPCSellList(merchant_type, (ev.source));

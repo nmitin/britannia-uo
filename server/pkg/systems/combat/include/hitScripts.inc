@@ -143,7 +143,7 @@ function AdjustDamageFactor(weapon, defender, attacker)
 	endif
 
 	if (factor == 0)
-		SendSysMessage(attacker, "Your weapon does not seem to be effective...");
+		SendSysMessage(attacker, "Похоже, ваше оружие неэффективно...");
 		return 0;
 	endif
 
@@ -175,7 +175,7 @@ function CheckTempProtections(attacker, defender, rawdamage)
 		if (ProtCheck >= ReadGameClock() )
 			PlaySoundEffect(defender, 0x01f9);
 			PlayObjectCenteredEffect(defender, 0x376a, 7, 0x10);
-			PrintTextAbove(defender, "The undead's attack has no effect!");
+			PrintTextAbove(defender, "Атака нежити не действует!");
 			rawdamage := 0;
 		else
 			EraseObjProperty(defender, "ProtUndead");
@@ -191,7 +191,7 @@ function CheckTempProtections(attacker, defender, rawdamage)
 		if (ProtCheck >= ReadGameClock() )
 			PlaySoundEffect(defender, 0x01f9);
 			PlayObjectCenteredEffect(defender, 0x376a, 7, 0x10);
-			PrintTextAbove(defender, "The fiend's attack has no effect!");
+			PrintTextAbove(defender, "Атака изверга не действует!");
 			rawdamage := 0;
 		else
 			EraseObjProperty(defender, "Protdaemon");
@@ -207,7 +207,7 @@ function CheckTempProtections(attacker, defender, rawdamage)
 		if (ProtCheck >= ReadGameClock() )
 			PlaySoundEffect(defender, 0x01f9);
 			PlayObjectCenteredEffect(defender, 0x376a, 7, 0x10);
-			SendSysMessage(defender, CStr(attacker.name) + " attacks, but at a lessened effect!");
+			SendSysMessage(defender, CStr(attacker.name) + " атакует, но эффект снижен!");
 			rawdamage := CInt(rawdamage / 2);
 		else
 			EraseObjProperty(defender, "ProtEvil");

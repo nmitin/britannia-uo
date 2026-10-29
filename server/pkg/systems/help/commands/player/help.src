@@ -33,7 +33,7 @@ program helpfile_help( who, helpfile )
 		SendHTMLGump( who, SHARD_NAME+" Help Managment", text );
 		return 1;
 	else
-		SendSysMessage( who, "No help available for that topic." );
+		SendSysMessage( who, "По этой теме справки нет." );
 		return 0;
 	endif
 endprogram

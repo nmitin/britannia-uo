@@ -20,14 +20,14 @@ program use_fishpole(who, fishingpole)
   EraseObjProperty(who, "IsMeditating");
   EraseObjProperty(who, "HealTimer");
   if(fishingpole.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   if(!ReserveItem(fishingpole))
     return;
   endif
   if(! IsFishingPoleEquipped(who, fishingpole))
-    SendSysMessage(who, "You have to equip that to go fishing!");
+    SendSysMessage(who, "Чтобы рыбачить, нужно взять это в руки!");
     return;
   endif
   var targetsquare := TargetCoordinates(who);
@@ -71,14 +71,14 @@ program use_fishpole(who, fishingpole)
         difficulty := GetHarvestDifficulty("fish", targetsquare.x, targetsquare.y, locinfo.landtile, who.realm);
       endif
       if(difficulty == error)
-        SendSysMessage(who, "There doesn't seem to be any fish here");
+        SendSysMessage(who, "Похоже, здесь нет рыбы");
         return 0;
       endif
       var successrate := SkillCheck(who, FISHING, difficulty, 30);
       if(successrate > 0)
         var fishreturned := HarvestResource("fish", targetsquare.x, targetsquare.y, 1, 1, who.realm);
         if(!fishreturned)
-          SendSysMessage(who, "Oops, you let that one get away!");
+          SendSysMessage(who, "Ой, эта рыба сорвалась!");
           return 0;
         endif
         var catchtype := GetTheCatch(who);
@@ -90,7 +90,7 @@ program use_fishpole(who, fishingpole)
         if(RandomInt(100)< 1)
           CriticalFailure(who, targetsquare);
         else
-          SendSysMessage(who, "They don't seem to be biting today");
+          SendSysMessage(who, "Похоже, сегодня не клюёт");
         endif
       endif
     endif
@@ -155,13 +155,13 @@ endfunction
 function IsValidTarget(who, targetsquare, locinfo)
   var retval := 1;
   if(!IsWater(targetsquare, locinfo))
-    SendSysMessage(who, "You can't fish there!");
+    SendSysMessage(who, "Здесь нельзя рыбачить!");
     retval := 0;
   elseif(!IsInRange(who, targetsquare.x, targetsquare.y, targetsquare.z))
-    SendSysMessage(who, "That is too far away");
+    SendSysMessage(who, "Это слишком далеко");
     retval := 0;
   elseif(!CheckLosAt(who, targetsquare.x, targetsquare.y, targetsquare.z))
-    SendSysMessage(who, "That location is not in your line of sight!");
+    SendSysMessage(who, "Это место вне вашего поля зрения!");
     retval := 0;
   endif
   return retval;
@@ -173,31 +173,31 @@ function GetTheCatch(who)
   var thisone := RandomInt(100)+ 1;
   if(thisone <= 94)
     fishtype := RandomInt(UOBJ_FISH_END - UOBJ_FISH_START)+ UOBJ_FISH_START;
-    SendSysMessage(who, "You catch a nice fish!");
+    SendSysMessage(who, "Вы поймали хорошую рыбу!");
   elseif(thisone <= 97)
     if(RandomInt(currentskill) >= 50)
       var bootarray := array(0x170b, 0x1711, 0x170f, 0x170d);
       fishtype := bootarray[RandomInt(4)+ 1];
-      SendSysMessage(who, "You catch some soggy footwear!");
+      SendSysMessage(who, "Вы выловили мокрую обувь!");
     else
       fishtype := RandomInt(UOBJ_FISH_END - UOBJ_FISH_START)+ UOBJ_FISH_START;
-      SendSysMessage(who, "You catch a nice fish!");
+      SendSysMessage(who, "Вы поймали хорошую рыбу!");
     endif
   elseif(thisone <= 99)
     if(RandomInt(currentskill) >= 50)
       fishtype := "level" +(RandomInt(2)+ 1)+ "map";
-      SendSysMessage(who, "You find an old tattered map!");
+      SendSysMessage(who, "Вы нашли старую потрёпанную карту!");
     else
       fishtype := RandomInt(UOBJ_FISH_END - UOBJ_FISH_START)+ UOBJ_FISH_START;
-      SendSysMessage(who, "You catch a nice fish!");
+      SendSysMessage(who, "Вы поймали хорошую рыбу!");
     endif
   else
     if(GetAttribute(who, FISHING) >= 95)
       fishtype := "sosbottle";
-      SendSysMessage(who, "You find a message in a bottle!");
+      SendSysMessage(who, "Вы нашли послание в бутылке!");
     else
       fishtype := RandomInt(UOBJ_FISH_END - UOBJ_FISH_START)+ UOBJ_FISH_START;
-      SendSysMessage(who, "You catch a nice fish!");
+      SendSysMessage(who, "Вы поймали хорошую рыбу!");
     endif
   endif
   return fishtype;
@@ -206,7 +206,7 @@ endfunction
 function CriticalFailure(who, targetsquare)
   var it := CreateNpcFromTemplate("seaserpent", targetsquare.x, targetsquare.y, targetsquare.z, 0, who.realm);
   if(it)
-    SendSysMessage(who, "Oops, that's not a fish!");
+    SendSysMessage(who, "Ой, это не рыба!");
     var ev := {};
     ev.+type := EVID_ENGAGED;
     ev.+source := who;
@@ -246,11 +246,11 @@ function GetSOSTreasure(who, targetsquare, sosmsg)
       if((!oldname) || (oldname == ""))
         oldname := itemcfg[newitem].desc;
       endif
-      it.name := oldname + " [Recovered from a shipwreck]";
+      it.name := oldname + " [поднято с затонувшего корабля]";
       it.movable := 1;
-      SendSysMessage(who, "You caught something interesting!");
+      SendSysMessage(who, "Вы поймали что-то интересное!");
     else
-      SendSysMessage(who, "You catch a sunken treasure!");
+      SendSysMessage(who, "Вы поймали затонувшее сокровище!");
       var chest := CreateItemInBackpack(who, 0x1A340, 1);
       case(RandomInt(4) + 1)
         1: chest.graphic := 0xe40;
@@ -258,13 +258,13 @@ function GetSOSTreasure(who, targetsquare, sosmsg)
         3: chest.graphic := 0xe7c;
         4: chest.graphic := 0x9ab;
       endcase
-      chest.name := "metal chest [Recovered from a shipwreck]";
+      chest.name := "металлический сундук [поднят с затонувшего корабля]";
       chest.movable := 1;
       MakeLoot(chest, RandomInt(2) + 5);
       DestroyItem(sosmsg);
     endif
   else
-    SendSysMessage(who, "Something big just slipped off your hook!");
+    SendSysMessage(who, "Что-то большое сорвалось с крючка!");
   endif
   return 0;
 endfunction

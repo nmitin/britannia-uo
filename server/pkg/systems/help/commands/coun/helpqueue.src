@@ -76,7 +76,7 @@ function PageButtons( mobile, byref input, byref cur_menu, byref queue_name, byr
 	elseif( input[DELETE_PAGE_BTN] )
 		cur_menu := PAGE_LIST_BTN;
 		data_elem.EraseProp( Hex( CInt( elem_info )));
-		SendSysMessage( mobile, "Page deleted." );
+		SendSysMessage( mobile, "Запрос удалён." );
 
 		return 0;
 	elseif( mobile.cmdlevel < 3 )

@@ -157,7 +157,7 @@ function SubmitPage( mobile, cur_menu, byref input )
 
 	var message := RetrievePageText( input );
 	if( Len( message ) < 30 )
-		GumpPrompt( mobile, "Please enter a more descriptive message." );
+		GumpPrompt( mobile, "Введите более подробное описание." );
 		return 0;
 	endif
 
@@ -211,7 +211,7 @@ function UncacheGumps( mobile )
 		SleepMS(2);
 	endforeach
 
-	GumpPrompt( mobile, "All gumps uncached." );
+	GumpPrompt( mobile, "Все гумбы убраны из кеша." );
 
 	return 1;
 endfunction
@@ -223,7 +223,7 @@ function HelpTeleported( mobile )
 		return 0;
 	endif
 
-        SendSysMessage( mobile, "You already used this privilege in the last 2 hours." );
+        SendSysMessage( mobile, "Вы уже использовали эту возможность за последние 2 часа." );
 
 	return 1;
 endfunction

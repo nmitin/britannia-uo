@@ -19,13 +19,13 @@ var craft_config    := ReadConfigFile(":cooking:cooking");
 program use_cookingtool(who, tool)
 
 	if ( !ReserveItem(tool) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif( (!tool.movable) || !ReserveItem(tool) )
-		SendSysMessage(who, "You cannot use that");
+		SendSysMessage(who, "Вы не можете это использовать");
 		return 0;
 	elseif( !(tool in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -83,7 +83,7 @@ function CookItems(who, what, amt, tool)
 
 	while( counter < amt )
 		if( (who.x != x) || (who.y != y) )
-			SendSysMessage(who, "You stop cooking. Was that a rat!?");
+			SendSysMessage(who, "Вы прекращаете готовить. Это была крыса?!");
 			break;
 		elseif( !tool )
 			break;
@@ -96,19 +96,19 @@ function CookItems(who, what, amt, tool)
 				theitem := CreateCraftItem(who, craft_skill, use_on, use_on.objtype, what, material, itemname, reqd);
 				if( TypeOf(theitem) != "ItemRef" )
 					SubtractAmount(use_on, (material / 2));
-					SendSysMessage(who, "You failed to create the item, and some of your materials are lost.");
+					SendSysMessage(who, "Не удалось приготовить блюдо, часть продуктов потеряна.");
 					counter := counter + 1;
 					continue;
 				endif
 			else
 				num := CInt(randomint(material)/2) + 1;
 				if(SubtractAmount(use_on, num))
-					SendSysMessage(who, "You lost some material");
+					SendSysMessage(who, "Вы потеряли часть материалов");
 				endif
 			endif
 			CheckToolWear (who, tool, craft_skill);
 		else
-			SendSysMessage(who, "You don't have the resources required to make that item.");
+			SendSysMessage(who, "У вас нет нужных ресурсов для этого.");
 			return 0;
 		endif
 		counter := counter + 1;

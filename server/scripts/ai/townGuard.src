@@ -63,7 +63,7 @@ program CastleGuard()
 				EVID_SPEECH:		wanders := 0;
 									next_wander := ReadGameClock()+60;
 									evtext := lower(ev.text);
-									if ( (evtext["guards"]) || (evtext["guards!"]) )
+									if ( (evtext["guards"]) || (evtext["guards!"]) || (evtext["стража"]) || (evtext["стража!"]) )
 										look_around();
 									endif
 									check_speech(ev.text, ev.source);

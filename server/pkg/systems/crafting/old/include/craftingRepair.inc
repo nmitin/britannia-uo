@@ -29,20 +29,20 @@ function repair_item(character, what, craft_skill )
 	var damageamount := 0.0;
 	damageamount := (125 -	hisskill)/3000.0;
 	if(what.hp == what.maxhp)
-		SendSysMessage(character, "That item is not damaged.");
+		SendSysMessage(character, "Этот предмет не повреждён.");
 		return 0;
 	elseif((what.hp <= 0) || (what.quality <= 0.1) || (!what.quality))
-		SendSysMessage(character, "The brittle material breaks when you handle it");
+		SendSysMessage(character, "Хрупкий материал ломается в руках.");
 		DestroyItem(what);
 		return 0;
 	elseif(what.quality <= damageamount)
-		SendSysMessage(character, "The brittle material breaks when you handle it");
+		SendSysMessage(character, "Хрупкий материал ломается в руках.");
 		DestroyItem(what);
 		return 0;
 	endif
 	what.quality := what.quality - damageamount;
 	if((what.hp <= 0) || (what.quality <= 0.1) || (!what.quality))
-		SendSysMessage(character, "The brittle material breaks when you handle it");
+		SendSysMessage(character, "Хрупкий материал ломается в руках.");
 		DestroyItem(what);
 		return 0;
 	elseif (SkillCheck( character, craft_skill, CInt(damaged / 3), 0 ) > 0)
@@ -53,13 +53,13 @@ function repair_item(character, what, craft_skill )
 		if (thehp + repaired_amount > what.maxhp)
 			what.hp := what.maxhp;
 			EraseObjProperty(what, "swings");
-			SendSysMessage(character, "You	repair the item completely");
+			SendSysMessage(character, "Вы полностью починили предмет.");
 		else
 			what.hp := thehp + repaired_amount;
-			SendSysMessage(character, "You successfully repair some of the damage");
+			SendSysMessage(character, "Вам удалось частично починить предмет.");
 		endif
 		if ((what.hp <= 0) || (what.quality <= 0.1) || (!what.quality))
-			SendSysMessage(character, "The brittle material breaks when you handle it");
+			SendSysMessage(character, "Хрупкий материал ломается в руках.");
 			DestroyItem(what);
 			return 0;
 		endif
@@ -67,7 +67,7 @@ function repair_item(character, what, craft_skill )
 		var damage_amount := randomint(10);
 		if (thehp <= damage_amount)
 			DestroyItem(what);
-			SendSysMessage(character, "You fail and destroy the item");
+			SendSysMessage(character, "Вы потерпели неудачу и уничтожили предмет.");
 		endif
 		thehp := thehp - damage_amount;
 		what.hp := thehp;
@@ -76,12 +76,12 @@ function repair_item(character, what, craft_skill )
 		endif
 		if(thehp <= 0)
 			DestroyItem(what);
-			SendSysMessage(character, "You fail and destroy the item");
+			SendSysMessage(character, "Вы потерпели неудачу и уничтожили предмет.");
 		else
-			SendSysMessage(character, "You fail and damage the item");
+			SendSysMessage(character, "Вы потерпели неудачу и повредили предмет.");
 		endif
 		if ((what.hp <= 0) || (what.quality <= 0.1) || (!what.quality))
-			SendSysMessage(character, "The brittle material breaks when you handle it");
+			SendSysMessage(character, "Хрупкий материал ломается в руках.");
 			DestroyItem(what);
 			return 0;
 		endif
@@ -99,7 +99,7 @@ function CreateRepairDeed(who, scroll, craft_skill)
 	endcase
 	var ramt := AP_GetSkill(who, craft_skill);
 	if(ramt < 50)
-		SendSysMessage(who, "You must be at least apprentice level to create a repair service contract.");
+		SendSysMessage(who, "Чтобы создать договор на ремонт, нужен как минимум уровень подмастерья.");
 		return 0;
 	endif
 	if(ramt < 60 )
@@ -135,17 +135,17 @@ function CreateRepairDeed(who, scroll, craft_skill)
 endfunction
 
 function repair_this(who, craft_skill := BLACKSMITHY)
-	SendSysMessage(who, "Select item to repair.");
+	SendSysMessage(who, "Выберите предмет для ремонта.");
 	var use_on := Target(who);
 	if ( !use_on || use_on.errortext )
 		return 0;
 	endif
 
 	if(use_on.movable == 0)
-		SendSysMessage(who, "You cannot repair that.");
+		SendSysMessage(who, "Вы не можете это починить.");
 		return 0;
 	elseif((!Accessible(who, use_on)) or (distance(who, use_on) > 2))
-		SendSysMessage(who, "You cannot reach that.");
+		SendSysMessage(who, "Вы не можете до этого дотянуться.");
 		return 0;
 	endif
 	if(CInt(use_on.objtype) == CInt(0xe34))
@@ -165,7 +165,7 @@ function repair_this(who, craft_skill := BLACKSMITHY)
 		if ( is_weapon_armor(use_on.objtype) )
 			repair_item( who, use_on, craft_skill);
 		else
-			SendSysMessage(who, "You cannot repair that.");
+			SendSysMessage(who, "Вы не можете это починить.");
 		endif
 	else
 		if ( is_weapon_armor(use_on.objtype) )
@@ -176,7 +176,7 @@ function repair_this(who, craft_skill := BLACKSMITHY)
 					return 0;
 				endif
 			endforeach
-			SendSysMessage( who, "You must be near an anvil to repair items!" );
+			SendSysMessage( who, "Для ремонта нужно находиться рядом с наковальней!" );
 			return 0;
 		else
 			SendSysMessage(who, "You cannot repair that");
@@ -207,17 +207,17 @@ function resmelt(who, the_attribute)
 		endif
 	endforeach
 	if ( forge_near == 0 )
-		SendSysMessage(who, "You must be near a forge.");
+		SendSysMessage(who, "Нужно находиться рядом с горном.");
 		return 0;
 	endif
 
-	SendSysMessage(who, "Select the item you wish to melt.");
+	SendSysMessage(who, "Выберите предмет, который хотите переплавить.");
 	var use_on := Target(who, TGTOPT_CHECK_LOS);
 	if ( !use_on || use_on.errortext )
 		return 0;
 	endif
 	if ( use_on.container.serial != who.backpack.serial )
-		SendSysMessage(who, "That is not in your backpack.");
+		SendSysMessage(who, "Этого нет в рюкзаке.");
 		return 0;
 	endif
 	if ( !Accessible(who, use_on) || !ReserveItem( use_on ) )
@@ -225,7 +225,7 @@ function resmelt(who, the_attribute)
 		return 0;
 	endif
 	if ( use_on.movable == 0 )
-		SendSysMessage(who, "You cannot use that while it is locked down.");
+		SendSysMessage(who, "Вы не можете использовать это, пока оно закреплено.");
 		return 0;
 	endif
 	if ( use_on in ListEquippedItems(who) )
@@ -242,7 +242,7 @@ function resmelt(who, the_attribute)
 		foreach thing in contitems
 			loop_counter := loop_counter + 1;
 			if( loop_counter == 4 )
-				SendSysMessage(who, "Smelting items in container......");
+				SendSysMessage(who, "Переплавка предметов в контейнере...");
 				loop_counter := 0;
 			endif
 			if(craft_config[thing.objtype])
@@ -276,7 +276,7 @@ function resmelt(who, the_attribute)
 					endforeach
 				endif
 				if(ingot == -1)
-					SendSysMessage(who, "You have no idea how to smelt this strange ore!");
+					SendSysMessage(who, "Вы понятия не имеете, как переплавить эту странную руду!");
 					return 0;
 				endif
 				PlaySoundEffect(who, 0x2c);
@@ -286,7 +286,7 @@ function resmelt(who, the_attribute)
 					if(SkillCheck( who, the_attribute, skill, 10 ) > 0)
 						CreateItemInContainer(who.backpack, ingot, amt);
 					else
-						SendSysMessage(who, "You destroy the item.");
+						SendSysMessage(who, "Вы уничтожаете предмет.");
 					endif
 				endif
 			endif
@@ -326,7 +326,7 @@ function resmelt(who, the_attribute)
 			endforeach
 		endif
 		if(ingot == -1)
-			SendSysMessage(who, "You have no idea how to smelt this strange ore!");
+			SendSysMessage(who, "Вы понятия не имеете, как переплавить эту странную руду!");
 			return 0;
 		endif
 		PlaySoundEffect(who, 0x2c);
@@ -336,10 +336,10 @@ function resmelt(who, the_attribute)
 			if(SkillCheck( who, the_attribute, skill, 10 ) > 0)
 				CreateItemInContainer(who.backpack, ingot, amt);
 			else
-				SendSysMessage(who, "You destroy the item.");
+				SendSysMessage(who, "Вы уничтожаете предмет.");
 			endif
 		else
-			SendSysMessage(who, "Couldn't destroy "+use_on.name);
+			SendSysMessage(who, "Не удалось уничтожить "+use_on.name);
 		endif
 	endif
 

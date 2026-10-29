@@ -77,10 +77,10 @@ program CastleGuard()
     ev := os::wait_for_event(waittime);
     case(ev.type)
       SYSEVENT_SPEECH:      txt := lower(ev.text);
-                        if(txt["destination"])
+                        if(txt["destination"] || txt["куда"])
                           TurnToward(ev.source);
                           say("Я жду сопровождения до " + destination + ". Проводишь меня?");
-                        elseif(txt["i will take thee"])
+                        elseif(txt["i will take thee"] || txt["я провожу"] || txt["провожу"] || txt["сопровождать"])
                           if(!escortee)
                             TurnToward(ev.source);
                             escortee := ev.source;
@@ -153,10 +153,10 @@ function idleloop()
     ev := os::wait_for_event(10);
     case(ev.type)
       SYSEVENT_SPEECH:      txt := lower(ev.text);
-                        if(txt["destination"])
+                        if(txt["destination"] || txt["куда"])
                           TurnToward(ev.source);
                           say("Я никуда не хочу идти");
-                        elseif(txt["i will take thee"])
+                        elseif(txt["i will take thee"] || txt["я провожу"] || txt["провожу"] || txt["сопровождать"])
                           TurnToward(ev.source);
                           say("Я никуда не хочу идти.");
                         endif

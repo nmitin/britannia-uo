@@ -13,7 +13,7 @@ program use_message( who, message )
     return;
   endif
   if(message.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   var tox := GetObjProperty(message, "tileX");
@@ -22,7 +22,7 @@ program use_message( who, message )
   if( tox.errortext || toy.errortext)
 	syslog("bad message "+tox+" "+toy);
 	DestroyItem(message);
-	SendSysMessage(who, "The message is garbled beyond your ability to read!");
+	SendSysMessage(who, "Послание искажено так, что вы не можете его прочесть!");
 	return;
   endif
   var layout := array(  "page 0",
@@ -34,18 +34,18 @@ program use_message( who, message )
   var data := array();
   var coords := ToSextant(tox, toy);
   case (msgindex)
-	0: 	data[1] := "Help, our ship is sinking!  We are";
-		data[2] := "at coordinates " + coords + "!  Please";
-		data[3] := "hurry, we are slipping away fast!";
-	1: 	data[1] := "We are under attack by a gigantic";
-		data[2] := "sea serpent!  We are at coordinates";
-		data[3] :=  + coords + "!  Please help us!";
-	2: 	data[1] := "A savage beast has holed our ship.";
-		data[2] := "We are at location " + coords + "!";
-		data[3] := "We will hang on as long as possible.";
-	3: 	data[1] := "We have encountered a terrible storm";
-		data[2] := "at coordinates " + coords + "!";
-		data[3] := "The ship may capsize soon, hurry!";
+	0: 	data[1] := "Помогите, наш корабль тонет! Мы";
+		data[2] := "на координатах " + coords + "! Пожалуйста,";
+		data[3] := "поторопитесь, мы быстро уходим под воду!";
+	1: 	data[1] := "На нас напал гигантский";
+		data[2] := "морской змей! Мы на координатах";
+		data[3] :=  + coords + "! Пожалуйста, помогите нам!";
+	2: 	data[1] := "Свирепый зверь пробил наш корабль.";
+		data[2] := "Мы находимся в " + coords + "!";
+		data[3] := "Мы будем держаться сколько сможем.";
+	3: 	data[1] := "Мы попали в страшный шторм";
+		data[2] := "на координатах " + coords + "!";
+		data[3] := "Корабль скоро может перевернуться, торопитесь!";
   endcase
   SendDialogGump( who, layout, data );
 endprogram

@@ -60,13 +60,13 @@ SendSysMessage(who, ""+type);
     SendSysMessage(who, resource_config.errortext, 1, 33);
     return 0;
   endif
-	SendSysMessage(who, "Select the "+Lower(type)+" you would like to work with.");
+	SendSysMessage(who, "Выберите "+Lower(type)+", с которым хотите работать.");
 	var material := Target(who);
 	if( !material )
     SendSysMessage(who, "Cancelled.", 3, 33);
 		return 0;
 	elseif( !(material in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That is not in your backpack.");
+		SendSysMessage(who, "Этого нет в рюкзаке.");
 		return 0;
 	elseif( !Accessible(who, material) || (!material.movable) )
 		SendSysMessage(who, "You cannot use that.");
@@ -140,7 +140,7 @@ function CreateCraftItem(who, craft_skill, use_on, use_onobjtype, objtype, amoun
 		endif
 		SetObjProperty(theitem, "material", use_onobjtype);
 		if( !SubtractAmount(use_on, amount) )
-			SendSysMessage(who, "You don't have enough materials in your backpack!");
+			SendSysMessage(who, "В рюкзаке недостаточно материалов!");
 			DestroyItem(theitem);
 			return -1;
 		endif
@@ -275,7 +275,7 @@ function CraftAssembly(who, craft_skill, tool, objtype, amt)
 	// Example2: objtype := array[x]; amt := array[x+mod];
 	var parts_list := SplitWords(craft_config[objtype].parts);
 	if( TypeOf(parts_list) != "Array" || !parts_list )
-		SendSysMessage(who, "This item does not require parts to be made! Contact a GM.");
+		SendSysMessage(who, "Для этого предмета не нужны детали! Сообщите администрации.");
 		return 0;
 	endif
 	var temp_list := dictionary;
@@ -369,7 +369,7 @@ function CreateCraftedMap(who, craft_skill, use_on, objtype, amount, itemname, r
 	var theitem := CreateItemInBackpack(who, objtype, 1);
 	if( theitem )
 		if( !SubtractAmount(use_on, amount) )
-			SendSysMessage(who, "You don't have enough materials in your backpack!");
+			SendSysMessage(who, "В рюкзаке недостаточно материалов!");
 			DestroyItem(theitem);
 			return -1;
 		endif
@@ -444,7 +444,7 @@ function RequiredObjectMissing(who, objtype)
 		return -1; // -1 = not required. Should never happen unless you misuse this function.
 	endif
 	var ObjectName := GetObjTypeDesc(CInt(ObjectList[1]));
-	SendSysMessage(who, "You must be near a "+ObjectName+" in order to create this.");
+	SendSysMessage(who, "Нужно находиться рядом с "+ObjectName+" in order to create this.");
 	return 1;
 endfunction
 

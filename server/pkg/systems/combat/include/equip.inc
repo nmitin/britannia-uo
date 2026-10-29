@@ -7,7 +7,7 @@ function HandleMods(who, item)
   var penalty  := CInt(itemdesc[item.objtype].DexPenalty);
   var restrict := Cint(itemdesc[item.objtype].GenderSpecific);
   if((restrict == 1) and (who.graphic == 400))
-    SendSysMessage(who, "Only females may wear that.");
+    SendSysMessage(who, "Это могут носить только женщины.");
     return 0;
   endif
   if(penalty)
@@ -118,7 +118,7 @@ function cursed(who,item)
     item.name := item.name + " [Cursed]";
     SetObjProperty(item,"named", 1);
   endif
-  PrintTextAbovePrivate(who,"you have been cursed!", who);
+  PrintTextAbovePrivate(who,"вы прокляты!", who);
   SetObjProperty(item, "#equipped", who.serial);
   return 1;
 endfunction

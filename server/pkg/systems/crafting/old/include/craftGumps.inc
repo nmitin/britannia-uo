@@ -50,7 +50,7 @@ function sendCraftGump(who, skill_name)
 		if( res[61450] )
 			the_objtype := craftL;
 			if( !the_objtype || (TypeOf(the_objtype) == "Struct") )
-				SendSysMessage(who, "You haven't made anything yet.");
+				SendSysMessage(who, "Вы ещё ничего не создали.");
 				return 0;
 			endif
 		endif
@@ -99,7 +99,7 @@ function sendCraftGump(who, skill_name)
 		if( TypeOf(craft_config[Hex(the_objtype)].skillid) == "String" )
 			if((AP_GetSkill(who, craft_config[Hex(the_objtype)].skillid) < craft_config[Hex(the_objtype)].skill2)
 			    || (AP_GetSkill(who, craft_skill) < craft_config[Hex(the_objtype)].skill))
-				SendSysMessage(who, "You are not skilled enough to make that item.");
+				SendSysMessage(who, "У вас недостаточно навыка для этого предмета.");
 				return 0;
 			endif
 		endif
@@ -109,7 +109,7 @@ function sendCraftGump(who, skill_name)
 		if(!atc || CInt(atc) < 1)
 			atc := 1;
 		elseif(atc > CInt(menu_config["Setup"].MaxAmount))
-			SendSysMessage(who, "You can only make between 1 and "+menu_config["Setup"].MaxAmount+" at a time.");
+			SendSysMessage(who, "Можно создать от 1 до "+menu_config["Setup"].MaxAmount+" за раз.");
 			return 0;
 		endif
 		craft_settings[skill_name].amount := atc;
@@ -169,7 +169,7 @@ function Craft_IndexGump(who, skill_name)
 	GFGumpPic(gump, 10, 330, 5055);
 	GFGumpPic(gump, 90, 330, 5055);
 	GFHTMLArea(gump, 10, 12, 510, 20, "<basefont color=#ffffff>"+CStr(GetConfigString(skill_config["Index"], "Title")));
-	GFHTMLArea(gump, 50, 405, 150, 18, "<basefont color=#ffffff>Exit");
+	GFHTMLArea(gump, 50, 405, 150, 18, "<basefont color=#ffffff>Выход");
 	GFAddButton(gump, 15, 402, 4017, 4019, GF_CLOSE_BTN, 1);
 
 	if( menu_config["Setup"].MakeLast == 1 )
@@ -453,10 +453,10 @@ function GFCraftInfoPage(who, objtype, skill_config)
 	// Set up the text for if the item can retain the color of material
 	if(craft_config[objtype].retain == 1)
 		GFTextLine(gump, 500, 220, 1153, "*");
-		GFTextLine(gump, 170, 335, 1153, "* The item retains the color of the material");
+		GFTextLine(gump, 170, 335, 1153, "* Предмет сохраняет цвет материала");
 	endif
 	if(craft_config[objtype].mark == 1)
-		GFTextLine(gump, 170, 355, 1153, "This item may hold its maker's mark");
+		GFTextLine(gump, 170, 355, 1153, "На предмете может остаться клеймо мастера");
 	endif
 	// Material Required
 	GFHTMLArea(gump, 170, 219, 300, 80, ("<basefont color=#ffffff>"+matname));
@@ -464,11 +464,11 @@ function GFCraftInfoPage(who, objtype, skill_config)
 		GFHTMLArea(gump, 430, 219, 20, 80, ("<basefont color=#ffffff>"+material));
 	endif
 	// Success Chance % text
-	GFTextLine(gump, 170, 80, 1153, "Success Chance:");
+	GFTextLine(gump, 170, 80, 1153, "Шанс успеха:");
 	GFTextLine(gump, 430, 80, 1153, schance);
 	// Excpetional Chance % text
 	if(echance != 0)
-		GFTextLine(gump, 170, 100, 1153, "Exceptional Chance:");
+		GFTextLine(gump, 170, 100, 1153, "Шанс исключительного:");
 		GFTextLine(gump, 430, 100, 1153, echance);
 	endif
 	// Title of the menu

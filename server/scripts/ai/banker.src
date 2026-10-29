@@ -61,12 +61,12 @@ program banker();
 				EraseObjProperty(me, "OriginalSpeechColor");
 				return 0;
 			endif
-			if(text["bankers note"] || text["banker's note"] || text["bankers order"] || text["banker's order"] || text["draft"])
+			if(text["bankers note"] || text["banker's note"] || text["bankers order"] || text["banker's order"] || text["draft"] || text["ордер"] || text["чек"])
 				PrintTextAbove(me, "" + ev.source.name + " одну минуту, пожалуйста.");
 				Sleep(2);
 				BuyBankersNote(ev.source, me);
 			// elseif(text["balance"])
-			elseif(Find( text, "balance", 1 ))
+			elseif(Find( text, "balance", 1 ) || Find( text, "баланс", 1 ))
 				if(ev.source.criminal == 1)
 					say("Я не веду дела с преступниками!");
 				else
@@ -85,7 +85,7 @@ program banker();
 					endforeach
 					ShowBalance(ev.source, AddCommas(gamt), AddCommas(samt), AddCommas(camt));
 				endif
-			elseif(text["bank"])
+			elseif(text["bank"] || text["банк"])
 				OpenBank(ev.source, bank_region);
 //			elseif(text["bankers order"] || text["banker's order"] || text["draft"])
 			endif

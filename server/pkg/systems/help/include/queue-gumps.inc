@@ -39,7 +39,7 @@ function BuildGumpTemplate()
 	gump := GFCreateGump();
 	GFResizePic( gump, 0, 0, GFGetCfgConst( "Defaults", "BackGround" ), 540, 450 );
 	GFResizePic( gump, 15, 15, GFGetCfgConst( "Defaults", "ForeGround" ), 510, 25 );
-	GFTextMid( gump, 15, 20, 570, 2100, "Help Queue" );
+	GFTextMid( gump, 15, 20, 570, 2100, "Очередь запросов" );
 
 	// Left bar
 	GFResizePic( gump, 15, 45, GFGetCfgConst( "Defaults", "ForeGround" ), 125, 325 );
@@ -131,16 +131,16 @@ function ShowPageInQueue( staff, queue_name, page_id, cmdlevel )
 		status := "[offline]";
 	endif
 
-	GFTextLine( gump, 160, 55, 2100, "Page From: "+mobile.name+" "+status );
+	GFTextLine( gump, 160, 55, 2100, "Запрос от: "+mobile.name+" "+status );
 
         var page_time := StrFormatTime( "%m-%d-%Y %I:%M:%S %p", CInt( page_info.time ));
         if( page_time )
-	       GFTextLine( gump, 160, 75, 2100, "Page Time: "+page_time );
+	       GFTextLine( gump, 160, 75, 2100, "Время запроса: "+page_time );
         endif
 
         var server_time := StrFormatTime( "%m-%d-%Y %I:%M:%S %p", CInt( POLCore().systime ));
         if( server_time )
-	       GFTextLine( gump, 160, 95, 1720, "Server Time: "+server_time );
+	       GFTextLine( gump, 160, 95, 1720, "Время сервера: "+server_time );
         endif
 
 	GFResizePic( gump, 160, 120, GFGetCfgConst( "BackGrounds", "GoldTrim" ), 355, 230 );
@@ -168,12 +168,12 @@ function ShowPageInQueue( staff, queue_name, page_id, cmdlevel )
         endif
 
 	GFAddButton( gump, 160, 387, 2117, 2118, btn_type, ACCTNOTE_BTN );
-	GFTextLine( gump, 180, 385, 2100, "Acct Info" );
+	GFTextLine( gump, 180, 385, 2100, "Данные аккаунта" );
 
 	GFAddButton( gump, 290, 385, 2117, 2118, GF_CLOSE_BTN, EMAIL_BTN );
-	GFTextLine( gump, 310, 382, 2100, "Send Message" );
+	GFTextLine( gump, 310, 382, 2100, "Отправить сообщение" );
 	GFAddButton( gump, 290, 409, 2117, 2118, GF_CLOSE_BTN, DELETE_PAGE_BTN );
-	GFTextLine( gump, 310, 405, 2100, "Delete Page" );
+	GFTextLine( gump, 310, 405, 2100, "Удалить запрос" );
 
 	return gump;
 endfunction

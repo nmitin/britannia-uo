@@ -17,7 +17,7 @@ program use_OreVein(who, vein)
 	GFGumpPic(gump, 20, 90, 2434);
 
 	var ore_type := GFTextEntry(gump, 25, 90, 160, 20, 2100, vein.GetOreType());
-	GFTextLine(gump, 195, 90, 2100, "Ore Type");
+	GFTextLine(gump, 195, 90, 2100, "Тип руды");
 
 	var difficulty := GFTextEntry(gump, 25, 108, 160, 20, 2100, vein.GetDifficulty());
 	GFTextLine(gump, 195, 108, 2100, "Difficulty");
@@ -26,13 +26,13 @@ program use_OreVein(who, vein)
 	GFTextLine(gump, 195, 125, 2100, "Yield");
 
 	var max_ore := GFTextEntry(gump, 25, 145, 160, 20, 2100, vein.GetMaxOre());
-	GFTextLine(gump, 195, 145, 2100, "Max Ore");
+	GFTextLine(gump, 195, 145, 2100, "Макс. руды");
 
 	var remaining_ore := GFTextEntry(gump, 25, 165, 160, 20, 2100, vein.GetRemainingOre());
 	GFTextLine(gump, 195, 165, 2100, "Remaining");
 
 	GFAddButton(gump, 25, 303, 2117, 2118, GF_CLOSE_BTN, UPDATE_BTN);
-	GFTextLine(gump, 45, 300, 2100, "Update Vein");
+	GFTextLine(gump, 45, 300, 2100, "Обновить жилу");
 
 	GFAddButton(gump, 25, 323, 2117, 2118, GF_CLOSE_BTN, CANCEL_BTN);
 	GFTextLine(gump, 45, 320, 2100, "Cancel");

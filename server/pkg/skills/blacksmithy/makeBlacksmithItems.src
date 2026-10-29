@@ -33,7 +33,7 @@ program use_SmithTool(who, tool)
 		return 0;
 	elseif( !tool in ListEquippedItems(who) )
 		if( !(tool in EnumerateItemsInContainer(who.backpack)) )
-			SendSysMessage(who, "That item is not in your backpack nor equipped.", 3, 33);
+			SendSysMessage(who, "Этот предмет не в рюкзаке и не надет.", 3, 33);
 			return 0;
 		endif
 	endif
@@ -127,7 +127,7 @@ function makeBlacksmithItems(who, what, amt, tool)
 
 	while( counter < amt )
 		if( (who.x != x) || (who.y != y) )
-			SendSysMessage(who, "You stop smithing.");
+			SendSysMessage(who, "Вы прекращаете ковку.");
 			break;
 		elseif( !tool )
 			break;

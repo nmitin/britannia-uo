@@ -64,7 +64,7 @@ function MaterialSelection(who, craft_skill, type)
 	SendSysMessage(who, resource_config.errortext, 1, 33);
 		return 0;
 		endif
-	SendSysMessage(who, "Select the "+Lower(type)+" you would like to work with.", color := 88);
+	SendSysMessage(who, "Выберите "+Lower(type)+", с которым хотите работать.", color := 88);
 	var material := Target(who);
 	if( !material )
 		SendSysMessageCL( who, 1042023, color := 33 ); // Cancelled.
@@ -300,7 +300,7 @@ function CraftAssembly(who, craft_skill, tool, objtype, amt)
 	// Example2: objtype := array[x]; amt := array[x+mod];
 	var parts_list := SplitWords(craft_config[objtype].parts);
 	if( TypeOf(parts_list) != "Array" || !parts_list )
-		SendSysMessage(who, "This item does not require parts to be made! Contact a GM.", color := 33);
+		SendSysMessage(who, "Для этого предмета не нужны детали! Сообщите администрации.", color := 33);
 		return 0;
 	endif
 	var temp_list := dictionary;
@@ -413,7 +413,7 @@ function CreateCraftedMap(who, craft_skill, use_on, objtype, amount, itemname, r
 	var theitem := CreateItemInBackpack(who, objtype, 1);
 	if( theitem )
 		if( !SubtractAmount(use_on, amount) )
-			SendSysMessage(who, "You don't have enough materials in your backpack!", color := 33);
+			SendSysMessage(who, "В рюкзаке недостаточно материалов!", color := 33);
 			DestroyItem(theitem);
 			return -1;
 		endif
@@ -487,7 +487,7 @@ function RequiredObjectMissing(who, objtype)
 	if( MissingObject == "nothing" )
 		return -1; // -1 = not required. Should never happen unless you misuse this function.
 	endif
-	SendSysMessage(who, "You must be near a " + MissingObject + " in order to make this.", color := 40);
+	SendSysMessage(who, "Нужно находиться рядом с " + MissingObject + ", чтобы это сделать.", color := 40);
 	return 1;
 endfunction
 

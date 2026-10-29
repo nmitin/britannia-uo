@@ -46,7 +46,7 @@ program appraiser()
 		  if(txt["appraise"])
 		    TurnToward(ev.source);
 		    appraise(ev.source);
-		  elseif((txt["buy"]) || (txt["sell"]))
+		  elseif((txt["buy"]) || (txt["sell"]) || (txt["купить"]) || (txt["продать"]))
 		    PrintTextAbovePrivate(me, "Извини, но покупать или продавать тебе придётся в другом месте.", ev.source);
 		  endif
         SYSEVENT_ITEM_GIVEN:  processdeedsale(ev.source, ev.item);

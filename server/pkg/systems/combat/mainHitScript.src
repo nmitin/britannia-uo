@@ -160,12 +160,12 @@ function WearDownArmor(defender, armor)
 		var armor_elem := CS_GetSettingsCfgElem("Armor");
 
 		if ( RandomInt(100)+1 <= armor_elem.WearChance )
-			SendSysMessage(defender, armor.desc+" takes some damage.");
+			SendSysMessage(defender, armor.desc+" получает урон.");
 			armor.hp := armor.hp - 1;
 
 			if ( armor.hp <= 1 )
 				MoveObjectToLocation(armor, 1, 1, 1, armor.realm, MOVEOBJECT_FORCELOCATION);
-				SendSysMessage(defender, armor.desc+" has been destroyed.");
+				SendSysMessage(defender, armor.desc+" уничтожен.");
 				DestroyItem(armor);
 			endif
 		endif
@@ -183,7 +183,7 @@ function WearDownWeapon(attacker, weapon)
 			if ( (RandomInt(100)+1) <= CInt(wpn_elem.WearChance) )
 				weapon.quality := weapon.quality * CDbl(wpn_elem.WearRate);
 				if ( weapon.quality <= 0.1 )
-					SendSysMessage(attacker, weapon.desc+" breaks.");
+					SendSysMessage(attacker, weapon.desc+" ломается.");
 					MoveObjectToLocation(weapon, 1, 1, 1, attacker.realm, MOVEOBJECT_FORCELOCATION);
 					DestroyItem(weapon);
 				elseif ( weapon.hp > weapon.maxhp )
@@ -193,7 +193,7 @@ function WearDownWeapon(attacker, weapon)
 			return 1;
 		endif
 	else
-		SendSysMessage(attacker, "An attack without a weapon?! Waaaa! That shouldnt be.");
+		SendSysMessage(attacker, "Атака без оружия?! Так не должно быть.");
 		return 0;
 	endif
 endfunction
@@ -271,15 +271,15 @@ function ParryCheck(attacker, defender, byref rawdamage)
 
 	if ( RandomFloat(roll) < parry_chance )
 		PerformAction(defender, ANIM_TWIST_DODGE);
-		SendSysMessage(defender, "You deflect some damage using your shield.");
+		SendSysMessage(defender, "Вы отражаете часть урона щитом.");
 		rawdamage -= shield.ar;
 
 		if ( rawdamage > CInt(0.15*shield.hp) )
-			SendSysMessage(defender, shield.desc+" takes some damage.");
+			SendSysMessage(defender, shield.desc+" получает урон.");
 			shield.quality *= CDbl(parry_elem.WearRate);
 			if ( shield.quality <= 0.1 )
 				MoveObjectToLocation(shield, 1, 1, 1, shield.realm, MOVEOBJECT_FORCELOCATION);
-				SendSysMessage(defender, shield.desc+" has been destroyed.");
+				SendSysMessage(defender, shield.desc+" уничтожен.");
 				DestroyItem(shield);
 			elseif ( shield.hp > shield.maxhp )
 				shield.hp := shield.maxhp;
@@ -288,12 +288,12 @@ function ParryCheck(attacker, defender, byref rawdamage)
 
 		var armor_elem := CS_GetSettingsCfgElem("Armor");
 		if ( RandomInt(100)+1 <= armor_elem.WearChance )
-			SendSysMessage(defender, shield.desc+" takes some damage.");
+			SendSysMessage(defender, shield.desc+" получает урон.");
 			shield.hp := shield.hp - 1;
 
 			if ( shield.hp <= 1 )
 				MoveObjectToLocation(shield, 1, 1, 1, shield.realm, MOVEOBJECT_FORCELOCATION);
-				SendSysMessage(defender, shield.desc+" has been destroyed.");
+				SendSysMessage(defender, shield.desc+" уничтожен.");
 				DestroyItem(shield);
 			endif
 		endif

@@ -15,13 +15,13 @@ program charge_upkeep(parms)
   SetObjProperty(item, "Pid", pid);
   var charges := GetObjProperty(item, "charges");
   if(!charges)
-    SendSysMessage(who, "that item is out of charges");
+    SendSysMessage(who, "у этого предмета закончились заряды");
     return;
   endif
   var mods := Process_Mods(who, item);
   var ret  := upkeep_server(who, item, mods[1]);
   if(ret == 1)
-    SendSysMessage(who, item.name + " is out of charges");
+    SendSysMessage(who, item.name + " остался без зарядов");
   endif
   Process_Unmods(who, item, mods, ret);
 endprogram

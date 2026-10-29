@@ -19,7 +19,7 @@ program equip(who, item)
 			else
 				item.setprop("GuildColor", guild_color);
 			endif
-			SendSysMessage( who, "That item's color has been changed to reflect your guild's current color.", color := 88 );
+			SendSysMessage( who, "Цвет предмета изменён под текущий цвет вашей гильдии.", color := 88 );
 		endif
 	endif
 

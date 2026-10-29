@@ -54,11 +54,11 @@ program banker();
     if(ev.type == EVID_NODE)
 			text := lower(ev.text);
 			splitted := SplitWords(text);
-			if(text["bankers note"] || text["banker's note"] || text["bankers order"] || text["banker's order"] || text["draft"])
+			if(text["bankers note"] || text["banker's note"] || text["bankers order"] || text["banker's order"] || text["draft"] || text["ордер"] || text["чек"])
 				PrintTextAbove(me, "" + ev.source.name + " одну минуту, пожалуйста.");
 				Sleep(2);
 				BuyBankersNote(ev.source, me);
-			elseif(text["bank"])
+			elseif(text["bank"] || text["банк"])
 				OpenBank(ev.source, bank_region);
 			elseif(text["balance"])
 				var bankbox := CP_GetStorageContainerForMobile( ev.source, bank_region, CP_CREATE );

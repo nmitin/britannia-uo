@@ -47,7 +47,7 @@ function BuildGumpTemplate()
         GFClosable( gump, 0 );
 	GFResizePic( gump, 0, 0, GFGetCfgConst( "Defaults", "BackGround" ), 600, 450 );
 	GFResizePic( gump, 15, 15, GFGetCfgConst( "Defaults", "ForeGround" ), 570, 25 );
-	GFTextMid( gump, 15, 20, 570, 1720, "Help Menu" );
+	GFTextMid( gump, 15, 20, 570, 1720, "Меню помощи" );
 
 	// Main stone area where content goes
 	GFResizePic( gump, 205, 45, GFGetCfgConst( "Defaults", "ForeGround" ), 380, 325 );
@@ -93,14 +93,14 @@ function BuildIntroGump()
 	GFDrawWrappedText( gump, 220, ( y_pos+=20 ), GFWordWrap( text, 362 ));
 
 	GFAddButton( gump, 220, y_pos+=3, 4005, 4006, GF_CLOSE_BTN, STUCK_PAGE_BTN );
-	GFTextLine( gump, 255, y_pos, 1720, "My character is physically stuck." );
+	GFTextLine( gump, 255, y_pos, 1720, "Мой персонаж застрял." );
 
 	text := "This choice only coverts cases where your characters is physically stuck
                  in a location they cannot move out of. This option will work once every 2 hours.";
 	GFDrawWrappedText( gump, 220, ( y_pos+=20 ), GFWordWrap( text, 362 ));
 
 	GFAddButton( gump, 220, y_pos+=3, 4005, 4006, GF_CLOSE_BTN, STAFF_PAGE_BTN );
-	GFTextLine( gump, 255, y_pos, 1720, "Contact a staff member." );
+	GFTextLine( gump, 255, y_pos, 1720, "Связаться с администрацией." );
 
 	text := "A staff member is an experienced player on the shard who has volunteered time
 		to help answer questions. Selecting this option will let you send a message to a
@@ -124,10 +124,10 @@ function BuildTextEntryGump( title, byref cur_txt )
 		GFTextLine( gump, 255, 340, 2100, "Back" );
 
 		GFAddButton( gump, 325, 340, 2117, 2118, GF_CLOSE_BTN, WORD_WRAP_BTN );
-		GFTextLine( gump, 345, 340, 2100, "Word Wrap" );
+		GFTextLine( gump, 345, 340, 2100, "Перенос слов" );
 
 		GFAddButton( gump, 540, 338, 4029, 4030, GF_CLOSE_BTN, SEND_PAGE_BTN );
-		GFTextLine( gump, 460, 340, 2100, "Send Page" );
+		GFTextLine( gump, 460, 340, 2100, "Отправить запрос" );
 
 		SaveHelpInfo( "TextEntry", "Gump", gump );
 	endif
@@ -216,26 +216,26 @@ function BuildHelpStuckCommand( mobile )
         var release_time := data_elem.GetProp( "JailReleaseTime" );
         if( release_time )
                 if( POLCore().systime < release_time )
-                        SendSysMessage( mobile, "Think about a better solution ( if any ). For now you stay jailed." );
+                        SendSysMessage( mobile, "Подумайте о лучшем решении (если оно есть). Пока вы остаётесь в тюрьме." );
                         return 0;
                 endif
         endif
 
-        SendSysMessage( mobile, "You will be teleported within the next 5 minutes." );
+        SendSysMessage( mobile, "Вы будете телепортированы в течение 5 минут." );
         mobile.frozen := 1;
 
         var time := 0;
         while( time < 300 )
 
                 if( !mobile.dead && mobile.multi )
-                        SendSysMessage( mobile, "You cannot use this option while standing in a house or a boat alive." );
+                        SendSysMessage( mobile, "Нельзя использовать это в доме или на лодке." );
                         mobile.frozen := 0;
                         return 0;
                 endif
 
                 var hostiles := ListHostiles( mobile, 20 );
                 if( hostiles.Size() >= 1 )
-                        SendSysMessage( mobile, "You cannot use this option while you are being attacked." );
+                        SendSysMessage( mobile, "Нельзя использовать это, пока вас атакуют." );
                         mobile.frozen := 0;
                         return 0;
                 endif
@@ -243,7 +243,7 @@ function BuildHelpStuckCommand( mobile )
                 var near := ListMobilesNearLocation( mobile.x, mobile.y, mobile.z, 14, mobile.realm );
                 foreach player in near
                         if( player.cmdlevel > 0 )
-                                SendSysMessage( mobile, "You cannot use this option while a staff member is surrounding." );
+                                SendSysMessage( mobile, "Нельзя использовать это, пока рядом администрация." );
                                 mobile.frozen := 0;
                                 return 0;
                         endif
@@ -289,7 +289,7 @@ function BuildGumpForGate( byref gump )
 	GFResizePic( gump, 0, 0, GFGetCfgConst( "Defaults", "BackGround" ), 340, 330 );
 	GFResizePic( gump, 15, 15, GFGetCfgConst( "Defaults", "ForeGround" ), 310, 300 );
 
-	GFTextMid( gump, 20, 30, 310, 2100, "Select a Destination" );
+	GFTextMid( gump, 20, 30, 310, 2100, "Выберите место назначения" );
 	GFAddButton( gump, 35, 250, 2128, 2129, GF_CLOSE_BTN, 0x10 );
 	GFAddButton( gump, 35, 280, 2119, 2120, GF_CLOSE_BTN, 0x0 );
 

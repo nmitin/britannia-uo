@@ -128,7 +128,7 @@ function FacingChecks(attacker, defender)
 			if ( attacker.npctemplate )
 				TurnObjectToward(attacker, defender.x, defender.y);
 			else
-				CombatMsg(attacker, "You need to be facing "+defender.name+" to attack.", "Facing");
+				CombatMsg(attacker, "Нужно смотреть на "+defender.name+", чтобы атаковать.", "Facing");
 				return 0;
 			endif
 		endif
@@ -149,10 +149,10 @@ function DistanceChecks(byref a_info, byref d_info)
 	endif
 
 	if ( cur_range > max_range )
-		CombatMsg(a_info.mobile, "Opponent is too far away.", "Dist");
+		CombatMsg(a_info.mobile, "Противник слишком далеко.", "Dist");
 		return 0;
 	elseif ( cur_range < CInt(GetConfigInt(a_info.cfginfo, a_info.prefix+"MinRange")) )
-		CombatMsg(a_info.mobile, "Opponent is too close.", "Dist");
+		CombatMsg(a_info.mobile, "Противник слишком близко.", "Dist");
 		return 0;
 	else
 		return 1;
@@ -181,7 +181,7 @@ function AmmoChecks(byref a_info, byref unused d_info)
 		ammo_consumed := 1;
 		return 1;
 	else
-		CombatMsg(a_info.mobile, "You do not have any "+GetObjTypeDesc(ammo_type, 1)+"!", "Ammo");
+		CombatMsg(a_info.mobile, "У вас нет "+GetObjTypeDesc(ammo_type, 1)+"!", "Ammo");
 		return 0;
 	endif
 endfunction
@@ -287,17 +287,17 @@ function ParryChecks(byref a_info, byref d_info, byref raw_damage)
 
 	if ( RandomFloat(roll) < parry_chance )
 		PerformAction(d_info.mobile, ANIM_TWIST_DODGE);
-		SendSysMessage(d_info.mobile, "You deflect some damage using your shield.");
+		SendSysMessage(d_info.mobile, "Вы отражаете часть урона щитом.");
 		raw_damage -= shield.ar;
 
 		var armor_elem := g_settings_cfg["Armor"];
 		if ( RandomInt(100)+1 <= armor_elem.WearChance )
-			SendSysMessage(d_info.mobile, shield.desc+" takes some damage.");
+			SendSysMessage(d_info.mobile, shield.desc+" получает урон.");
 			shield.hp := shield.hp - 1;
 
 			if ( shield.hp <= 1 )
 				MoveObjectToLocation(shield, 1, 1, 1, _DEFAULT_REALM, MOVEOBJECT_FORCELOCATION);
-				SendSysMessage(d_info.mobile, shield.desc+" has been destroyed.");
+				SendSysMessage(d_info.mobile, shield.desc+" уничтожен.");
 				DestroyItem(shield);
 			endif
 		endif
@@ -348,12 +348,12 @@ function ArmorChecks(byref d_info, armor_hit, byref raw_damage)
 
 	var armor_elem := g_settings_cfg["Armor"];
 	if ( RandomInt(100)+1 <= armor_elem.WearChance )
-		SendSysMessage(d_info.mobile, armor_hit.desc+" takes some damage.");
+		SendSysMessage(d_info.mobile, armor_hit.desc+" получает урон.");
 		armor_hit.hp := armor_hit.hp - 1;
 
 		if ( armor_hit.hp <= 1 )
 			MoveObjectToLocation(armor_hit, 1, 1, 1, armor_hit.realm, MOVEOBJECT_FORCELOCATION);
-			SendSysMessage(d_info.mobile, armor_hit.desc+" has been destroyed.");
+			SendSysMessage(d_info.mobile, armor_hit.desc+" уничтожен.");
 			DestroyItem(armor_hit);
 		endif
 	endif

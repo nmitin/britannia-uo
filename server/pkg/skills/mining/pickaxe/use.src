@@ -15,16 +15,16 @@ var settings := MSP_GetSettingsCfgElem("Settings");
 
 program use_PickAxe(who, pick)
 
-	SendSysMessage(who, "Select a place to mine.");
+	SendSysMessage(who, "Выберите место для добычи.");
 	var targ := TargetCoordinates(who);
 	if ( !targ )
 		SendSysMessage(who, "Cancelled.");
 		return 0;
 	elseif ( !IsMinable(targ.x, targ.y, who.realm, targ.objtype) )
-		SendSysMessage(who, "You can not mine there.");
+		SendSysMessage(who, "Здесь нельзя добывать.");
 		return 0;
 	elseif ( CoordinateDistance(who.x, who.y, targ.x, targ.y) > 5 )
-		SendSysMessage(who, "That is too far away.");
+		SendSysMessage(who, "Это слишком далеко.");
 		return 0;
 	endif
 
@@ -40,7 +40,7 @@ program use_PickAxe(who, pick)
 		Sleep(3);
 	endfor
 
-	SendSysMessage(who, "You stop mining.");
+	SendSysMessage(who, "Вы прекращаете добычу.");
 
 	return 1;
 endprogram
@@ -64,7 +64,7 @@ function DoMining(who, tool, targ, orig_x, orig_y)
 	endif
 
 	if ( !found_ore )
-		SendSysMessage(who, "You are unable to find any ore here.");
+		SendSysMessage(who, "Здесь не удаётся найти руду.");
 		return 0;
 	endif
 
@@ -90,11 +90,11 @@ function CheckOreVeins(who, targ, range)
 
 				var ore := CreateItemInBackpack(who, ore_vein.GetOreType(), yield);
 				if ( ore.errortext )
-					SendSysMessage(who, "Unable to create "+ore_vein.GetOreType()+"->"+ore.errortext);
+					SendSysMessage(who, "Не удалось создать "+ore_vein.GetOreType()+"->"+ore.errortext);
 					continue;
 				endif
 
-				SendSysMessage(who, "You mine some "+GetObjTypeDesc(ore.objtype)+".");
+				SendSysMessage(who, "Вы добываете "+GetObjTypeDesc(ore.objtype)+".");
 				remaining_ore := remaining_ore-yield;
 				ore_vein.SetRemainingOre(remaining_ore);
 
@@ -139,11 +139,11 @@ function CheckGlobalOre(who, targ)
 	if ( SkillCheck(who, MINING, difficulty) > 0 )
 		var ore := CreateItemInBackpack(who, type, 1);
 		if ( ore.errortext )
-			SendSysMessage(who, "Unable to create "+type+"->"+ore.errortext);
+			SendSysMessage(who, "Не удалось создать "+type+"->"+ore.errortext);
 			return 0;
 		endif
 
-		SendSysMessage(who, "You mine some "+GetObjTypeDesc(ore.objtype)+".");
+		SendSysMessage(who, "Вы добываете "+GetObjTypeDesc(ore.objtype)+".");
 	endif
 
 	return 1;
@@ -151,19 +151,19 @@ endfunction
 
 function CanMine(who, tool, unused targ, orig_x, orig_y)
 	if ( who.hidden )
-		SendSysMessage(who, "You stop mining to remain hidden.");
+		SendSysMessage(who, "Вы прекращаете добычу, чтобы остаться незамеченным.");
 		return 0;
 	elseif ( CoordinateDistance(who.x, who.y, orig_x, orig_y) > 3 )
-		SendSysMessage(who, "You turn your attention away from mining.");
+		SendSysMessage(who, "Вы отвлекаетесь от добычи.");
 		return 0;
 //	elseif ( !IsFacing(who, targ.x, targ.y) )
 //		SendSysMessage(who, "You turn your attention away from mining.");
 //		return 0;
 	elseif ( !(tool in ListEquippedItems(who)) )
-		SendSysMessage(who, "You put the tool away and stop mining.");
+		SendSysMessage(who, "Вы убираете инструмент и прекращаете добычу.");
 		return 0;
 	elseif ( GetEquipmentByLayer(who, LAYER_MOUNT) )
-		SendSysMessage(who, "You can't mine while mounted.");
+		SendSysMessage(who, "Нельзя добывать верхом.");
 		return 0;
 	else
 		return 1;

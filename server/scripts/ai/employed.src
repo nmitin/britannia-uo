@@ -188,6 +188,27 @@ function ProcessSpeech(ev)
 	RestartScript(me);
   endif
   var evtext := lower(ev.text);
+  // Русские команды: нормализуем в английские ключевые слова
+  evtext := StrReplace(evtext, "следуй за мной", "follow me");
+  evtext := StrReplace(evtext, "иди за мной", "follow me");
+  evtext := StrReplace(evtext, "ко мне", "come");
+  evtext := StrReplace(evtext, "убей", "kill");
+  evtext := StrReplace(evtext, "атакуй", "attack");
+  evtext := StrReplace(evtext, "атаковать", "attack");
+  evtext := StrReplace(evtext, "стой", "stop");
+  evtext := StrReplace(evtext, "стоять", "stop");
+  evtext := StrReplace(evtext, "следуй", "follow");
+  evtext := StrReplace(evtext, "охраняй меня", "guard me");
+  evtext := StrReplace(evtext, "охраняй", "guard");
+  evtext := StrReplace(evtext, "защищай", "guard");
+  evtext := StrReplace(evtext, "принеси", "fetch");
+  evtext := StrReplace(evtext, "возьми", "get");
+  evtext := StrReplace(evtext, "брось", "drop");
+  evtext := StrReplace(evtext, "передать", "transfer");
+  evtext := StrReplace(evtext, "отпустить", "release");
+  evtext := StrReplace(evtext, "говори", "speak");
+  evtext := StrReplace(evtext, "все", "all");
+
   var ph := SplitWords(me.name);
   var mename := lower(ph[1]);
   if(evtext[mename + " kill"] || evtext[mename + " attack"] || evtext["all kill"] || evtext["all attack"])

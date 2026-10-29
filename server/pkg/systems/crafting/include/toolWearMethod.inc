@@ -20,7 +20,7 @@ exported function CheckToolWear (tool, who, craft_skill)
 	endif
 	if(swings <= 0)
 		DestroyItem(tool);
-		SendSysMessage(who,"Your tool broke.");
+		SendSysMessage(who,"Ваш инструмент сломался.");
 	else
 		var skill := AP_GetSkill(who, craft_skill);
 		if(skill > 80)
@@ -34,7 +34,7 @@ exported function CheckToolWear (tool, who, craft_skill)
 					SetObjProperty(tool,"swings", CInt(swings - 1));
 					tool.hp := tool.hp - 1;
 				elseif((tool.hp > tool.maxhp) or (tool.hp == 1))
-					SendSysMessage(who, "Your tool broke.");
+					SendSysMessage(who, "Ваш инструмент сломался.");
 					DestroyItem(tool);
 				endif
 			else

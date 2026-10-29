@@ -15,7 +15,7 @@ program use_bottle( who, bottle )
   EraseObjProperty(who, "IsMeditating");
   EraseObjProperty(who, "HealTimer");
   if(bottle.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   if(!ReserveItem(bottle))
@@ -35,12 +35,12 @@ program use_bottle( who, bottle )
   var message := CreateItemInContainer(who.backpack, 0x1A363);
   if(!message)
     DestroyItem(bottle);
-    SendSysMessage(who, "You cannot make out the writing on the message!");
+    SendSysMessage(who, "Вы не можете разобрать написанное в послании!");
     return;
   endif
   SetObjProperty(message, "tileX", X);
   SetObjProperty(message, "tileY", Y);
   SetObjProperty(message, "msgnum", RandomInt(4));
-  SendSysMessage(who, "You have extracted a message from the bottle!");
+  SendSysMessage(who, "Вы извлекли послание из бутылки!");
   DestroyItem(bottle);
 endprogram

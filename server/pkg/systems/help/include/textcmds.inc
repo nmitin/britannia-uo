@@ -36,13 +36,13 @@ function SendCmdHelpWindow( byref mobile, byref file_loc )
 	var text_lines := ReadFile( file_loc ),
 		text := "";
 	if ( text_lines.errortext )
-		text := "Could not access "+file_loc+"... ERROR -> "+text_lines.errortext;
+		text := "Не удалось получить доступ к "+file_loc+"... ERROR -> "+text_lines.errortext;
 		Print(text);
 	endif
 
 	text := ImplodeArray("\n", text_lines);
 	if( !text )
-		text := "There is no help info for this command defined.";
+		text := "Для этой команды справка не задана.";
 	endif
 
 	var gump := GFCreateGump( 50, 50 );

@@ -92,11 +92,11 @@ program merchant()
                                   elseif((ev.source.cmdlevel > 2) && (txt["showrestock"]))
                                     SendOpenSpecialContainer(ev.source, shop_resale);
                                   else
-                                    if(txt["buy"])
+                                    if(txt["buy"] || txt["купить"])
                                       TurnToward(ev.source);
                                       var res := SendBuyWindow( ev.source, shop_sell, me, shop_buy, VENDOR_SEND_AOS_TOOLTIP );
 									  res := res;
-                                    elseif(txt["sell"])
+                                    elseif(txt["sell"] || txt["продать"])
                                       if(GetObjProperty(shop_resale, "MyGold") >= 1000)
                                         TurnToward(ev.source);
                                         var count := ModifyPCSellList(merchant_type, (ev.source));
@@ -109,16 +109,16 @@ program merchant()
                                       else
                                         PrintTextAbovePrivate(me, "Я больше не могу себе этого позволить.", ev.source );
                                       endif
-                                    elseif (txt ["job"])
+                                    elseif (txt ["job"] || txt["работа"])
                                         var parms := { };
                                         parms[1] := ev.source;
                                         parms[2] := me;
                                         start_script (":job:job", parms);
-                                    elseif (txt["sell all"])
+                                    elseif (txt["sell all"] || txt["продать все"])
                                             BuyAll(ev.source);
-                                    elseif (txt["sell bag"])
+                                    elseif (txt["sell bag"] || txt["продать мешок"])
                                             BuyBag(ev.source);
-                                    elseif((txt["vendor train"]) || (txt["vendor teach"]) || (txt["merchant train"]) || (txt["merchant teach"]))
+                                    elseif((txt["vendor train"]) || (txt["vendor teach"]) || (txt["merchant train"]) || (txt["merchant teach"]) || (txt["обучи"]) || (txt["научи"]))
                                       TurnToward(ev.source);
                                       MerchantTrain(me, ev.source, ev.text);
                                     endif
