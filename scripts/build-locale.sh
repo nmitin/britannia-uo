@@ -9,4 +9,5 @@ python3 tools/build_cliloc_ru.py \
   --base client/Cliloc.enu \
   --translation locale/ru/vendor/Cliloc.enu.community \
   --json locale/ru/cliloc_server_ru.json \
+  --json locale/ru/cliloc_from_items.json \
   --out client/Cliloc.rus

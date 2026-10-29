@@ -55,7 +55,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="client/Cliloc.enu")
     ap.add_argument("--translation", default="", help="бинарный cliloc с переводом")
-    ap.add_argument("--json", default="", help="JSON перевода")
+    ap.add_argument("--json", default=[], action="append", help="JSON перевода (можно несколько)")
     ap.add_argument("--out", default="client/Cliloc.rus")
     args = ap.parse_args()
 
@@ -68,8 +68,8 @@ def main() -> int:
             if cid in base and text.strip() and text.strip() != base[cid].strip():
                 result[cid] = text
 
-    if args.json:
-        with open(args.json, encoding="utf-8") as f:
+    for jf in args.json:
+        with open(jf, encoding="utf-8") as f:
             data = json.load(f)
         if all(isinstance(k, str) and not k.isdigit() for k in data):
             # словарь english -> russian
