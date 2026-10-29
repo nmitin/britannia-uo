@@ -382,7 +382,7 @@ function BuildRegionGump( who, realm_name, region_name:="" )
 			region_name := GFExtractData( input, NAME_TEXT_POS );
 			var result := SS_AddRegion( region_name, realm_name );
 			if( result.errortext )
-				GumpPrompt( who, "Error Creating Region [P] "+result.errortext );
+				GumpPrompt( who, "Ошибка создания региона [P] "+result.errortext );
 				return SHOW_REGIONS_BTN;
 			else
 				SS_AddRegionToRealm( realm_name, region_name );
@@ -411,7 +411,7 @@ function BuildRegionGump( who, realm_name, region_name:="" )
 		SS_SetRegionCoordinates( region_name, x1, y1, x2, y2 );
 		SS_SetRegionSpawnWait( region_name, wait );
 
-		GumpPrompt( who, "Region setup complete." );
+		GumpPrompt( who, "Настройка региона завершена." );
 	elseif( input[DELETE_BTN] )
 		if( YesNo( who, "Are you sure you want to delete this region?" ))
 			SS_RemoveRegion( region_name );
@@ -532,7 +532,7 @@ function BuildGroupGump( who, group_name:="" )
 		endforeach
 
 		if( !engine_name )
-			GumpPrompt( who, "Error Creating Group [P] No engine selected." );
+			GumpPrompt( who, "Ошибка создания группы [P]: движок не выбран." );
 			return SHOW_GROUPS_BTN;
 		endif
 
@@ -540,7 +540,7 @@ function BuildGroupGump( who, group_name:="" )
 		if( new_group )
 			result := SS_AddGroup( group_name, engine_name );
 			if( result.errortext )
-				GumpPrompt( who, "Error Creating Group [P] "+result.errortext );
+				GumpPrompt( who, "Ошибка создания группы [P] "+result.errortext );
 			endif
 		else
 			result := SS_SetGroupEngine( group_name, engine_name );
@@ -551,7 +551,7 @@ function BuildGroupGump( who, group_name:="" )
 				SS_AddEntryToGroup( group_name, entry );
 				SleepMS(2);
 			endforeach
-			GumpPrompt( who, "Group setup complete." );
+			GumpPrompt( who, "Настройка группы завершена." );
 		endif
 	elseif( input[DELETE_BTN] )
 		if( YesNo( who, "Are you sure you want to delete this group?" ))
@@ -576,7 +576,7 @@ function VisitRegionCenter( who, region_name )
 		GumpPrompt( who, "["+region_name+"] ["+x+"] ["+y+"] ["+z+"] ["+realm_name+"] -> "+result.errortext );
 		return 0;
 	else
-		GumpPrompt( who, "Moved to "+realm_name+" [P] X("+x+") Y("+y+") Z("+z+")" );
+		GumpPrompt( who, "Перемещено в "+realm_name+" [P] X("+x+") Y("+y+") Z("+z+")" );
 	endif
 
 	return 1;

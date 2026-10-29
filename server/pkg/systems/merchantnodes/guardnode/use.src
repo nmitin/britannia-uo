@@ -13,7 +13,7 @@ program GuardNodeManager(who, itm)
 	pid  := GetObjProperty(item, "#Pid");
 	proc := GetProcess(pid);
 	if(!proc)
-		SendSysMessage(who, "That guard node is not responding");
+		SendSysMessage(who, "Узел стражи не отвечает");
 		return;
 	endif
 	GFInitGump(0, 0);

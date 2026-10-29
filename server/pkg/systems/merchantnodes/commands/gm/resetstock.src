@@ -9,7 +9,7 @@ program textcmd_restock_from_cfg(who, type)
   if(type != "")
     var cfg := ReadConfigFile("::mrcspawn");
     if(!cfg[type])
-      SendSysMessage(who, "Invalid type, must match a valid Merchant Type from npcdesc.cfg", 3, 40);
+      SendSysMessage(who, "Неверный тип: должен совпадать с типом торговца из npcdesc.cfg", 3, 40);
       return;
     endif
   endif
@@ -17,8 +17,8 @@ program textcmd_restock_from_cfg(who, type)
   var counter := 0;
   foreach thing in ListObjectsInBox(0, 0, -100, 6143, 4095, 100, who.realm);
     if(thing.objtype == 0x1887a)
-      sendsysmessage(who, "processing node: " + (count + 1));
-      sendsysmessage(who, "total vendors reset: " + counter);
+      sendsysmessage(who, "обработка узла: " + (count + 1));
+      sendsysmessage(who, "сброшено торговцев: " + counter);
       var cratelist := GetObjProperty(thing, "Type");
       foreach entry in cratelist
         var anchor    := entry[2];
@@ -42,6 +42,6 @@ program textcmd_restock_from_cfg(who, type)
     endif
     sleepms(10);
   endforeach
-  SendSysMessage(who, "Finished updating vendor lists.", color := 66);
-  SendSysMessage(who, "- " + counter + " vendors updated -", color := 66);
+  SendSysMessage(who, "Обновление списков торговцев завершено.", color := 66);
+  SendSysMessage(who, "- " + counter + " торговцев обновлено —", color := 66);
 endprogram

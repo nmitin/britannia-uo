@@ -58,7 +58,7 @@ program usehousedeed (character, deed)
 	endif
 
 	if (!LegalHouseLocation (where.x, where.y, where.realm))
-		SendSysMessage (character, "House placement not allowed there!");
+		SendSysMessage (character, "Здесь нельзя разместить дом!");
 		return;
 	endif
 
@@ -68,7 +68,7 @@ program usehousedeed (character, deed)
 		return;
 	endif
 	if (extracharges > 0 && character.cmdlevel == 0)
-		SendSysMessage (character, "The cost of buying this foundation is " + extracharges + " gold!");
+		SendSysMessage (character, "Стоимость покупки фундамента — " + extracharges + " золота!");
 		if (!YesNo(character, "Buy it?"))
 			SendSysMessage(character, "Отменено.");
 			DestroyItem(created.packkey);
@@ -76,7 +76,7 @@ program usehousedeed (character, deed)
 			DestroyMulti(created.house);
 			return;
 		elseif (!character.spendgold (extracharges))
-			SendSysMessage (character, "You don't have enough money");
+			SendSysMessage (character, "У вас недостаточно денег");
 			DestroyItem(created.packkey);
 			DestroyItem(created.bankkey);
 			DestroyMulti(created.house);
@@ -149,19 +149,19 @@ function CreateHouseAndKeys (character, housetype, x, y, z, rlm)
 	var bankbox := CP_GetStorageContainerForMobile( character, bank_region, CP_CREATE );
 	var bankkey := CreateItemInContainer (bankbox, UOBJ_GOLD_KEY);
 	if (!bankkey)
-		PrintTextAbovePrivate (character, "*Your bankbox is full!*", character );
+		PrintTextAbovePrivate (character, "*Ваш банковский ящик полон!*", character );
 		DestroyItem (packkey);
 		return 0;
 	endif
 
 	var house := CreateMultiAtLocation (x, y, z, housetype, 0, rlm);
 	if (!house)
-		PrintTextAbovePrivate (character, "*You can't place the house there!*", character );
+		PrintTextAbovePrivate (character, "*Здесь нельзя поставить дом!*", character );
 		SendSysMessage (character, house.errortext);
 
 		if (character.cmdlevel)
-			SendSysMessage (character, "Since you're a GM, though, you can cheat");
-			SendSysMessage (character, "Do you wish to place the house here anyway?");
+			SendSysMessage (character, "Но вы ГМ, поэтому можете схитрить");
+			SendSysMessage (character, "Всё равно поставить дом здесь?");
 			if (!YesNo (character, "Continue?"))
 				DestroyItem (packkey);
 				DestroyItem (bankkey);

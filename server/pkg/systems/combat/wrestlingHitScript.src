@@ -10,7 +10,7 @@ var npccfgfile := ReadConfigFile( "::npcdesc" );
 
 program WrestlingHitScript(attacker, defender, weapon, armor, basedamage, rawdamage)
 	if(defender == attacker)
-		SendSysMessage(attacker, "No Cheating");
+		SendSysMessage(attacker, "Без читов");
 		ApplyRawDamage(attacker, 1000);
 		return;
 	endif

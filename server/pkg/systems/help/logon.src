@@ -21,7 +21,7 @@ program Logon( mobile )
         if( prop_names.Size() )
                 var script := Start_Script( ":help:commands/coun/helpqueue", mobile );
                 if( script.errortext )
-                        SendSysMessage( mobile, "Error couldn't start script <:help:commands:coun/helpqueue> -->"+script.errortext );
+                        SendSysMessage( mobile, "Ошибка запуска скрипта <:help:commands:coun/helpqueue> -->"+script.errortext );
                         return 0;
                 endif
         endif

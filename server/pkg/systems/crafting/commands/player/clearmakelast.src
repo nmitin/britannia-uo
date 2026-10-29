@@ -14,9 +14,9 @@ program resetmakelast(who)
     var answer := YesNo( who, "Clear 'Make last list'?", "Yes", "No", 0, LOCALIZED );
 	if(answer)
 		EraseObjProperty(who, "Craft");
-		SendSysMessage(who, "Make Last list is cleared.", color := 66);
+		SendSysMessage(who, "Список «Повторить» очищен.", color := 66);
 	else
-		SendSysMessage(who, "No action taken.", color := 66);
+		SendSysMessage(who, "Действий не предпринято.", color := 66);
 	endif
 
 endprogram

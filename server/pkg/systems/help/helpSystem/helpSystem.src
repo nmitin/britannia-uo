@@ -167,7 +167,7 @@ function SubmitPage( mobile, cur_menu, byref input )
 			type := "Staff";
 			break;
 		default:
-			GumpPrompt( mobile, "Error - Invalid Menu "+cur_menu );
+			GumpPrompt( mobile, "Ошибка — неверное меню "+cur_menu );
 			return 0;
 	endcase
 
@@ -180,15 +180,15 @@ function SubmitPage( mobile, cur_menu, byref input )
 	SaveHelpInfo(elem_name, Hex( mobile.serial ), info );
 	foreach player in ( EnumerateOnlineCharacters() )
 		if( player.cmdlevel )
-			SendSysMessage( player, mobile.name+" has submitted a help page into the "+type+" queue.", 3, 76 );
+			SendSysMessage( player, mobile.name+" отправил запрос в "+type+" очередь.", 3, 76 );
 		endif
 		SleepMS(2);
 	endforeach
 
 	if( queue )
-		GumpPrompt( mobile, "Your previous page was overwritten: the next available staff will respond as soon as possible. Check your Journal for messages every few minutes." );
+		GumpPrompt( mobile, "Предыдущий запрос перезаписан: свободный сотрудник ответит как можно скорее. Проверяйте журнал каждые несколько минут." );
 	else
-		GumpPrompt( mobile, "Your page has been submitted: the next available staff will respond as soon as possible. Check your Journal for messages every few minutes." );
+		GumpPrompt( mobile, "Запрос отправлен: свободный сотрудник ответит как можно скорее. Проверяйте журнал каждые несколько минут." );
 	endif
 
 	return 1;

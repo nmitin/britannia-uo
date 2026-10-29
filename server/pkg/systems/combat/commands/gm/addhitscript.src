@@ -13,7 +13,7 @@ CONST SELECT_START	:= 0xA00;
 // CONST OKAY_BTN		:= 0x1;
 
 program AddHitScript(who);
-	SendSysMessage(who, "Select a weapon to modify.");
+	SendSysMessage(who, "Выберите оружие для изменения.");
 	var targ := target(who);
 	if ( !targ.IsA(POLCLASS_WEAPON) )
 		SendSysMessage(who, "Отменено.");

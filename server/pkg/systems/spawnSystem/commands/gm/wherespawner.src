@@ -18,12 +18,12 @@ program command_WhereSpawner( mobile )
 
         var zones := SS_FindSpawnZone( mobile );
         if( zones.Size() < 1 )
-                SendSysMessage( mobile, "You are not in any spawn region." );
+                SendSysMessage( mobile, "Вы не в регионе спавна." );
                 return 0;
         endif
 
         foreach region_name in zones
-                SendSysMessage( mobile, "SpawnRegion name: "+region_name, color := 88 );
+                SendSysMessage( mobile, "Имя региона спавна: "+region_name, color := 88 );
                 SleepMS(5);
         endforeach
 

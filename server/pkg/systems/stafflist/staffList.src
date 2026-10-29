@@ -61,7 +61,7 @@ function login(ev)
   var who := ev.player;
   foreach person in stff
     if(CInt(GetObjProperty(person, "LogNotify")) == 1)
-      SendSysMessage(person, who.name + " (Account name: " + who.acctname + ") has logged on.  IP: " + who.ip);
+      SendSysMessage(person, who.name + " (Аккаунт: " + who.acctname + " ) вошёл в игру. IP: " + who.ip);
     endif
   endforeach
 endfunction
@@ -115,7 +115,7 @@ function logoff(ev)
   else
     foreach person in stff
       if(CInt(GetObjProperty(person, "LogNotify")) == 1)
-        SendSysMessage(person, who.name + " (Account name: " + who.acctname + ") has logged off.  IP: " + who.ip + "   Time on- " + lastlogon);
+        SendSysMessage(person, who.name + " (Аккаунт: " + who.acctname + " ) вышел из игры. IP: " + who.ip + "   Время в игре: " + lastlogon);
       endif
     endforeach
   endif
@@ -141,13 +141,13 @@ function staff(ev)
         4: msg := "Admin";
         5: msg := "Developer";
       endcase
-      SendSysMessage(who, msg + " " + thing.name + " is online");
+      SendSysMessage(who, msg + " " + thing.name + " в сети");
       if(!GetObjProperty(who, "StealthLogin"))
-        SendSysMessage(thing, who.name + " (Account name: " + who.acctname + ") has logged on.  IP: " + who.ip);
+        SendSysMessage(thing, who.name + " (Аккаунт: " + who.acctname + " ) вошёл в игру. IP: " + who.ip);
       endif
     else
       if(CInt(GetObjProperty(thing, "LogNotify")) == 1)
-        SendSysMessage(thing, who.name + " (Account name: " + who.acctname + ") has logged on.  IP: " + who.ip);
+        SendSysMessage(thing, who.name + " (Аккаунт: " + who.acctname + " ) вошёл в игру. IP: " + who.ip);
       endif
     endif
     sleep(1);
@@ -161,7 +161,7 @@ function pdelay(ev)
   else
     foreach person in stff
       if(CInt(GetObjProperty(person, "LogNotify")) == 1)
-        SendSysMessage(person, who.name + " (Account name: " + who.acctname + ") has been set to delayed log out.  IP: " + who.ip);
+        SendSysMessage(person, who.name + " (Аккаунт: " + who.acctname + " ) переведён в режим отложенного выхода. IP: " + who.ip);
       endif
     endforeach
   endif

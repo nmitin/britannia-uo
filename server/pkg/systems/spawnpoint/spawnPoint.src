@@ -22,7 +22,7 @@ program use_spawnpoint(who, spawnpoint)
 	var i, x;
 //	if(spawn == "NONE")
 	if(!initialized)
-		SendSysMessage(who, "Initializing new spawnpoint...", color := 88);
+		SendSysMessage(who, "Инициализация новой точки появления...", color := 88);
 		spawneditdata[1] := "0";
 		spawneditdata[2] := "0";
 		spawneditdata[3] := "0";
@@ -45,7 +45,7 @@ program use_spawnpoint(who, spawnpoint)
 	endif
 	for(i := 1; i <= 5; i := i + 1);
 		if(!res[i])
-			SendSysMessage(who, "Error: spawn data incomplete. i = " + CStr(i) + ".  Aborting.", color := 33);
+			SendSysMessage(who, "Ошибка: данные спавна неполны. i = " + CStr(i) + ". Отмена.", color := 33);
 			return;
 		endif
 	endfor
@@ -54,7 +54,7 @@ program use_spawnpoint(who, spawnpoint)
 	i := i[4, (x-3)];
 	i := ValidateStringInteger(i);
 	if(i.errortext)
-		SendSysMessage(who, "'Amount' is not a valid integer. Setting it to 1.", color := 33);
+		SendSysMessage(who, "«Amount» — не целое число. Установлено 1.", color := 33);
 		i := "1";
 	endif
 	amount := CInt(i);
@@ -63,7 +63,7 @@ program use_spawnpoint(who, spawnpoint)
 	i := i[4, (x-3)];
 	i := ValidateStringInteger(i);
 	if(i.errortext)
-		SendSysMessage(who, "'Range' is not a valid integer. Setting it to 1.", color := 33);
+		SendSysMessage(who, "«Range» — не целое число. Установлено 1.", color := 33);
 		i := "1";
 	endif
 	range := CInt(i);
@@ -72,7 +72,7 @@ program use_spawnpoint(who, spawnpoint)
 	i := i[4, (x-3)];
 	i := ValidateStringInteger(i);
 	if(i.errortext)
-		SendSysMessage(who, "'Min' is not a valid integer. Setting it to 1.", color := 33);
+		SendSysMessage(who, "«Min» — не целое число. Установлено 1.", color := 33);
 		i := "1";
 	endif
 	mindelay := CInt(i);
@@ -81,28 +81,28 @@ program use_spawnpoint(who, spawnpoint)
 	i := i[4, (x-3)];
 	i := ValidateStringInteger(i);
 	if(i.errortext)
-		SendSysMessage(who, "'Max' is not a valid integer. Setting it to 1.", color := 33);
+		SendSysMessage(who, "«Max» — не целое число. Установлено 1.", color := 33);
 		i := "1";
 	endif
 	maxdelay := CInt(i);
 	if((amount < 1) || (amount > 32))
-		SendSysMessage(who, "Amount must be between 1 and 32.  Setting to 1.", color := 66);
+		SendSysMessage(who, "Amount должен быть от 1 до 32. Установлено 1.", color := 66);
 		amount := 1;
 	endif
 	if((range < 1) || (range > 32))
-		SendSysMessage(who, "Range must be between 1 and 32.  Setting to 1.", color := 66);
+		SendSysMessage(who, "Range должен быть от 1 до 32. Установлено 1.", color := 66);
 		range := 1;
 	endif
 	if((mindelay < 0) || (mindelay > 1440))
-		SendSysMessage(who, "MinDelay must be between 0 and 1440.  Setting to 1.", color := 66);
+		SendSysMessage(who, "MinDelay должен быть от 0 до 1440. Установлено 1.", color := 66);
 		mindelay := 1;
 	endif
 	if((maxdelay < 0) || (maxdelay > 1440))
-		SendSysMessage(who, "MaxDelay must be between 0 and 1440.  Setting to 1.", color := 66);
+		SendSysMessage(who, "MaxDelay должен быть от 0 до 1440. Установлено 1.", color := 66);
 		maxdelay := 1;
 	endif
 	if(maxdelay < mindelay)
-		SendSysMessage(who, "MaxDelay cannot be less than MinDelay.   Setting equal.", color := 66);
+		SendSysMessage(who, "MaxDelay не может быть меньше MinDelay. Уравнено.", color := 66);
 		maxdelay := mindelay;
 	endif
 	x := len(res[5]);
@@ -145,7 +145,7 @@ program use_spawnpoint(who, spawnpoint)
 	SetObjProperty(spawnpoint, "MaxDelay", maxdelay);
 	SetObjProperty(spawnpoint, "Spawn",    spawn);
 	SetObjProperty(spawnpoint, "ResetMe",  1);
-	SendSysMessage(who, "Spawnpoint initialized.  Resetting spawn.  This may take a minute...");
+	SendSysMessage(who, "Точка появления создана. Сброс спавна, это может занять минуту...");
 	spawnpoint.invisible := 1;
 endprogram
 

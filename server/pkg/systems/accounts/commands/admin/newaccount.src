@@ -81,7 +81,7 @@ program command_newAccount(who)
 
 		var account := ACCT_CreateNewAccount(acct_name, password, cmd_lvl, expansion, email);
 		if ( account.errortext )
-			GumpPrompt(who, "Error Creating Account [P] "+account.errortext);
+			GumpPrompt(who, "Ошибка создания аккаунта [P] "+account.errortext);
 			return 0;
 		else
 			GumpPrompt(who, "Аккаунт успешно создан.");

@@ -11,11 +11,11 @@ include ":attributes:attributes";
 program command_TitleTest( mobile, input )
 	var title := AP_GetSkillTitle( input );
 	if( title )
-		SendSysMessage( mobile, "Title for attribute '"+input+"' is '"+title+"'" );
+		SendSysMessage( mobile, "Титул для атрибута «"+input+"' is '"+title+"'" );
 		return 1;
 	else
 		title := AP_GetLevelTitle( CDbl( input ));
-		SendSysMessage( mobile, "Title for skill level '"+input+"' would be '"+title+"'" );
+		SendSysMessage( mobile, "Титул для уровня навыка «"+input+"» будет «"+title+"'" );
 		return 1;
 	endif
 endprogram

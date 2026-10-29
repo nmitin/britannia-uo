@@ -17,6 +17,6 @@ program walk_on_bantile(who, tile)
 	endif
 	if(who.serial in banlist)
 		MoveObjectToLocation( who, sign.x, sign.y, sign.z, sign.realm, MOVEOBJECT_FORCELOCATION );
-		SendSysMessage(who, "You are banned from that house and cannot enter it!");
+		SendSysMessage(who, "Вам запрещён вход в этот дом!");
 	endif
 endprogram

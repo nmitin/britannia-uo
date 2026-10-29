@@ -11,11 +11,11 @@ include ":attributes:attributes";
 program command_AttribConvert( who, input )
 
 	if( !input )
-		SendSysMessage( who, "Error - no skillID or attribute name was sent." );
+		SendSysMessage( who, "Ошибка — не передан skillID или имя атрибута." );
 		return 0;
 	elseif( Len( input ) <= 2 )
-		SendSysMessage( who, "SkillID ["+input+"] points to attribute "+AP_SkillIdToAttributeName( input ));
+		SendSysMessage( who, "SkillID ["+input+" ] указывает на атрибут "+AP_SkillIdToAttributeName( input ));
 	else
-		SendSysMessage( who, "Attribute ["+input+"] points to skillID "+AP_AttributeNameToSkillId( input ));
+		SendSysMessage( who, "Атрибут ["+input+" ] указывает на skillID "+AP_AttributeNameToSkillId( input ));
 	endif
 endprogram

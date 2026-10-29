@@ -100,10 +100,10 @@ function JailPlayer( mobile, jailed )
 
                 var script := start_script( ":accounts:commands/coun/acctnote", {mobile, jailed.acctname} );
                 if( script.errortext )
-                         SendSysMessage( mobile, "Error starting script <:accounts:commands/coun/acctnote> -->"+script.errortext );
+                         SendSysMessage( mobile, "Ошибка запуска скрипта <:accounts:commands/coun/acctnote> -->"+script.errortext );
                 endif
 
-                SendSysMessage( jailed, "You receive a notification from staff:", 3, 55 );
+                SendSysMessage( jailed, "Уведомление от администрации:", 3, 55 );
                 SendSysMessage( jailed, mobile.name+" >>> "+message_txt, 3, 55 );
 
                 MovePlayer( mobile, jailed );
@@ -127,7 +127,7 @@ function GetJTime( mobile, jailed )
 	if( jail_time == 0 )
                 var script := start_script( ":jailKeeper:getOutJail", mobile );
                 if( script.errortext )
-                         SendSysMessage( mobile, "Error starting script <:jailKeeper:getOutJail> -->"+script.errortext );
+                         SendSysMessage( mobile, "Ошибка запуска скрипта <:jailKeeper:getOutJail> -->"+script.errortext );
                          return 0;
                 endif
 

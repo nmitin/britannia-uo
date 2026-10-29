@@ -22,7 +22,7 @@ program grab_nodes_textcmd( mobile )
 	if( mobile.cmdlevel > 4 )
 		wipe_nodes := YesNo( mobile, "Do you want to wipe all nodes after backing them up?" );
 		if( wipe_nodes )
-			SendSysMessage( mobile, "All nodes will be wiped once they are backed up.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Все узлы будут очищены после резервного копирования.", 0x3, 0x32 );
 		endif
 		Sleep( 1 );
 	endif
@@ -71,7 +71,7 @@ program grab_nodes_textcmd( mobile )
 
 	MN_WriteXMLFile( list );
 
-	SendSysMessage( mobile, "Nodes have been backed up!", 0x3, 0x42 );
+	SendSysMessage( mobile, "Узлы скопированы!", 0x3, 0x42 );
 
 	if( wipe_nodes )
 		Sleep( 1 );

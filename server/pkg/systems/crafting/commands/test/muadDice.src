@@ -23,10 +23,10 @@ program command_IWantADiceString(who, text)
 	var min_val := CInt(text[1]);
 	var max_val := CInt(text[2]);
 	if ( min_val < 0 )
-		SendSysMessage(who, "Error - min_val value is <= 0. Must be 1 or higher.");
+		SendSysMessage(who, "Ошибка — min_val <= 0. Должно быть не меньше 1.");
 		return 0;
 	elseif ( max_val < min_val )
-		SendSysMessage(who, "Error - Max value must be greater than the min_val value.");
+		SendSysMessage(who, "Ошибка — Max должен быть больше min_val.");
 		return 0;
 	endif
 	

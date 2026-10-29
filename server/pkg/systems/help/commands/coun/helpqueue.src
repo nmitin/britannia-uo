@@ -84,12 +84,12 @@ function PageButtons( mobile, byref input, byref cur_menu, byref queue_name, byr
 		// GM and above only buttons after this point.
 	elseif( input[GOTO_BTN] )
 		var pager := SystemFindObjectBySerial( elem_info );
-		SendSysMessage( mobile, "Going to "+pager.name );
+		SendSysMessage( mobile, "Перехожу к "+pager.name );
 		MoveObjectToLocation( mobile, pager.x, pager.y, pager.z, pager.realm, MOVEOBJECT_FORCELOCATION );
 		return 1;
 	elseif( input[SUMMON_BTN] )
 		var pager := SystemFindObjectBySerial( elem_info );
-		SendSysMessage( mobile, "Bringing "+pager.name+" to your location." );
+		SendSysMessage( mobile, "Привожу "+pager.name+" к вам." );
 		MoveObjectToLocation( pager, mobile.x, mobile.y, mobile.z, mobile.realm, MOVEOBJECT_FORCELOCATION );
 		return 1;
 	elseif( input[ACCTNOTE_BTN] )

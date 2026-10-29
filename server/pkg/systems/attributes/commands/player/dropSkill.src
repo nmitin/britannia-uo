@@ -72,7 +72,7 @@ program textcmd_dropSkill( mobile )
         endif
 
         AP_SetTrueSkill( mobile, option, 0 );
-        SendSysMessage( mobile, "You dropped your "+option+"." );
+        SendSysMessage( mobile, "Вы выронили "+option+"." );
 
 
         return 1;

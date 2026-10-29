@@ -75,7 +75,7 @@ program textcmd_listjailed( mobile )
 
 	var script := start_script( ":jailKeeper:getOutJail", forgive );
         if( script.errortext )
-                SendSysMessage( mobile, "Error starting script <:jailKeeper:getOutJail> -->"+script.errortext );
+                SendSysMessage( mobile, "Ошибка запуска скрипта <:jailKeeper:getOutJail> -->"+script.errortext );
                 return 0;
         endif
 

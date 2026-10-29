@@ -17,7 +17,7 @@ program lockunlockitem (parms)
 		if (!character.cmdlevel)
 			return;
 		else
-			SendSysMessage(character, "Command level override");
+			SendSysMessage(character, "Переопределение командного уровня");
 		endif
 	endif
 
@@ -68,8 +68,8 @@ function HouseLockUnlockItem (sign, character, item)
 	//if (IsContainer (item) and (item.movable))
 	if (item.container && (item.movable))
 		if (len (EnumerateItemsInContainer (item)) or item.locked)
-			SendSysMessage(character, "You cannot lockdown containers.");
-			SendSysMessage(character, "Wish to secure it instead.");
+			SendSysMessage(character, "Нельзя закреплять контейнеры.");
+			SendSysMessage(character, "Защитить вместо этого?");
 			return;
 		//Fix for spellbooks, trashcans and potion kegs
 		else
@@ -79,7 +79,7 @@ function HouseLockUnlockItem (sign, character, item)
 
 	if (GetObjProperty (item, "secured"))
 		if (systemfindobjectbyserial (getobjproperty (item,"secured")))
-			SendSysMessage(character, "That item is secured.");
+			SendSysMessage(character, "Этот предмет защищён.");
 			return;
 		else
 			eraseobjproperty (item, "secured");
@@ -89,7 +89,7 @@ function HouseLockUnlockItem (sign, character, item)
 
 	if (GetObjProperty (item, "displaycontainer"))
 		if (systemfindobjectbyserial (getobjproperty (item, "displaycontainer")))
-			SendSysMessage(character, "That item is set as a display case");
+			SendSysMessage(character, "Предмет выставлен в витрине");
 			return;
 		else
 			eraseobjproperty (item, "displaycontainer");
@@ -98,7 +98,7 @@ function HouseLockUnlockItem (sign, character, item)
 
 
 	if (!sign.IsLocationInsideHouse(character, item))
-		SendSysMessage(character, "That location is not in the house.", color := 33);
+		SendSysMessage(character, "Это место не в доме.", color := 33);
 		return;
 	endif
 
@@ -179,7 +179,7 @@ function HouseSecureReleaseContainer (sign, character, item)
 	endif
 
 	if (GetObjProperty(item,"lockeddown"))
-		sendsysmessage(character,"That item is locked down");
+		sendsysmessage(character,"Предмет закреплён");
 		return;
 	endif
 
@@ -195,7 +195,7 @@ function HouseSecureReleaseContainer (sign, character, item)
 	endif
 
 	if ( len(EnumerateItemsInContainer(item)) > 125 )
-		sendsysmessage(character,"There are too many items in that container!");
+		sendsysmessage(character,"В этом контейнере слишком много предметов!");
 		return;
 	endif
 
@@ -210,13 +210,13 @@ function HouseSecureReleaseContainer (sign, character, item)
 
 	if (item.movable)
 		if (secures >= maxsecures )
-			SendSysMessage(character, "You have no more secure containers remaining!");
+			SendSysMessage(character, "У вас не осталось защищённых контейнеров!");
 			return;
 		endif
 
 		item.movable := 0;
 		setobjproperty (item, "secured", sign.serial);
-		PrintTextAbovePrivate( item, "That is secure.", character, 0x3, 0x42 );
+		PrintTextAbovePrivate( item, "Это защищено.", character, 0x3, 0x42 );
 	elseif (GetObjProperty (item, "secured"))
 		if ( getobjproperty( item, "secured") == sign.serial )
 			if (!IsADeedItem(character, item))
@@ -255,7 +255,7 @@ function HouseDisplayItem(sign, character, item)
 	endif
 
 	if(!GetObjProperty(item, "displaycontainer") and !item.movable)
-		SendSysMessage(character, "That item is not on display", 1, 33);
+		SendSysMessage(character, "Этот предмет не выставлен", 1, 33);
 		return;
 	endif
 
@@ -272,12 +272,12 @@ function HouseDisplayItem(sign, character, item)
 	endif
 
 	if (!item.isa (POLCLASS_CONTAINER))
-		SendSysMessage(character, "You can only put containers on display", 1, 33);
+		SendSysMessage(character, "Выставлять можно только контейнеры", 1, 33);
 		return;
 	endif
 
 	if ( len(EnumerateItemsInContainer(item)) > 32 )
-		SendSysMessage(character,"There are too many items in that container to display it! (32 items max.)", 1, 33);
+		SendSysMessage(character,"В контейнере слишком много предметов для витрины! (максимум 32)", 1, 33);
 		return;
 	endif
 
@@ -290,10 +290,10 @@ function HouseDisplayItem(sign, character, item)
 	if (item.movable)
 		foreach subitem in EnumerateItemsInContainer(item)
 			if ( Len(EnumerateItemsInContainer (subitem)))
-				SendSysMessage(character, "But " + subitem.desc + " has items in it!");
+				SendSysMessage(character, "But " + subitem.desc + " содержит предметы!");
 				return;
 			elseif (!ReserveItem(subitem) or !subitem.movable)
-				SendSysMessage(character, subitem.desc + " appears to be in use.");
+				SendSysMessage(character, subitem.desc + " похоже, используется.");
 				return;
 			endif
 			ReleaseItem (subitem);
@@ -303,7 +303,7 @@ function HouseDisplayItem(sign, character, item)
 		var maxlockdowns := sign.GetMaxLockdowns ();
 
 		if (lockdowns >= maxlockdowns)
-			SendSysMessage(character, "You have no more lockdowns remaining!", 1, 33);
+			SendSysMessage(character, "У вас не осталось закреплений!", 1, 33);
 			return;
 		endif
 
@@ -314,7 +314,7 @@ function HouseDisplayItem(sign, character, item)
 		SetObjProperty (item, "lockeddown", sign.serial);
 		sign.UpdateLockdowns();
 		SetObjProperty (item, "displaycontainer", sign.serial);
-		PrintTextAbovePrivate (item, "Ready to show off!", character, 0x3, 0x42);
+		PrintTextAbovePrivate (item, "Готово к показу!", character, 0x3, 0x42);
 	else
 		foreach subitem in EnumerateItemsInContainer(item)
 			subitem.movable := 1;
@@ -323,7 +323,7 @@ function HouseDisplayItem(sign, character, item)
 		EraseObjProperty (item, "lockeddown");
 		sign.UpdateLockdowns(-1);
 		EraseObjProperty (item, "displaycontainer");
-		PrintTextAbovePrivate( item, "(no longer locked down)", character, 0x3, 0x21 );
+		PrintTextAbovePrivate( item, "(больше не закреплено)", character, 0x3, 0x21 );
 	endif
 endfunction
 
@@ -399,7 +399,7 @@ function HouseLowerItem (sign, character, item);
 	endif
 
 	if (item.z <= character.z)
-		SendSysMessage(character, "You can't lower that any more.");
+		SendSysMessage(character, "Ниже уже нельзя.");
 		return;
 	endif
 
@@ -683,7 +683,7 @@ endfunction
 function DestroyDeedStuff (me, obj, x, y, z, rlm, stufftodestroy, range)
 	var deed := CreateItemInBackpack (me, obj, 1);
 	if(!deed)
-		PrintTextAbovePrivate(me, "*Your backpack is full.*", me, 0x3, 0x21);
+		PrintTextAbovePrivate(me, "*Ваш рюкзак полон.*", me, 0x3, 0x21);
 	return 0;
 	endif
 

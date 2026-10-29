@@ -19,13 +19,13 @@ program Jail_Reconnect( mobile )
                 if( POLCore().systime > release_time )
                          var script := start_script( ":jailKeeper:getOutJail", mobile );
                          if( script.errortext )
-                               SendSysMessage( mobile, "Error starting script <:jailKeeper:getOutJail> -->"+script.errortext );
+                               SendSysMessage( mobile, "Ошибка запуска скрипта <:jailKeeper:getOutJail> -->"+script.errortext );
                                return 0;
                          endif
 	        elseif( release_time && POLCore().systime < release_time )
                          Goto_Cell( mobile );
                          var time := StrFormatTime( "%m-%d-%Y %I:%M:%S %p", CInt( release_time ));
-                         SendSysMessage( mobile, "Release Time ( Server Time ):" );
+                         SendSysMessage( mobile, "Время освобождения (время сервера):" );
                          SendSysMessage( mobile, time );
 	        endif
         endif

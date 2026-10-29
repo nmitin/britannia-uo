@@ -9,7 +9,7 @@ program convert_to_xml_textcmd( mobile )
 	
 	var list := MN_WriteXMLFile( SplitNodesByRealm() );
 
-	SendSysMessage( mobile, "Conversion complete!", 0x3, 0x42 );
+	SendSysMessage( mobile, "Преобразование завершено!", 0x3, 0x42 );
 
 	return 1;
 endprogram

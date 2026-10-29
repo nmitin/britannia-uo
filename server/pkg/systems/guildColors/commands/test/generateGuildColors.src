@@ -16,7 +16,7 @@ program generate_guild_colors_textcmd( mobile )
 
 	UnloadConfigFile( ":guildcolors:guildColors" );
 
-	SendSysMessage( mobile, "Generating guild color datafile.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Создание файла цветов гильдий.", 0x3, 0x42 );
 
 	Start_Script( ":guildcolors:scripts/init/initializeGuildColors" );
 endprogram

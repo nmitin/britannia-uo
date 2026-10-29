@@ -43,17 +43,17 @@ program ChangeHouseOwner(who, deed)
 		endif
 	endforeach
 	if (inpack == 0)
-		SendSysMessage(who,"You must have the deed in your backpack to take possession of this house", color := 33);
+		SendSysMessage(who,"Чтобы вступить во владение, документ должен быть в рюкзаке", color := 33);
 		return 0;
 	endif
 
 	// You can't buy a house you already own
 	if (CInt(GetObjProperty(sign, "ownerserial")) == who.serial)
-		SendSysMessage(who, "You already own this house!", color := 33);
+		SendSysMessage(who, "У вас уже есть этот дом!", color := 33);
 		return;
 	endif
 	if ( !sign )
-		SendSysMessage( who, "The deed points to an invalid sign!", color := 33 );
+		SendSysMessage( who, "Документ указывает на неверную табличку!", color := 33 );
 		return;
 	endif
 
@@ -90,7 +90,7 @@ program ChangeHouseOwner(who, deed)
 			exteriordoor := SystemFindObjectBySerial(CInt(item));
 			if(exteriordoor.IsA(POLCLASS_DOOR))
 				exteriordoor.locked := 1;
-				SendSysMessage(who, "Door lockid == " + CStr(LockID), color := 88);
+				SendSysMessage(who, "ID замка двери == " + CStr(LockID), color := 88);
 				SetObjProperty(exteriordoor, "LockID", LockID);
 			endif
 	endforeach

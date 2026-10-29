@@ -24,7 +24,7 @@ program UseGuildStone( mobile, item )
 
         var script := Start_Script( ":guilds:GuildMain", {mobile, guild_id} );
         if( script.errortext )
-                SendSysMessage( mobile, "Error starting script <:guilds:guildMenu> -->"+script.errortext );
+                SendSysMessage( mobile, "Ошибка запуска скрипта <:guilds:guildMenu> -->"+script.errortext );
                 return 0;
         endif
 

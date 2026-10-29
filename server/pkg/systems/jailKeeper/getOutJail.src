@@ -22,7 +22,7 @@ program Get_Out_Jail( mobile )
         if( !input[0x10] )
 		var script := start_script( ":jailKeeper:getOutJail", mobile );
                 if( script.errortext )
-                         SendSysMessage( mobile, "Error starting script <:jailKeeper:getOutJail> -->"+script.errortext );
+                         SendSysMessage( mobile, "Ошибка запуска скрипта <:jailKeeper:getOutJail> -->"+script.errortext );
                          return 0;
                 endif
                 
@@ -45,7 +45,7 @@ program Get_Out_Jail( mobile )
 	if( result.errortext )
 		var script := start_script( ":jailKeeper:getOutJail", mobile );
                 if( script.errortext )
-                         SendSysMessage( mobile, "Error starting script <:jailKeeper:getOutJail> -->"+script.errortext );
+                         SendSysMessage( mobile, "Ошибка запуска скрипта <:jailKeeper:getOutJail> -->"+script.errortext );
                          return 0;
                 endif
                 

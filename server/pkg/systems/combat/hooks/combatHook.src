@@ -380,8 +380,8 @@ function RunWeaponHitScripts(byref a_info, byref d_info, armor_hit, base_damage,
 	foreach hitscript in ( weapon_scripts )
 		var script := Start_Script(hitscript, params);
 		if ( !script || script.errortext )
-			SendSysMessage(a_info.mobile, "*Attacker* Weapon script error starting ["+hitscript+"] :"+script.errortext);
-			SendSysMessage(d_info.mobile, "*Attacker* Weapon script error starting ["+hitscript+"] :"+script.errortext);
+			SendSysMessage(a_info.mobile, "*Атакующий* Ошибка скрипта оружия ["+hitscript+"] :"+script.errortext);
+			SendSysMessage(d_info.mobile, "*Атакующий* Ошибка скрипта оружия ["+hitscript+"] :"+script.errortext);
 		endif
 		SleepMS(2);
 	endforeach
@@ -396,8 +396,8 @@ function RunArmorHitScripts(byref a_info, byref d_info, armor_hit, base_damage, 
 	foreach hitscript in ( armor_scripts )
 		var script := Start_Script(hitscript, params);
 		if ( !script || script.errortext )
-			SendSysMessage(a_info.mobile, "*Defender* Armor script error starting ["+hitscript+"] :"+script.errortext);
-			SendSysMessage(d_info.mobile, "*Defender* Armor script error starting ["+hitscript+"] :"+script.errortext);
+			SendSysMessage(a_info.mobile, "*Защитник* Ошибка скрипта брони ["+hitscript+"] :"+script.errortext);
+			SendSysMessage(d_info.mobile, "*Защитник* Ошибка скрипта брони ["+hitscript+"] :"+script.errortext);
 		endif
 		SleepMS(2);
 	endforeach

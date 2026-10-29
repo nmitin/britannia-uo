@@ -22,7 +22,7 @@ program RC_TrackCharacter( parameters )
 		if( !rc_tracker_pid )
 			break;
 		elseif( mobile.dead )
-			SendSysMessage( mobile, "You have died.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Вы умерли.", 0x3, 0x22 );
 			GetProcess( script_pid ).Kill();
 			GetProcess( rc_tracker_pid ).Kill();
 			break;

@@ -20,7 +20,7 @@ include ":spawnsystem:regions";
 program textcommand_ForceRegionSpawn( mobile, region_name )
 
 		if( !region_name )
-                SendSysMessage( mobile, "Usage is .ForceRegionSpawn <region name>" );
+                SendSysMessage( mobile, "Использование: .ForceRegionSpawn <регион>" );
                 return 0;
         endif
 

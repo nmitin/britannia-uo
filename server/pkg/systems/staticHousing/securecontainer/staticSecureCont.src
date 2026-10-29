@@ -46,7 +46,7 @@ program use_securecontainer(who, item)
 			return 1;
 		endif
 	elseif(!securitylevel)
-		SendSysMessage( who, "You can't use this.", 1, 33 );
+		SendSysMessage( who, "Вы не можете это использовать.", 1, 33 );
 		return 0;
 	endif
 endprogram

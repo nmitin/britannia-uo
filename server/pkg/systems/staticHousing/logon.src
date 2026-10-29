@@ -8,7 +8,7 @@ program onlogon(who)
 	var hsign := GetHouseSign( who );
 	if(hsign.IsBanned(who))
 		MoveObjectToLocation(who, hsign.x, hsign.y, hsign.z, hsign.realm, MOVEOBJECT_FORCELOCATION);
-		SendSysMessage(who, "You have been banned from this house!", color := 33);
+		SendSysMessage(who, "Вам запрещён вход в этот дом!", color := 33);
 		Start_Script("houseBan", {hsign, who});
 	endif
 endprogram

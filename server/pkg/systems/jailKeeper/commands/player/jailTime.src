@@ -14,13 +14,13 @@ program textcmd_jailTime( mobile )
         var data_elem := DFFindElement( g_datafile, mobile.serial );
         var release_time := data_elem.GetProp( "JailReleaseTime" );
         if( !release_time )
-                SendSysMessage( mobile, "You are not jailed." );
+                SendSysMessage( mobile, "Вы не в тюрьме." );
                 return 0;
         endif
         
 	var time := StrFormatTime( "%m-%d-%Y %I:%M:%S %p", CInt( release_time ));
  
-	SendSysMessage( mobile, "Release Time ( Server Time ):" );
+	SendSysMessage( mobile, "Время освобождения (время сервера):" );
 	SendSysMessage( mobile, time );
        
 	return 1;

@@ -6,7 +6,7 @@ include ":merchantnodes:nodeEvents";
 
 program enable_merchant_nodes_textcmd( mobile )
 
-	SendSysMessage( mobile, "Force enabling all nodes currently disabled!", 0x3, 0x42 );
+	SendSysMessage( mobile, "Принудительно включаю все отключённые узлы!", 0x3, 0x42 );
 
 	var maps := Realms();
 	foreach realm in ( maps.Keys() )

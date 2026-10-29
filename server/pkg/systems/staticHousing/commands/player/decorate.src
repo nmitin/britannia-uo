@@ -32,11 +32,11 @@ program decorate (who)
 	houseowner := houseowner;
 	//sign := hsign;
 	if(!hsign.IsCoOwnerOrOwner(who))
-		SendSysMessage(who, "Only owner or co-owners can use the decorator tool here.", color := 33);
+		SendSysMessage(who, "Инструмент декоратора доступен только владельцу и совладельцам.", color := 33);
 		return 0;
 	endif
 
-	SendSysMessage(who, "Select an item to manipulate.", color := 88);
+	SendSysMessage(who, "Выберите предмет для изменения.", color := 88);
 	var item := Target (who, TGTOPT_NOCHECK_LOS);
 	if (!item || item.npctemplate || item.acctname)
 		SendSysMessage(who, "Отменено.", 0x3, 0x21);
@@ -52,7 +52,7 @@ program decorate (who)
 				if (tempitem.container == who.backpack)
 					hsign := FindHouseForLocation(who.x, who.y, who.z, who.realm);
 					if (!hsign)
-						SendSysMessage(who, "You must be inside of your house to use this tool!", 0x3, 0x21);
+						SendSysMessage(who, "Инструмент работает только внутри вашего дома!", 0x3, 0x21);
 						return;
 					endif
 
@@ -81,13 +81,13 @@ program decorate (who)
 	if (!item.movable)
 		if (!IsLockedDownMovableItem (item, hsign))
 			SendSysMessage(who, "Вы не можете это переместить.", 0x3, 0x21);
-			SendSysMessage(who, "Try releasing it first.");
+			SendSysMessage(who, "Сначала попробуйте освободить его.");
 			return;
 		endif
 	endif
 
 	if (!ReserveItem (item))
-		SendSysMessage(who, "You cannot adjust that item right now.", 0x3, 0x21);
+		SendSysMessage(who, "Сейчас этот предмет нельзя изменить.", 0x3, 0x21);
 		return;
 	endif
 	original_movable := item.movable;
@@ -133,14 +133,14 @@ program decorate (who)
 
 			OPTION_MOVE_DOWN:
 				if (item.z <= who.z)
-					SendSysMessage(who, "You can't lower that any further.", 0x3, 0x21);
+					SendSysMessage(who, "Ниже уже нельзя.", 0x3, 0x21);
 				else
 					ManipulateItemHeight(item, -1);
 				endif
 
 			OPTION_ROTATE:
 				if (GetObjProperty (item, "otheritems"))
-					SendSysMessage(who, "You can't rotate that item!", 0x3, 0x21);
+					SendSysMessage(who, "Этот предмет нельзя повернуть!", 0x3, 0x21);
 				else
 					RotateItem (item);
 				endif
@@ -167,7 +167,7 @@ program decorate (who)
 				original_movable := item.movable;
 				ReserveItem (item);
 			default:
-				SendSysMessage(who, "That isn't supposed to happen!  Whaaa!", 0x3, 0x21);
+				SendSysMessage(who, "Этого не должно было случиться! А-а-а!", 0x3, 0x21);
 				return;
 		endcase
 	until (!who || !item);
@@ -375,9 +375,9 @@ endfunction
 ///////////////////
 function MoveItemInDirection(who, hsign, item, newx := 0, newy := 0)
 	if (!hsign.IsLocationInsideHouse(item.x + newx, item.y + newy, item.z))
-		SendSysMessage(who, "That would put the item outside of your house!", 0x3, 0x21);
+		SendSysMessage(who, "Предмет окажется за пределами дома!", 0x3, 0x21);
 	elseif(!CheckLosAt( who, item.x + newx, item.y + newy, item.z ))
-		SendSysMessage(who, "The new location is out of line of sight!", 0x3, 0x21);
+		SendSysMessage(who, "Новое место вне поля зрения!", 0x3, 0x21);
 	elseif (GetObjProperty (item, "otheritems"))
 		set_critical (1);
 		foreach serialnum in GetObjProperty (item, "otheritems")

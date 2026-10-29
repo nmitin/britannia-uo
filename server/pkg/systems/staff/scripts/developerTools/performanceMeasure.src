@@ -26,7 +26,7 @@ program PerformanceMeasure_ToolScript( parameters )
 	var performance := PerformanceMeasure( seconds, scripts );
 	LogMeasureToFile( performance, file_name );
 
-	SendSysMessage( mobile, file_name+".log created.", 0x3, 0x42 );
+	SendSysMessage( mobile, file_name+".log создан.", 0x3, 0x42 );
 
 	return 1;
 endprogram

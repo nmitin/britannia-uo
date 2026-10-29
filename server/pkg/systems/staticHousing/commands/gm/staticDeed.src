@@ -77,15 +77,15 @@ program textcmd_staticdeed(character)
 
 	var chk := 1;
 	var holder := array;
-	SendSysMessage(who, "Press <esc> to cancel the target cursors when you are done defining your boxes.", color := 88);
+	SendSysMessage(who, "Нажмите <ESC>, чтобы завершить выделение областей.", color := 88);
 	sleepms(500);
 	while(chk)
 		var tmp := array;
-		SendSysMessage(who, "Target the North West corner of the box.", color := 88);
+		SendSysMessage(who, "Укажите северо-западный угол области.", color := 88);
 		var trg := TargetCoordinates(who);
 		if(!trg)
 			if(!holder.size())
-				SendSysMessage(who, "No area selected. Aborting.", color := 33);
+				SendSysMessage(who, "Область не выбрана. Отмена.", color := 33);
 				return 0;
 
 			endif
@@ -100,7 +100,7 @@ program textcmd_staticdeed(character)
 			y1 := trg.y;
 		endif
 		sleepms(500);
-		SendSysMessage(who, "Now target the South East corner of the box.", color := 88);
+		SendSysMessage(who, "Теперь укажите юго-восточный угол области.", color := 88);
 		trg := TargetCoordinates(who);
 		if(!trg)
 			SendSysMessageCL(Who, 1042023, color := 33); // Cancelled.
@@ -130,8 +130,8 @@ program textcmd_staticdeed(character)
 		return;
 	endif
 	GenerateLockdowns(holder, hsign);
-	SendSysMessage(who, "Now Target only the exterior doors to the house.", color := 88);
-	SendSysMessage(who, "Press <esc> when done targeting. Remember not to target doors to interior rooms.", color := 88);
+	SendSysMessage(who, "Теперь укажите только внешние двери дома.", color := 88);
+	SendSysMessage(who, "Нажмите <ESC> по завершении. Не указывайте двери внутренних комнат.", color := 88);
 	holder := array;
 	chk := 1;
 	ct := 0;	// Flag that indicates at least one door has been targeted.
@@ -140,7 +140,7 @@ program textcmd_staticdeed(character)
 		if(!(trg.serial in holder && holder.size()))
 			if(!trg)
 				if(ct < 1)
-					SendSysMessage(who, "You must target at least one door.", 3, 40);
+					SendSysMessage(who, "Нужно указать хотя бы одну дверь.", 3, 40);
 				else
 					chk := 0;
 				endif
@@ -148,23 +148,23 @@ program textcmd_staticdeed(character)
 				holder.append(trg.serial);
 				ct += 1;
 				SetObjProperty(trg, "SignSerial", hsign.serial);
-				SendSysMessage(who, Cstr(ct) + " door(s) selected.", color := 66);
+				SendSysMessage(who, Cstr(ct) + " двер(ей) выбрано.", color := 66);
 			endif
 		else
-			SendSysMessage(who, "That door has already been targeted.", 3, 40);
+			SendSysMessage(who, "Эта дверь уже выбрана.", 3, 40);
 		endif
 		sleepms(500);
 	endwhile
 	SetObjProperty(hsign, "exteriordoors", holder);
 	SetObjProperty(hsign, "Setup", 1);
 	SetObjProperty(hsign, "LockID", LockID);
-	SendSysMessage(who, "Done selecting doors.", color := 66);
-	SendSysMessage(who, "Finished 'creating' the house.", color := 66);
+	SendSysMessage(who, "Выбор дверей завершён.", color := 66);
+	SendSysMessage(who, "Создание дома завершено.", color := 66);
 	SetupHouse(sign);
 endprogram
 
 function PlaceSign()
-	SendSysMessage(who, "Where do you wish to place the house sign?", color := 88);
+	SendSysMessage(who, "Куда поставить табличку дома?", color := 88);
 	var where := TargetCoordinates(who);
 	if(!where)
 		SendSysMessage(who, "Отменено.", 3, 40);
@@ -173,7 +173,7 @@ function PlaceSign()
 	var hsign := makesign(where.x, where.y, where.z);
 
 	if(!hsign)
-		SendSysMessage(who, "ERROR: Unable to create sign!", 3, 40);
+		SendSysMessage(who, "ОШИБКА: не удалось создать табличку!", 3, 40);
 		return 0;
 	endif
 	return hsign;

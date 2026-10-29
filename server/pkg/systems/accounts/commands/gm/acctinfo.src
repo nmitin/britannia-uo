@@ -57,7 +57,7 @@ program textcmd_AccountInfo(who, acctname)
 
 	var account := FindAccount(acctname);
 	if ( account.errortext )
-		GumpPrompt(who, "Error with account name "+acctname+" [P] "+acctname.errortext);
+		GumpPrompt(who, "Ошибка с именем аккаунта "+acctname+" [P] "+acctname.errortext);
 		return 0;
 	endif
 
@@ -291,7 +291,7 @@ function UpdateNotes(who, account, input)
 		account.SetProp("notes", msg_array);
 	endif
 
-	SendSysMessage(who, "Writing to account notes... done!");
+	SendSysMessage(who, "Запись заметок аккаунта... готово!");
 
 	return 1;
 endfunction
@@ -305,7 +305,7 @@ function SetDefaultCmdLevel(who, account)
 		endif
 
 		account.SetDefaultCmdLevel(input);
-		SendSysMessage(who, "Account default command level updated.");
+		SendSysMessage(who, "Уровень доступа аккаунта по умолчанию обновлён.");
 	else
 		SendSysMessage(who, "Отменено");
 	endif
@@ -339,7 +339,7 @@ function ChangeAcctName(who, account)
 	else
 		var res := account.SetName(input);
 		if ( res.errortext )
-			SendSysMessage(who, "Error: Could not set new account name ->"+res.errortext);
+			SendSysMessage(who, "Ошибка: не удалось задать новое имя аккаунта ->"+res.errortext);
 		endif
 	endif
 
