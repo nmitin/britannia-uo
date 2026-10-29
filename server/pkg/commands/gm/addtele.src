@@ -55,6 +55,6 @@ program addteleporter(who)
     SetObjProperty( teleporter, "Realm", where_to_realm );
 
   else
-    SendSysMessage( who, "Error: " + teleporter.errortext  );
+    SendSysMessage( who, "Ошибка: " + teleporter.errortext  );
   endif
 endprogram

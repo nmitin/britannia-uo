@@ -181,7 +181,7 @@ program use_dyetub (character, dyetub)
 	var basecolor := res[0];
 
 	if (!basecolor)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	elseif (basecolor == 1101)
 		maxcolor := 47;
@@ -248,7 +248,7 @@ program use_dyetub (character, dyetub)
 		res := SendDialogGump(character, layout2, data2);
 	newcolor := res[0];
 	if (!newcolor)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	else
 		dyetub.color := newcolor;
@@ -270,12 +270,12 @@ function DyeItems(character, dyetub)
 	SendSysMessage(character, "Dye What?");
 	var what := Target(character, TGTOPT_NOCHECK_LOS);
 	if (!what)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	endif
 
 	if (!CanReachItem(character, what) )
-		SendSysMessage(character, "You can't reach that!");
+		SendSysMessage(character, "Вы не можете до этого дотянуться!");
 		return;
 	endif
 

@@ -98,7 +98,7 @@ function ForShipFacing( mobile )
 		2:      flag := CRMULTI_FACING_NORTH; break;
 		3:      flag := CRMULTI_FACING_SOUTH; break;
 		4:      flag := CRMULTI_FACING_EAST; break;
-		Default:	SendSysMessage(mobile, "Cancelled."); break;
+		Default:	SendSysMessage(mobile, "Отменено."); break;
 	endcase
 
 	return flag;

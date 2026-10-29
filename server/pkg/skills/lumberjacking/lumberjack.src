@@ -446,7 +446,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
         endif
 
 	if( quantity < 1 )
-		SendSysMessage( mobile, "There are not enough "+FormatItemDescription(item_desc)+" here to harvest.", 0x3, 0x22 );
+		SendSysMessage( mobile, "There are not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
 		SendSysMessage( mobile, "You must be closer to harvest any "+FormatItemDescription(item_desc)+"!", 0x3, 0x22 );
@@ -481,7 +481,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( amount < 1 )
-			SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" here to harvest.", 0x3, 0x22 );
+			SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 			return 0;
 		endif
 
@@ -531,7 +531,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		
 		
 		if( create_item )
-			SendSysMessage( mobile, "You place "+FormatItemDescription( item_desc, amount )+" in your backpack.", 0x3, 0x42 );
+			SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( item_desc, amount )+" in your backpack.", 0x3, 0x42 );
 		else
 		
 			CreateStackableItemAtLocation(mobile, cfg_file.LogType, amount, range := 0);

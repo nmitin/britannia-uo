@@ -2,7 +2,7 @@ use uo;
 
 program textcmd_strip(who)
 
-	SendSysMessage(who, "Select target.");
+	SendSysMessage(who, "Выберите цель.");
 	var victim := Target(who);
 
 	if (!victim.isA(POLCLASS_MOBILE))

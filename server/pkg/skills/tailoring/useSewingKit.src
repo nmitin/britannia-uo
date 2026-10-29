@@ -14,10 +14,10 @@ var craft_config := ReadConfigFile(":tailoring:tailoring");
 program use_SewingKit(who, tool)
 
 	if ( !ReserveItem(tool) || !tool.movable )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	elseif ( !(tool in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -102,7 +102,7 @@ function makeTailoringItems(who, what, amt, tool)
 		Sleep(2);
 		if ( GetAmount(item1) >= mat_1_amt )
 			if ( item2 != 0 && GetAmount(item2) < mat_2_amt )
-				SendSysMessage(who, "You do not have enough materials.");
+				SendSysMessage(who, "У вас недостаточно материалов.");
 				return 0;
 			endif
 			if ( CraftCheckSkill(who, craft_skill, diff, pts) > 0 )
@@ -119,7 +119,7 @@ function makeTailoringItems(who, what, amt, tool)
 						if ( item2 != 0 )
 							if ( !SubtractAmount(item2, mat_2_amt) )
 								DestroyItem(theitem);
-								SendSysMessage(who, "You do not have enough materials.");
+								SendSysMessage(who, "У вас недостаточно материалов.");
 								return 0;
 							endif
 						else
@@ -129,11 +129,11 @@ function makeTailoringItems(who, what, amt, tool)
 						SubtractAmount(item1, Ceil(mat_1_amt / 2));
 						if ( mat_2_amt )
 							if ( !SubtractAmount(item2, Ceil(mat_2_amt / 2)) )
-								SendSysMessage(who, "You do not have enough materials.");
+								SendSysMessage(who, "У вас недостаточно материалов.");
 								return 0;
 							endif
 						endif
-						SendSysMessage(who, "You failed to create the item, and some of your materials are lost.");
+						SendSysMessage(who, "Не удалось создать предмет, часть материалов потеряна.");
 						SkillCheck(who, TAILORING, diff);
 						counter := counter + 1;
 						continue;
@@ -142,7 +142,7 @@ function makeTailoringItems(who, what, amt, tool)
 			endif
 			CheckToolWear (who, tool, craft_skill);
 		else
-			SendSysMessage(who, "You do not have enough materials.");
+			SendSysMessage(who, "У вас недостаточно материалов.");
 			return 0;
 		endif
 

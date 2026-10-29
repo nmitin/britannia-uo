@@ -453,7 +453,7 @@ function AmountEdit( mobile, targ, input_info )
 	var value := ParseMembers( mobile, targ, input_info.name );
 	var change := RequestGump(mobile, "New value to assign "+input_info.name+" to.", "", CStr(value), CANCEL_BTN_ON);
 	if( !change )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 	change := CInt( change );

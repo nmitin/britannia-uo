@@ -13,7 +13,7 @@ program shrink_textcmd( mobile )
 	SendSysMessage( mobile, "What would you like to shrink?", 0x3, 0x42 );
 	var use_on := Target( mobile );
 	if( !use_on )
-	     SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+	     SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 	     return 0;
 	elseif( !use_on.IsA( POLCLASS_NPC ) )
 	     SendSysMessage( mobile, "This can only be used on NPCs.", 0x3, 0x32 );

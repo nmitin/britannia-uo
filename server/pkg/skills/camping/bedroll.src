@@ -13,7 +13,7 @@ program use_bedroll( who, bedroll )
     return;
   endif
   if(bedroll.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
    var items := ListItemsNearLocationOfType( who.x,who.y,who.z, 2, UOBJECT_CAMPFIRE, who.realm );

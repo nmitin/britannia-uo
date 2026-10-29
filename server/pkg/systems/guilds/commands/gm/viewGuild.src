@@ -11,14 +11,14 @@ include "include/security";
 program textcmd_openGuild( mobile )
 
         if( !AuthorizationCode( mobile ))
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         endif
 
         SendSysMessage( mobile, "Select a player to view guild." );
         var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
         if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
                 SendSysMessage( mobile, "You must select a player." );

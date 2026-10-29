@@ -59,7 +59,7 @@ program textcmd_dropSkill( mobile )
         //And now we need to know the answer...
         var input := GFSendGump( mobile, gump );
         if( !input || input[0xA00] )
-                 SendSysMessage( mobile, "Cancelled." );
+                 SendSysMessage( mobile, "Отменено." );
                  return 0;
         endif
 
@@ -67,7 +67,7 @@ program textcmd_dropSkill( mobile )
         var option := skills_list[input];
 
         if( !YesNo( mobile, "Are you sure you want to drop your "+option+"?", "Yes, drop to 0.", "No!", 0, NOT_LOCALIZED ))
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         endif
 

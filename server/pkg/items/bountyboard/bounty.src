@@ -61,7 +61,7 @@ function GetBountyAmount(who, mygold, name)
   if(ret[0] == 1)
     amt := Cint(SplitWords(ret[amt.keyid])[2]);
   else
-    SendSysMessage(who, "Cancelled.", 3, 40);
+    SendSysMessage(who, "Отменено.", 3, 40);
     amt := 0;
   endif
   return amt;

@@ -58,7 +58,7 @@ function SelectCharacter( mobile, cmdlevel:=0 )
 
 	var input := GFSendGump( mobile, gump );
 	if( !input )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 

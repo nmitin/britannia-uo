@@ -196,7 +196,7 @@ function sellanimal(who)
   say("Какого питомца ты хочешь продать?");
   var the_pet := Target(who);
   if((!the_pet) || (the_pet==""))
-    SendSysMessage(who, "Cancelled.");
+    SendSysMessage(who, "Отменено.");
     return;
   endif
 

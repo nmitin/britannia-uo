@@ -31,7 +31,7 @@ program messageboard( character, quadro )
     GFGumpPic( 0, 0, 0x087a );
     GFTextMid(240, 37, 0, 50, "FORUM OF THE CITY" );
 
-// Listar tópicos.
+// Listar tï¿½picos.
     topicos := GetObjPropertyNames( quadro );
     var i := 1;
     var pulalinha := 0;
@@ -48,12 +48,12 @@ program messageboard( character, quadro )
             GFTextCrop( 130, 158+pulalinha, 240, 20, 50,  temp[1]);
             i := i + 1;
             pulalinha := pulalinha + 15;
-            // Até agora o forum só suporta 10 mensagens
+            // Atï¿½ agora o forum sï¿½ suporta 10 mensagens
         else
             EraseObjProperty(quadro, topico);
         endif
     endforeach
-// Não há nenhum topico
+// Nï¿½o hï¿½ nenhum topico
     if (!topicos.size())
         GFTextCrop( 130, 158, 240, 20, 50,  "There is not any topic.");
     endif
@@ -73,7 +73,7 @@ program messageboard( character, quadro )
 endprogram
 
 ////////////////////////////////////////////////////////////////////////
-//              Função Ler menssagens
+//              Funï¿½ï¿½o Ler menssagens
 //              Read menssages function
 ////////////////////////////////////////////////////////////////////////
 
@@ -107,7 +107,7 @@ function LerMsg(character, quadro, index)
         i := i + 15;
     endforeach
 
-// Apagar Tópico
+// Apagar Tï¿½pico
     var remover := GFButtonID( 300, 305, 0x885, 0x885, 1 );
 // Responder
     var reply := GFButtonID( 35, 305, 0x884, 0x884, 1 );
@@ -127,7 +127,7 @@ function LerMsg(character, quadro, index)
 
 endfunction
 ////////////////////////////////////////////////////////////////////////
-//              Função Postar menssagens
+//              Funï¿½ï¿½o Postar menssagens
 //              Function Post menssages
 ////////////////////////////////////////////////////////////////////////
 
@@ -137,7 +137,7 @@ function Postarmsg(character, quadro);
 // Background
     GFResizePic( 0, 0, 0x9d8, 400, 300 );
 // 'NEW MESSAGE' Title
-// Título 'NEW MESSAGE'
+// Tï¿½tulo 'NEW MESSAGE'
     GFGumpPic( 150, 15, 0x0883 );
 // Assunto
 // Subject
@@ -147,7 +147,7 @@ function Postarmsg(character, quadro);
 // Horizontal line
     GFGumpPic( 30, 70, 0x082b );
     GFGumpPic( 155, 70, 0x082b );
-// Botão 'POST'
+// Botï¿½o 'POST'
 // Post Button
     var post := GFButtonID( 320, 275, 0x0886, 0x0886, 1);
 // Texto
@@ -192,12 +192,12 @@ function Postarmsg(character, quadro);
         set_critical(0);
         SendSysMessage(character, "Topic posted.");
     else
-        SendSysMessage(character, "Canceled.");
+        SendSysMessage(character, "ÐžÑ‚Ð¼ÐµÐ½ÐµÐ½Ð¾.");
     endif
 endfunction
 
 ////////////////////////////////////////////////////////////////////////
-//              Função para enviar Respostas
+//              Funï¿½ï¿½o para enviar Respostas
 //              Reply Function
 ////////////////////////////////////////////////////////////////////////
 
@@ -207,7 +207,7 @@ function Replymsg(byref character, nome)
         if (onlinechr.name == nome)
             var themessage := RequestInput(character, character.backpack, "What answer you want to send for " + onlinechr.name + "?");
             if (!themessage)
-                SendSysMessage(character, "Canceled.");
+                SendSysMessage(character, "ÐžÑ‚Ð¼ÐµÐ½ÐµÐ½Ð¾.");
                 return;
             endif
             SendSysMessage(onlinechr, character.name + " answered your topic in the forum: " + themessage);

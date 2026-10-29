@@ -27,7 +27,7 @@ program do_itemid( who )
   SendSysMessage( who, "Select an object to identify." );
   the_item := Target(who, TGTOPT_CHECK_LOS);
   if(!the_item)
-    SendSysMessage(who, "Targetting cancelled.");
+    SendSysMessage(who, "Выбор цели отменён.");
     return;
   endif
   if(the_item.isA(POLCLASS_MOBILE))

@@ -23,7 +23,7 @@ program textcmd_redeed( mobile )
  
 	var targ := Target( mobile );
 	if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
 		return 0;
 	elseif( !targ.IsA( POLCLASS_ITEM ))
 		SendSysMessage( mobile, "You must select an item!" );

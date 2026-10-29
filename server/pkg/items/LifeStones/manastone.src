@@ -45,7 +45,7 @@ program use_manastone (who, stone)
         SendSysMessage (who, "target yourself to transfer stored mana from the stone to you", color := 100);
 	what := Target(who);
 	if (!what) // If she presses escape or targets nothing
-		SendSysMessage(who, "Canceled.");
+		SendSysMessage(who, "Отменено.");
 		return;
 	endif
         capacity := GetObjProperty (stone, "MaxCapacity"); // Get the stones Maximum cap for mana

@@ -16,7 +16,7 @@ program smite(params)
 		piety := piety + pietyboost;
 	endif
 
-	var targ := ClericalTarget(who, info.npctemplate, "Select a target", TGTOPT_CHECK_LOS + TGTOPT_HARMFUL);
+	var targ := ClericalTarget(who, info.npctemplate, "Выберите цель", TGTOPT_CHECK_LOS + TGTOPT_HARMFUL);
 
 	if (!targ.ip && !targ.npctemplate)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.

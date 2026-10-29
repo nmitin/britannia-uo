@@ -17,7 +17,7 @@ program textcmd_bug_reporter_script( who )
     description := RequestGumpEx(who, "Enter a description of the bug:", "", "", 1);
 
 	if(description == error)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 

@@ -8,7 +8,7 @@ program textcommand_fixbank( mobile )
 
  	var targ := Target( mobile );
  	if( !targ )
- 	 	SendSysMessage( mobile, "Cancelled." );
+ 	 	SendSysMessage( mobile, "Отменено." );
  	 	return 0;
         elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
                 SendSysMessage( mobile, "You must target a player." );

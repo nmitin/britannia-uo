@@ -53,7 +53,7 @@ program createshardbook(who)
 	var the_place := Target(who);
 
 	if(!the_place)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	elseif(the_place == who)
 		the_place := who.backpack;

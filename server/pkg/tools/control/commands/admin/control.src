@@ -57,7 +57,7 @@ program textcmd_ICPSystem( who, pkg_name )
 		endif
 	endwhile
 
-	SendSysMessage( who, "Done." );
+	SendSysMessage( who, "Готово." );
 
 	return 1;
 endprogram

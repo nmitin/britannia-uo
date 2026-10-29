@@ -16,7 +16,7 @@ program textcmd_equip( speaker )
 
     var res := EquipItem( who, what );
     if (res)
-        SendSysMessage( speaker, "Done!" );
+        SendSysMessage( speaker, "Готово!" );
     else
         SendSysMessage( speaker, "Unable to equip item: " + res.errortext );
     endif

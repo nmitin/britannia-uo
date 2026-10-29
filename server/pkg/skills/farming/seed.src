@@ -179,7 +179,7 @@ function PlantFlowers(character, seed)
 	SendSysMessage(character, "Select a vase to put that in, or yourself to plant it where you're standing:");
 	var targetted := Target(character);
 	if (!targetted)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	endif
 
@@ -260,7 +260,7 @@ function SelectFlowerType(character)
 	AddMenuItem(select_menu, 0x0cef, "Vines");
 	var selected_item := SelectMenuItem2(character, select_menu);
 	if (!selected_item.objtype)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return 0;
 	endif
 	return selected_item.objtype;

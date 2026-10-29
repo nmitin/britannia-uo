@@ -42,13 +42,13 @@ program wipe_storage_area( mobile )
 
 	result := GFSendGump( mobile, gump );
 	if( !result )
-		SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 
 	if( result[0] >= 1 && result[0] <= names.Size() )
 		if( !YesNo( mobile, "Are you sure you would like to wipe "+names[result[0]]+".\n\nThis is a permanent and irreversible action.", 30 ) )
-			SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 			return 0;
 		endif
 

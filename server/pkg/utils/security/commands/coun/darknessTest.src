@@ -12,10 +12,10 @@ program textcmd_darknessTest( mobile )
 	SendSysMessage( mobile, "Who would you like to test?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
 		return 0;
 	elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
  

@@ -22,13 +22,13 @@ program textcmd_AddTimer(who, params)
 	SendSysMessage(who, "Select a mobile.");
 	var targ := Target(who);
 	if ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 
 	TS_StartTimer(targ, timer_name, duration, level);
 
-	SendSysMessage(who, "Done.");
+	SendSysMessage(who, "Готово.");
 
 	return 1;
 endprogram

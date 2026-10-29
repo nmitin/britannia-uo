@@ -32,7 +32,7 @@ program grab_nodes_textcmd( mobile )
 		maps := Realms(),
 		facets := SelectionGumpEx( mobile, "Grab the nodes from which facet?", facet_list.Keys(), BTN_TYPE_CHECKBOX );
 	if( !facets )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

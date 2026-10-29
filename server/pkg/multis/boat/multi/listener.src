@@ -369,7 +369,7 @@ function ConfirmDryDock( mobile )
 	var result := GFSendGump( mobile, gump );
 
 	if( !result )
-		SendSysMessage( mobile, "Canceled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 

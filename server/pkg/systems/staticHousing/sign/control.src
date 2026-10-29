@@ -394,7 +394,7 @@ function unsecure(sign, event)
 	var securedlevel := 0;
 	var item := Target(who);
 	if(!item)
-		SendSysMessage(event.source, "Canceled.", 3, 40);
+		SendSysMessage(event.source, "Отменено.", 3, 40);
 		return 0;
 	endif
 	var canunsecure := 0;

@@ -73,7 +73,7 @@ program track(who)
     if(menucount > 0)
       thetarget := SelectMenuItem2(who, track_menu);
       if(!thetarget)
-        SendSysMessage(who, "Targetting cancelled.");
+        SendSysMessage(who, "Выбор цели отменён.");
         return;
       endif
       var critter := critter_ids[thetarget.index];

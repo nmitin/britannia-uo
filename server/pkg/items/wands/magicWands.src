@@ -40,10 +40,10 @@ program magicwands(who, item)
 endprogram
 
 function StartEffect(who, spellid, item)
-  SendSysMessage(who, "Select a target.");
+  SendSysMessage(who, "Выберите цель.");
   var trg := Target(who);
   if(!trg)
-    SendSysMessage(who, "Canceled.");
+    SendSysMessage(who, "Отменено.");
     return;
   endif
   var charges := CInt(GetObjProperty(item, "charges"));
@@ -300,7 +300,7 @@ function identifyit(who, item)
   SendSysMessage(who, "Select an object to identify.");
   the_item := Target(who, TGTOPT_CHECK_LOS);
   if(!the_item)
-    SendSysMessage(who, "Targetting cancelled.");
+    SendSysMessage(who, "Выбор цели отменён.");
     return;
   endif
   charges := charges - 1;

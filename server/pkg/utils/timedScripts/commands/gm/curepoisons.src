@@ -23,7 +23,7 @@ program textcmd_curePoisons(who, text)
 	var targ := target(who);
 
 	if ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 

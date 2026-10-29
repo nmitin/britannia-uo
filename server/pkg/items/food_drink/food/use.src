@@ -13,7 +13,7 @@ include "include/client";
 
 program eat(who, food)
 	if ( food.movable == 0 )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	elseif ( !ReserveItem(food) )
 		SendSysMessage(who, "Someone else is already using that.");

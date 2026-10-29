@@ -15,7 +15,7 @@ program skill_RemoveTrap( mobile )
             traps := GetTrapList( targ );
 
         if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         elseif( !useItem_check( mobile, targ, DEFAULT_ITEM, 1 ))
 		return 0;

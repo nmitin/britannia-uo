@@ -11,7 +11,7 @@ program copy_title_to_name(who, unused textline)
     while(1)
         var item := Target(who);
         if (!item)
-            SendSysMessage(who, "Cancelled.", color := 33);
+            SendSysMessage(who, "Отменено.", color := 33);
             return;
         endif
         item.name := item.GetTitle();

@@ -19,10 +19,10 @@ program recall(parms)
 	var cast_on;
 	// If recalling from a runebook, do not give a target to the player.
 	if( !info.runebook )
-		cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
+		cast_on := MS_Target(caster, info.targ, "Выберите цель.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
 
 		if (!cast_on)
-			SendSysMessage (caster, "Cancelled.", color := 33);
+			SendSysMessage (caster, "Отменено.", color := 33);
 			return 0;
 		endif
 		if((cast_on.objtype != UOBJ_RUNE) && (cast_on.objtype != 0x22C5))
@@ -84,9 +84,9 @@ program recall(parms)
 	if((caster.x >= 5120) && (caster.x <= 5375) && (caster.y >= 0) && (caster.y <= 255))
 		SendSysMessage(caster, "Your spell fails!");
 		if(cast_on.objtype == UOBJ_RUNE)
-			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		elseif(cast_on.objtype == 0x22C5)
-			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		endif
 		// SendSysMessage(caster, "your spell fails and consumes the rune!");
 		// if(cast_on.objtype == UOBJ_RUNE)
@@ -99,7 +99,7 @@ program recall(parms)
 	// Cannot recall into/onto a multi
 	// var MultiCheck := ListMultisInBox(dest.x, dest.y, dest.z, dest.x, dest.y, dest.z, torealm.realm).size()>0;
 	if(GetStandingHeight( tox, toy, toz, torealm ).multi)
-		SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		// if(cast_on.objtype == UOBJ_RUNE)
 			// DestroyItem(cast_on);
 		// elseif(cast_on.objtype == 0x22C5)

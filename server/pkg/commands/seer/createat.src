@@ -59,7 +59,7 @@ program createat_textcmd( mobile, search_string )
 
 		result := GFSendGump( mobile, gump );
 		if( result[0] <= 1 )
-			SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 			return 0;
 		elseif( result[0] == 2 )
 			search_string := GFExtractData( result, 3 );
@@ -95,7 +95,7 @@ function CreateItem( byref mobile, byref item_entry, byref amount )
 	if( amount == -1 )
 		amount := CInt( RequestInput( mobile, mobile.backpack, "How many of this object do you want to create?" ) );
 		if( amount <= 0 )
-			SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 			return 0;
 		endif
 	endif
@@ -109,7 +109,7 @@ function CreateItem( byref mobile, byref item_entry, byref amount )
 	SendSysMessage( mobile, "Where do you wish to place this object?", 0x3, 0x42 );
 	var loc := TargetCoordinates( mobile );
 	if( !loc )
-		SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

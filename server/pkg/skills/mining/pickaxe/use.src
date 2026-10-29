@@ -18,7 +18,7 @@ program use_PickAxe(who, pick)
 	SendSysMessage(who, "Выберите место для добычи.");
 	var targ := TargetCoordinates(who);
 	if ( !targ )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	elseif ( !IsMinable(targ.x, targ.y, who.realm, targ.objtype) )
 		SendSysMessage(who, "Здесь нельзя добывать.");

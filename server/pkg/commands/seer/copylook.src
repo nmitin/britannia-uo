@@ -2,17 +2,17 @@ use uo;
 
 program textcmd_copylook(who)
 
-	SendSysMessage(who, "Select target.");
+	SendSysMessage(who, "Выберите цель.");
 	var newlook := Target(who);
 	if (!newlook.isA(POLCLASS_MOBILE))
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return;
 	endif
 
 	SendSysMessage(who, "Select NPC to copy.");
 	var oldlook := Target(who);
 	if (!oldlook.isA(POLCLASS_MOBILE))
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return;
 	endif
 

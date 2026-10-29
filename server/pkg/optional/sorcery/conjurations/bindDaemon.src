@@ -14,7 +14,7 @@ program binddaemon(parms)
 	var info := parms[2];
 	var cast_on := parms[4];
 	if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
-		cast_on := MS_Target(caster, info.targ, "Select a target:", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+		cast_on := MS_Target(caster, info.targ, "Выберите цель:", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
 	endif
 	if (!cast_on)
 		SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.

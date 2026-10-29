@@ -588,7 +588,7 @@ program textcmd_haircolor(who)
 	endif
   endforeach
   if(haircolor ==0 )
-	SendSysMessage(who, "Cancelled.");
+	SendSysMessage(who, "Отменено.");
 	return;
   endif
   var trg := Target(who);

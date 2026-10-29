@@ -63,13 +63,13 @@ SendSysMessage(who, ""+type);
 	SendSysMessage(who, "Выберите "+Lower(type)+", с которым хотите работать.");
 	var material := Target(who);
 	if( !material )
-    SendSysMessage(who, "Cancelled.", 3, 33);
+    SendSysMessage(who, "Отменено.", 3, 33);
 		return 0;
 	elseif( !(material in EnumerateItemsInContainer(who.backpack)) )
 		SendSysMessage(who, "Этого нет в рюкзаке.");
 		return 0;
 	elseif( !Accessible(who, material) || (!material.movable) )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	endif
 
@@ -353,7 +353,7 @@ function CraftAssembly(who, craft_skill, tool, objtype, amt)
 				endif
 			endforeach
 			Set_Critical(0);
-			SendSysMessage(who, "You failed to create the item, and some of your materials are lost.");
+			SendSysMessage(who, "Не удалось создать предмет, часть материалов потеряна.");
 		endif
 		counter := counter + 1;
 	endwhile

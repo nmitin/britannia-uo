@@ -40,7 +40,7 @@ program createshardlibrary(who)
 	SendSysMessage(who, "Please target a container in which to place the books:", color := 88);
 	var holder := Target(who);
 	if(!holder)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 	if(!holder.IsContainer())

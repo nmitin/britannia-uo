@@ -81,7 +81,7 @@ program gump_CarpetSelection(who, carpet_deed)
 
 //gump closed
 	if (!carpet_selection)
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 	return;
 	endif
 
@@ -90,7 +90,7 @@ program gump_CarpetSelection(who, carpet_deed)
     var target_one := TargetCoordinates(who);
 
     if ( !target_one )
-        SendSysMessage(who, "Cancelled.");
+        SendSysMessage(who, "Отменено.");
     return;
     endif
 
@@ -109,7 +109,7 @@ program gump_CarpetSelection(who, carpet_deed)
     var target_two := TargetCoordinates(who);
 
     if ( !target_two )
-        SendSysMessage(who, "Cancelled.");
+        SendSysMessage(who, "Отменено.");
     return;
     endif
 

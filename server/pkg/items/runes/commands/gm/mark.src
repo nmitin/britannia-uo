@@ -10,7 +10,7 @@ program cast_mark( caster, text )
     var cast_on := Target( caster, TGTOPT_CHECK_LOS );
 
     if (!cast_on)
-            SendSysMessage(caster, "Targetting cancelled.");
+            SendSysMessage(caster, "Выбор цели отменён.");
             return;
     endif
 

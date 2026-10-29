@@ -5,7 +5,7 @@ include ":gumps:yesNo";
 program textcmd_sorcerytext( who )
 	var doit := YesNo( who, "Shall I create a pack containing all sorcery scrolls?" );
 	if(!doit)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 	var scrollpack := CreateItemInBackpack(who, "backpack", 1);

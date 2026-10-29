@@ -14,7 +14,7 @@ program decode_map( who, map )
     return;
   endif
   if(map.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   var cfgfile := ReadConfigFile( "itemdesc" );

@@ -14,7 +14,7 @@ program textcmd_moveitem( who )
                     // (by leaving parameters 2 and 3 default)
                 var result := MoveItemToContainer( what.item, cont.item );
                 if (result)
-                    PrintTextAbovePrivate( what.item, "Done!", who );
+                    PrintTextAbovePrivate( what.item, "Готово!", who );
                 else
                     SendSysMessage( who, "Unable to move item: " + result.errortext );
                 endif

@@ -14,7 +14,7 @@ program use_magicfish(who, fish)
     return;
   endif
   if(fish.movable == 0)
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   ReserveItem(fish);

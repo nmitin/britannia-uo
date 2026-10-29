@@ -17,7 +17,7 @@ program update_faiths_datafile(who)
 	UnloadConfigFile(":cleric:clerics");
 	var text := RequestGump(who, "Enter the file name:", "To restore the original clerics.cfg, enter 'clerics'.", "", 1);
 	if(text == error)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 	return;

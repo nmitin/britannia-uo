@@ -12,7 +12,7 @@ program pain_spike( params )
 	//var spellID := params[3];
 	var circle := info.circle;
 
-	SendSysMessage(caster, "Select your victim:", 1, 88);
+	SendSysMessage(caster, "Выберите жертву:", 1, 88);
 	var cast_on := Target(caster);
 
 	var dmg := 0;

@@ -62,7 +62,7 @@ function RecruitAPlayer( mobile, guild )
 	SendSysMessage( mobile, "Who would you like to recruit into the guild?", 3, 88 );
 	var targ := Target( mobile );
 	if( !targ )
-		SendSysMessage( mobile, "Cancelled.", 3, 33 );
+		SendSysMessage( mobile, "Отменено.", 3, 33 );
 	elseif( targ.serial == mobile.serial )
 		SendSysMessage( mobile, "You shall consider therapy.", 3, 44 );
 	elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
@@ -491,7 +491,7 @@ function PlaceGuildStone( mobile )
 
 	var targ := TargetCoordinates( mobile );
 	if( !targ )
-		SendSysMessage( mobile, "Cancelled.", 3, 33 );
+		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 0;
 	elseif( !CheckLosAt( mobile, targ.x, targ.y, targ.z ));
 		SendSysMessage( mobile, "Cannot see this!", 3, 33 );
@@ -580,7 +580,7 @@ function ChangeGuildName( mobile, guild )
 
 	var new_name := SendTextEntryGump( mobile, "Select a new name for the guild.", TE_CANCEL_ENABLE, TE_STYLE_NORMAL, CInt( settings.MaxNameLen ));
 	if( !new_name )
-		SendSysMessage( mobile, "Cancelled.", 3, 33 );
+		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 1;
 	elseif( !ValidStr( new_name ))
 		SendSysMessage( mobile, "Guild name contains illegal characters.", 3, 33 );
@@ -592,7 +592,7 @@ function ChangeGuildName( mobile, guild )
 
 	var new_abbr := SendTextEntryGump( mobile, "Select a new abbreviation for the guild.", TE_CANCEL_ENABLE, TE_STYLE_NORMAL, CInt( settings.MaxAbbrLen ));
 	if( !new_abbr )
-		SendSysMessage( mobile, "Cancelled.", 3, 33 );
+		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 1;
 	elseif( !ValidStr( new_abbr ))
 		SendSysMessage( mobile, "Guild abbreviation contains illegal characters.", 3, 33 );
@@ -681,7 +681,7 @@ function GrantTitle( mobile, guild )
         var player_ref := guild_members[input];
         var new_title := SendTextEntryGump( mobile, "What's the new member title?", TE_CANCEL_ENABLE, TE_STYLE_NORMAL, CInt( settings.MaxTitleLen ));
         if( !new_title )
-                SendSysMessage( mobile, "Cancelled.", 3, 33 );
+                SendSysMessage( mobile, "Отменено.", 3, 33 );
                 return 1;
         elseif( !ValidStr( new_title ))
 			SendSysMessage( mobile, "Title contains illegal characters.", 3, 33 );
@@ -1014,7 +1014,7 @@ function DeclarePeace( mobile, guild )
 	var guild_ref := total_guild[input];
 	var days_peace := SendTextEntryGump( mobile, "How long shall be the alliance? [1-"+CInt( settings.MaxWarPeaceStatutDays )+" days]", TE_CANCEL_ENABLE, TE_STYLE_NUMERICAL, CInt( settings.MaxWarPeaceStatutDays ));
 	if( !CInt( days_peace ))
-		SendSysMessage( mobile, "Cancelled.", 3, 33 );
+		SendSysMessage( mobile, "Отменено.", 3, 33 );
 		return 1;
 	endif
 
@@ -1184,7 +1184,7 @@ function PurchaseGuildColor( who )
 		gm_guild.setprop( "GuildColor", guild_color );
 		guild_stone.color := guild_color;
 	else
-		SendSysMessage( who, "Cancelled.", color := 33 );
+		SendSysMessage( who, "Отменено.", color := 33 );
 		return 1;
 	endif
 

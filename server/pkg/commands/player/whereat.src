@@ -9,7 +9,7 @@ program textcmd_whereat( who )
         while (1)
             where := TargetCoordinates(who);
             if (!where)
-                SendSysMessage (who, "Cancelled.", color := 33);
+                SendSysMessage (who, "Отменено.", color := 33);
                 return;
             endif
            SendSysMessage( who, "X=" + where.x + ", Y=" + where.y + ", Z=" + where.z + ", Realm: " +  who.realm, color := 88 );

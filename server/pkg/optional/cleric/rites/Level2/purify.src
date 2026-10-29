@@ -18,7 +18,7 @@ program purify(params)
 	if (pietyboost + piety <= 7)
 		piety := piety + pietyboost;
 	endif
-	var targ := ClericalTarget(who, info.npctarget, "Select a target", TGTOPT_CHECK_LOS + TGTOPT_HELPFUL);
+	var targ := ClericalTarget(who, info.npctarget, "Выберите цель", TGTOPT_CHECK_LOS + TGTOPT_HELPFUL);
 
 	// Get poison level
 	var poison_names := TS_GetTimerNames(targ, "P");

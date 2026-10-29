@@ -42,7 +42,7 @@ program addspawnshelf(who, text)
 			SendSysMessage(who, "(Press <Esc> to cancel)", color := 88);
 			shelf_to_add := Target(who);
 			if(!shelf_to_add)
-				SendSysMessage(who, "Cancelled.", color := 33);
+				SendSysMessage(who, "Отменено.", color := 33);
 				exit;
 			endif
 			if(!shelf_to_add.IsBookshelf())

@@ -359,7 +359,7 @@ function GuildGump( mobile, g_title, charter_text, g_icon, choices, transparent 
 
 	var input := GFSendGump( mobile, s_gump );
 	if( !input[0] )
-		return error{"errortext":="No option was selected."};
+		return error{"errortext":="Ничего не выбрано."};
 	endif
 	var selections_made := 0;
 	var val := input[0];

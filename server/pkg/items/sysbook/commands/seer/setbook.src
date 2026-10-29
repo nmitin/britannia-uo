@@ -53,7 +53,7 @@ program setbook(who)
 	var book := Target(who, TGTOPT_NOCHECK_LOS);
 
 	if(!book)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return;
 	endif
 

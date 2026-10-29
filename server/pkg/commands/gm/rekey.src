@@ -8,7 +8,7 @@ program rekey( who )
     var lockeditem := Target( who, "" );
 
     if(! lockeditem)
-       SendSysMessage( who, "Cancelled." );
+       SendSysMessage( who, "Отменено." );
        return;
     endif
 

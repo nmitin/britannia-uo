@@ -45,7 +45,7 @@ program HTTPScript()
 
 	var result := ACCT_CreateNewAccount(username, password, cmd_lvl, expansion, email);
 	if ( result.errortext )
-		WriteHTMLRaw("Error: "+result.errortext);
+		WriteHTMLRaw("Ошибка: "+result.errortext);
 	else
 		WriteHTMLRaw("Success: The acount was created successfully.");
 	endif

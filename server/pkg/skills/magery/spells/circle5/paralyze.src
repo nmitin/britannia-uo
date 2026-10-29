@@ -11,10 +11,10 @@ program cast_paralyze( parms )
     var info := parms[2];
     var cast_on := parms[4]; // If NPC casting there'll be something here.
     if (!cast_on) // If no cast_on then this is being cast by a player.
-        cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+        cast_on := MS_Target(caster, info.targ, "Выберите цель.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
     endif
     if (!cast_on)
-        SendSysMessage (caster, "Cancelled.", color := 33);
+        SendSysMessage (caster, "Отменено.", color := 33);
         return 0;
     endif
     if ( !MS_MobileCheck(caster, cast_on) )

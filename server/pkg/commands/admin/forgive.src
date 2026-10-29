@@ -21,7 +21,7 @@ program textcmd_forgive (me)
   SendSysMessage(me, "Whom do you want to forgive?");
   var who :=  Target(me, TGTOPT_NOCHECK_LOS );
   if (who == error)
-	SendSysMessage( me, "Error: " + who.errortext );
+	SendSysMessage( me, "Ошибка: " + who.errortext );
     return;
   elseif (TypeOf(who) == "ItemRef")
 	SendSysMessage( me, "Not a player character");

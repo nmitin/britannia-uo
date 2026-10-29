@@ -17,13 +17,13 @@ var item_config := ReadConfigFile(":*:itemdesc");
 
 program make_Yarn(who,wool)
 	if ( !ReserveItem(wool) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif	( (!wool.movable) || !ReserveItem(wool) )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	elseif	( !(wool in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -33,7 +33,7 @@ program make_Yarn(who,wool)
 	SendSysMessage(who, "Select the spinning wheel to use");
 	var tool := Target(who);
 	if (!tool)
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return;
 	endif
 

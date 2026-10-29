@@ -70,7 +70,7 @@ function ChangeBedDirection1 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2 or !bed3 or !bed4)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 
@@ -157,7 +157,7 @@ function ChangeBedDirection2 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2 or !bed3 or !bed4)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 
@@ -241,7 +241,7 @@ function ChangeSmallBed1 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 
@@ -293,7 +293,7 @@ function ChangeCrudeBed1 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 
@@ -353,7 +353,7 @@ function ChangeSmallBed2 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 
@@ -394,7 +394,7 @@ function ChangeCrudeBed2 (character, thebed, bedstate)
 	endforeach
 
 	if (!bed1 or !bed2)
-		SendSysMessage (character, "That bed seems to be broken.");
+		SendSysMessage (character, "Похоже, эта кровать сломана.");
 		return;
 	endif
 

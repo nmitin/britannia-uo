@@ -8,7 +8,7 @@ program makhidden(who)
     SendSysMessage( who, "Select an item to make hidden." );
     var item := Target( who, TGTOPT_NOCHECK_LOS );
     if (!item)
-      SendSysMessage(who, "Targetting cancelled.");
+      SendSysMessage(who, "Выбор цели отменён.");
       return;
     endif
     item.invisible := 1;

@@ -177,7 +177,7 @@ function EditStatementOfFaith(who)
 	var result := GFSendGump( who, gump );
 
 	if(result[0] == 666 || (result[0] == 1))
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 
@@ -322,7 +322,7 @@ endfunction
 function MoveAltar(who, altar)
 
 	if(!YesNo(who, "Are you sure you want to move the altar?", "Yes", "No", 60))
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return;
 	endif
 	var faith := Faiths_FindFaith(GetObjProperty(who, "Devotion"));

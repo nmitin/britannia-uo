@@ -25,7 +25,7 @@ program merchant_node_usescript( mobile, node )
 
 		result := GFSendGump( mobile, gump );
 		if( result[0] <= 1 || result[0] == CLOSE_BTN )
-			SendSysMessage( mobile, "Cancelled.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Отменено.", 0x3, 0x22 );
 			return 0;
 		elseif( result[0] == ACCEPT_BTN )
 			foreach key in ( result.keys )
@@ -117,7 +117,7 @@ function MN_AddMerchant( byref mobile, byref node )
 
 	var template_name := RequestInput( mobile, node, "What template would you like to spawn?" );
 	if( !template_name )
-		SendSysMessage( mobile, "Cancelled action.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x22 );
 		return 0;
 	endif
 
@@ -129,7 +129,7 @@ function MN_AddMerchant( byref mobile, byref node )
 
 	var targ := TargetCoordinates( mobile );
 	if( !targ )
-		SendSysMessage( mobile, "Cancelled action.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

@@ -9,7 +9,7 @@ program kering_gump( mobile )
 	var targ := Target( mobile );
 
 	if( !targ )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 
@@ -56,7 +56,7 @@ function ShowKeyRingGump( byref mobile, byref keyring )
 
 	var result := GFSendGump( mobile, gump );
 	if( !result )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 	result := result[0];
@@ -75,7 +75,7 @@ function RenameKeyRing( byref mobile, byref keyring )
 	var name_len := Len( new_name );
 
 	if( !new_name )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	elseif( name_len > 20 )
 		SendSysMessage( mobile, "That name is too long.", 0x3, 0x22 );
@@ -118,14 +118,14 @@ function RemoveAllKeys( byref mobile, byref keyring )
 	var result := GFSendGump( mobile, gump );
 	result := result[0];
 	if( !result || result == 42 )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 
 	SendSysMessage( mobile, "Target the container to put the keys into (target self to place keys in inventory).", 0x3, 0x42 );
 	var targ := Target( mobile );
 	if( !targ )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

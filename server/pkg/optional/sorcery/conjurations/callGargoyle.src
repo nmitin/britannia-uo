@@ -15,10 +15,10 @@ program CallGargoyles(parms)
 	var info := parms[2];
 	var cast_on := parms[4]; // If NPC casting there'll be something here.
 	if (!cast_on) // If no cast_on then this is being cast by a player.
-		cast_on := MS_TargetCoordinates(caster, info.targ, "Select a location:");
+		cast_on := MS_TargetCoordinates(caster, info.targ, "Выберите место:");
 	endif
 	if (!cast_on)
-		SendSysMessage (caster, "Cancelled.", color := 33);
+		SendSysMessage (caster, "Отменено.", color := 33);
 		return 0;
 	endif
 	if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )

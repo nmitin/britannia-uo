@@ -35,7 +35,7 @@ program removespawnshelf(who)
 			SendSysMessage(who, "(Press <Esc> to cancel)", color := 88);
 			shelf_to_remove := Target(who);
 			if(!shelf_to_remove)
-				SendSysMessage(who, "Cancelled.", color := 33);
+				SendSysMessage(who, "Отменено.", color := 33);
 				exit;
 			endif
 			if(!shelf_to_remove.IsBookshelf())

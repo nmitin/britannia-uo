@@ -136,7 +136,7 @@ function InitializeBookGump( byref mobile, byref title_list, gump_caption := "" 
 		endforeach
 	endif
 	if(!books_selected)
-		return error{"errortext":="No option was selected."};
+		return error{"errortext":="Ничего не выбрано."};
 	endif
 	return book_array;
 endfunction

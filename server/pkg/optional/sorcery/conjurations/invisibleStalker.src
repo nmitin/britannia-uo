@@ -18,7 +18,7 @@ program InvisibleStalker(parms)
 		cast_on := MS_Target(caster, info.targ, "Select aan enemy:");
 	endif
 	if (!cast_on)
-		SendSysMessage (caster, "Cancelled.", color := 33);
+		SendSysMessage (caster, "Отменено.", color := 33);
 		return 0;
 	endif
 	if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )

@@ -18,7 +18,7 @@ include "include/security";
 program textcmd_jail( mobile )
 
         if( !AuthorizationCode( mobile ))
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         endif
 
@@ -60,7 +60,7 @@ program textcmd_jail( mobile )
 	input := input[0];
 
 	if( !input )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 
@@ -94,7 +94,7 @@ function JailPlayer( mobile, jailed )
        if( time )
                 var message_txt := RequestInput( mobile, mobile.backpack, "Please insert a description of your decision to be sent to "+jailed.name+". (hit escape to cancel)" );
                 if( !message_txt )
-                          SendSysMessage( mobile, "Cancelled." );
+                          SendSysMessage( mobile, "Отменено." );
                           return 0;
                 endif
 
@@ -118,7 +118,7 @@ function GetJTime( mobile, jailed )
 
 	var jail_time := RequestGump( mobile, "How many days do you want to jail "+jailed.name+"?","", CStr( GetNumJailDays( jailed )), 1 );
 	if( !jail_time )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	else
 		jail_time := CInt( jail_time );

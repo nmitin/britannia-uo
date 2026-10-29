@@ -12,7 +12,7 @@ include "include/client";
 program txtcommand_undress( mobile, text )
 
 	if( mobile.dead )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 

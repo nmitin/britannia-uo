@@ -20,7 +20,7 @@ var origLoc := {};
   theTarget := Target(who, TGTOPT_NOCHECK_LOS);
 
   if ((theTarget == error) || (!theTarget))
-    SendSysMessage(who, "Cancelled.");
+    SendSysMessage(who, "Отменено.");
     return;
   endif
 

@@ -39,7 +39,7 @@ program decorate (who)
 	SendSysMessage(who, "Select an item to manipulate.", color := 88);
 	var item := Target (who, TGTOPT_NOCHECK_LOS);
 	if (!item || item.npctemplate || item.acctname)
-		SendSysMessage(who, "Cancelled.", 0x3, 0x21);
+		SendSysMessage(who, "Отменено.", 0x3, 0x21);
 		return;
 	endif
 
@@ -62,7 +62,7 @@ program decorate (who)
 				else
 					tempitem := tempitem.container;
 					if (!tempitem)
-						SendSysMessage(who, "That item is not in your backpack.", 0x3, 0x21);
+						SendSysMessage(who, "Этого предмета нет в рюкзаке.", 0x3, 0x21);
 						return;
 					endif
 				endif
@@ -231,7 +231,7 @@ function DisplayGumpOptions (who, item, hsign)
 	var gump_return := GFSendGump(who, gump);
 
 	if (!gump_return[0])
-		SendSysMessage(who, "Cancelled.", 0x3, 0x21);
+		SendSysMessage(who, "Отменено.", 0x3, 0x21);
 		return;
 	endif
 	return gump_return[0];

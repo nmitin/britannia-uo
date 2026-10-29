@@ -42,7 +42,7 @@ program usehousedeed (character, deed)
 	endif
 	input := GFSendGump( character, gump );
 	if (input[0]!=0x10)
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	endif
 	housetype := input.keys[3];
@@ -53,7 +53,7 @@ program usehousedeed (character, deed)
 
 	var where := TargetMultiPlacement (character, housetype);
 	if (!where)
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	endif
 
@@ -70,7 +70,7 @@ program usehousedeed (character, deed)
 	if (extracharges > 0 && character.cmdlevel == 0)
 		SendSysMessage (character, "The cost of buying this foundation is " + extracharges + " gold!");
 		if (!YesNo(character, "Buy it?"))
-			SendSysMessage(character, "Canceled.");
+			SendSysMessage(character, "Отменено.");
 			DestroyItem(created.packkey);
 			DestroyItem(created.bankkey);
 			DestroyMulti(created.house);
@@ -142,7 +142,7 @@ function CreateHouseAndKeys (character, housetype, x, y, z, rlm)
 
 	var packkey := CreateItemInBackpack( character, UOBJ_GOLD_KEY );
 	if (!packkey)
-		PrintTextAbovePrivate (character, "*Your backpack is full!*", character );
+		PrintTextAbovePrivate (character, "*Ваш рюкзак полон!*", character );
 		return 0;
     endif
 	var bank_region := CP_DEFAULT_AREA;

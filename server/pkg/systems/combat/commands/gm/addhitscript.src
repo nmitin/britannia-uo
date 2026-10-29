@@ -16,7 +16,7 @@ program AddHitScript(who);
 	SendSysMessage(who, "Select a weapon to modify.");
 	var targ := target(who);
 	if ( !targ.IsA(POLCLASS_WEAPON) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 	var hit_scripts := GetObjProperty(targ, "HitScripts");
@@ -59,9 +59,9 @@ program AddHitScript(who);
 		else
 			SetObjProperty(targ, "HitScripts", hit_scripts);
 		endif
-		SendSysMessage(who, "Done.");
+		SendSysMessage(who, "Готово.");
 	else
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 	endif
 
 	return 1;

@@ -19,7 +19,7 @@ program make_a_tele( who, text )
     var rune := Target( who, TGTOPT_NOCHECK_LOS );
 
     if (!rune)
-            SendSysMessage(who, "Targetting cancelled.");
+            SendSysMessage(who, "Выбор цели отменён.");
             return;
     endif
 

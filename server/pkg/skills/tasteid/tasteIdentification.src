@@ -33,7 +33,7 @@ program do_tasteid( character )
     SendSysMessage( character, "Select an object to taste." );
     the_item := Target(character, "");
     if (!the_item)
-        SendSysMessage(character, "Targetting cancelled.");
+        SendSysMessage(character, "Выбор цели отменён.");
         return;
     endif
 

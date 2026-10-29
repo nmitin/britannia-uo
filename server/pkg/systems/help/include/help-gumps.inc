@@ -208,7 +208,7 @@ function BuildHelpStuckCommand( mobile )
 
         var input := GFSendGump( mobile, gump );
         if( !input[0x10] )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 	        return 0;
         endif
 
@@ -269,7 +269,7 @@ function BuildHelpStuckCommand( mobile )
 
 	var result := MoveObjectToLocation( mobile, dest.x, dest.y, dest.z, dest.realm, MOVEOBJECT_NORMAL );
 	if( result.errortext )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 	        return 0;
 	endif
 

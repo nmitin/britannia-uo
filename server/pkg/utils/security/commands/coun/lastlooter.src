@@ -10,7 +10,7 @@ program textcmd_lastLooter( mobile )
 	SendSysMessage( mobile, "What would you like to evaluate?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
 		return 0;
 	elseif( !targ.IsA( POLCLASS_CONTAINER ))
 		SendSysMessage( mobile, "You can't find anything." );

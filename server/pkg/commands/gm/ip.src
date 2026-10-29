@@ -2,7 +2,7 @@ use uo;
 
 program textcmd_ip(who)
 
-	SendSysMessage(who, "Select target.");
+	SendSysMessage(who, "Выберите цель.");
 	var victim := Target(who);
 
 	if (!victim.ip)

@@ -10,13 +10,13 @@ include "include/client";
 
 program usePitcher (who, pitcher)
 	if ( !ReserveItem(pitcher) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif( (!pitcher.movable) )
-		SendSysMessage(who, "You cannot use that");
+		SendSysMessage(who, "Вы не можете это использовать");
 		return 0;
 	elseif( !(pitcher in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -26,7 +26,7 @@ program usePitcher (who, pitcher)
 	SendSysMessage(who, "What would you like to fill the pitcher from?");
 	var targetted := TargetCoordinates(who);
 	if(!targetted || targetted.errortext )
-		SendSysMessage(who, "Canceled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 	if(!CheckLosAt( who, targetted.x, targetted.y, targetted.z ))

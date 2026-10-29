@@ -263,7 +263,7 @@ endfunction
 
 function ChopFurniture(who, furniture)
 	if ( !ReserveItem(furniture) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	endif
 

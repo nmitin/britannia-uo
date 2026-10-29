@@ -40,7 +40,7 @@ program use_spawnpoint(who, spawnpoint)
 
 	// If res.keys size is < 7 the gump was closed by right-click.
 	if(res.Keys.Size() < 7)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return;
 	endif
 	for(i := 1; i <= 5; i := i + 1);

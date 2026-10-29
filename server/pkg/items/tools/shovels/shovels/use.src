@@ -33,7 +33,7 @@ program use_shovel( mobile, shovel )
 
 	use_on := TargetCoordinates( mobile );
 	if( !use_on )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 	// First we check to see if a map was targeted.
@@ -104,7 +104,7 @@ program use_shovel( mobile, shovel )
 		SendSysMessage(mobile, "Target a location to dig.", color := 88);
 		var dig := TargetCoordinates( mobile );
 		if(!dig)
-			SendSysMessage(mobile, "Cancelled.", color := 33);
+			SendSysMessage(mobile, "Отменено.", color := 33);
 			return 0;
 		endif
 		if(!CheckLosAt( mobile, dig.x, dig.y, dig.z ) );
@@ -319,7 +319,7 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 	endif
 
 	if( quantity < 1 )
-		SendSysMessage( mobile, "There's not enough "+resource_name+" here to harvest.", 0x3, 0x22 );
+		SendSysMessage( mobile, "There's not enough "+resource_name+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
 		SendSysMessage( mobile, "You must be nearer to harvest any "+resource_name+"!", 0x3, 0x22 );
@@ -346,7 +346,7 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( amount < 1 )
-			SendSysMessage( mobile, "There's not enough "+resource_name+" here to harvest.", 0x3, 0x22 );
+			SendSysMessage( mobile, "There's not enough "+resource_name+" здесь для сбора.", 0x3, 0x22 );
 			return 0;
 		endif
 
@@ -388,9 +388,9 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 		var create_item := CreateItemInBackpack( mobile, settings.ResourceType, amount );
 		if( create_item )
 			if( resource_name == "sand" )
-				SendSysMessage( mobile, "You place "+FormatItemDescription( "grain%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
+				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "grain%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
 			elseif( resource_name == "clay" )
-				SendSysMessage( mobile, "You place "+FormatItemDescription( "brick%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
+				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "brick%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
 			endif
 		else
 		

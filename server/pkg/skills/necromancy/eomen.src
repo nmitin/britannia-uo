@@ -8,7 +8,7 @@ program evil_omen( params )
 	var info := params[2]; // Struct containing additional info about the spell.
 	var spellID := params[3];
 
-	SendSysMessage(caster, "Select your victim:", 1, 88);
+	SendSysMessage(caster, "Выберите жертву:", 1, 88);
 	var cast_on := Target(caster);
 	
 

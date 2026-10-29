@@ -40,7 +40,7 @@ program HelpSystem( mobile )
 		input := GFSendGump( mobile, gump );
 
 		if( !input[0] || input[CLOSE_BTN] )
-			SendSysMessage( mobile, "Cancelled." );
+			SendSysMessage( mobile, "Отменено." );
 			break;
 		elseif( input[SEND_PAGE_BTN] )
 			var result := SubmitPage( mobile, cur_menu, input );
@@ -62,7 +62,7 @@ program HelpSystem( mobile )
 		elseif( input[0] >= HELP_TOPIC_START )
 			cur_menu := HELP_TOPIC_START;
 		else
-			SendSysMessage( mobile, "Cancelled." );
+			SendSysMessage( mobile, "Отменено." );
 			break;
 		endif
 	endwhile

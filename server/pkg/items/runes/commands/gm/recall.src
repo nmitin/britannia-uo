@@ -10,7 +10,7 @@ program textcmd_recall( caster )
 	SendSysMessage( caster, "Select a target to recall from." );
 	var cast_on := Target(caster);
 	if (!cast_on)
-		SendSysMessage(caster, "Canceled.", 1, 33);
+		SendSysMessage(caster, "Отменено.", 1, 33);
 		return;
 	endif
 	
@@ -30,7 +30,7 @@ program textcmd_recall( caster )
 	endif
 
 	if (!Accessible(caster, cast_on))
-		SendSysMessage(caster, "You can't reach that!");
+		SendSysMessage(caster, "Вы не можете до этого дотянуться!");
 		return 0;
 	endif
 

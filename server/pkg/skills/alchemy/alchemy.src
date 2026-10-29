@@ -16,7 +16,7 @@ var craft_config    := ReadConfigFile(":alchemy:alchemy");
 program use_AlchTool(who, tool)
 
 	if ( !ReserveItem(tool) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif( (!tool.movable) || !ReserveItem(tool) )
 		SendSysMessageCL(who, 501973, {}, 3, 33); // You cannot use that.

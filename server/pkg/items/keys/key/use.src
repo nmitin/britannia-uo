@@ -14,7 +14,7 @@ program UseKey( who, key )
 	SendSysMessage( who, "What do you want to use this on?" );
 	var targ := Target( who );
         if( !targ )
-                SendSysMessage( who, "Cancelled." );
+                SendSysMessage( who, "Отменено." );
                 return 0;
 	elseif( targ == key )
 		RenameKey( who, key );
@@ -42,7 +42,7 @@ function RenameKey( who, key )
 	var name_len := Len( new_name );
 
 	if( !new_name )
-		SendSysMessage( who, "Cancelled." );
+		SendSysMessage( who, "Отменено." );
 		return 0;
 	elseif( name_len > 20 )
 		SendSysMessage( who, "Name is too long." );

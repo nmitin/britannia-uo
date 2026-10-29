@@ -10,7 +10,7 @@ include "include/security";
 program textcmd_Equip( speaker )
 
         if( !AuthorizationCode( speaker ))
-                SendSysMessage( speaker, "Cancelled.", color := 33 );
+                SendSysMessage( speaker, "Отменено.", color := 33 );
                 return 0;
         endif
 
@@ -31,7 +31,7 @@ program textcmd_Equip( speaker )
 
 	var res := EquipItem( who, what.item );
 	if( res )
-		SendSysMessage( speaker, "Done!", color := 66 );
+		SendSysMessage( speaker, "Готово!", color := 66 );
 	else
 		SendSysMessage( speaker, "Unable to equip item: "+res.errortext, color := 33 );
 		return 0;

@@ -50,7 +50,7 @@ program binddaemon(who, prison)
 	SendSysMessage(who, "Select a location to release the daemon.");
 	var targ := TargetCoordinates(who);
 	if (!targ)
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return 0;
 	endif
 

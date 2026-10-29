@@ -26,7 +26,7 @@ program bard_provoke(who)
   SendSysMessage(who, "Select the creature to provoke.");
   var thetarg := Target(who, TGTOPT_HARMFUL);
   if((!thetarg) || (!thetarg.npctemplate))
-    SendSysMessage(who, "Targetting cancelled.");
+    SendSysMessage(who, "Выбор цели отменён.");
     return;
   endif
   if(Distance(who, thetarg) > 10)

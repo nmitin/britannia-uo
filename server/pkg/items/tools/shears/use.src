@@ -17,7 +17,7 @@ program shears(who, shears)
 	var sheep := TargetCoordinates(who);
 
 	if(!sheep)
-		SendSysMessage(who, "Cancelled.", 3, 33);
+		SendSysMessage(who, "Отменено.", 3, 33);
 		return;
 	endif
 

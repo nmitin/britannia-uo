@@ -3,11 +3,11 @@ use uo;
 
 program textcmd_setusescript( who, text )
 
-	SendSysMessage(who, "Select target.");
+	SendSysMessage(who, "Выберите цель.");
 	var targ := Target(who);
 
 	if (!targ)
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return;
 	endif
 

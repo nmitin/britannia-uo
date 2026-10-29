@@ -10,7 +10,7 @@ include "include/eventID";
 program enticement(who)
   var subject := Target(who, TGTOPT_NOCHECK_LOS );
   if ((!subject) || (!subject.npctemplate))
-    SendSysMessage(who, "Cancelled.");
+    SendSysMessage(who, "Отменено.");
     return;
   endif
   if(subject.script == ":musicianship:enticedAI")

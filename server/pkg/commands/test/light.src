@@ -57,7 +57,7 @@ program mylight (who, text)
 			set_critical(0);
 		endif
 
-		SendSysMessage(who, "Done!");
+		SendSysMessage(who, "Готово!");
 		return;
 	endif
  

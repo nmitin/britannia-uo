@@ -609,13 +609,13 @@ endif
 ((haircolor > 1101) and (haircolor < 1149)))
        thehaircolor := haircolor;
     else
-SendSysMessage(who, "Cancelled.");
+SendSysMessage(who, "Отменено.");
 ReleaseItem(item);
 return;
     endif
 
    if ((thehaircolor == 0) or (thehaircolor == 1))
-SendSysMessage(who, "Cancelled.");
+SendSysMessage(who, "Отменено.");
 ReleaseItem(item);
 return;
    endif

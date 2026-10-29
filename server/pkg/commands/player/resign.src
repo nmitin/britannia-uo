@@ -16,7 +16,7 @@ function resign(guild,who)
   SendSysMessage(who, "Вы уверены, что хотите выйти?",3,34);
   var answer:=confirmationSizable(who, "Покинуть гильдию?");
   if(!answer)
-    SendSysMessage(who, "Canceled.",3,34);
+    SendSysMessage(who, "Отменено.",3,34);
     return;
   endif
   var gm:=findgm(guild);

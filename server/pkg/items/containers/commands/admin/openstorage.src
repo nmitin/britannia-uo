@@ -8,13 +8,13 @@ program command_OpenStorage( mobile )
 
 	var storage_area := RequestGump( mobile, "Storage Area Name", "", CP_DEFAULT_AREA );
 	if( !storage_area )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 
 	var container_id := RequestGump( mobile, "Storage container ID" );
 	if( !container_id )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 

@@ -48,7 +48,7 @@ sign := sgn;
 
 		var extdoors :={};
 		if (!yesNo(who, "Do you want to buy this house?"))
-			SendSysMessage(who, "Canceled.");
+			SendSysMessage(who, "Отменено.");
 			return 0;
 		endif
 
@@ -340,7 +340,7 @@ endfunction
 function Eject(who)
 	var targ := Target(who, TGTOPT_NOCHECK_LOS);
 	if(!targ)
-		SendSysMessage(who, "Canceled.", 3, 40);
+		SendSysMessage(who, "Отменено.", 3, 40);
 	elseif(!targ.isa(POLCLASS_MOBILE))
 		SendSysMessage(who, "You may only eject mobiles.", 3, 40);
 	elseif(targ.cmdlevel)
@@ -422,7 +422,7 @@ function ChangeLocks(sign, byref who)
 	// var addonitem;
 	var newkey := Target(who);
 	if(!newkey)
-		SendSysMessage(who, "Cancelled.", 1, 33);
+		SendSysMessage(who, "Отменено.", 1, 33);
 		return 0;
 	endif
 	if(newkey.IsKey() && !newkey.IsKeyring())
@@ -469,7 +469,7 @@ function ChangeInteriorLocks( who, house )
 	SendSysMessage( who, "Target the new master key.", 1, 88 );
 	var newkey := Target( who, "" );
 	if (!newkey)
-		SendSysMessage(who, "Canceled.", 1, 33);
+		SendSysMessage(who, "Отменено.", 1, 33);
 		return;
 	endif
 	if( !newkey.IsKey() && newkey.IsKeyring() )

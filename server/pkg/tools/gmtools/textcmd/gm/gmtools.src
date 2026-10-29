@@ -650,7 +650,7 @@ function EditStat(who, character, result)
     SendSysMessage(who, "Caution! Values are changed immediately, Integers only!. Hit ESC to cancel.");
     var val := CInt(RequestInput(who, who.backpack, "Enter a new value."));
     if(!val)
-      SendSysMessage(who, "Cancelled.");
+      SendSysMessage(who, "Отменено.");
     else
       case(result)
          1: AP_SetTrueStat(character, STRENGTH, val);
@@ -674,7 +674,7 @@ function EditSkill(who, character, skill);
     SendSysMessage(who, "Caution! Values are changed immediately, Integers only!. Hit ESC to cancel.");
     var val := CInt(RequestInput(who, who.backpack, "Enter a new value.")) * 10;
     if((!val) &&(val != 0))
-      SendSysMessage(who, "Cancelled.");
+      SendSysMessage(who, "Отменено.");
     else
       SetBaseSkillBaseValue(character, skill, val);
     endif

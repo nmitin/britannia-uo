@@ -26,7 +26,7 @@ program honorshrine(params)
 
 	// Prevents "praying" at a shrine too often.
 	if ( CInt(GetObjProperty(who, "NextPrayer") ) > ReadGameClock() )
-		SendSysMessage(who, "You must rest before attempting to meditate again.", color := MSG_ERROR);
+		SendSysMessage(who, "Перед новой медитацией нужно отдохнуть.", color := MSG_ERROR);
 		return 0;
 	endif
 
@@ -51,10 +51,10 @@ program honorshrine(params)
 		virtue_rating := max_range;
 	endif
 
-	SendSysMessage(who, "Speak now the mantra of " + VS_Capitalize(virtue_shrine) + ".", color := 88);
+	SendSysMessage(who, "Произнесите мантру " + VS_Capitalize(virtue_shrine) + ".", color := 88);
 	var entry := RequestInput(who, who.backpack, "");
 	if ( (lower(entry) != mantra) || (Distance(who, virtue_shrine) > 4) )
-		SendSysMessage(who, "You feel disheartened.");
+		SendSysMessage(who, "Вы падаете духом.");
 		PlaySoundEffect(who, 0xf9);
 		spirituality_rating := spirituality_rating - 3;
 
@@ -134,7 +134,7 @@ program honorshrine(params)
 	VS_SetVirtueAmount(who, virtue_shrine, virtue_rating);
 
 	if (grantblessing)
-		res := confirmationSizable(who, "Do you wish to receive the blessings of " + virtue_shrine + "?", 88);
+		res := confirmationSizable(who, "Хотите получить благословение " + virtue_shrine + "?", 88);
 		if (res)
 			PlayObjectCenteredEffect(who, 0x373a, 0x10, 0x10);
 			PlaySoundEffect(who, 0x1ec);

@@ -21,6 +21,6 @@ program talk( who )
 		endif
 	until ( (!who) or (!what) or (!text) );
 
-	SendSysMessage(who,"Done!");
+	SendSysMessage(who,"Готово!");
 
 endprogram

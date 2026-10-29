@@ -2,11 +2,11 @@ use uo;
 
 program textcmd_lockdown(who)
 
-        SendSysMessage(who, "Select target.");
+        SendSysMessage(who, "Выберите цель.");
         var what := Target(who, TGTOPT_NOCHECK_LOS);
 
         if (!what)
-                SendSysMessage(who, "Aborted.");
+                SendSysMessage(who, "Прервано.");
                 return;
         endif
 

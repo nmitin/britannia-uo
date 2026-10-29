@@ -12,7 +12,7 @@ program flip (who)
     endif
 
     if (targetfurniture.movable == 0)
-          SendSysMessage(who, "That item is locked down.");
+          SendSysMessage(who, "Этот предмет закреплён.");
           return;
     endif
 

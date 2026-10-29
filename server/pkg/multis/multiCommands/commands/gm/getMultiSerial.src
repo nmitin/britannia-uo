@@ -5,7 +5,7 @@ program textcommand_getMultiSerial( mobile )
 
         var targ := Target( mobile );
         if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         elseif( !targ.multi )
                 SendSysMessage( mobile, "No multi found at this location." );

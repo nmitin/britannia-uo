@@ -12,13 +12,13 @@ var craft_config    := ReadConfigFile(":inscription:inscription");
 program use_InscTool(mobile, tool)
 
 	if ( !ReserveItem(tool) )
-		SendSysMessage(mobile, "That is already in use.");
+		SendSysMessage(mobile, "Это уже используется.");
 		return 0;
 	elseif( (!tool.movable) || !ReserveItem(tool) )
-		SendSysMessage(mobile, "You cannot use that");
+		SendSysMessage(mobile, "Вы не можете это использовать");
 		return 0;
 	elseif( !(tool in EnumerateItemsInContainer(mobile.backpack)) )
-		SendSysMessage(mobile, "That item is not in your backpack.");
+		SendSysMessage(mobile, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -89,7 +89,7 @@ function makeScribeItems(mobile, what, amt, tool)
 				theitem := CreateCraftItem(mobile, craft_skill, use_on, use_on.objtype, what, material, itemname, reqd);
 				if( TypeOf(theitem) != "ItemRef" )
 					SubtractAmount(use_on, (material / 2));
-					SendSysMessage(mobile, "You failed to create the item, and some of your materials are lost.");
+					SendSysMessage(mobile, "Не удалось создать предмет, часть материалов потеряна.");
 					counter := counter + 1;
 					continue;
 				endif

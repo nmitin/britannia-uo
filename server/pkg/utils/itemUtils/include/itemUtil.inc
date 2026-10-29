@@ -46,7 +46,7 @@ function useItem_check( mobile, item, option := DEFAULT_ITEM, temp_dist := 0 )
       SendSysMessage( mobile, "That item is not movable." );
       return 0;
     elseif( !( item in EnumerateItemsInContainer( mobile.backpack )))
-      SendSysMessage( mobile, "That item is not in your backpack." );
+      SendSysMessage( mobile, "Этого предмета нет в рюкзаке." );
       return 0;
     endif
   elseif( option & ITEM_EQUIPPED )

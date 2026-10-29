@@ -10,7 +10,7 @@ program textcmd_idiot( mobile )
 	SendSysMessage( mobile, "What would you like to check?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 

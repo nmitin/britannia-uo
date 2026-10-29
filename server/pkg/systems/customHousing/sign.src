@@ -83,7 +83,7 @@ program use_house_sign (character, sign)
 				customhouse.acceptcommit(character, 0);
 				var customizehouse := SendHousingTool(character, customhouse);
 				if (!customizehouse)
-					SendSysMessage (character, "Error: " +  customizehouse.errortext);
+					SendSysMessage (character, "Ошибка: " +  customizehouse.errortext);
 				endif
 			else
 				SendSysMessage (character, "Your house can't be customized.");
@@ -133,7 +133,7 @@ function ChangeHouseLocks (character, sign)
 	SendSysmessage (character, "Target the new master key.");
 	var newkey := Target (character);
 	if (!newkey)
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	elseif (!IsAKey (newkey))
 		SendSysMessage (character, "That is not a key!");
@@ -142,7 +142,7 @@ function ChangeHouseLocks (character, sign)
 		SendSysMessage (character, "That seems to be the key to something else already.");
 		SendSysMessage (character, "If you use that key, it will no longer work on its previous lock.");
 		if (!YesNo (character, "Continue?"))
-			SendSysMessage (character, "Canceled.");
+			SendSysMessage (character, "Отменено.");
 			return;
 		endif
 	endif
@@ -196,12 +196,12 @@ function MakeADeed (character, house)
 
 			SendSysMessage (character, "The value of this house is " + theprice + " gold.");
 			if (!YesNo (character, "Sell it?"))
-				SendSysMessage (character, "Canceled.");
+				SendSysMessage (character, "Отменено.");
 				return 0;
 			endif
 			var newdeed := CreateItemInContainer (character.backpack, deedtype, 1);
 			if (!newdeed)
-				PrintTextAbovePrivate (character, "*Your backpack is full!*", character);
+				PrintTextAbovePrivate (character, "*Ваш рюкзак полон!*", character);
 				return 0;
 			endif
 			while (theprice > 60000)
@@ -218,7 +218,7 @@ function MakeADeed (character, house)
 	else
 		var newdeed := CreateItemInContainer (character.backpack, deedtype, 1);
 		if (!newdeed)
-			PrintTextAbovePrivate (character, "*Your backpack is full!*", character);
+			PrintTextAbovePrivate (character, "*Ваш рюкзак полон!*", character);
 			return 0;
 		endif
 	endif
@@ -247,7 +247,7 @@ function DisownHouse (character, sign)
 
 	SendSysMessage (character, "The value of this house is " + theprice + " gold.");
 	if (!YesNo (character, "Sell it?"))
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	endif
 
@@ -391,7 +391,7 @@ function ChangeHouseSign (character, sign)
 	AddMenuItem (itemmenu, 0x0c43, "sign");
 	var selection := SelectMenuItem2 (character, itemmenu);
 	if (!selection.objtype)
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	endif
 
@@ -483,16 +483,16 @@ function BuildHouseSignGump (character, sign)
 		"Secure Containers:",	//14
 		"",					//15
 		"Change Owners",		//16
-		"New Friend",			//17 - friend 1
-		"New Friend",			//18 - friend 2
-		"New Friend",			//19 - friend 3
-		"New Friend",			//20 - friend 4
-		"New Friend",			//21 - friend 5
-		"New Friend",			//22 - friend 6
-		"New Friend",			//23 - friend 7
-		"New Friend",			//24 - friend 8
-		"New Friend",			//25 - friend 9
-		"New Friend",			//26 - friend 10
+		"Новый друг",			//17 - friend 1
+		"Новый друг",			//18 - friend 2
+		"Новый друг",			//19 - friend 3
+		"Новый друг",			//20 - friend 4
+		"Новый друг",			//21 - friend 5
+		"Новый друг",			//22 - friend 6
+		"Новый друг",			//23 - friend 7
+		"Новый друг",			//24 - friend 8
+		"Новый друг",			//25 - friend 9
+		"Новый друг",			//26 - friend 10
 		"Change Signs",			//27
 		"Customize House"		//28
 	};

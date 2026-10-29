@@ -14,7 +14,7 @@ program cast_strength( parms )
 	// then we need a place to retrieve and store it.
 	var orig_lock_id;
 
-	var cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
+	var cast_on := MS_Target(caster, info.targ, "Выберите цель.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
 	if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
 		cast_on := parms[4];
 	endif

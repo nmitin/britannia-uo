@@ -15,10 +15,10 @@ program fear(parms)
     var info := parms[2];
 	var cast_on := parms[4];
 	if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
-		cast_on := MS_Target(caster, info.targ, "Select a target:", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+		cast_on := MS_Target(caster, info.targ, "Выберите цель:", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
 	endif
     if (!cast_on)
-        SendSysMessage (caster, "Cancelled.", color := 33);
+        SendSysMessage (caster, "Отменено.", color := 33);
         return 0;
     endif
     if ( !MS_MobileCheck(caster, cast_on) )
@@ -26,7 +26,7 @@ program fear(parms)
     endif
 
     if (!cast_on.isA(POLCLASS_NPC))
-		SendSysMessage(caster, "Aborted.");
+		SendSysMessage(caster, "Прервано.");
 		return 0;
     endif
 

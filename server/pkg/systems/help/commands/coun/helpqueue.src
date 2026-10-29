@@ -33,7 +33,7 @@ program HelpQueue( mobile, queue_name )
 
 		input := GFSendGump( mobile, gump );
 		if( !input[0] || input[CLOSE_BTN] )
-			SendSysMessage( mobile, "Cancelled." );
+			SendSysMessage( mobile, "Отменено." );
 			break;
 		elseif( input[0] >= SHOW_PAGE_START )
 			var key := input[0] - SHOW_PAGE_START;
@@ -70,7 +70,7 @@ function PageButtons( mobile, byref input, byref cur_menu, byref queue_name, byr
 		params := {mobile, pager};
 		var script := Start_Script( ":commands:coun/msg", params );
 		if( script.errortext )
-			GumpPrompt( mobile, "Error - "+script.errortext );
+			GumpPrompt( mobile, "Ошибка - "+script.errortext );
 		endif
 		return 1;
 	elseif( input[DELETE_PAGE_BTN] )
@@ -99,14 +99,14 @@ function PageButtons( mobile, byref input, byref cur_menu, byref queue_name, byr
         	// var script := Start_Script( ":accounts:commands/gm/acctinfo", {mobile, pager} );
         	var script := Start_Script( ":accounts:commands/gm/acctinfo", params );
 		if( script.errortext )
-			GumpPrompt( mobile, "Error - "+script.errortext );
+			GumpPrompt( mobile, "Ошибка - "+script.errortext );
 		endif
 		return 1;
 	elseif( input[INFO_BTN] )
 //		var pager := SystemFindObjectBySerial( elem_info );
         	var script := Start_Script( ":commands:gm/info", array{mobile, pager.serial} );
 		if( script.errortext )
-			GumpPrompt( mobile, "Error - "+script.errortext );
+			GumpPrompt( mobile, "Ошибка - "+script.errortext );
 		endif
 		return 1;
 	endif

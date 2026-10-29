@@ -11,12 +11,12 @@ include ":sorcery:sorceryOpts";
 program createlightsource(params)
 	var caster := params[1];
 	var info := params[2];
-	var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+	var cast_on := MS_TargetCoordinates(caster, info.targ, "Выберите цель.");
 	if (!cast_on) // If no cast_on then get cast_on from params[4]. Used mostly for NPC casting.
 		cast_on := params[4];
 	endif
 	if (!cast_on)
-		SendSysMessage (caster, "Cancelled.", color := 33);
+		SendSysMessage (caster, "Отменено.", color := 33);
 	  return 0;
 	endif
 	if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )

@@ -142,7 +142,7 @@ function GetConcentratingClerics(who, range:=5, method := "piety", matchreligion
 	endif
 endfunction
 
-function ClericalTarget(byref who, byref npctarget, prompt := "Select a target", ops := TGTOPT_CHECK_LOS + TGTOPT_NEUTRAL)
+function ClericalTarget(byref who, byref npctarget, prompt := "Выберите цель", ops := TGTOPT_CHECK_LOS + TGTOPT_NEUTRAL)
 	var x := who.x;
 	var y := who.y;
 	who.hidden := 0;
@@ -166,7 +166,7 @@ function ClericalTarget(byref who, byref npctarget, prompt := "Select a target",
 	endif
 endfunction
 
-function ClericalTargetCoordinates(byref who, byref params := "", prompt := "Select a target")
+function ClericalTargetCoordinates(byref who, byref params := "", prompt := "Выберите цель")
 	var x := who.x;
 	var y := who.y;
 	who.hidden := 0;

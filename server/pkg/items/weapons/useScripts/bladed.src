@@ -108,7 +108,7 @@ endfunction
 function CarveTree(who, blade, use_on, craftingbag)
   blade := blade;
   if(Distance(who, use_on) > 2)
-    SendSysMessage(who, "You cannot use that");
+    SendSysMessage(who, "Вы не можете это использовать");
     return;
   endif
   CreateItemInContainer(craftingbag, UOBJ_KINDLING, 1);
@@ -120,11 +120,11 @@ endfunction
 function CarveFish(who, blade, use_on, craftingbag)
   blade := blade;
   if((!Accessible(who, use_on)) || (!CheckLineOfSight(who, use_on)) || (Distance(who, use_on) > 2))
-    SendSysMessage(who, "You cannot use that");
+    SendSysMessage(who, "Вы не можете это использовать");
     return 0;
   endif
   if((!ReserveItem(use_on)) || (use_on.movable == 0))
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return 0;
   endif
   var num_steaks := (4 * use_on.amount);
@@ -157,7 +157,7 @@ function Carve_Corpse(who, cadaver, blade, craftingbag)
   craftingbag := craftingbag;
   Detach();
   if((!Accessible(who, cadaver)) || (!CheckLineOfSight(who, cadaver)))
-    SendSysMessage(who, "You cannot use that");
+    SendSysMessage(who, "Вы не можете это использовать");
     return;
   endif
   if(Distance(who, cadaver) > 2)
@@ -242,7 +242,7 @@ function MakeWizardWeed(who, weed)
 	SendSysMessage(who, "Select paper.");
 	var paper := target(who);
 	if (paper.objtype != 0xe34)
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return 0;
 	endif
 

@@ -26,7 +26,7 @@ program UseWood( who, wood )
 	endif
 	SetObjProperty(who, "CampTimer", ReadGameClock() + 5);
 	if(not Accessible(who, wood))
-		PrintTextAbovePrivate( wood, "You can't reach that!", who );
+		PrintTextAbovePrivate( wood, "Вы не можете до этого дотянуться!", who );
 		return;
 	endif
 	if(wood.container)

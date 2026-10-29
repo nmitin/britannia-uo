@@ -20,12 +20,12 @@ program textcmd_lowerTimer(who, params)
 	var targ := Target(who);
 
 	if ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 
 	TS_LowerDuration(targ, timer_name, amount);
-	SendSysMessage(who, "Done.");
+	SendSysMessage(who, "Готово.");
 
 	return 1;
 endprogram

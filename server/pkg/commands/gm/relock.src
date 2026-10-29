@@ -7,7 +7,7 @@ program relock( who )
     SendSysMessage( who, "Target a KEY first." );
     var key := Target( who, "" );
     if(! key)
-       SendSysMessage( who, "Cancelled." );
+       SendSysMessage( who, "Отменено." );
        return;
     endif
 
@@ -15,7 +15,7 @@ program relock( who )
     var lockeditem := Target( who, "" );
 
     if(! lockeditem)
-       SendSysMessage( who, "Cancelled." );
+       SendSysMessage( who, "Отменено." );
        return;
     endif
 

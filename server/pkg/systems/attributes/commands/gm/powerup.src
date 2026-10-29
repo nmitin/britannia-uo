@@ -24,6 +24,6 @@ program textcmd_PowerUp( who, level )
 	
 	AP_RefreshVitals( who );
 	
-	SendSysMessage( who, "Done." );
+	SendSysMessage( who, "Готово." );
 	return 1;
 endprogram

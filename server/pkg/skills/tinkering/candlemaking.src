@@ -13,7 +13,7 @@ program make_candles (character, item)
 
 	//make sure the item is reachable
 	if (!Accessible(character, item) && CheckLineOfSight(character, item) )
-		SendSysMessage(character, "You can't reach that!");
+		SendSysMessage(character, "Вы не можете до этого дотянуться!");
 		return;
 	endif
 
@@ -33,11 +33,11 @@ program make_candles (character, item)
 
 	//and all the checks again
 	if (!targetted)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	endif
 	if (!Accessible(character, targetted) && CheckLineOfSight(character, item) )
-		SendSysMessage(character, "You can't reach that!");
+		SendSysMessage(character, "Вы не можете до этого дотянуться!");
 		return;
 	endif
 /* Don't know if we want to specify that the kettle of wax should be the only locked down thing
@@ -90,7 +90,7 @@ function MakeKettleOfWax(character, wax, empty_kettle)
 	endif
         var newkettle := CreateItemInBackpack(character, 0x142a, 1);					// Pot of wax
         if(!newkettle)
-             PrintTextAbovePrivate(character, "*Your backpack is full!*", character);
+             PrintTextAbovePrivate(character, "*Ваш рюкзак полон!*", character);
              return;
         endif
 
@@ -130,7 +130,7 @@ function MakeCandles(character, dipper, kettle_of_wax)
 
         var kettle := CreateItemInBackpack(character, 0x09ed, 1);
         if(!kettle)
-             PrintTextAbovePrivate(character, "*Your backpack is full!*", character);
+             PrintTextAbovePrivate(character, "*Ваш рюкзак полон!*", character);
              return;
         endif
         kettle.movable := 1;

@@ -26,7 +26,7 @@ program HouseTeleporterKit(who, htelekit)
 
 	if(!settings.AllowHouseTeleporters)
 		SendSysMessage(who, "You are prevented from placing a teleporter in a house.", color := 33);
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 
@@ -37,7 +37,7 @@ program HouseTeleporterKit(who, htelekit)
 	endforeach
 	if (inpack == 0)
 		SendSysMessage(who, "The House Teleporter Kit must be in your backpack to use it.", color := 33);
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 
@@ -47,13 +47,13 @@ program HouseTeleporterKit(who, htelekit)
 		return 0;
 	elseif((settings.LimitHouseTeleporters) && (CInt(GetObjProperty(housesign1, "numhteles")) >= CInt(settings.MaxHouseTeleporters)))
 		SendSysMessage(who, "You already have the maximum number of 'primary' teleporters in your house.", color := 33);
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 
 	result := SendGump(who, housesign1);
 	if(!result)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	elseif(result[0] == 1 )
 		targ := TargetCoordinates(who);
@@ -73,13 +73,13 @@ program HouseTeleporterKit(who, htelekit)
 	// var housesign2 := FindHouseForLocation (who.x, who.y, who.z, who.realm);
 	// Cancel button pressed.
 	if(!result)
-		SendSysMessage(who, "Cancelled.", color := 33);
+		SendSysMessage(who, "Отменено.", color := 33);
 		DestroyItem(htele1);
 		return 0;
 	elseif(result[0] == 2 )
 		targ := TargetCoordinates(who);
 		if(!targ)
-			SendSysMessage(who, "Cancelled.", color := 33);
+			SendSysMessage(who, "Отменено.", color := 33);
 			SendSysMessage(who, "Removing the primary teleporter.", color := 33);
 			DestroyItem(htele1);
 			return 0;

@@ -119,7 +119,7 @@ program SpawnerCMD( who )
 		endif
 	endwhile
 
-	SendSysMessage( who, "Done." );
+	SendSysMessage( who, "Готово." );
 
         return 1;
 endprogram

@@ -12,7 +12,7 @@ program textcmd_moveitem( who )
           if(itm.movable)
             var result := MoveObjectToLocation(itm, where.x, where.y, where.z, where.realm, MOVEOBJECT_FORCELOCATION);
             if(result)
-              PrintTextAbovePrivate(itm, "Done!", who);
+              PrintTextAbovePrivate(itm, "Готово!", who);
             else
               SendSysMessage(who, "Unable to move item: " + result.errortext);
             endif
@@ -20,7 +20,7 @@ program textcmd_moveitem( who )
             itm.movable := 1;
             var result := MoveObjectToLocation(itm, where.x, where.y, where.z, where.realm, MOVEOBJECT_FORCELOCATION);
             if(result)
-              PrintTextAbovePrivate(itm, "Done!", who);
+              PrintTextAbovePrivate(itm, "Готово!", who);
             else
               SendSysMessage(who, "Unable to move item: " + result.errortext);
             endif

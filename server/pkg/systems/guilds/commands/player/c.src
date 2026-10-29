@@ -105,7 +105,7 @@ function SendOptions( mobile );
 
         var input := GFSendGump( mobile, gump );
         if( !input )
-                SendSysMessage( mobile, "Cancelled.", 3, 68 );
+                SendSysMessage( mobile, "Отменено.", 3, 68 );
                 return 0;
         endif
 

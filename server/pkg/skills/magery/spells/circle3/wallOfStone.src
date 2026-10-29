@@ -11,7 +11,7 @@ include ":virtue:noto";
 program poisonfield( parms )
   var caster := parms[1];
   var info := parms[2];
-  var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+  var cast_on := MS_TargetCoordinates(caster, info.targ, "Выберите цель.");
     if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
         cast_on := parms[4];
     endif
@@ -51,7 +51,7 @@ program poisonfield( parms )
 		endif
 		var item := CreateItemAtLocation(coord.x, coord.y, cast_on_z.z, objtype, 1, caster.realm);
 		if ( item.errortext )
-			SendSysMessage(caster, "Error - "+item.errortext);
+			SendSysMessage(caster, "Ошибка - "+item.errortext);
 			continue;
 		endif
 

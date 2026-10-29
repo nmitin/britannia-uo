@@ -15,7 +15,7 @@ program vines(params)
 		piety := piety + pietyboost;
 	endif
 
-	var targ :=ClericalTarget(who, info.npctemplate, "Select a target", TGTOPT_CHECK_LOS + TGTOPT_HARMFUL);
+	var targ :=ClericalTarget(who, info.npctemplate, "Выберите цель", TGTOPT_CHECK_LOS + TGTOPT_HARMFUL);
 
 	ClericReleaseScript(info.pid);
 

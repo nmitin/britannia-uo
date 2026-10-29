@@ -33,7 +33,7 @@ program seednodes_textcmd( mobile )
 
 	var facets := SelectionGumpEx( mobile, "Seed the nodes in which facet?", backed_up_facets, BTN_TYPE_CHECKBOX );
 	if( !facets )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

@@ -7,7 +7,7 @@ program textcmd_getregionstring( who, text )
     if (rs)
         rstext := rs;
     else
-        rstext := "Error: " + rs.errortext;
+        rstext := "Ошибка: " + rs.errortext;
     endif
 
     SendSysMessage( who, "GetRegionString("+params[1]+","+who.x+","+who.y+","+params[2]+")=" + rstext );

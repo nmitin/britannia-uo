@@ -12,7 +12,7 @@ program textcmd_moveitem( who )
             if (where)
                 var result := MoveObjectToLocation( what, where.x, where.y, where.z, who.realm, MOVEOBJECT_FORCELOCATION );
                 if (result)
-                    PrintTextAbovePrivate( what, "Done!", who );
+                    PrintTextAbovePrivate( what, "Готово!", who );
                 else
                     SendSysMessage( who, "Unable to move npc: " + result.errortext, color := 33 );
                 endif

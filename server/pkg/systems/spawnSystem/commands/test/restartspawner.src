@@ -17,7 +17,7 @@ program command_RestartSpawner( who )
 
         SS_RestartSpawner();
 
-	SendSysMessage( who, "Done." );
+	SendSysMessage( who, "Готово." );
 
 	return 1;
 endprogram

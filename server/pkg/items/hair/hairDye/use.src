@@ -34,7 +34,7 @@ program UseDyes(who, dyes)
 	var input := GFSendGump(who, gump);
 
 	if ( input[0] == 0 || input[CANCEL_BTN] )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 

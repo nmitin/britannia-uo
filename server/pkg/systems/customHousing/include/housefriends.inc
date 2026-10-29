@@ -97,7 +97,7 @@ function AdjustHouseFriendsFromSign (character, sign, friendnum)
 
 		SendSysMessage (character, "Are you sure you want to remove " + chosenfriend[2] + " as a house friend?");
 		if (!YesNo (character, "Remove?"))
-			SendSysMessage (character, "Canceled.");
+			SendSysMessage (character, "Отменено.");
 			return;
 		endif
 		
@@ -111,7 +111,7 @@ function AdjustHouseFriendsFromSign (character, sign, friendnum)
 	SendSysMessage(character, "Who do you want to add as a friend?");
 	var friend := Target (character);
 	if (!friend)
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	elseif (!friend.acctname)
 		SendSysMessage (character, "Invalid target!  Only players can be house friends");
@@ -150,7 +150,7 @@ function AdjustHouseFriendsFromSign (character, sign, friendnum)
 	
 	var friend_gump_return := SendDialogGump (character, friend_gump_layout, friend_gump_data);
 	if (!friend_gump_return or !friend_gump_return[0])
-		SendSysMessage (character, "Canceled.");
+		SendSysMessage (character, "Отменено.");
 		return;
 	endif
 	

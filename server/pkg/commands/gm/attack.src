@@ -9,7 +9,7 @@ program bard_provoke(character)
   SendSysMessage(character, "Select a creature you wish to provoke");
   var thetarg := Target(character);
   if (!thetarg)
-        SendSysMessage(character, "Targetting cancelled.");
+        SendSysMessage(character, "Выбор цели отменён.");
         return;
   endif
   SendSysMessage(character, "Select the target");

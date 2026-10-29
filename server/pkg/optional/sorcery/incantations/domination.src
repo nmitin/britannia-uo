@@ -16,10 +16,10 @@ program domination(parms)
     var info := parms[2];
     var cast_on := parms[4]; // If NPC casting there'll be something here.
     if (!cast_on) // If no cast_on then this is being cast by a player.
-        cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HELPFUL);
+        cast_on := MS_Target(caster, info.targ, "Выберите цель.", TGTOPT_CHECK_LOS+TGTOPT_HELPFUL);
     endif
     if (!cast_on)
-        SendSysMessage (caster, "Cancelled.", color := 33);
+        SendSysMessage (caster, "Отменено.", color := 33);
         return 0;
     endif
     if ( !MS_MobileCheck(caster, cast_on) )
@@ -28,7 +28,7 @@ program domination(parms)
 
 
 	if (!cast_on.isA(POLCLASS_NPC))
-		SendSysMessage(caster, "Aborted.");
+		SendSysMessage(caster, "Прервано.");
 		return 0;
 	endif
 

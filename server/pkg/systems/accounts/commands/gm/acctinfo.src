@@ -41,7 +41,7 @@ program textcmd_AccountInfo(who, acctname)
 		SendSysMessage(who, "Select a player.");
 		var targ := Target(who);
 		if ( !targ.acctname )
-			SendSysMessage(who, "Cancelled.");
+			SendSysMessage(who, "Отменено.");
 			return 0;
 		else
 			acctname := targ.acctname;
@@ -50,7 +50,7 @@ program textcmd_AccountInfo(who, acctname)
 	if ( !acctname )
 		acctname := RequestGump(who, "Enter the account name you want to look up.", "", "", CANCEL_BTN_ON);
 		if ( !acctname )
-			SendSysMessage(who, "Cancelled.");
+			SendSysMessage(who, "Отменено.");
 			return 0;
 		endif
 	endif

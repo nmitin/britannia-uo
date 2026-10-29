@@ -23,7 +23,7 @@ program UseStuff(character, stuff)
   var leftover, leftover_amount, success_sound, failure_sound;
   var targetted, key_id;
   if(!Accessible(character, stuff))
-    SendSysMessage( character, "You can't reach that!" );
+    SendSysMessage( character, "Вы не можете до этого дотянуться!" );
     return;
   endif
   prompt := "Select an object to use this on.";
@@ -43,7 +43,7 @@ program UseStuff(character, stuff)
     use_on := targetted;
   endif
   if(!Accessible(character, use_on))
-    SendSysMessage(character, "You can't reach that!");
+    SendSysMessage(character, "Вы не можете до этого дотянуться!");
     return;
   endif
   config := ReadConfigFile( ":*:use_stuff");
@@ -82,12 +82,12 @@ program UseStuff(character, stuff)
 
 
     if (! use_on)
-        SendSysMessage(character, "Targetting cancelled.");
+        SendSysMessage(character, "Выбор цели отменён.");
         return;
     endif
 
     if (!Accessible(character, use_on))
-        SendSysMessage(character, "You can't reach that!");
+        SendSysMessage(character, "Вы не можете до этого дотянуться!");
         return;
     endif
 

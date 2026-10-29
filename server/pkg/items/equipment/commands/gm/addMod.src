@@ -13,7 +13,7 @@ include "include/security";
 program textcmd_addMod( mobile, text )
 
         if( !AuthorizationCode( mobile ))
-                SendSysMessage( mobile, "Cancelled." );
+                SendSysMessage( mobile, "Отменено." );
                 return 0;
         endif
         

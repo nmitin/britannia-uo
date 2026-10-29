@@ -426,7 +426,7 @@ function ChangeOwner (who, sign)
 	SendSysMessage (who, "Transfer ownership to whom?");
 	var newowner := Target (who);
 	if (!newowner or !newowner.acctname)
-		SendSysMessage (who, "Canceled.");
+		SendSysMessage (who, "Отменено.");
 		return;
 	endif
 

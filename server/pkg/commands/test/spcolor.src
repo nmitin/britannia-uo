@@ -610,12 +610,12 @@ program spcolour (who)
 		((colour > 1101) && (colour < 1149)))
 		thecolour := colour;
 	else
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return;
     endif
 
 	if ((thecolour == 0) || (thecolour == 1))
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return;
 	endif
 

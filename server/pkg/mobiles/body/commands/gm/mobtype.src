@@ -10,7 +10,7 @@ program bodytype_textcmd( mobile )
 		targ := Target( mobile );
 	
 	if( !targ )
-		SendSysMessage( mobile, "Canceled.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x22 );
 		return 0;
 	endif
 

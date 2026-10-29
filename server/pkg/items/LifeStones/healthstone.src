@@ -46,7 +46,7 @@ program use_healthstone (who, stone)
         SendSysMessage (who, "target yourself to transfer stored health from the stone to you", color := 100);
 	what := Target(who);
 	if (!what) // If she presses escape or targets nothing
-		SendSysMessage(who, "Canceled.", color := 44);
+		SendSysMessage(who, "Отменено.", color := 44);
 		return;
 	endif
         capacity := GetObjProperty (stone, "MaxCapacity"); // Get the stones Maximum cap for HP

@@ -35,7 +35,7 @@ program handlePartyAdd(character)
 
 	// Do target checks
 	if ( targ == error )
-		SendSysMessage(character, "Cancelled.", color := 33);
+		SendSysMessage(character, "Отменено.", color := 33);
 	elseif ( !targ.IsA(POLCLASS_MOBILE) )
 		SendSysMessage(character, "You may only add living things to your party!", color := 33);
 		return 0;

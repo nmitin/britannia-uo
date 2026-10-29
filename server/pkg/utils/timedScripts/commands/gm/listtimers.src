@@ -10,7 +10,7 @@ program textcmd_listTimers(who, type)
 	SendSysMessage(who, "Select a mobile.");
 	var targ := Target(who, TGTOPT_NOCHECK_LOS);
 	if ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 

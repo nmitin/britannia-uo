@@ -24,7 +24,7 @@ program command_RemoveHair(who, text)
 	
 	var targ := Target(who);
 	if ( !targ.IsA(POLCLASS_MOBILE) )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 	

@@ -8,13 +8,13 @@ program createnode_textcmd( mobile )
 	
 	var node_opts := MN_SettingsGump( mobile );
 	if( !node_opts )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 
 	var loc := TargetCoordinates( mobile );
 	if( !loc )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 

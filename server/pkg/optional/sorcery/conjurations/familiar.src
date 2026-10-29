@@ -33,7 +33,7 @@ program familiar(parms)
 	endif
 
 	if (!cast_on)
-		SendSysMessage (caster, "Cancelled.", color := 33);
+		SendSysMessage (caster, "Отменено.", color := 33);
 		return 0;
 	endif
 	if ( !MS_MobileCheck(caster, cast_on) )

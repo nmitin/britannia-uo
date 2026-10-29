@@ -34,7 +34,7 @@ program use_sicle( mobile, sicle )
 
 	use_on := TargetCoordinates( mobile );
 	if( !use_on )
-		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	endif
 
@@ -90,7 +90,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 	endif
 
 	if( quantity < 1 )
-		SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" here to harvest.", 0x3, 0x22 );
+		SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
 		SendSysMessage( mobile, "You must be closer to harvest any "+FormatItemDescription(item_desc)+"!", 0x3, 0x22 );
@@ -117,7 +117,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( amount < 1 )
-			SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" here to harvest.", 0x3, 0x22 );
+			SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 			return 0;
 		endif
 
@@ -154,7 +154,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 
 		var create_item := CreateItemInBackpack( mobile, cfg_file.FruitType, amount );
 		if( create_item )
-			SendSysMessage( mobile, "You place "+FormatItemDescription( item_desc, amount )+" in your backpack.", 0x3, 0x42 );
+			SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( item_desc, amount )+" in your backpack.", 0x3, 0x42 );
 		else
 		
 		CreateStackableItemAtLocation(mobile, cfg_file.FruitType, amount, range := 0);

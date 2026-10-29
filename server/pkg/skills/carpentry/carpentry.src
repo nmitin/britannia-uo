@@ -19,13 +19,13 @@ var craft_config    := ReadConfigFile(":carpentry:carpentry");
 program use_carptool(who, tool)
 
 	if ( !ReserveItem(tool) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif( (!tool.movable) || !ReserveItem(tool) )
-		SendSysMessage(who, "You cannot use that");
+		SendSysMessage(who, "Вы не можете это использовать");
 		return 0;
 	elseif( !(tool in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -163,13 +163,13 @@ function CarpentryItems(who, tool, objtype, amt)
 
 		if( GetAmount(item1) >= mat_1_amt )
 			if( item2 != 0 && GetAmount(item2) < mat_2_amt )
-				SendSysMessage(who, "You do not have enough materials.");
+				SendSysMessage(who, "У вас недостаточно материалов.");
 				return 0;
 			endif
 			if( CraftCheckSkill(who, craft_skill, diff, pts) > 0 )
 				if( TypeOf(item2) == "ItemRef" )
 					if( !SubtractAmount(item2, mat_2_amt) )
-						SendSysMessage(who, "You do not have enough materials.");
+						SendSysMessage(who, "У вас недостаточно материалов.");
 						return 0;
 					endif
 				endif
@@ -191,23 +191,23 @@ function CarpentryItems(who, tool, objtype, amt)
 			else
 				var num := CInt(RandomInt(mat_1_amt)/2) + 1;
 				if(!SubtractAmount(item1, num))
-					SendSysMessage(who, "You do not have enough materials.");
+					SendSysMessage(who, "У вас недостаточно материалов.");
 					return 0;
 				endif
 				if( mat_2_amt )
 					num := CInt(RandomInt(mat_2_amt)/2) + 1;
 					if( !SubtractAmount(item2, num) )
-						SendSysMessage(who, "You do not have enough materials.");
+						SendSysMessage(who, "У вас недостаточно материалов.");
 						return 0;
 					endif
 				endif
-				SendSysMessage(who, "You failed to create the item, and some of your materials are lost.");
+				SendSysMessage(who, "Не удалось создать предмет, часть материалов потеряна.");
 				counter := counter + 1;
 				continue;
 			endif
 			CheckToolWear (who, tool, craft_skill);
 		else
-			SendSysMessage(who, "You do not have enough materials.");
+			SendSysMessage(who, "У вас недостаточно материалов.");
 			return 0;
 		endif
 		counter := counter + 1;

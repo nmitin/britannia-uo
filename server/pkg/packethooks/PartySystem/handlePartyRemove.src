@@ -25,7 +25,7 @@ program HandlePartyRemove(params)
 		party := GetObjProperty(character, PARTY_PROP);
 		
 		if ( !kicked_member )
-			SendSysMessage(character, "Cancelled.");
+			SendSysMessage(character, "Отменено.");
 			return 0;
 		endif
 		

@@ -29,7 +29,7 @@ program lockunlockitem (parms)
 	if (!item)
 		item := Target (character, TGTOPT_NOCHECK_LOS);
 		if (!item)
-			SendSysMessage(character, "Canceled.");
+			SendSysMessage(character, "Отменено.");
 			return;
 		endif
 	endif
@@ -103,7 +103,7 @@ function HouseLockUnlockItem (sign, character, item)
 	endif
 
 	if (item == sign || item.objtype == 0x0bd0 || item.objtype == 0x0bd2)
-		SendSysMessage(character, "Canceled.");
+		SendSysMessage(character, "Отменено.");
 		return;
 	endif
 
@@ -185,7 +185,7 @@ function HouseSecureReleaseContainer (sign, character, item)
 
 	if (item == sign or item.objtype == 0x20bd0 || item.objtype == 0x20bcf || item.objtype == 0x20bd1 ||
 		item.objtype == 0x20bd2 || item.objtype == 0x260FA)
-		SendSysmessage( character, "Canceled." );
+		SendSysmessage( character, "Отменено." );
 		return;
 	endif
 
@@ -262,7 +262,7 @@ function HouseDisplayItem(sign, character, item)
 
 	if (item == sign or item.objtype == 0x20bd0 || item.objtype == 0x20bcf || item.objtype == 0x20bd1 ||
 		item.objtype == 0x20bd2 || item.objtype == 0x260FA)
-		SendSysmessage( character, "Canceled.", 1, 33 );
+		SendSysmessage( character, "Отменено.", 1, 33 );
 		return;
 	endif
 
@@ -471,7 +471,7 @@ function IsADeedItem (me, it)
 		var deedcolor := GetObjProperty (it, "deedcolor");
 		var thedeed := CreateItemInBackpack (me, deedobjtype, 1);
 		if (!thedeed)
-			PrintTextAbovePrivate (me, "*Your backpack is full!*", me, 0x3, 0x21);
+			PrintTextAbovePrivate (me, "*Ваш рюкзак полон!*", me, 0x3, 0x21);
 			return 1;
 		endif
 		if (deedcolor)

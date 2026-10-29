@@ -37,7 +37,7 @@ program textcmd_areyousure( who )
     if ( keys[0] == okay.keyid )
 		SendSysMessage( who, "Okay!" );
     elseif ( keys[0] == cancel.keyid )
-		SendSysMessage( who, "Cancelled." );
+		SendSysMessage( who, "Отменено." );
 	else
 		SendSysMessage( who, "Unexpected exit... gump error?" );
     endif

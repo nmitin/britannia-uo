@@ -18,13 +18,13 @@ program command_StorageAreas( mobile )
 
 	var area_name := AreaNamesGump( mobile );
 	if( !area_name )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	endif
 
 	var container := RootContainersGump( mobile, area_name );
 	if( !container )
-		SendSysMessage( mobile, "Cancelled." );
+		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	else
 		SendSysMessage( mobile, "Opening..." );

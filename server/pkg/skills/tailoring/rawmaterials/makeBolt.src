@@ -15,13 +15,13 @@ var item_config := ReadConfigFile(":*:itemdesc");
 
 program make_Bolt(who, thread)
 	if ( !ReserveItem(thread) )
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return 0;
 	elseif ( (!thread.movable) || !ReserveItem(thread) )
-		SendSysMessage(who, "You cannot use that");
+		SendSysMessage(who, "Вы не можете это использовать");
 		return 0;
 	elseif ( !(thread in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That item is not in your backpack.");
+		SendSysMessage(who, "Этого предмета нет в рюкзаке.");
 		return 0;
 	endif
 
@@ -32,7 +32,7 @@ program make_Bolt(who, thread)
 
 	var tool := Target(who);
 	if ( !tool )
-		SendSysMessage(who, "Cancelled.");
+		SendSysMessage(who, "Отменено.");
 		return;
 	endif
 

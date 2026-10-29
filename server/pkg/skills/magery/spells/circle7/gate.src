@@ -19,9 +19,9 @@ program spell_gate(parms)
 	// If casting gate from a runebook, do not give a target to the player.
 	if( !info.runebook )
 
-		var cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
+		var cast_on := MS_Target(caster, info.targ, "Выберите цель.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
 		if (!cast_on)
-			SendSysMessage (caster, "Cancelled.", color := 33);
+			SendSysMessage (caster, "Отменено.", color := 33);
 			return 0;
 		endif
 		if((!cast_on.IsRecallRune()) && (cast_on.objtype != 0x22C5))
@@ -81,16 +81,16 @@ program spell_gate(parms)
 	if((caster.x >= 5120) && (caster.x <= 5375) && (caster.y >= 0) && (caster.y <= 255))
 		SendSysMessage(caster, "Your spell fails!");
 		if(cast_on.objtype == UOBJ_RUNE)
-			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		elseif(cast_on.objtype == 0x22C5)
-			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		endif
 		chk := 1;
 	endif
 	// Cannot recall into/onto a multi
 	// var MultiCheck := ListMultisInBox(dest.x, dest.y, dest.z, dest.x, dest.y, dest.z, torealm.realm).size()>0;
 	if(GetStandingHeight( tox, toy, toz, torealm ).multi)
-		SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		chk := 1;
 	endif
 
@@ -111,7 +111,7 @@ program spell_gate(parms)
 		return;
 	endif
 	if((tox >= 5120) && (tox <= 5375) && (toy >= 0) && (toy <= 255))
-		SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		return;
 	endif
 	var wx := caster.x;

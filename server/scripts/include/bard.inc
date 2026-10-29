@@ -123,7 +123,7 @@ function GetHarmonizedBards(who, range:=5)
 	return numbards;
 endfunction
 
-function BardTarget(byref who, byref npctarget, prompt := "Select a target", ops := TGTOPT_CHECK_LOS + TGTOPT_NEUTRAL)
+function BardTarget(byref who, byref npctarget, prompt := "Выберите цель", ops := TGTOPT_CHECK_LOS + TGTOPT_NEUTRAL)
 	var x := who.x;
 	var y := who.y;
 	who.hidden := 0;
@@ -147,7 +147,7 @@ function BardTarget(byref who, byref npctarget, prompt := "Select a target", ops
 	endif
 endfunction
 
-function BardTargetCoordinates(byref who, byref params := "", prompt := "Select a target")
+function BardTargetCoordinates(byref who, byref params := "", prompt := "Выберите цель")
 	var x := who.x;
 	var y := who.y;
 

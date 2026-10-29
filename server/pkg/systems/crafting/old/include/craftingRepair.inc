@@ -221,7 +221,7 @@ function resmelt(who, the_attribute)
 		return 0;
 	endif
 	if ( !Accessible(who, use_on) || !ReserveItem( use_on ) )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	endif
 	if ( use_on.movable == 0 )
@@ -229,7 +229,7 @@ function resmelt(who, the_attribute)
 		return 0;
 	endif
 	if ( use_on in ListEquippedItems(who) )
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return 0;
 	endif
 

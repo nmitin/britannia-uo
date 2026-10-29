@@ -15,7 +15,7 @@ program use_scroll(who, scroll)
 	endif
 
 	if(scroll.movable == 0)
-		SendSysMessage(who, "You cannot use that.");
+		SendSysMessage(who, "Вы не можете это использовать.");
 		return;
 	endif
 

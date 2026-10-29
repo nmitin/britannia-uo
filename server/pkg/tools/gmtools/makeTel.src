@@ -11,7 +11,7 @@ program maketele(who)
     SendSysMessage( who, "Select a rune to create teleporter from." );
     var rune := Target( who, TGTOPT_NOCHECK_LOS );
     if (!rune)
-      SendSysMessage(who, "Targetting cancelled.");
+      SendSysMessage(who, "Выбор цели отменён.");
       return;
     endif
     if (rune.objtype != UOBJ_RUNE)

@@ -94,7 +94,7 @@ program job (parms)
 
 	var bag := CreateItemInContainer (player.backpack, "bag");
 	if (!bag)
-		PrintTextAbovePrivate (player, "*Your backpack is full!*", player, color := 33);
+		PrintTextAbovePrivate (player, "*Ваш рюкзак полон!*", player, color := 33);
 		EraseObjProperty (player, "#workingonajob");
 		return;
 	endif

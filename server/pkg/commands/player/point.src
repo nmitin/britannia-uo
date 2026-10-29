@@ -16,7 +16,7 @@ program point (who)
 	SendSysMessage (who, "На что указать?");
 	var targetted := TargetCoordinates (who);
 	if (!targetted)
-		SendSysMessage (who, "Canceled.");
+		SendSysMessage (who, "Отменено.");
 		return;
 	endif
 

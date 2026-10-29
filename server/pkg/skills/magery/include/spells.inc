@@ -105,7 +105,7 @@ endfunction
  * Returns an object reference to what was targeted.
  *
  */
-function MS_Target(mobile, targ:=0, prompt := "Select a target.", flags:=TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL, colour := 88)
+function MS_Target(mobile, targ:=0, prompt := "Выберите цель.", flags:=TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL, colour := 88)
 	mobile.hidden := 0;
 
 	if ( targ.IsA(POLCLASS_ITEM) )
@@ -156,7 +156,7 @@ endfunction
  * Returns an object reference to what was targeted.
  *
  */
-function MS_TargetCoordinates(mobile, targ:=0, prompt := "Select a target.", colour := 88)
+function MS_TargetCoordinates(mobile, targ:=0, prompt := "Выберите цель.", colour := 88)
 	mobile.hidden := 0;
 
 	if ( targ )
@@ -175,7 +175,7 @@ function MS_TargetCoordinates(mobile, targ:=0, prompt := "Select a target.", col
 	targ := TargetCoordinates(mobile);
 
 	if ( !targ )
-		SendSysMessage(mobile, "Cancelled.", color := 33);
+		SendSysMessage(mobile, "Отменено.", color := 33);
 		return 0;
 	elseif ( CoordinateDistance(mobile.x, mobile.y, targ.x, targ.y) > settings_elem.MaxRange )
 		SendSysMessage(mobile, "That is too far away.", color := 33);

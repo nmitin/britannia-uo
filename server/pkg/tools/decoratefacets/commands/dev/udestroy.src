@@ -12,7 +12,7 @@ program textcmd_udestroy( who )
 	while(1)
 		var tgt := Target( who );
 		if(!tgt)
-			SendSysMessage(who, "Cancelled.", 1, 33);
+			SendSysMessage(who, "Отменено.", 1, 33);
 			return 0;
 		endif
 		if(!GetObjProperty(tgt, "DecorateFacetsStatic"))

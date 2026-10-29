@@ -7,7 +7,7 @@ program textcmd_wipebank(who)
     SendSysMessage( who, "Whos bank do you wish to wipe?", 0x3, 0x42 );
     var whom := Target( who );
     if( !whom )
-        SendSysmessage( who, "Cancelled action.", 0x3, 0x32 );
+        SendSysmessage( who, "Действие отменено.", 0x3, 0x32 );
         return 0;
     endif
 

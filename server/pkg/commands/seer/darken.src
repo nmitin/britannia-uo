@@ -2,10 +2,10 @@ use uo;
 
 program textcmd_darken(who)
 
-	SendSysMessage(who, "Select target.");
+	SendSysMessage(who, "Выберите цель.");
 	var victim := Target(who);
 	if (!victim.ip)
-		SendSysMessage(who, "Aborted.");
+		SendSysMessage(who, "Прервано.");
 		return;
 	endif
 

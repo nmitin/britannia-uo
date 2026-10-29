@@ -15,7 +15,7 @@ program use_dyes(who, dyes)
 	SendSysMessage(who, "Select a dye tub to use the dyes on.");
 	var dyetub := Target(who, TGTOPT_CHECK_LOS);
 	if(!ReserveItem(dyetub))
-		SendSysMessage(who, "That is already in use.");
+		SendSysMessage(who, "Это уже используется.");
 		return;
 	endif
 	if(!can_access(who, dyetub))
@@ -637,12 +637,12 @@ var data := {
 		((furncolor > 1101) && (furncolor < 1149)))
 		thefurncolor := furncolor;
     else
-		SendSysMessage(who, "Cancelled.", 3, 33);
+		SendSysMessage(who, "Отменено.", 3, 33);
 		return;
 	endif
 
 	if ((thefurncolor == 0) || (thefurncolor == 1))
-		SendSysMessage(who, "Cancelled.", 3, 33);
+		SendSysMessage(who, "Отменено.", 3, 33);
 		return;
 	endif
 

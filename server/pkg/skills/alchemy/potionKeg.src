@@ -8,7 +8,7 @@ include ":alchemy:potionKegs";
 program use_potionkeg(who, keg)
 
 	if( !ReserveItem(keg) )
-		SendSysMessage(keg, "You cannot use that");
+		SendSysMessage(keg, "Вы не можете это использовать");
 		return 0;
 	elseif( !keg.movable )
 		// Ok, it's locked down in a house maybe? Check Owner

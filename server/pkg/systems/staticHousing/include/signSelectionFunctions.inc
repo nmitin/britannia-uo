@@ -20,7 +20,7 @@ function ChangeHouseSign (who, sign)
 			SendSysMessage( who, "This is not a sign deed!", 0x3, 0x21 );
 			return 0;
 	elseif(!ReserveItem(targ))
-			SendSysMessage(who, "You cannot use that.", 0x3, 0x21);
+			SendSysMessage(who, "Вы не можете это использовать.", 0x3, 0x21);
 			return 0;
 	endif
 	ReserveItem(targ);

@@ -37,8 +37,8 @@ program textcmd_staticdeed(character)
 	GFPage( h_gump, 0 );
 	GFResizePic( h_gump, 0, 0, 5120, 440, 470 ); //dark menu background
 	GFResizePic( h_gump, 10, 10, 5054, 420, 420 ); //light menu background
-	GFTextLine( h_gump, 132, 17, 0, "Static Housing Manager" );
-	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Static Housing Manager" );
+	GFTextLine( h_gump, 132, 17, 0, "Управление статичным домом" );
+	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Управление статичным домом" );
 	GFTextLine( h_gump, 30, 60, COLOR_GREEN, "Choose Sign Type:" );
 	GFTextLine( h_gump, 30, 160, COLOR_GREEN, "You will now be prompted with a series of cursors." );
 	GFTextLine( h_gump, 30, 180, COLOR_GREEN, "Each pair of cursors will be used to configure the" );
@@ -60,7 +60,7 @@ program textcmd_staticdeed(character)
 	var ret   := GFSendGump( who, h_gump );
 	// if((ret[close.keyid]) or (ret[0] == 1))
 	if((ret[close.keyid]))
-		SendSysMessage(who, "Cancelled.", 3, 40);
+		SendSysMessage(who, "Отменено.", 3, 40);
 		return;
 	elseif( ret[5] )
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
@@ -126,7 +126,7 @@ program textcmd_staticdeed(character)
 	sleepms(500);
 	var hsign := PlaceSign();
 	if(!hsign)
-		SendSysMessage(who, "Canceled.", 3, 40);
+		SendSysMessage(who, "Отменено.", 3, 40);
 		return;
 	endif
 	GenerateLockdowns(holder, hsign);
@@ -167,7 +167,7 @@ function PlaceSign()
 	SendSysMessage(who, "Where do you wish to place the house sign?", color := 88);
 	var where := TargetCoordinates(who);
 	if(!where)
-		SendSysMessage(who, "Cancelled.", 3, 40);
+		SendSysMessage(who, "Отменено.", 3, 40);
 		return 0;
 	endif
 	var hsign := makesign(where.x, where.y, where.z);
@@ -274,8 +274,8 @@ function GetLevel()
 	GFPage( h_gump, 0 );
 	GFResizePic( h_gump, 0, 0, 5120, 440, 270 ); //dark menu background
 	GFResizePic( h_gump, 10, 10, 5054, 420, 220 ); //light menu background
-	GFTextLine( h_gump, 132, 17, 0, "Static Housing Manager" );
-	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Static Housing Manager" );
+	GFTextLine( h_gump, 132, 17, 0, "Управление статичным домом" );
+	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Управление статичным домом" );
 	GFTextLine( h_gump, 30, 60, COLOR_GREEN, "Select how many stories tall this box is:" );
 	GFTextLine( h_gump, 60, 100, COLOR_GREEN, "1" );
 	GFTextLine( h_gump, 160, 100, COLOR_GREEN, "2" );
@@ -313,9 +313,9 @@ function GenerateLockdowns(holder, sign)
 	GFPage( h_gump, 0 );
 	GFResizePic( h_gump, 0, 0, 5120, 440, 270 ); //dark menu background
 	GFResizePic( h_gump, 10, 10, 5054, 420, 220 ); //light menu background
-	GFTextLine( h_gump, 132, 17, 0, "Static Housing Manager" );
-	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Static Housing Manager" );
-	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Static Housing Manager" );
+	GFTextLine( h_gump, 132, 17, 0, "Управление статичным домом" );
+	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Управление статичным домом" );
+	GFTextLine( h_gump, 130, 15, COLOR_YELLOW, "Управление статичным домом" );
 	GFTextLine( h_gump, 30, 50, COLOR_GREEN, "Below is the per square price for this house and" );
 	GFTextLine( h_gump, 30, 70, COLOR_GREEN, "the generated lockdowns/secures based" );
 	GFTextLine( h_gump, 30, 90, COLOR_GREEN, "on the cubic area of the house. Some values may" );

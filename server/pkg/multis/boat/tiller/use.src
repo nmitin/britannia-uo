@@ -26,7 +26,7 @@ function TakeOverBoat( mobile, tillerman )
 
 	if( YesNo( mobile, "Do you want to set yourself as the owner of this boat?" ))
 		tillerman.SetOwner( mobile );
-		SendSysMessage( mobile, "Done!" );
+		SendSysMessage( mobile, "Готово!" );
 		return 1;
 	endif
 

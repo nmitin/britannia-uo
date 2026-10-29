@@ -67,7 +67,7 @@ function ICP_CreateNPC( who, template, pkg_name )
 	SendSysMessage( who, "Target where to create the npc ["+template+"].", color := 88 );
 	var targ := TargetCoordinates( who );
 	if( !targ )
-		SendSysMessage( who, "Cancelled." );
+		SendSysMessage( who, "Отменено." );
 		return 0;
 	endif
 

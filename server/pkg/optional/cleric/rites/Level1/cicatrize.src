@@ -15,7 +15,7 @@ program minorheal(params)
 		piety := piety + pietyboost;
 	endif
 
-	var targ := ClericalTarget(who, info.npctarget, "Select a target", TGTOPT_CHECK_LOS + TGTOPT_HELPFUL);
+	var targ := ClericalTarget(who, info.npctarget, "Выберите цель", TGTOPT_CHECK_LOS + TGTOPT_HELPFUL);
 
 	if (!targ.ip && ! targ.npctemplate)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.

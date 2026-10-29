@@ -93,7 +93,7 @@ function SelectionGump( mobile, title, options, btn_type:=BTN_TYPE_NORMAL )
 
 	var input := GFSendGump( mobile, s_gump );
 	if( !input[0] )
-		return error{"errortext":="No option was selected."};
+		return error{"errortext":="Ничего не выбрано."};
 	endif
 	var selections_made := 0;
 	case( btn_type )
@@ -114,7 +114,7 @@ function SelectionGump( mobile, title, options, btn_type:=BTN_TYPE_NORMAL )
 			if(selections_made)
 				return values;
 			else
-				return error{"errortext":="No option was selected."};
+				return error{"errortext":="Ничего не выбрано."};
 			endif
 		BTN_TYPE_RADIO:
 			foreach key in ( input.keys )
@@ -194,7 +194,7 @@ function SelectionGumpSmall( mobile, title, options, btn_type:=BTN_TYPE_NORMAL )
 
 	var input := GFSendGump( mobile, s_gump );
 	if( !input[0] )
-		return error{"errortext":="No option was selected."};
+		return error{"errortext":="Ничего не выбрано."};
 	endif
 	var selections_made := 0;
 	case( btn_type )
@@ -215,7 +215,7 @@ function SelectionGumpSmall( mobile, title, options, btn_type:=BTN_TYPE_NORMAL )
 			if(selections_made)
 				return values;
 			else
-				return error{"errortext":="No option was selected."};
+				return error{"errortext":="Ничего не выбрано."};
 			endif
 		BTN_TYPE_RADIO:
 			foreach key in ( input.keys )
@@ -314,7 +314,7 @@ function SelectionGumpEx( mobile, title, options, btn_type:=BTN_TYPE_NORMAL, tra
 
 	var input := GFSendGump( mobile, s_gump );
 	if( !input[0] )
-		return error{"errortext":="No option was selected."};
+		return error{"errortext":="Ничего не выбрано."};
 	endif
 	var selections_made := 0;
 	case( btn_type )
@@ -334,7 +334,7 @@ function SelectionGumpEx( mobile, title, options, btn_type:=BTN_TYPE_NORMAL, tra
 			if(selections_made)
 				return values;
 			else
-				return error{"errortext":="No option was selected."};
+				return error{"errortext":="Ничего не выбрано."};
 			endif
 		BTN_TYPE_RADIO:
 			foreach key in ( input.keys )

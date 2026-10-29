@@ -6,7 +6,7 @@ program RestartBoat( who )
 	SendSysMessage( who, "Target the tillerman." );
 	var targ := target( who );
 	if( !targ.IsTillerMan() )
-		SendSysMessage( who, "Cancelled." );
+		SendSysMessage( who, "Отменено." );
 		return 0;
 	endif
 
@@ -22,7 +22,7 @@ program RestartBoat( who )
 		return 0;
 	endif
 
-	SendSysMessage( who, "Done!" );
+	SendSysMessage( who, "Готово!" );
 
 	return 1;
 endprogram
