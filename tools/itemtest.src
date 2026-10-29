@@ -1,0 +1,17 @@
+use uo;
+use http;
+
+program itemtest()
+  foreach chr in EnumerateOnlineCharacters()
+    var objs := array{ 0x1BF2, 0x0F95, 0x1517, 0x1F09 };
+    foreach o in objs
+      var it := CreateItemInBackpack(chr, o, 1);
+      if (it)
+        SendSysMessage(chr, "ITEM: " + it.desc);
+      else
+        SendSysMessage(chr, "ITEM: FAIL " + CStr(o));
+      endif
+    endforeach
+  endforeach
+  WriteHtml("<html><body>ok</body></html>");
+endprogram
