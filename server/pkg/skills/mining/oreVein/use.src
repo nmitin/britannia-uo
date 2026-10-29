@@ -50,7 +50,7 @@ program use_OreVein(who, vein)
 		vein.SetMaxOre(GFExtractData(input, max_ore));
 		vein.SetRemainingOre(GFExtractData(input, remaining_ore));
 		
-		SendSysMessage(who, "Saving vein settings...");
+		SendSysMessage(who, "Сохранение настроек жилы...");
 		SetName(vein, "an ore vein ["+type+"]");
 		
 		return 1;

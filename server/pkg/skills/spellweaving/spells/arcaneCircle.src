@@ -38,7 +38,7 @@ program spell_ArcaneCircle( params )
   else
     PlayStationaryEffect( mobile.x, mobile.y, mobile.z, FX_SMOKE, 1 ); //Graphic needs to be confirmed and updated
     PlaySoundEffect(mobile, SFX_SPELL_FAIL);
-    SendSysMessage(mobile, "You fail to create an Arcane Focus.");
+    SendSysMessage(mobile, "Не удалось создать магический фокус.");
     return 0;
   endif
   return 1;

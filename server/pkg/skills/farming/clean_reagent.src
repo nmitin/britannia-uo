@@ -14,9 +14,9 @@ program clean(who, reg)
 		var howmuch := cfg[reg.objtype].produceamount;
 		CreateItemInBackpack(who, what, howmuch);
 		DestroyItem(reg);
-		SendSysMessage(who, "You successfully cull the reagent");
+		SendSysMessage(who, "Вы успешно отделили реагент");
 	else
 		DestroyItem(reg);
-		SendSysMessage(who, "The plant falls to pieces as you try to clean it.");
+		SendSysMessage(who, "Растение рассыпается, пока вы его чистите.");
 	endif
 endprogram

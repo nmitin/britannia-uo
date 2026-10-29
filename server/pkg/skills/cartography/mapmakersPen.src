@@ -56,7 +56,7 @@ function makeCartographyMap(who, objtype, amt, tool)
 	endif
 */
 	if( (who.x > 5120) && (who.y < 2304) )
-		SendSysMessage(who, "You cannot chart dungeons.");
+		SendSysMessage(who, "Нельзя картографировать подземелья.");
 		return 0;
 	endif
 
@@ -79,7 +79,7 @@ function makeCartographyMap(who, objtype, amt, tool)
 
 	while(counter < amt)
 		if((who.x != x) || (who.y != y))
-			SendSysMessage(who, "You stop drawing.");
+			SendSysMessage(who, "Вы прекращаете рисовать.");
 			break;
 		endif
 		if(!tool)

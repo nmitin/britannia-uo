@@ -14,7 +14,7 @@ program bard_peacemake(who)
   SetObjProperty(who, "LastPeace", Cint(ReadGameClock() + 2));
   var instrument := findinstrument(who);
   if(!instrument)
-    SendSysMessage(who, "You don't have an instrument to play!");
+    SendSysMessage(who, "У вас нет инструмента!");
     return;
   endif
   if(!ReserveItem(instrument))

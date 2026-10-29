@@ -442,11 +442,11 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 	endif
 
 	if (mobile.cmdlevel >= 5)
-        	SendSysMessage(mobile, "Quantity: " + quantity + " Itemdesc: " + item_desc );
+        	SendSysMessage(mobile, "Количество: " + quantity + " Описание: " + item_desc );
         endif
 
 	if( quantity < 1 )
-		SendSysMessage( mobile, "There are not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Недостаточно "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
 		SendSysMessage( mobile, "Нужно подойти ближе, чтобы добыть "+FormatItemDescription(item_desc)+"!", 0x3, 0x22 );
@@ -468,7 +468,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if (mobile.cmdlevel >= 5)
-                	SendSysMessage(mobile, "Amount 1: " + amount + " Quantity 1: " + quantity );
+                	SendSysMessage(mobile, "Количество 1: " + amount + " Количество 1: " + quantity );
 		endif
 
 		if( quantity < amount )
@@ -477,7 +477,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if (mobile.cmdlevel >= 5)
-                	SendSysMessage(mobile, "Amount 2: " + amount + " Quantity 2: " + quantity );
+                	SendSysMessage(mobile, "Количество 2: " + amount + " Количество 2: " + quantity );
 		endif
 
 		if( amount < 1 )
@@ -486,7 +486,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if (mobile.cmdlevel >= 5)
-                	SendSysMessage(mobile, "Amount 3: " + amount + " Quantity 3: " + quantity );
+                	SendSysMessage(mobile, "Количество 3: " + amount + " Количество 3: " + quantity );
                 endif
 
 		PerformAction( mobile, CInt( settings.EffectAction ) );
@@ -496,7 +496,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		var sc_result := SkillCheck( mobile, LUMBERJACKING, CInt( cfg_file.Difficulty ) );
 		
 		if (mobile.cmdlevel >= 5)
-                	SendSysMessage(mobile, "CheckSkill result: " + cs_result + "SkillCheck result: " + sc_result );
+                	SendSysMessage(mobile, "Результат CheckSkill: " + cs_result + "Результат SkillCheck: " + sc_result );
                 endif
 
 // We dont have a hook in the distro
@@ -507,7 +507,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 			if ( amount >= 2 )
 				amount /= 2;
 			endif
-			SendSysMessage( mobile, "You failed to harvest any logs and made parts of the resource unusable." );
+			SendSysMessage( mobile, "Не удалось заготовить брёвна, часть ресурса испорчена." );
 			quantity -= amount;
 			
 			if( quantity < 0 )
@@ -525,8 +525,8 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		var create_item := CreateItemInBackpack( mobile, cfg_file.LogType, amount );
 		
 		if (mobile.cmdlevel >= 5)
-			SendSysMessage(mobile, "ERROR: "+create_item.ErrorText );
-			SendSysMessage(mobile, "X: " + mobile.x + " Y: " + mobile.y + " Z: " + mobile.z + " LT: " + cfg_file.LogType + " #: " + amount + " Realm: " + mobile.realm );
+			SendSysMessage(mobile, "ОШИБКА: "+create_item.ErrorText );
+			SendSysMessage(mobile, "X: " + mobile.x + " Y: " + mobile.y + " Z: " + mobile.z + " LT: " + cfg_file.LogType + " #: " + amount + " Мир: " + mobile.realm );
 		endif			
 		
 		
@@ -545,7 +545,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( quantity == 0 )
-			SendSysMessage( mobile, "You have chopped all the "+FormatItemDescription(item_desc)+".", 0x3, 0x32 );
+			SendSysMessage( mobile, "Вы срубили всё: "+FormatItemDescription(item_desc)+".", 0x3, 0x32 );
 		endif
 
 		data_elem.SetProp( "Harvest", ReadGameClock() );

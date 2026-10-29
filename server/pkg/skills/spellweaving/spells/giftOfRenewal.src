@@ -47,7 +47,7 @@ sleep(duration);
 
 PlaySoundEffect(caster, SFX_SPELL_BLESS);
 PlayObjectCenteredEffect( caster, 0x3779, 10,45 );
-SendSysMessage(caster, "Czar Gift Renewal zakonczyl swoje dzialanie.",3,40);
+SendSysMessage(caster, "Действие заклинания Gift Renewal закончилось.",3,40);
 EraseObjProperty(caster, "NewRegenRateForLife");
 EraseObjProperty(caster, "#hh");
 RecalcVitals(caster);

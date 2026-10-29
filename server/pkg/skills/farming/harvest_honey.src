@@ -29,17 +29,17 @@ program harvest_honey (character, beehive)
 
 	//if there's no honey or wax, ask the user if they want to destroy the hive
 	if (already_harvested_amount >= MAX_PER_HIVE)
-		SendSysMessage(character, "The hive is empty.");
-		SendSysMessage(character, "Do you want to destroy the beehive?");
+		SendSysMessage(character, "Улей пуст.");
+		SendSysMessage(character, "Хотите разрушить улей?");
 		var destroy := confirmationSizable(character, "Destroy?");
 		if (destroy)
 			CreateItemAtLocation(beehive.x, beehive.y, beehive.z, ITEM_SWARM, 1);
-			SendSysMessage(character, "You fail to destroy the hive, and now the bees are pretty angry...");
+			SendSysMessage(character, "Не удалось разрушить улей, и пчёлы очень злы...");
 		endif
 		return;
 	endif
 
-	SendSysMessage(character, "You begin harvesting.");
+	SendSysMessage(character, "Вы начинаете собирать.");
 	var characterx := character.x;
 	var charactery := character.y;
 	repeat
@@ -74,9 +74,9 @@ program harvest_honey (character, beehive)
 		endif
 
 		if (already_harvested_amount >= MAX_PER_HIVE)
-			SendSysMessage(character, "There's nothing left to harvest right now.");
+			SendSysMessage(character, "Сейчас больше нечего собирать.");
 			return;
 		endif
 	until (character.x != characterx || character.y != charactery);
-	SendSysMessage(character, "You stop harvesting.");
+	SendSysMessage(character, "Вы прекращаете собирать.");
 endprogram

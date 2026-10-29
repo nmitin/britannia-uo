@@ -58,22 +58,22 @@ var zLowKarma := {
 const UOBJ_GOLDCOIN :=0x0eed;
 
 program skill_begging( who )
-  SendSysMessage( who, "Select the victim" );
+  SendSysMessage( who, "Выберите жертву" );
   var tgt := Target( who );
   if ( !tgt )
     SendSysMessage( who, "Отменено" );
     return;
   endif
   if(tgt.serial == who.serial)
-    SendSysMessage(who, "You might want to consider therapy.");
+    SendSysMessage(who, "Вам стоит обратиться к психотерапевту.");
     return;
   endif
   if((tgt.graphic != CID_HUMAN_MALE) && (tgt.graphic != CID_HUMAN_FEMALE))
-    SendSysMessage(who, "You look a little silly doing that.");
+    SendSysMessage(who, "Вы выглядите немного глупо.");
     return;
   endif
   if(GetObjProperty(tgt, "LoggedIn"))
-    SendSysMessage(who, "Perhaps talking to them would be a better idea.");
+    SendSysMessage(who, "Может, лучше с ними поговорить.");
     return;
   endif
 
@@ -100,7 +100,7 @@ program skill_begging( who )
   endif
   var wealth := cfgtemplate[tgt.npctemplate].wealth;
   if (!wealth)
-    PrintTextAbovePrivate(who, "This creature will not give thee money!", who);
+    PrintTextAbovePrivate(who, "Это существо не даст тебе денег!", who);
     return;
   endif
   var lb := Cint(GetObjProperty(tgt, "begpurse"));
@@ -140,18 +140,18 @@ program skill_begging( who )
   endif
   lb := Cint(lb - gold);
   SetObjProperty(tgt, "begpurse", lb);
-  PrintTextAbove( tgt, "*throws a few coins to " + who.name + "*" );
+  PrintTextAbove( tgt, "*бросает несколько монет " + who.name + "*" );
   if ( !CreateItemInBackpack( who, UOBJ_GOLDCOIN, gold ) )
-    SendSysMessage( who, "You miss and the coins bounce into cracks in the ground!" );
+    SendSysMessage( who, "Вы промахнулись, и монеты укатились в трещины!" );
   else
     var coin := "coins";
     if (gold == 1)
       coin := "coin";
     endif
-    SendSysMessage( who, "You quickly stuff " + gold + " " + coin + " in your pack!" );
+    SendSysMessage( who, "Вы быстро прячете " + gold + " " + coin + " в рюкзак!" );
   endif
   if (GetObjProperty(who, "Karma") > 10)
-    SendSysMessage(who, "You lose a little karma.");
+    SendSysMessage(who, "Вы теряете немного кармы.");
     SetObjProperty(who, "Karma", GetObjProperty(who, "Karma")-10);
   endif
 
@@ -161,7 +161,7 @@ program skill_begging( who )
     SetObjProperty(who, "Fame", fame);
   endif
   if (fame > 5)
-    SendSysMessage(who, "You lose a little fame.");
+    SendSysMessage(who, "Вы теряете немного славы.");
     SetObjProperty(who, "Fame", CInt(fame*0.98));
   endif
   return;

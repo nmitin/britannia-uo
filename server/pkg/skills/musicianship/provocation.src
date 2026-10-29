@@ -17,20 +17,20 @@ program bard_provoke(who)
   SetObjProperty(who, "LastProvoke", Cint(ReadGameClock() + 2));
   var instrument := findinstrument(who);
   if(!instrument)
-    SendSysMessage(who, "You don't have an instrument!");
+    SendSysMessage(who, "У вас нет инструмента!");
     return;
   endif
   if(!ReserveItem(instrument))
     return;
   endif
-  SendSysMessage(who, "Select the creature to provoke.");
+  SendSysMessage(who, "Выберите существо для провокации.");
   var thetarg := Target(who, TGTOPT_HARMFUL);
   if((!thetarg) || (!thetarg.npctemplate))
     SendSysMessage(who, "Выбор цели отменён.");
     return;
   endif
   if(Distance(who, thetarg) > 10)
-    SendSysMessage(who, "The target is too far away.");
+    SendSysMessage(who, "Цель слишком далеко.");
     return;
   endif
   var configfile := ReadConfigFile("::npcdesc");
@@ -40,7 +40,7 @@ program bard_provoke(who)
   if(elem)
 	difficulty := elem.provoke;
   else
-    SendSysMessage(who, "You cannot provoke that!");
+    SendSysMessage(who, "Это нельзя спровоцировать!");
     return;
   endif
   if(!difficulty)
@@ -55,14 +55,14 @@ program bard_provoke(who)
 	difficulty := 110;
   endif
   if(play(who, difficulty, instrument, PROVOCATION))
-	SendSysMessage(who, "Select a target to provoke this onto.");
+	SendSysMessage(who, "Выберите цель, на которую направить провокацию.");
 	var newtarg := Target(who, (TGTOPT_NOCHECK_LOS + TGTOPT_HARMFUL) );
         if(newtarg == thetarg)
-          SendSysMessage(who, "You can't provoke something onto itself!");
+          SendSysMessage(who, "Нельзя спровоцировать существо на само себя!");
           return;
         endif
 	if((Distance(thetarg, newtarg) > 10) || (Distance(who, newtarg) > 10))
-	  SendSysMessage(who, "The target is too far away.");
+	  SendSysMessage(who, "Цель слишком далеко.");
 	  return;
 	endif
 	SendSysMessage(who, "You provoke " + thetarg.name + " to attack " + newtarg.name + "!");

@@ -25,7 +25,7 @@ program enticement(who)
   endif
   var instrument := findinstrument(who);
   if(!instrument)
-    SendSysMessage(who, "You don't have an instrument to play!");
+    SendSysMessage(who, "У вас нет инструмента!");
     return;
   endif
   var success := play(who, diff, instrument, DISCORDANCE);

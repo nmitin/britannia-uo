@@ -41,7 +41,7 @@ Detach();
 sleep(duration);
 PlaySoundEffect(caster, 0x5C3);
 PlayObjectCenteredEffect( caster, 0x3779, 10,45 );
-SendSysMessage(caster, "Czar Arcane Empowerment zakonczyl swoje dzialanie.",3,40);
+SendSysMessage(caster, "Действие заклинания Arcane Empowerment закончилось.",3,40);
 SetAttributeTemporaryMod( caster, SPELLWEAVING, 0 );
 EraseObjProperty(caster, "#arcanecircle");
 

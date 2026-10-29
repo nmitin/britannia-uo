@@ -11,7 +11,7 @@ include ":traps:traps";
 program skill_DetectHidden( mobile )
 
         if( !(SkillCheck( mobile, DETECTING_HIDDEN, -1 ) > 0)&& !mobile.multi )
-			SendSysMessage( mobile, "You do not detect anything." );
+			SendSysMessage( mobile, "Вы ничего не обнаруживаете." );
 			return 0;
         endif
 
@@ -25,9 +25,9 @@ program skill_DetectHidden( mobile )
                         // Skill check against hidden's hiding skill
                         if( DetectHidden( mobile, hider ))
                                 mobiles_found += 1;
-                                PrintTextAbovePrivate( hider, "Found someone!!", mobile, color := 33 );
+                                PrintTextAbovePrivate( hider, "Кто-то найден!!", mobile, color := 33 );
                         else
-                                SendSysMessage( hider, mobile.name+" is trying to discover you!", color := 40 );
+                                SendSysMessage( hider, mobile.name+" пытается вас обнаружить!", color := 40 );
                         endif
                 endif
                 SleepMS(5);
@@ -38,14 +38,14 @@ program skill_DetectHidden( mobile )
                 if( !IsTrapRevealed( item ))
                         var reaveal := RevealTraps( item );
                         if( reaveal )
-                                PrintTextAbove( item, "***Trapped***", color := 33 );
+                                PrintTextAbove( item, "***Ловушка***", color := 33 );
                         endif
                 endif
                 SleepMS(5);
         endforeach
 
         if( !mobiles_found )
-                SendSysMessage( mobile, "You do not find anyone hiding." );
+                SendSysMessage( mobile, "Вы никого не находите." );
         endif
 
 	return 1;

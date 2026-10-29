@@ -76,7 +76,7 @@ function CheckOreVeins(who, targ, range)
 
 	var vein_list := ListVeinsNearMobile(targ, range);
 	if ( who.cmdlevel >= 2 )
-		SendSysMessage(who, "Number of veins found "+vein_list.Size());
+		SendSysMessage(who, "Найдено жил: "+vein_list.Size());
 	endif
 
 	foreach ore_vein in ( vein_list )

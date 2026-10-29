@@ -8,10 +8,10 @@ include ":virtue:noto";
 include ":attributes:attributes";
 
 program herd(who)
-        SendSysMessage(who, "What would you like to herd?");
+        SendSysMessage(who, "Кого вы хотите пасти?");
         var npc := Target(who);
         if (!npc)
-                SendSysMessage(who, "Cancelled!");
+                SendSysMessage(who, "Отменено!");
                 return;
         endif
 /*      if(who.cmdlevel >= 2)
@@ -41,7 +41,7 @@ program herd(who)
                 "employed": chk := 1;
         endcase
         if((chk == 1) or (!herdskill))
-                SendSysMessage(who, "You can't herd that!");
+                SendSysMessage(who, "Это нельзя пасти!");
                 return;
         endif
 		var pts := CInt(GetAttribute(who, HERDING) / 10) + 15;
@@ -50,10 +50,10 @@ program herd(who)
 		endif
 		if(SkillCheck( who,HERDING, herdskill, pts/3 ) > 0)
 
-                SendSysMessage(who, "Where do you want to move "+ npc.name +" to?");
+                SendSysMessage(who, "Куда вы хотите переместить "+ npc.name +" to?");
                 var location := TargetCoordinates(who);
                 if (!CheckLosAt(npc, location.x, location.y, location.z))
-                        SendSysMessage(who, npc.name + " can't see that location!");
+                        SendSysMessage(who, npc.name + " не видит это место!");
                         return;
                 endif
                 var holder := {};
@@ -65,7 +65,7 @@ program herd(who)
                 SendEvent(npc, ev);
 				VS_AdjustVirtue(who, "humility", 1, 50);
         else
-                SendSysMessage(who, "You cant seem to convince " + npc.name + " to move");
+                SendSysMessage(who, "Похоже, не удаётся убедить " + npc.name + " идти");
                 return;
         endif
 endprogram

@@ -16,7 +16,7 @@ program on_insert(who, keg, movetype, inserttype, potion, existing_stack, amt_to
 
 	var vendorserial := GetObjProperty(keg,"Vendored");
 	if((vendorserial) && (who.cmdlevel < 3))
-		SendSysMessage(who, "You can't fill a keg while it's on a vendor.");
+		SendSysMessage(who, "Нельзя наполнять бочонок у торговца.");
 		MoveItemToContainer(potion, who.backpack);
 		return 0;
 	endif
@@ -32,12 +32,12 @@ program on_insert(who, keg, movetype, inserttype, potion, existing_stack, amt_to
 			amt := 0;
 		endif
 		if(type != CInt(potion.objtype))
-			SendSysMessage(who, "You don't think it would be a good idea to mix these types of potions together.");
+			SendSysMessage(who, "Не стоит смешивать такие зелья.");
 			MoveItemToContainer(potion, who.backpack);
 			return 0;
 		endif
 		if(amt >= 100)
-			SendSysMessage(who, "The keg can't hold any more.");
+			SendSysMessage(who, "Бочонок больше не вмещает.");
 			MoveItemToContainer(potion, who.backpack);
 			return 0;
 		endif
@@ -50,11 +50,11 @@ program on_insert(who, keg, movetype, inserttype, potion, existing_stack, amt_to
 			PlaySoundEffect(who, 0x241);
 			SendSysMessage(who, type);
 			rename_keg(keg, CInt(GetObjProperty(keg, "PotionType")));
-			SendSysMessage(who, "You empty the contents of the bottle into the keg.");
+			SendSysMessage(who, "Вы выливаете содержимое бутылки в бочонок.");
 			return 1;
 		endif
 	else
-		SendSysMessage(who, "You cannot put that in a potion keg.");
+		SendSysMessage(who, "Это нельзя положить в бочонок зелий.");
 		MoveItemToContainer(potion, who.backpack);
 		return 0;
 	endif

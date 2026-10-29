@@ -75,7 +75,7 @@ function makeBowcraftItems(who, what, amt, tool)
 
 	while(counter < amt)
 		if((who.x != x) || (who.y != y))
-			SendSysMessage(who, "You stop fletching.");
+			SendSysMessage(who, "Вы прекращаете делать стрелы.");
 			break;
 		endif
 		if(!tool)

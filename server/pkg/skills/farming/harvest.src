@@ -17,7 +17,7 @@ program harvest (who, plant)
 
 	var mount := GetEquipmentByLayer( who, 25 );
 	if ( mount )
-		PrintTextAbovePrivate( who, "You cannot harvest while mounted.", who, color :=33 );
+		PrintTextAbovePrivate( who, "Нельзя собирать верхом.", who, color :=33 );
 		return;
 	endif
 
@@ -27,7 +27,7 @@ program harvest (who, plant)
 	endif
 
 	if (GetObjProperty(plant, "new") )
-		SendSysMessage(who, "You must wait until the plant is fully grown before you can harvest.", color :=33);
+		SendSysMessage(who, "Нужно дождаться, пока растение вырастет.", color :=33);
 		return;
 	endif
 
@@ -36,7 +36,7 @@ program harvest (who, plant)
 		var planttopserial := GetObjProperty(plant, "planttop");
 		var planttop := SystemFindObjectBySerial(planttopserial);
 		if (!planttop)
-			SendSysMessage(who, "Looks dead.");
+			SendSysMessage(who, "Похоже, мёртв.");
 			DestroyItem(plant);
 			return;
 		endif
@@ -63,7 +63,7 @@ program harvest (who, plant)
 	if (!already_harvested_amount)
 		already_harvested_amount := 0;
 	elseif (already_harvested_amount >= max_harvest_amount)
-		SendSysMessage(who, "There is nothing here to harvest.", color :=33);
+		SendSysMessage(who, "Здесь нечего собирать.", color :=33);
 		DestroyPlant(who, plant);
 		return;
 	endif
@@ -73,7 +73,7 @@ program harvest (who, plant)
 	var who_x := who.x;
 	var who_y := who.y;
 	var pts;
-	SendSysMessage(who, "You start harvesting...", color :=88);
+	SendSysMessage(who, "Вы начинаете собирать...", color :=88);
 	repeat
 		PlaySoundEffect(who, SFX_58);
 		PerformAction(who, ANIM_BOW);
@@ -84,12 +84,12 @@ program harvest (who, plant)
 				endif
 				if(SkillCheck( who,LUMBERJACKING, -1, pts/3 ) > 0)
                     if (RandomInt(100) == 0)
-                            SendSysMessage(who, "You have found some fertile dirt!", color :=66);
+                            SendSysMessage(who, "Вы нашли плодородную землю!", color :=66);
                             CreateItemInContainer(craftingbag, UOBJ_FERTILE_DIRT, 1);
                     endif
 
                     CreateItemInContainer(craftingbag, product_type, 1);
-                    SendSysMessage(who, "You put the crops in your pack", color :=66);
+                    SendSysMessage(who, "Вы кладёте урожай в рюкзак", color :=66);
                     ChangePlantGraphic(plant);
 
                     already_harvested_amount := CInt(GetObjProperty(plant, "#harvested"));
@@ -100,7 +100,7 @@ program harvest (who, plant)
                     endif
 
                     if (already_harvested_amount+1 >= max_harvest_amount)
-                            SendSysMessage(who, "There's nothing more here to harvest.", color :=33);
+                            SendSysMessage(who, "Больше здесь нечего собирать.", color :=33);
                             return;
                     endif
 				endif

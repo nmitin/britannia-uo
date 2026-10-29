@@ -5,7 +5,7 @@ use uo;
 
 program skill_Cartography(who)
 
-	SendSysMessage(who, "You must use a mapmaker's pen to make maps.");
+	SendSysMessage(who, "Для создания карт нужно перо картографа.");
 	return 1;
 
 endprogram

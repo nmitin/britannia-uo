@@ -27,7 +27,7 @@ program Anatomy(who)
     PrintTextAboveCL( who, 500324, color := 56 );
     return;
   elseif(subject.graphic == 0x2006)
-    SendSysMessage(who, "Looks pretty dead to you.", color := 44);
+    SendSysMessage(who, "Похоже, он мёртв.", color := 44);
     return;
   elseif(!subject.isA(POLCLASS_MOBILE))
     SendSysMessageCL(who, 500326, color := 33 ); // That can not be inspected.

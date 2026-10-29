@@ -15,7 +15,7 @@ program use_potionkeg(who, keg)
 		// and see if the user is the owner marked at lockdown.
 		// Housing must do this also for Furniture in deeds!
 		if( GetObjProperty(keg, "OwnerSerial") != who.serial )
-			SendSysMessage(who, "That item does not belong to you.");
+			SendSysMessage(who, "Этот предмет вам не принадлежит.");
 			return 0;
 		endif
 	endif
@@ -27,11 +27,11 @@ program use_potionkeg(who, keg)
 	var amt  := CInt(GetObjProperty(keg, "PotionAmount"));
 
 	if(GetObjProperty(keg, "Vendored"))
-		SendSysMessage(who, "You cannot use that while it's on a vendor.");
+		SendSysMessage(who, "Нельзя использовать это у торговца.");
 		return 0;
 	endif
 	if(amt <= 0)
-		SendSysMessage(who, "That keg is empty.");
+		SendSysMessage(who, "Этот бочонок пуст.");
 		return 0;
 	else
 		if(keg.movable == 0)
@@ -73,7 +73,7 @@ program use_potionkeg(who, keg)
 	endif
 
 	if(amt <= 0)
-		SendSysMessage(who, "The keg is currently empty.");
+		SendSysMessage(who, "Бочонок сейчас пуст.");
 		return;
 	endif
 	var potion := 0;
@@ -84,14 +84,14 @@ program use_potionkeg(who, keg)
 		endif
 	endforeach
 	if(potion == 0)
-		SendSysMessage(who, "You are out of bottles.");
+		SendSysMessage(who, "У вас закончились бутылки.");
 		return 0;
 	endif
 	if(SubtractAmount(potion, 1))
 		PlaySoundEffect(who, 0x241);
 		var the_potion := CreateItemInBackpack(who, type, 1);
 		if( TypeOf(the_potion) != "ItemRef" )
-			SendSysMessage(who, "There is not enough room for this in your pack!");
+			SendSysMessage(who, "В рюкзаке недостаточно места!");
 			return 0;
 		endif
 		amt -= 1;
@@ -101,10 +101,10 @@ program use_potionkeg(who, keg)
 		else
 			SetName(keg, "specially lined keg for holding potions");
 		endif
-		SendSysMessage(who, "You fill a bottle with liquid from the keg.");
+		SendSysMessage(who, "Вы наполняете бутылку из бочонка.");
 		return 1;
 	else
-		SendSysMessage(who, "That item is being used");
+		SendSysMessage(who, "Этот предмет используется");
 		return 0;
 	endif
 

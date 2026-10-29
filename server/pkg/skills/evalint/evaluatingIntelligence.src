@@ -27,7 +27,7 @@ program EvaluatingIntelligence(who)
     PrintTextAbovePrivateUC(who, CAscZ("You know your mental capabilities quite well enough already."), "ENG", who);
     return;
   elseif(subject.graphic == 0x2006)
-    SendSysMessageUC(who, CAscZ("Looks pretty dead to you."), "ENG");
+    SendSysMessageUC(who, CAscZ("Похоже, он мёртв."), "ENG");
     return;
   elseif(!subject.isA(POLCLASS_MOBILE))
     SendSysMessageUC(who, CAscZ("That can not be evaluated."), "ENG");

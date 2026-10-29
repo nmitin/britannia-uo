@@ -92,7 +92,7 @@ program do_itemid( who )
     if(GetObjProperty(the_item, "charges") )
 	  ncharges := CStr(GetObjProperty(the_item, "charges") );
 	  if(ncharges)
-	    SendSysMessage(who, "It has " + ncharges + " charges.");
+	    SendSysMessage(who, "У него " + ncharges + " зарядов.");
   	  endif
     endif
     if(GetObjProperty(the_item, "type") == "cursed")
@@ -101,6 +101,6 @@ program do_itemid( who )
 	  endif
     endif
   else
-    SendSysMessage(who, "I'm not sure . . .");
+    SendSysMessage(who, "Не уверен...");
   endif
 endprogram

@@ -4,7 +4,7 @@ use os;
 program use_explosionpotion(who, potion)
 
 	if ( potion.stackable && potion.amount > 1 )
-		SendSysMessage(who, "You cannot throw a stack of those, are you crazy?!");
+		SendSysMessage(who, "Нельзя бросать целую стопку, вы с ума сошли?!");
 		return 0;
 	endif
 	if( (!potion.movable) || !ReserveItem(potion) )

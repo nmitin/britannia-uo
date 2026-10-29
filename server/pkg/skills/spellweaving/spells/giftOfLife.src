@@ -40,7 +40,7 @@ Detach();
 sleep(duration);
 PlaySoundEffect(caster, SFX_SPELL_BLESS);
 PlayObjectCenteredEffect( caster, 0x3779, 10,45 );
-SendSysMessage(caster, "Czar Gift Of Life zakonczyl swoje dzialanie.",3,40);
+SendSysMessage(caster, "Действие заклинания Gift Of Life закончилось.",3,40);
 EraseObjProperty(caster, "#glife");
 
 endprogram

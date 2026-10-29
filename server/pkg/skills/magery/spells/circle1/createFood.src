@@ -18,7 +18,7 @@ program create_food(parms)
 	food.movable := 1;
 	
 	if ( food == error )
-		SendSysMessage(caster, "Error creating food ("+food_item+") ->"+food.errortext);
+		SendSysMessage(caster, "Ошибка создания еды ("+food_item+") ->"+food.errortext);
 	else
 		MS_PlaySpellSFX(info.spell_id, caster);
 		MS_PlaySpellGFX(info.spell_id, caster, caster);

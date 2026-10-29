@@ -24,7 +24,7 @@ program chrcast_voyage( parms )
 	endif
 	var journey := GetObjProperty(caster, "#journey");
 	if(journey > ReadGameClock())
-		SendSysMessage(caster, "Ten czar mozesz rzucac raz na " + TIME_RESTRICT + " sekund. Pozostalo jeszcze " + (journey - ReadGameClock()) + " sekund.",3,40);
+		SendSysMessage(caster, "Это заклинание можно применять раз в " + TIME_RESTRICT + " секунд. Осталось ещё " + (journey - ReadGameClock()) + " секунд.",3,40);
 		return 0;
 	endif
 	if(journey)
@@ -39,7 +39,7 @@ program chrcast_voyage( parms )
 	endforeach
 
 	if(wrogowie == 1)
-		SendSysMessage(caster, "Nie mozesz uzywac tego czaru gdy przeciwnicy cie widza.",3,40);
+		SendSysMessage(caster, "Нельзя использовать это заклинание, когда противники видят вас.",3,40);
 		return 0;
 	endif
 
@@ -48,7 +48,7 @@ program chrcast_voyage( parms )
 	SetObjProperty(caster, "#journey", ReadGameClock() + TIME_RESTRICT);
 	Detach();
 	sleep(duration);
-	SendSysMessage(caster, "Czar Etheral Voyage zakonczyl swoje dzialanie.",3,40);
+	SendSysMessage(caster, "Действие заклинания Etheral Voyage закончилось.",3,40);
 	EraseObjProperty(caster, "#journey");
 	CheckForEnemies(caster);
 endprogram

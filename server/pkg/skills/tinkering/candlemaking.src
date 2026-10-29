@@ -18,7 +18,7 @@ program make_candles (character, item)
 	endif
 
 	if ( item.movable )
-		SendSysMessage(character, "That is locked down.");
+		SendSysMessage(character, "Это закреплено.");
 		return;
 	endif
 
@@ -28,7 +28,7 @@ program make_candles (character, item)
 		return;
 	endif
 
-	SendSysMessage(character, "What do you want to use that on?");
+	SendSysMessage(character, "На что вы хотите это применить?");
 	var targetted := Target(character);
 
 	//and all the checks again
@@ -60,7 +60,7 @@ program make_candles (character, item)
 //	elseif (item.objtype == UOBJ_SKULL)
 //		MakeSkullCandle(character, item, targetted);
 	else
-		SendSysMessage(character, "You don't know how to use those items together.");
+		SendSysMessage(character, "Вы не знаете, как использовать это вместе.");
 	endif
 
 endprogram
@@ -75,7 +75,7 @@ endprogram
 function MakeKettleOfWax(character, wax, empty_kettle)
 
 	if (wax.amount < WAX_PER_CANDLE)
-		SendSysMessage(character, "You don't have enough wax to make anything.");
+		SendSysMessage(character, "У вас недостаточно воска.");
 		return;
 	endif
 
@@ -83,7 +83,7 @@ function MakeKettleOfWax(character, wax, empty_kettle)
 	sleep(1);
 
 	if (SkillCheck( character, TINKERING, 10) <= 0)
-		SendSysMessage(character, "You ruin some of the wax!");
+		SendSysMessage(character, "Вы испортили часть воска!");
 		var wax_destroyed := RandomInt(WAX_PER_CANDLE) + 1;
 		SubtractAmount(wax, wax_destroyed);
 		return;
@@ -94,7 +94,7 @@ function MakeKettleOfWax(character, wax, empty_kettle)
              return;
         endif
 
-	SendSysMessage(character, "You place the pot of wax in your backpack.");
+	SendSysMessage(character, "Вы положили горшок воска в рюкзак.");
 	SubtractAmount(wax, WAX_PER_CANDLE);
 
         newkettle.color := empty_kettle.color;
@@ -118,9 +118,9 @@ function MakeCandles(character, dipper, kettle_of_wax)
 		sleep(3);
 
 		if (SkillCheck( character, TINKERING, -1, 10 ) <= 0)
-			 SendSysMessage(character, "You fail to make any candles.");
+			 SendSysMessage(character, "Не удалось сделать свечи.");
 			else
-			 SendSysMessage(character, "You place the candles in your backpack.");
+			 SendSysMessage(character, "Вы положили свечи в рюкзак.");
 			 CreateItemInBackpack(character, 0x0A28, 3);	// regular candle
 			 // CreateItemInBackpack(character, 0x142f, 1);	// Very short candle
 			 // CreateItemInBackpack(character, 0x1433, 1);	// Stubby candle
@@ -155,12 +155,12 @@ function MakeSkullOutOfHead(character, head)
 	sleep(5);
 // This should reduce karma and/or virtue
 	if (SkillCheck( character, TINKERING, 30 ) <= 0)
-		SendSysMessage(character, "You destroy the head.");
+		SendSysMessage(character, "Вы уничтожили голову.");
 		SubtractAmount(head, 1);
 		return;
 	endif
 
-	SendSysMessage(character, "You place the skull in your backpack.");
+	SendSysMessage(character, "Вы положили череп в рюкзак.");
 	SubtractAmount(head, 1);
 	CreateItemInBackpack(character, 0x1ae2, 1);
 
@@ -176,7 +176,7 @@ endfunction
 function MakeSkullCandle(character, skull, targetted)
 
 	if (targetted.objtype != 0x142f && targetted.objtype != 0x1433 && targetted.objtype != 0x1437)
-		SendSysMessage(character, "You don't know how to use those items together!");
+		SendSysMessage(character, "Вы не знаете, как использовать это вместе!");
 		return;
 	endif
 // This should reduce karma and/or virtue
@@ -187,13 +187,13 @@ function MakeSkullCandle(character, skull, targetted)
 	Sleep(1);
 
 	if (SkillCheck( character, TINKERING, 30 ) <= 0)
-		SendSysMessage(character, "You fail to place the candle in the skull.");
+		SendSysMessage(character, "Не удалось вставить свечу в череп.");
 		SubtractAmount(skull, 1);
 		SubtractAmount(targetted, 1);
 		return;
 	endif
 
-	SendSysMessage(character, "You put the candle in the skull.");
+	SendSysMessage(character, "Вы вставили свечу в череп.");
 	SubtractAmount(skull, 1);
 	SubtractAmount(targetted, 1);
 	CreateItemInBackpack(character, 0x1853, 1);

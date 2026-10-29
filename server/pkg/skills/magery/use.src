@@ -17,7 +17,7 @@ program useScroll(who, scroll)
 	SubtractAmount( scroll, 1 );
 	var script := Start_Script("spellStarter", {who, spell_id, scroll_objtype});
 	if ( script.errortext )
-		SendSysMessage(who, "Error - Could not start spell starter ->"+script.errortext);
+		SendSysMessage(who, "Ошибка — не удалось запустить заклинание ->"+script.errortext);
 		return 0;
 	endif
 

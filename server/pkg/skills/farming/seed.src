@@ -35,7 +35,7 @@ program plant_seed(character, seed)
 
 	var sign;
 	if (!is_plantable(GetMapInfo(location_x, location_y, character.realm).landtile))
-		SendSysMessage(character, "You cannot plant here!");
+		SendSysMessage(character, "Здесь нельзя сажать!");
                 return;
 /*		sign := FindHouseSign(character);
 		if (!sign)
@@ -228,7 +228,7 @@ function PlantFlowers(character, seed)
 		SetObjProperty(item, "lockdowndestroy", 1); */
 		SubtractAmount(seed, 1);
 	else
-		SendSysMessage(character, "Can't place it here.");
+		SendSysMessage(character, "Здесь это поставить нельзя.");
 	endif
 	return;
 endfunction
@@ -275,32 +275,32 @@ endfunction
 
 function PlaceBeehive(character, starterhive)
 	if (starterhive.container)
-		SendSysMessage(character, "You must place the hive where you want it.");
+		SendSysMessage(character, "Улей нужно поставить туда, куда хотите.");
 		return;
 	endif
 
 	foreach item in ListItemsNearLocation(starterhive.x, starterhive.y, starterhive.z, 2, character.realm)
 		if (item.isa (POLCLASS_DOOR))
-			SendSysMessage(character, "You're too close to a door!");
+			SendSysMessage(character, "Вы слишком близко к двери!");
 			return;
 		endif
 	endforeach
 
 	foreach item in ListItemsNearLocation(starterhive.x, starterhive.y, starterhive.z, 1, character.realm)
 		if (item.objtype == 0x091a)
-			SendSysMessage(character, "You're too close to another beehive!");
+			SendSysMessage(character, "Вы слишком близко к другому улью!");
 			return;
 		endif
 	endforeach
 
 	var newbeehive := CreateItemAtLocation(starterhive.x, starterhive.y, starterhive.z, 0x091a, 1, character.realm);
 	if (!newbeehive)
-		SendSysMessage(character, "You can't place the beehive there!");
+		SendSysMessage(character, "Здесь нельзя поставить улей!");
 		return;
 	endif
 
 	DestroyItem(starterhive);
-	SendSysMessage(character, "You place the beehive and wait for bees...");
+	SendSysMessage(character, "Вы ставите улей и ждёте пчёл...");
 	SetObjProperty(newbeehive, "new", 1);
 endfunction
 

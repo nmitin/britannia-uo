@@ -30,7 +30,7 @@ program do_tasteid( character )
     EraseObjProperty(character, "HealTimer");
 
 
-    SendSysMessage( character, "Select an object to taste." );
+    SendSysMessage( character, "Выберите предмет, чтобы попробовать." );
     the_item := Target(character, "");
     if (!the_item)
         SendSysMessage(character, "Выбор цели отменён.");
@@ -43,13 +43,13 @@ program do_tasteid( character )
 
 		var itemdesc := alchemcfg[the_item.objtype].sname;
 		if (itemdesc)
-			SendSysMessage(character, "It seems to be " + itemdesc);
+			SendSysMessage(character, "Похоже, это " + itemdesc);
 			SetName(the_item, itemdesc);
 		endif
 
 		if (GetObjProperty(the_item, "potionname") )
 			itemdesc := GetObjProperty(the_item, "potionname");
-			SendSysMessage(character, "This seems to be a potion of " + itemdesc + ".");
+			SendSysMessage(character, "Похоже, это зелье " + itemdesc + ".");
 			SetName(the_item, ("a potion of " + itemdesc) );
 		endif
 
@@ -65,7 +65,7 @@ program do_tasteid( character )
     endif
 
     if (content_descr == "")
-            SendSysMessage(character, "This contains " + poison_descr);
+            SendSysMessage(character, "Это содержит " + poison_descr);
     endif
 
 endprogram

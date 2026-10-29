@@ -19,14 +19,14 @@ program do_armslore( who )
 	EraseObjProperty(who, "IsMeditating");
 	EraseObjProperty(who, "HealTimer");
 	var quality_descr, damage_descr;
-	SendSysMessage(who, "Select an object to evaluate.");
+	SendSysMessage(who, "Выберите предмет для оценки.");
 	var the_item := Target(who, TGTOPT_CHECK_LOS);
 	if(!the_item)
 		SendSysMessage(who, "Выбор цели отменён.");
 		return;
 	endif
 	if( (!the_item.IsA(POLCLASS_ARMOR)) && (!the_item.IsA(POLCLASS_WEAPON)) )
-		SendSysMessage(who, "You can only use this skill on weapons or armor!");
+		SendSysMessage(who, "Этот навык применяется только к оружию и броне!");
 		return;
 	endif
 	var cfg := ReadConfigFile(":*:itemdesc");
@@ -69,9 +69,9 @@ program do_armslore( who )
 		else
 			quality_descr := "low";
 		endif
-		SendSysMessage(who, "This item is of " + quality_descr + " quality, and is in " + damage_descr + " condition.");
+		SendSysMessage(who, "Этот предмет " + quality_descr + " качества и находится в " + damage_descr + " состоянии.");
 	else
-		SendSysMessage(who, "I can't quite tell . . .");
+		SendSysMessage(who, "Не могу точно сказать...");
 	endif
 endprogram
 

@@ -23,7 +23,7 @@ program use_bottle( who, bottle )
   endif
   var cfg := ReadConfigFile("sosarea");
   if (!cfg)
-    SendSysMessage(who, "Could not read sosarea.cfg");
+    SendSysMessage(who, "Не удалось прочитать sosarea.cfg");
   endif
   var maxi := GetConfigMaxIntKey(cfg);
   var elem := cfg[RandomInt(maxi)+1];

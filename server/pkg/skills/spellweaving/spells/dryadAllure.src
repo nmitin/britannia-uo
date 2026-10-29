@@ -30,7 +30,7 @@ var npcdesc := ReadConfigFile("::npcdesc");
 var human  := CInt(npcdesc[cast_on.npctemplate].humanoid);
 
 if(!human)
-SendSysMessage(caster, "Cel nie jest stworzeniem humanoidalnym.");
+SendSysMessage(caster, "Цель не является гуманоидом.");
 return 0;
 endif
 
@@ -43,7 +43,7 @@ cast_on.setmaster( caster );
 cast_on.script := "tamed";
 PlaySoundEffect(caster, 0x5C5);
 RestartScript(cast_on);
-PrintTextAbove(cast_on, "*jest teraz kontrolowany przez " + caster.name + "*");
+PrintTextAbove(cast_on, "*теперь контролируется " + caster.name + "*");
 var duration := ((dru + alore)/5) + bonus;
 
 Detach();
@@ -59,7 +59,7 @@ EraseObjProperty(cast_on, "mounted");
 EraseObjProperty(cast_on, "mounted_on");
 PlaySoundEffect(cast_on, 0x5C6);
 RestartScript(cast_on);
-PrintTextAbove(cast_on, "*nie jest juz kontrolowany przez " + caster.name + "*");
+PrintTextAbove(cast_on, "*больше не контролируется " + caster.name + "*");
 
 
 
