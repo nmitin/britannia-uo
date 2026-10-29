@@ -48,13 +48,13 @@ program Person()
                         if (tspeech)
                           say(tspeech);
                         endif
-      SYSEVENT_ENGAGED: say("Aaahhh! Help! Help!  I'm being oppressed!");
+      SYSEVENT_ENGAGED: say("А-а-а! Помогите! Меня угнетают!");
                         Run( ev.source );
-      SYSEVENT_DAMAGED: say( "Owie! Aaaagh!  That's worse than a bee sting!" );
+      SYSEVENT_DAMAGED: say( "Ой! А-а-а! Хуже пчелиного укуса!" );
                         if (ev.source)
                           Run( ev.source );
                         else
-                          say( "What sinister force is this!" );
+                          say( "Что это за тёмная сила!" );
                         endif
       SYSEVENT_ENTEREDAREA:
       SYSEVENT_LEFTAREA:
@@ -81,16 +81,16 @@ function Run( opponent )
     case (ev.type)
       SYSEVENT_SPEECH:
       SYSEVENT_DISENGAGED:     if (ev.source.serial == opponent.serial)
-                                 say( "Whew!" );
+                                 say( "Фух!" );
                                  break outer;
                                endif
       SYSEVENT_ENGAGED:
       SYSEVENT_DAMAGED:        if (ev.source)
                                  if (ev.source.serial != opponent.serial)
-                                   say( "Ack! Leave me alone!" );
+                                   say( "Ай! Оставь меня в покое!" );
                                  else
                                    if (ev.type == "damage")
-                                     say("Ouch! Heeelp!");
+                                     say("Ой! Помогите!");
                                    endif
                                  endif
                                endif

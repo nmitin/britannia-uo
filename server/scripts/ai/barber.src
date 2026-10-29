@@ -78,10 +78,10 @@ program barber()
                                           var res := SendSellWindow( ev.source, Self(), shop_sell, shop_buy, shop_resale, VENDOR_SEND_AOS_TOOLTIP );
 										  res := res;
                                         else
-                                          PrintTextAbovePrivate(Self(), "You dont have anything I would be interested in.", ev.source);
+                                          PrintTextAbovePrivate(Self(), "У тебя нет ничего, что меня бы заинтересовало.", ev.source);
                                         endif
                                       else
-                                        PrintTextAbovePrivate(Self(), "I cannot afford any more of that", ev.source );
+                                        PrintTextAbovePrivate(Self(), "Я больше не могу себе этого позволить.", ev.source );
                                       endif
                                     elseif((txt["vendor train"]) || (txt["vendor teach"]) || (txt["merchant train"]) || (txt["merchant teach"]))
                                       TurnToward(ev.source);
@@ -89,7 +89,7 @@ program barber()
                                     endif
                                   endif
         SYSEVENT_MERCHANT_BOUGHT: TurnToward(ev.source);
-                                  PrintTextAbovePrivate( me, "The total of thy sale is " + ev.amount, ev.source);
+                                  PrintTextAbovePrivate( me, "Итого за продажу: " + ev.amount, ev.source);
                                   if(lower(merchant_type) != "appraiser")
                                     var mygold := GetObjProperty(shop_resale, "MyGold");
                                     mygold := mygold - ev.amount;
@@ -106,7 +106,7 @@ program barber()
                                   endforeach
                                   PlaySoundEffect(me, 0x38);
         SYSEVENT_MERCHANT_SOLD:   TurnToward(ev.source);
-                                  PrintTextAbovePrivate(me, "The total of thy purchase is " + ev.amount, ev.source);
+                                  PrintTextAbovePrivate(me, "Итого за покупку: " + ev.amount, ev.source);
                                   var mygold := GetObjProperty(shop_resale, "MyGold");
                                   mygold := mygold + ev.amount;
                                   SetObjProperty(shop_resale, "MyGold", mygold);
@@ -122,7 +122,7 @@ program barber()
                                         EraseObjProperty(item, "faceloc");
                                         DestroyItem(GetEquipmentByLayer(ev.source, 0x10));
                                         if(ev.source.graphic == 0x191)
-                                          say("Silly woman, you cannot grow a beard!");
+                                          say("Глупая женщина, борода у тебя не вырастет!");
                                           DestroyItem(item);
                                         else
                                           EquipItem(ev.source, item);

@@ -278,11 +278,11 @@ function BuyBag (byref you)
 					if (totalsale + (itemprice * itemamount) < 50000)
 						totalsale := totalsale + (itemprice * itemamount);
 						if( !ReserveItem( item ) )
-							SysLog( "Reserved item sale!"
-									+ " Acct: " + you.acctname
-									+ " Serial: " + you.serial
-									+ " Item: " + item.objtype
-									+ " Gold: " + itemprice );
+							SysLog( "Продажа зарезервированного предмета!"
+									+ " Аккаунт: " + you.acctname
+									+ " Серийный номер: " + you.serial
+									+ " Предмет: " + item.objtype
+									+ " Золото: " + itemprice );
 						endif
 						DestroyItem (item);
 						sleepms (100);
@@ -299,11 +299,11 @@ function BuyBag (byref you)
 	endforeach
 
 	if (totalsale)
-		PrintTextAbovePrivate (me, "The total of your sale is " + totalsale, you );
+		PrintTextAbovePrivate (me, "Итого за вашу продажу: " + totalsale, you );
 		CreateItemInContainer (you.backpack, UOBJ_GOLD_COIN, totalsale);
 		PlaySoundEffect (me, 0x38);
 	else
-		PrintTextAbovePrivate (me, "I'm afraid I don't want any of those items.", you);
+		PrintTextAbovePrivate (me, "Боюсь, мне не нужен ни один из этих предметов.", you);
 	endif
 endfunction
 
@@ -312,17 +312,17 @@ endfunction
 ///////////////////
 function BuyAll (byref you)
 
-	PrintTextAbovePrivate (me, "What would you like me to buy all of?", you );
+	PrintTextAbovePrivate (me, "Что именно мне купить целиком?", you );
 	var items := Target (you);
 	if ( !items or !Accessible (you, items) )
-		PrintTextAbovePrivate (me, "OK, never mind them.", you);
+		PrintTextAbovePrivate (me, "Ладно, забудь о них.", you);
 		return;
 	endif
 
 	var itemdesc := ReadConfigFile (":*:itemdesc");
 	var elem := FindConfigElem (itemdesc, items.objtype);
 	if (!elem)
-		PrintTextAbovePrivate (me, "Sorry, but I don't want that.", you);
+		PrintTextAbovePrivate (me, "Извини, но мне это не нужно.", you);
 		return;
 	endif
 
@@ -333,7 +333,7 @@ function BuyAll (byref you)
 	endif
 
 	if (!itemprice)
-		PrintTextAbovePrivate (me, "Sorry, but I don't want that.", you);
+		PrintTextAbovePrivate (me, "Извини, но мне это не нужно.", you);
 		return;
 	endif
 
@@ -341,7 +341,7 @@ function BuyAll (byref you)
 		if (!ReserveItem(items))
 			return;
 		endif
-		say("Ooh, an expensive one!");
+		say("О, дорогая вещица!");
 		while (itemprice > 60000)
 			CreateItemInContainer (you.backpack, "goldcoin", 60000);
 			itemprice := itemprice - 60000;
@@ -373,11 +373,11 @@ function BuyAll (byref you)
 	endforeach
 
 	if (totalsale)
-		PrintTextAbovePrivate (me, "The total of your sale is " + totalsale, you );
+		PrintTextAbovePrivate (me, "Итого за вашу продажу: " + totalsale, you );
 		CreateItemInContainer (you.backpack, UOBJ_GOLD_COIN, totalsale);
 		PlaySoundEffect (me, 0x38);
 	else
-		PrintTextAbovePrivate (me, "I'm afraid I don't want that.", you);
+		PrintTextAbovePrivate (me, "Боюсь, мне это не нужно.", you);
 	endif
 endfunction
 
@@ -394,13 +394,13 @@ function IsBuyableItem (byref character, byref item, byref from_bag)
 //		say ("Ooh, " + item.desc);
 //		return 0;
 	elseif (GetObjProperty (item, "questitem") )
-		Say ("Ooh, this looks important.");
+		Say ("О, выглядит важным.");
 		return 0;
 	elseif (GetObjProperty (item, "ownerserial") )
-		Say (item.desc + " is marked!");
+		Say (item.desc + " помечен!");
 		return 0;
 	elseif (GetObjProperty (item, "slave") )
-		Say (item.desc + " is marked!");
+		Say (item.desc + " помечен!");
 		return 0;
 	elseif (item.buyprice and item.buyprice < 0)
 		return 0;

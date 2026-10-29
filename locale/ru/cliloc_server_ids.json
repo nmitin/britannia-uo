@@ -1,0 +1,797 @@
+[
+ {
+  "id": 1042023,
+  "n": 119,
+  "en": "Cancelled."
+ },
+ {
+  "id": 500643,
+  "n": 12,
+  "en": "Target is too far away."
+ },
+ {
+  "id": 1042593,
+  "n": 11,
+  "en": "That is not in your backpack."
+ },
+ {
+  "id": 501973,
+  "n": 10,
+  "en": "You cannot use that."
+ },
+ {
+  "id": 501975,
+  "n": 7,
+  "en": "That is too far away."
+ },
+ {
+  "id": 501356,
+  "n": 5,
+  "en": "This person is already banned!"
+ },
+ {
+  "id": 501340,
+  "n": 5,
+  "en": "You have been banned from this house."
+ },
+ {
+  "id": 502413,
+  "n": 5,
+  "en": "That cannot be done while the book is locked down."
+ },
+ {
+  "id": 1042021,
+  "n": 5,
+  "en": "Cancelled."
+ },
+ {
+  "id": 502069,
+  "n": 5,
+  "en": "This does not appear to be locked."
+ },
+ {
+  "id": 1062040,
+  "n": 4,
+  "en": "You cannot ban that."
+ },
+ {
+  "id": 500876,
+  "n": 4,
+  "en": "You can't see that."
+ },
+ {
+  "id": 500979,
+  "n": 4,
+  "en": "You cannot see that location."
+ },
+ {
+  "id": 502076,
+  "n": 4,
+  "en": "The lock quickly yields to your skill."
+ },
+ {
+  "id": 1005379,
+  "n": 3,
+  "en": "This action would exceed the lockdown limit of this house."
+ },
+ {
+  "id": 501714,
+  "n": 3,
+  "en": "This is already secure!"
+ },
+ {
+  "id": 501682,
+  "n": 3,
+  "en": "not a container"
+ },
+ {
+  "id": 1005525,
+  "n": 3,
+  "en": "That is not in your house."
+ },
+ {
+  "id": 1115838,
+  "n": 3,
+  "en": "???"
+ },
+ {
+  "id": 1042839,
+  "n": 3,
+  "en": "~1_PLAYER_NAME~ has been banned from this house."
+ },
+ {
+  "id": 501362,
+  "n": 3,
+  "en": "That can't be a co-owner of the house."
+ },
+ {
+  "id": 1010565,
+  "n": 3,
+  "en": "You do not have permission to place things in this container."
+ },
+ {
+  "id": 502074,
+  "n": 3,
+  "en": "You broke the lockpick."
+ },
+ {
+  "id": 500961,
+  "n": 3,
+  "en": "Your fingers slip!"
+ },
+ {
+  "id": 502014,
+  "n": 3,
+  "en": "Select the victim."
+ },
+ {
+  "id": 503239,
+  "n": 2,
+  "en": "Vendors can only be placed in houses."
+ },
+ {
+  "id": 1153761,
+  "n": 2,
+  "en": "???"
+ },
+ {
+  "id": 501721,
+  "n": 2,
+  "en": "Locked down!"
+ },
+ {
+  "id": 501719,
+  "n": 2,
+  "en": "This is already locked down!"
+ },
+ {
+  "id": 501647,
+  "n": 2,
+  "en": "That is secure."
+ },
+ {
+  "id": 1045150,
+  "n": 2,
+  "en": "There is not enough room in your backpack for the deed."
+ },
+ {
+  "id": 502103,
+  "n": 2,
+  "en": "Choose the item you wish to secure"
+ },
+ {
+  "id": 1061839,
+  "n": 2,
+  "en": "This action would exceed the secure storage limit of the house."
+ },
+ {
+  "id": 501325,
+  "n": 2,
+  "en": "Target the individual to ban from this house."
+ },
+ {
+  "id": 1149994,
+  "n": 2,
+  "en": "???"
+ },
+ {
+  "id": 1043293,
+  "n": 2,
+  "en": "Your house's age and contents have been refreshed."
+ },
+ {
+  "id": 501317,
+  "n": 2,
+  "en": "Target the person you wish to name a friend of your household."
+ },
+ {
+  "id": 501368,
+  "n": 2,
+  "en": "Your co-owner list is full!"
+ },
+ {
+  "id": 501369,
+  "n": 2,
+  "en": "This person is already on your co-owner list!"
+ },
+ {
+  "id": 501343,
+  "n": 2,
+  "en": "You have been made a co-owner of this house."
+ },
+ {
+  "id": 1019022,
+  "n": 2,
+  "en": "You do not have enough gold."
+ },
+ {
+  "id": 502410,
+  "n": 2,
+  "en": "This book already has the maximum amount of charges."
+ },
+ {
+  "id": 502401,
+  "n": 2,
+  "en": "This runebook is full."
+ },
+ {
+  "id": 502409,
+  "n": 2,
+  "en": "This rune does not have a marked location."
+ },
+ {
+  "id": 502412,
+  "n": 2,
+  "en": "There are no charges left on that item."
+ },
+ {
+  "id": 500950,
+  "n": 2,
+  "en": "You cannot see that."
+ },
+ {
+  "id": 501745,
+  "n": 2,
+  "en": "It appears to be locked, but you open it with your godly powers."
+ },
+ {
+  "id": 501646,
+  "n": 2,
+  "en": "This item is secure but your Godly powers allow access."
+ },
+ {
+  "id": 1044043,
+  "n": 2,
+  "en": "You failed to create the item, and some of your materials are lost."
+ },
+ {
+  "id": 1072740,
+  "n": 2,
+  "en": "An arcane focus appears in your backpack."
+ },
+ {
+  "id": 1044267,
+  "n": 2,
+  "en": "You must be near an anvil and a forge to smith items."
+ },
+ {
+  "id": 1078497,
+  "n": 2,
+  "en": "???"
+ },
+ {
+  "id": 501800,
+  "n": 2,
+  "en": "You cannot mark an object at that location."
+ },
+ {
+  "id": 502073,
+  "n": 2,
+  "en": "This lock cannot be picked by normal means..."
+ },
+ {
+  "id": 1010517,
+  "n": 2,
+  "en": "You apply the poison."
+ },
+ {
+  "id": 501005,
+  "n": 2,
+  "en": "You notice nothing unusual."
+ },
+ {
+  "id": 500948,
+  "n": 2,
+  "en": "Who will you use the bandages on?"
+ },
+ {
+  "id": 500956,
+  "n": 2,
+  "en": "You begin applying the bandages."
+ },
+ {
+  "id": 500966,
+  "n": 2,
+  "en": "You are unable to resurrect your patient."
+ },
+ {
+  "id": 501043,
+  "n": 2,
+  "en": "Target is not close enough."
+ },
+ {
+  "id": 501355,
+  "n": 2,
+  "en": "The ban limit for this house has been reached!"
+ },
+ {
+  "id": 1060840,
+  "n": 2,
+  "en": "You have reached the maximum amount of Tithing Points available."
+ },
+ {
+  "id": 501816,
+  "n": 1,
+  "en": "You are too far away to do that."
+ },
+ {
+  "id": 503242,
+  "n": 1,
+  "en": "You must ask the owner of this building to name you a friend of the household in order to place a vendor here."
+ },
+ {
+  "id": 503241,
+  "n": 1,
+  "en": "You cannot place this vendor or barkeep.  Make sure the house is public and has sufficient storage available."
+ },
+ {
+  "id": 503250,
+  "n": 1,
+  "en": "Vendor was unable to be created there."
+ },
+ {
+  "id": 1005377,
+  "n": 1,
+  "en": "You cannot lock that down!"
+ },
+ {
+  "id": 501726,
+  "n": 1,
+  "en": "No longer locked down!"
+ },
+ {
+  "id": 1008142,
+  "n": 1,
+  "en": "The maximum number of secure items has been reached : "
+ },
+ {
+  "id": 1010081,
+  "n": 1,
+  "en": "You carefully check the house and find no hidden people"
+ },
+ {
+  "id": 501372,
+  "n": 1,
+  "en": "This person cannot be a friend of the house."
+ },
+ {
+  "id": 501376,
+  "n": 1,
+  "en": "This person is already on your friends list!"
+ },
+ {
+  "id": 501375,
+  "n": 1,
+  "en": "Your friends list is full!"
+ },
+ {
+  "id": 501328,
+  "n": 1,
+  "en": "Target the person you wish to name a co-owner of your household."
+ },
+ {
+  "id": 501143,
+  "n": 1,
+  "en": "That name is too long."
+ },
+ {
+  "id": 1061287,
+  "n": 1,
+  "en": "You channel energy from a nearby corpse to heal your wounds."
+ },
+ {
+  "id": 502421,
+  "n": 1,
+  "en": "You have removed the rune."
+ },
+ {
+  "id": 502420,
+  "n": 1,
+  "en": "You have no room for a rune in your backpack."
+ },
+ {
+  "id": 1153203,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 1152907,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 1042009,
+  "n": 1,
+  "en": "You cannot use this deed at this time."
+ },
+ {
+  "id": 1049780,
+  "n": 1,
+  "en": "Where would you like to place this decoration?"
+ },
+ {
+  "id": 500273,
+  "n": 1,
+  "en": "This add-on deed is blank."
+ },
+ {
+  "id": 1156219,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 501019,
+  "n": 1,
+  "en": "Select the furniture to dye."
+ },
+ {
+  "id": 501022,
+  "n": 1,
+  "en": "Furniture must be locked down to paint it."
+ },
+ {
+  "id": 1042083,
+  "n": 1,
+  "en": "You cannot dye that."
+ },
+ {
+  "id": 500867,
+  "n": 1,
+  "en": "You are simply too full to eat any more!"
+ },
+ {
+  "id": 1042001,
+  "n": 1,
+  "en": "That must be in your pack for you to use it."
+ },
+ {
+  "id": 500365,
+  "n": 1,
+  "en": "That is being used by someone else"
+ },
+ {
+  "id": 1070822,
+  "n": 1,
+  "en": "You fold the paper into an interesting shape."
+ },
+ {
+  "id": 503301,
+  "n": 1,
+  "en": "You don't have permission to do that."
+ },
+ {
+  "id": 501976,
+  "n": 1,
+  "en": "The ore is too far away."
+ },
+ {
+  "id": 50198,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 501989,
+  "n": 1,
+  "en": "You burn away the impurities but are left with no useable metal."
+ },
+ {
+  "id": 1156868,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 502910,
+  "n": 1,
+  "en": "You don't have the resources required to make that item."
+ },
+ {
+  "id": 502642,
+  "n": 1,
+  "en": "You are already casting a spell."
+ },
+ {
+  "id": 1005567,
+  "n": 1,
+  "en": "Your conscience prevents you from putting the spell together properly!"
+ },
+ {
+  "id": 502626,
+  "n": 1,
+  "en": "Your hands must be free to cast spells or meditate."
+ },
+ {
+  "id": 502643,
+  "n": 1,
+  "en": "You cannot cast a spell while frozen."
+ },
+ {
+  "id": 501625,
+  "n": 1,
+  "en": "You seem to have lost track of your scroll."
+ },
+ {
+  "id": 501903,
+  "n": 1,
+  "en": "You don't have enough mana to cast that spell!"
+ },
+ {
+  "id": 1072705,
+  "n": 1,
+  "en": "You must be standing on an arcane circle, pentagram or abbatoir to use this spell."
+ },
+ {
+  "id": 1080452,
+  "n": 1,
+  "en": "???"
+ },
+ {
+  "id": 1072828,
+  "n": 1,
+  "en": "Your arcane focus is renewed."
+ },
+ {
+  "id": 1042144,
+  "n": 1,
+  "en": "This is currently in use."
+ },
+ {
+  "id": 1042597,
+  "n": 1,
+  "en": "That is locked down."
+ },
+ {
+  "id": 500441,
+  "n": 1,
+  "en": "You lost some metal."
+ },
+ {
+  "id": 500439,
+  "n": 1,
+  "en": "There is not enough metal there to make that item."
+ },
+ {
+  "id": 502632,
+  "n": 1,
+  "en": "The spell fizzles."
+ },
+ {
+  "id": 502649,
+  "n": 1,
+  "en": "You cannot cast that on yourself."
+ },
+ {
+  "id": 503361,
+  "n": 1,
+  "en": "This ability cannot be used to teleport in houses or boats."
+ },
+ {
+  "id": 502457,
+  "n": 1,
+  "en": "Not a supported teleporter location."
+ },
+ {
+  "id": 502068,
+  "n": 1,
+  "en": "What do you want to pick?"
+ },
+ {
+  "id": 502067,
+  "n": 1,
+  "en": "Remember!  Locked chests may also be trapped!"
+ },
+ {
+  "id": 502070,
+  "n": 1,
+  "en": "I am too far away to do that."
+ },
+ {
+  "id": 502071,
+  "n": 1,
+  "en": "That is secure"
+ },
+ {
+  "id": 502139,
+  "n": 1,
+  "en": "That is not a poison potion."
+ },
+ {
+  "id": 502142,
+  "n": 1,
+  "en": "To what do you wish to apply the poison?"
+ },
+ {
+  "id": 502145,
+  "n": 1,
+  "en": "You cannot poison that! You can only poison bladed or piercing weapons, food or drink."
+ },
+ {
+  "id": 502148,
+  "n": 1,
+  "en": "You make a grave mistake while applying the poison."
+ },
+ {
+  "id": 501001,
+  "n": 1,
+  "en": "You cannot determine anything useful."
+ },
+ {
+  "id": 502373,
+  "n": 1,
+  "en": "That doesn't appear to be trapped."
+ },
+ {
+  "id": 500955,
+  "n": 1,
+  "en": "That being is not damaged!"
+ },
+ {
+  "id": 500970,
+  "n": 1,
+  "en": "Bandages cannot be used on that."
+ },
+ {
+  "id": 500963,
+  "n": 1,
+  "en": "You did not stay close enough to heal your patient!"
+ },
+ {
+  "id": 500968,
+  "n": 1,
+  "en": "You apply the bandages, but they barely help."
+ },
+ {
+  "id": 1010058,
+  "n": 1,
+  "en": "You have cured the target of all poisons!"
+ },
+ {
+  "id": 1010059,
+  "n": 1,
+  "en": "You have been cured of all poisons!"
+ },
+ {
+  "id": 1010060,
+  "n": 1,
+  "en": "You have failed to cure your target!"
+ },
+ {
+  "id": 500965,
+  "n": 1,
+  "en": "You are able to resurrect your patient."
+ },
+ {
+  "id": 501850,
+  "n": 1,
+  "en": "You cannot focus your concentration."
+ },
+ {
+  "id": 1044380,
+  "n": 1,
+  "en": "You don't have enough mana to inscribe that spell."
+ },
+ {
+  "id": 1042146,
+  "n": 1,
+  "en": "You cannot use this while mounted."
+ },
+ {
+  "id": 1010515,
+  "n": 1,
+  "en": "You cannot use that while it is locked down."
+ },
+ {
+  "id": 1045156,
+  "n": 1,
+  "en": "You must have the deed in your backpack to use it."
+ },
+ {
+  "id": 501274,
+  "n": 1,
+  "en": "Where do you wish to build the house?"
+ },
+ {
+  "id": 1042010,
+  "n": 1,
+  "en": "You must have the object in your backpack to use it."
+ },
+ {
+  "id": 501326,
+  "n": 1,
+  "en": "Target the individual to eject from this house."
+ },
+ {
+  "id": 501347,
+  "n": 1,
+  "en": "You cannot eject that from the house!"
+ },
+ {
+  "id": 501341,
+  "n": 1,
+  "en": "You have been ejected from this house. If you persist in entering, you may be banned from the house."
+ },
+ {
+  "id": 501348,
+  "n": 1,
+  "en": "You cannot eject a friend of the house!"
+ },
+ {
+  "id": 501350,
+  "n": 1,
+  "en": "You cannot eject this person!"
+ },
+ {
+  "id": 1005213,
+  "n": 1,
+  "en": "You can't do that"
+ },
+ {
+  "id": 501352,
+  "n": 1,
+  "en": "You may not eject someone who is not in your house!"
+ },
+ {
+  "id": 1010414,
+  "n": 1,
+  "en": "You cannot lock this down."
+ },
+ {
+  "id": 501657,
+  "n": 1,
+  "en": "(no longer locked down)"
+ },
+ {
+  "id": 1042271,
+  "n": 1,
+  "en": "That is not locked down."
+ },
+ {
+  "id": 1010563,
+  "n": 1,
+  "en": "This container is secure."
+ },
+ {
+  "id": 502106,
+  "n": 1,
+  "en": "Choose the item you wish to unsecure"
+ },
+ {
+  "id": 501337,
+  "n": 1,
+  "en": "You have been made a friend of this house."
+ },
+ {
+  "id": 501298,
+  "n": 1,
+  "en": "Friend removed from list."
+ },
+ {
+  "id": 502020,
+  "n": 1,
+  "en": "Click on the player whom you wish to make a co-owner."
+ },
+ {
+  "id": 501299,
+  "n": 1,
+  "en": "Co-owner removed from list."
+ },
+ {
+  "id": 501803,
+  "n": 1,
+  "en": "That rune is not yet marked."
+ },
+ {
+  "id": 1060193,
+  "n": 1,
+  "en": "You have decided to tithe no gold to the shrine."
+ },
+ {
+  "id": 1060195,
+  "n": 1,
+  "en": "You tithe gold to the shrine as a sign of devotion."
+ },
+ {
+  "id": 1060194,
+  "n": 1,
+  "en": "You do not have enough gold to tithe that amount!"
+ }
+]

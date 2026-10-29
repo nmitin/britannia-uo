@@ -50,12 +50,12 @@ program CastleGuard()
                           TurnToward(ev.source);
                           MerchantTrain(me, ev.source, ev.text);
                         endif
-      SYSEVENT_ENGAGED:     say("Aaahhh! Help! Help!  I'm being oppressed!");
+      SYSEVENT_ENGAGED:     say("А-а-а! Помогите! Меня угнетают!");
                         Fight(ev.source);
       SYSEVENT_DAMAGED:     if(ev.source)
                           Fight(ev.source);
                         else
-                          say( "What sinister force is this!" );
+                          say( "Что это за тёмная сила!" );
                         endif
 
       SYSEVENT_ITEM_GIVEN:  TrainSkill(me, ev.source, ev.item);
@@ -99,10 +99,10 @@ function MerchantTrain(me, who, text)
     endforeach
     trainable  := trainable + holder;
     if(totaltrain > 0)
-      say("I can train thee in the following skills:");
+      say("Я могу обучить тебя следующим навыкам:");
       say(trainable);
     else
-      say("I can not train thee.");
+      say("Я не могу тебя обучать.");
     endif
   else
     skill := lower(skill);
@@ -113,18 +113,18 @@ function MerchantTrain(me, who, text)
       if(lower(thing) == skill)
         pclevel := AP_GetSkill(who, AP_SkillIDToAttributeName(thing));
         if(pclevel > npclevel)
-          say("I cannot teach you anymore.");
+          say("Я больше не могу тебя ничему научить.");
           return;
         else
           var trainmaxcost := GoldForSkillGain(npclevel, pclevel, thing);
-          say("I will train thee " + thing + " for " + trainmaxcost + " gold.");
+          say("Я обучу тебя " + thing + " за " + trainmaxcost + " золота.");
           SetObjProperty(who, "TrainMaxCost", trainmaxcost);
           SetObjProperty(who, "TrainSkillID", thing);
           return;
         endif
       endif
     endforeach
-    say("I know not of that skill.");
+    say("Я не знаю такого навыка.");
   endif
 endfunction
 
@@ -139,7 +139,7 @@ function TrainSkill(me, who, item)
     var trainmaxcost := GetObjProperty(who, "TrainMaxCost");
     var trainskillid := GetObjProperty(who, "TrainSkillID");
     if((!trainmaxcost || !trainskillid) && trainskillid != 0)
-      say("I don't know what this is for, but thanks!");
+      say("Не знаю, зачем это, но спасибо!");
       DestroyItem(item);
       return;
     endif
@@ -156,7 +156,7 @@ function TrainSkill(me, who, item)
             variance  := npc_level - pc_level;
           else
             if(goldreceived > currentnpccost)
-              say("I can not train thee to that level.");
+              say("Я не могу обучить тебя до такого уровня.");
               MoveItemToContainer(item, who.backpack);
               return;
             else
@@ -172,20 +172,20 @@ function TrainSkill(me, who, item)
           new_level := ((pc_level + CInt((CDbl(variance) * (CDbl(goldreceived) / CDbl(trainmaxcost))))) * 10);
           SetObjProperty( who, "TrainMaxCost", trainmaxcost-goldreceived );
         endif
-        say("Let me show you how it's done.");
+        say("Позволь показать, как это делается.");
         SetBaseSkillBaseValue(who, trainskillid, new_level);
         DestroyItem(item);
-        SendSysMessage(who, "Your skill increases.");
+        SendSysMessage(who, "Твой навык повышается.");
       else
-        say("I'm not as good as thee.  Please find another to train thee.");
+        say("Я не настолько искусен. Найди другого наставника.");
         MoveItemToContainer(item, who.backpack);
       endif
     else
-      say("I don't know that skill. Why don't you ask me what i can train you in?");
+      say("Я не знаю такого навыка. Спроси, чему я могу тебя научить.");
       MoveItemToContainer(item, who.backpack);
     endif
   else
-    say("Bah, I have no use for this. Be off with ye.");
+    say("Ба! Мне это ни к чему. Ступай прочь.");
     MoveItemToContainer(item, who.backpack);
   endif
 endfunction

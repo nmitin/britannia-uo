@@ -46,7 +46,7 @@ program Instakill_guards()
 	return;
   endif
   if(Distance(me, targ) < 6)
-	say("Thou shall pay for thine swine actions");
+	say("Ты заплатишь за свои свинские поступки");
   endif
   SetOpponent(targ);
   Fight(targ);
@@ -96,7 +96,7 @@ function CheckForCriminals(trg)
 	return;
   endif
   if (trg.criminal)
-	say("Stop Criminal!");
+	say("Стой, преступник!");
     SetOpponent(trg);
 	Fight(trg);
   endif

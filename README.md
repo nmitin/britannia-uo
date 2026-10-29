@@ -68,7 +68,7 @@ logs/          логи
 ```bash
 python3 tools/extract_strings.py       # каталог строк сервера
 python3 tools/apply_translation.py ... # применение перевода
-python3 tools/build_cliloc_ru.py       # сборка Cliloc.rus
+./scripts/build-locale.sh              # сборка Cliloc.rus из locale/ru/
 ```
 
 ## Статус и план

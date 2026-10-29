@@ -79,25 +79,25 @@ program CastleGuard()
       SYSEVENT_SPEECH:      txt := lower(ev.text);
                         if(txt["destination"])
                           TurnToward(ev.source);
-                          say("I am waiting for my escort to " + destination + ". Will you take me?");
+                          say("Я жду сопровождения до " + destination + ". Проводишь меня?");
                         elseif(txt["i will take thee"])
                           if(!escortee)
                             TurnToward(ev.source);
                             escortee := ev.source;
                             SetObjProperty(me, "Escortee", (ev.source).serial);
-                            say("Lead on. You will recieve your payment when we reach " + destination);
+                            say("Веди. Ты получишь награду, когда мы доберёмся до " + destination);
                             SetAnchor( me.x, me.y, 20, 0 );
                             killtime := ReadGameClock() + 1800;
                             following := 1;
                             waittime := 0;
                           endif
                         endif
-      SYSEVENT_ENGAGED:     say("Aaahhh! Help! Help!  I'm being oppressed!");
+      SYSEVENT_ENGAGED:     say("А-а-а! Помогите! Меня угнетают!");
                         Fight(ev.source);
       SYSEVENT_DAMAGED:     if(ev.source)
                           Fight(ev.source);
                         else
-                          say( "What sinister force is this!" );
+                          say( "Что это за тёмная сила!" );
                         endif
     endcase
 	if(ReadGameClock() >= next_wander)
@@ -135,7 +135,7 @@ function checkdestination(me, destination);
   var y2 := CInt(coords[4]);
   if((me.x >= x1) && (me.x <= x2))
     if((me.y >= y1) && (me.y <= y2))
-      say("We have arrived at " + destination + ". Here is your pay");
+      say("Мы прибыли в " + destination + ". Вот твоя плата");
       case(GetObjProperty(me, "Type"))
         "peasant1":  CreateItemInContainer(escortee.backpack, 0xeed, RandomInt(50) + 200);
         "Mage":      CreateItemInContainer(escortee.backpack, 0xeed, RandomInt(150) + 250);
@@ -155,12 +155,12 @@ function idleloop()
       SYSEVENT_SPEECH:      txt := lower(ev.text);
                         if(txt["destination"])
                           TurnToward(ev.source);
-                          say("I doi not wish to go anywhere");
+                          say("Я никуда не хочу идти");
                         elseif(txt["i will take thee"])
                           TurnToward(ev.source);
-                          say("I do not wish to go anywhere.");
+                          say("Я никуда не хочу идти.");
                         endif
-      SYSEVENT_ENGAGED:     say("Aaahhh! Help! Help!  I'm being oppressed!");
+      SYSEVENT_ENGAGED:     say("А-а-а! Помогите! Меня угнетают!");
                         Fight(ev.source);
       SYSEVENT_DAMAGED:     if(ev.source)
                           Fight(ev.source);
@@ -183,7 +183,7 @@ function Follow()
   if(d > 15)
     escortee := 0;
 	following := 0;
-    say("My escort seems to have abandoned me.");
+    say("Похоже, мой сопровождающий меня бросил.");
     waittime := 120;
   elseif(d <= 2)
     waittime := 1;

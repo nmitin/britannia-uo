@@ -153,9 +153,9 @@ function ShowBalance(who, goldamt, unused silveramt, unused copperamt)
 	//Background 1
 	GFResizePic(bankBalance, 154, 101, 9200, 357, 343);
 	//HTML 1
-	GFHTMLArea(bankBalance, 176, 121, 316, 100, "<BASEFONT size=7>This is a summary of the balance of currency in thy bank box as of today " + who.name + ": </BASEFONT>");
+	GFHTMLArea(bankBalance, 176, 121, 316, 100, "<BASEFONT size=7>Это сводка баланса вашего банковского ящика на сегодня, " + who.name + ": </BASEFONT>");
 	//Label 2
-	GFTextLine(bankBalance, 173, 250, 803, "G o l d   C o i n s:");
+	GFTextLine(bankBalance, 173, 250, 803, "З о л о т ы е   м о н е т ы:");
 	//Label 3 - Uncomment the following line to display silver
 	// GFTextLine(bankBalance, 173, 308, 803, "S i l v e r   C o i n s:");
 	//Label 4 - Uncomment the following line to display copper
@@ -186,7 +186,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 	var amt := 500000001;		// This is so the 'while' loop will get executed.
 
 //	while(amt > 500000000)
-		amt := RequestGump(who,"For what amount shall I make the Banker's Order? The coins must be in your bank box.", "The maximum is 500 million coins");
+		amt := RequestGump(who,"На какую сумму выписать банковский ордер? Монеты должны лежать в вашем банковском ящике.", "Максимум — 500 миллионов монет");
 		amt := CInt(amt);
 		if(!amt)
 			PrintTextAbove(me, "Хорошо. Вижу, вы передумали.", 1, 39);
@@ -214,7 +214,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 
 
 
-	var payee := RequestGump(who,"Whom shall I list as the payee?", "Please make sure the name is spelled correctly.");
+	var payee := RequestGump(who,"На чьё имя выписать ордер?", "Убедитесь, что имя написано правильно.");
 	if(!payee)
 		PrintTextAbove(me, "Хорошо. Вижу, вы передумали.", 1, 39);
 		return 0;
@@ -226,7 +226,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 		return 0;
 	endif
 
-	var agree := confirmationSizable(who, "There is a nominal fee of 10 coins additional charge for the Note. Do you accept?");
+	var agree := confirmationSizable(who, "За ордер взимается комиссия 10 монет. Принимаете?");
 	if(!agree)
 		PrintTextAbove(me, "Хорошо. Возможно, позже.", 1, 39);
 		return 0;
@@ -255,7 +255,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 	SetObjProperty(created, "Amount", amt);						// The amount of coins
 	SetObjProperty(created, "IssuingBank", bankcity);			// The city name in which the bank is located
 	SetObjProperty(created, "PurchaserSerial", who.serial);			// The serial number of the purchaser
-	SetName(created, created.desc + " made out to " + payee + " in the amount of " + AddCommas(amt) + " " + GetObjTypeDesc(currency, 1) + ".");
+	SetName(created, created.desc + " выписан на " + payee + " на сумму " + AddCommas(amt) + " " + GetObjTypeDesc(currency, 1) + ".");
 	created.color := 0x501;
 endfunction
 
@@ -268,9 +268,9 @@ function CashBankersOrder(me, event)
 	var payee := GetObjProperty(event.item, "Payee");
 	var payeeserial := CInt(GetObjProperty(event.item, "PayeeSerial"));
 	if(event.source.serial == CInt(GetObjProperty(event.item, "PurchaserSerial")))
-		var accept := confirmationSizable(event.source, "Do you wish to cancel this Banker's Order and get a refund?");
+		var accept := confirmationSizable(event.source, "Хотите отменить этот банковский ордер и получить возврат?");
 		if(!accept)
-			PrintTextAbove(me, "Very well then. The Banker's Order has been returned to you.", 1, 39);
+			PrintTextAbove(me, "Хорошо. Банковский ордер возвращён вам.", 1, 39);
 			MoveItemToContainer(event.source.backpack, event.item);
 			return 0;
 		endif
@@ -279,22 +279,22 @@ function CashBankersOrder(me, event)
 		bankbox := CP_GetStorageContainerForMobile( event.source, bank_region, CP_CREATE );
 		refund := createcoins( bankbox, type, amnt );
 		if(refund < 0)
-			SendSysMessage(event.source, "This note is made out for 0 coins. Stop wasting my time!", 2, 33);
+			SendSysMessage(event.source, "Этот ордер выписан на 0 монет. Не тратьте моё время!", 2, 33);
 			return 0;
 		endif
 		if(!refund)
-			PrintTextAbove(me, "I could not fit the coins in your bank box.", 1, 33);
-			PrintTextAbove(me, "You might not have enough room.", 1, 33);
+			PrintTextAbove(me, "Не удалось поместить монеты в ваш банковский ящик.", 1, 33);
+			PrintTextAbove(me, "Возможно, там недостаточно места.", 1, 33);
 			MoveItemToContainer(event.source.backpack, event.item);
 			return 0;
 		endif
-		PrintTextAbove(me, "The coins have been deposited in your bank box.", 1, 66);
+		PrintTextAbove(me, "Монеты положены в ваш банковский ящик.", 1, 66);
 		DestroyItem(event.item);
 		return 1;
 	elseif(event.source.serial == payeeserial)
-		var accept := confirmationSizable(event.source, "Do you wish to redeem this Banker's Order for the coins?");
+		var accept := confirmationSizable(event.source, "Хотите обменять этот банковский ордер на монеты?");
 		if(!accept)
-			PrintTextAbove(me, "Very well then. The Banker's Order has been returned to you.", 1, 39);
+			PrintTextAbove(me, "Хорошо. Банковский ордер возвращён вам.", 1, 39);
 			MoveItemToContainer(event.source.backpack, event.item);
 			return 0;
 		endif
@@ -303,22 +303,22 @@ function CashBankersOrder(me, event)
 		bankbox := CP_GetStorageContainerForMobile( event.source, bank_region, CP_CREATE );
 		refund := createcoins( bankbox, type, amnt );
 		if(refund < 0)
-			SendSysMessage(event.source, "This note is made out for 0 coins. Stop wasting my time!", 2, 33);
+			SendSysMessage(event.source, "Этот ордер выписан на 0 монет. Не тратьте моё время!", 2, 33);
 			return 0;
 		endif
 		if(!refund)
-			PrintTextAbove(me, "I could not fit the coins in your bank box.", 1, 33);
-			PrintTextAbove(me, "You might not have enough room.", 1, 33);
+			PrintTextAbove(me, "Не удалось поместить монеты в ваш банковский ящик.", 1, 33);
+			PrintTextAbove(me, "Возможно, там недостаточно места.", 1, 33);
 			MoveItemToContainer(event.source.backpack, event.item);
 			return 0;
 		endif
-		PrintTextAbove(me, "The coins have been deposited in your bank box.", 1, 66);
+		PrintTextAbove(me, "Монеты положены в ваш банковский ящик.", 1, 66);
 		DestroyItem(event.item);
 		return 1;
 	else
-			PrintTextAbove(me, "Only the person who bought the Banker's Order or", 1, 39);
-			PrintTextAbove(me, "the payee, " + payee + ", may redeem it.", 1, 39);
-			PrintTextAbove(me, "The Banker's Order has been returned to you.", 1, 39);
+			PrintTextAbove(me, "Только тот, кто купил банковский ордер, или", 1, 39);
+			PrintTextAbove(me, "получатель, " + payee + ", может обменять его.", 1, 39);
+			PrintTextAbove(me, "Банковский ордер возвращён вам.", 1, 39);
 			MoveItemToContainer(event.source.backpack, event.item);
 			return 0;
 	endif

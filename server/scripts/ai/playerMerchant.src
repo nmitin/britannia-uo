@@ -426,7 +426,7 @@ function stockitem(tev)
   if(cost == "Not For Sale")
     PrintTextAbovePrivate(me, "I'll just hang on to that for ya.", tev.source);
   else
-    PrintTextAbovePrivate(me, "I will sell that for " + cost + " gold.", tev.source);
+    PrintTextAbovePrivate(me, "I will sell that for " + cost + " золота.", tev.source);
   endif
 endfunction
 
@@ -641,7 +641,7 @@ function buyitem(you, it)
     var itamount := it.amount;
     var itdesc := it.desc;
     if ( grabitem(it,mypack) )
-      PrintTextAbovePrivate(me, "Thank you!  Here's your " + (buyprice[index]*itamount) + " gold.", you);
+      PrintTextAbovePrivate(me, "Thank you!  Here's your " + (buyprice[index]*itamount) + " золота.", you);
             CreateItemInContainer(you.backpack, UOBJ_GOLD_COIN, buyprice[index]*itamount );
         NotifyMaster(you.name + " just sold me " + itdesc);
     else

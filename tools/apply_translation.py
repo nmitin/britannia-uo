@@ -85,6 +85,7 @@ def translate_source(src: str, mapping: dict[str, str]) -> tuple[str, int]:
             in_block = True
             continue
         if c == '"':
+            out.append('"')
             in_str = True
             buf = []
             i += 1

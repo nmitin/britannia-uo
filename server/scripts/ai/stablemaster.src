@@ -106,7 +106,7 @@ program stablemaster()
                                         TurnToward(ev.source);
                                     sellanimal(ev.source);
                                       else
-                                        PrintTextAbovePrivate(Self(), "I cannot afford any more of that", ev.source );
+                                        PrintTextAbovePrivate(Self(), "Я больше не могу себе этого позволить.", ev.source );
                                       endif
                                     elseif((text["vendor train"]) || (text["vendor teach"]) || (text["merchant train"]) || (text["merchant teach"]))
                                       TurnToward(ev.source);
@@ -117,25 +117,25 @@ program stablemaster()
                                     else
                                       player := ev.source;
                                       TurnToward(ev.source);
-                                      say("Show me your pet.");
+                                      say("Покажи своего питомца.");
                                       pet := Target(player);
                                       if( pet )
                                         var summoned := GetObjProperty( pet, "summoned" );
                                         if((pet.graphic == CID_HUMAN_MALE) || (pet.graphic == CID_HUMAN_FEMALE) )
-                                          Say( "Do I look like an Inn Keeper?!" );
+                                          Say( "Я похож на трактирщика?!" );
                                         elseif( pet.script != "tamed" )
-                                          Say( "I don't run a zoo here you know." );
+                                          Say( "Я тут не зоопарк держу, знаешь ли." );
                                         elseif( summoned )
-                                          Say( "I don't deal in summoned beings." );
+                                          Say( "Я не имею дела с призванными существами." );
                                         elseif( pet.master != player )
-                                          Say( "This creature does not belong to you." );
+                                          Say( "Это существо тебе не принадлежит." );
                                         else
                                           var price := CInt(30 + ( AP_GetStat( pet, STRENGTH ) / 5 ));
-                                          Say("I charge " + price + " per real world week to take care of " + pet.name + ".");
+                                          Say("Я беру " + price + " за реальную неделю ухода за " + pet.name + ".");
                                           if( !player.SpendGold( price ) )
-                                            Say("You dont have " + price + " gold coins!");
+                                            Say("У тебя нет " + price + " золотых монет!");
                                           else
-                                            Say("Keep this ticket and give it to me when you want " + pet.name + " back.");
+                                            Say("Сохрани этот жетон и отдай мне, когда захочешь " + pet.name + " обратно.");
                                             var ticket := CreateItemInBackpack(player, 0x14f0, 1);
                                             ticket.usescript := "";
                                             Save_Pet_Data( ticket, pet );
@@ -145,7 +145,7 @@ program stablemaster()
                                     endif
                                   endif
         SYSEVENT_MERCHANT_BOUGHT: TurnToward(ev.source);
-                                  PrintTextAbovePrivate(Self(), "The total of thy sale is " + ev.amount, ev.source );
+                                  PrintTextAbovePrivate(Self(), "Итого за продажу: " + ev.amount, ev.source );
                                   var mygold := GetObjProperty(shop_resale, "MyGold");
                                   mygold := mygold - ev.amount;
                                   SetObjProperty(shop_resale, "MyGold", mygold);
@@ -154,7 +154,7 @@ program stablemaster()
                                   endforeach
                                   PlaySoundEffect(me, 0x38);
         SYSEVENT_MERCHANT_SOLD:   TurnToward(ev.source);
-                                  PrintTextAbovePrivate(Self(), "The total of thy purchase is " + ev.amount, ev.source );
+                                  PrintTextAbovePrivate(Self(), "Итого за покупку: " + ev.amount, ev.source );
                                   var mygold := GetObjProperty(shop_resale, "MyGold");
                                   mygold := mygold + ev.amount;
                                   SetObjProperty(shop_resale, "MyGold", mygold);
@@ -193,7 +193,7 @@ endprogram
 function sellanimal(who)
   var i;
 
-  say("What pet would you like to sell?");
+  say("Какого питомца ты хочешь продать?");
   var the_pet := Target(who);
   if((!the_pet) || (the_pet==""))
     SendSysMessage(who, "Cancelled.");
@@ -203,7 +203,7 @@ function sellanimal(who)
   var tempdata  := GetObjProperty(the_pet, "master");
   var summoned  := GetObjProperty(the_pet, "summoned");
   if(!tempdata)
-    say("I cannot buy that.");
+    say("Я не могу это купить.");
     return;
   endif
 
@@ -227,12 +227,12 @@ function sellanimal(who)
     var buyamount := CInt(AP_GetStat(the_pet, STRENGTH) / 2);
     var mygold := GetObjProperty(shop_resale, "MyGold");
     if(buyamount > mygold)
-      say("Im sorry, but I cannot afford to buy any pets right now.");
+      say("Извини, но сейчас я не могу позволить себе покупать питомцев.");
       return;
     else
       mygold := mygold - buyamount;
       SetObjProperty(shop_resale, "MyGold", mygold);
-      say(the_pet.name + " is worth $" + buyamount);
+      say(the_pet.name + " стоит $" + buyamount);
       SetObjProperty(the_pet, "guardkill", 1);
       MoveObjectToLocation(the_pet, 5555, 1111, 0, "britannia_alt", MOVEOBJECT_FORCELOCATION); // new map problem
       KillMobile(the_pet);
@@ -240,14 +240,14 @@ function sellanimal(who)
       return;
     endif
   elseif((the_pet.graphic == CID_HUMAN_MALE) || (the_pet.graphic == CID_HUMAN_FEMALE) )
-    say("Do I look like an Inn Keeper?!");
+    say("Я похож на трактирщика?!");
   else
-    say("You could sell " + the_pet.name + " but that is not your pet.");
+    say("Ты мог бы продать " + the_pet.name + ", но это не твой питомец.");
   endif
 endfunction
 
 function Save_Pet_Data(ticket, pet)
-  ticket.name := "Pet claim ticket for : " + pet.name;
+  ticket.name := "Жетон на питомца: " + pet.name;
   SetObjProperty(ticket, "StableMaster", me.serial);
   SetObjProperty(ticket, "petserial", pet.serial);
   SetObjProperty(ticket, "pettemplate", pet.npctemplate);
@@ -263,11 +263,11 @@ endfunction
 
 function Load_Ticket_Data(player, ticket)
   if(GetObjProperty(ticket, "StableMaster") != me.serial)
-    PrintTextAbovePrivate(me, "This doesnt seem to be one of my tickets, please take it to the stable master who issued it.", player);
+    PrintTextAbovePrivate(me, "Похоже, это не мой жетон. Отнеси его тому смотрителю конюшни, кто его выдал.", player);
     MoveItemToContainer(ticket, player.backpack);
     return;
   elseif(!canclaim(player,GetObjProperty(ticket, "pettemplate")))
-    say("You have no chance of controlling that!");
+    say("У тебя нет ни малейшего шанса это контролировать!");
     return;
   endif
   var tempdata := 0;
@@ -275,7 +275,7 @@ function Load_Ticket_Data(player, ticket)
   var the_pet;
   if(ticket.objtype == 0x14f0)
     tempdata := GetObjProperty(ticket, "petserial");
-    say("Oh, let me find your pet for you. One moment, please.");
+    say("О, сейчас найду твоего питомца. Минутку.");
     sleep(1);
     var petserial := GetObjProperty(ticket, "petserial");
     mystorage := GetObjProperty(me, "Pets");
@@ -283,9 +283,9 @@ function Load_Ticket_Data(player, ticket)
       the_pet := SystemFindObjectBySerial(petserial);
     endif
     if(!the_pet)
-      say("Im sorry, but I dont have this pet,");
+      say("Извини, но у меня нет этого питомца,");
       sleep(1);
-      say("perhaps you may have left him here too long?");
+      say("возможно, ты оставил его здесь слишком надолго?");
       DestroyItem(ticket);
       return;
     endif
@@ -307,7 +307,7 @@ function Load_Ticket_Data(player, ticket)
     mystorage := holder;
     SetObjProperty(me, "Pets", mystorage);
     EraseObjProperty(the_pet, "NextCounter");
-    say("Take care of " + the_pet.name + " and be sure to feed it!");
+    say("Позаботься о " + the_pet.name + " и не забудь его покормить!");
     DestroyItem(ticket);
   else
     TakeItem(player, ticket);
@@ -361,11 +361,11 @@ function Lookiehere(who)
     if(!elem.guardignore && !GetObjProperty(npc, "called"));
     if((npc) && (npc.script != "tamed") && (npc.script != "light"))
           case(RandomInt(4) + 1)
-            1: hogcall := "Guards! They're killing people here!";
-            2: hogcall := "Guards! I pay my taxes and no guards? Guards!";
-            3: hogcall := "Help! They're dying here! Guards!";
-            4: hogcall := "Guards! Come save us quick!";
-            5: hogcall := "Ah! Help us! Guards!";
+            1: hogcall := "Стража! Здесь убивают!";
+            2: hogcall := "Стража! Я плачу налоги, а стражи нет? Стража!";
+            3: hogcall := "Помогите! Здесь умирают! Стража!";
+            4: hogcall := "Стража! Скорее спасите нас!";
+            5: hogcall := "Ах! Помогите нам! Стража!";
           endcase
           PrintTextAbove(me, hogcall);
           if(guardzone == 1)

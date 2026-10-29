@@ -135,9 +135,9 @@ function OfferMailBoyQuest()
 		item := HasQuestItem(me, slave);
 		if (item)
 			slavetown := GetObjProperty(me,"slavetown");
-			say("I have "+ item.desc + " that I need delivered to "+slave.name+" in " + slavetown);
+			say("У меня есть "+ item.desc + ", который нужно доставить "+slave.name+" в " + slavetown);
 			sleep(1);
-			say("If you will [take] it, "+ slave.name + " will pay you.");
+			say("Если ты [возьмёшь] это, "+ slave.name + " заплатит тебе.");
 			return 1;
 		endif
 	else
@@ -147,9 +147,9 @@ function OfferMailBoyQuest()
 			item := HasQuestItem(master, me);
 			slavetown := WhatTown(master);
 			if ( (item) && (slavetown) )
-				say(master.name + " in " + slavetown + " has " + item.desc + " for me.");
+				say(master.name + " в " + slavetown + " имеет " + item.desc + " для меня.");
 				sleep(1);
-				say("If you will bring it to me, I will pay you.");
+				say("Если принесёшь это мне, я заплачу.");
 				return 1;
 			endif
 		endif
@@ -163,8 +163,8 @@ function GiveQuestItem(you)
 	var item := HasQuestItem(me, slave);
 	if (item)
 		var slavetown := GetObjProperty(me,"slavetown");
-		say("Here is "+item.desc+" for "+slave.name+" in "+slavetown);
-		say("Take it to "+ slave.name + " for your payment.");
+		say("Вот "+item.desc+" для "+slave.name+" в "+slavetown);
+		say("Отнеси это в "+ slave.name + " за наградой.");
 		MoveItemToContainer(item,you.backpack);
 	endif
 
@@ -184,8 +184,8 @@ endfunction
 function TakeQuestItem(you, it)
 
 	TurnToward(you);
-	say("Oh this must be from "+master.name+"!  Thank you for bringing it!");
-	say("And here is your pay!");
+	say("О, это, должно быть, от "+master.name+"! Спасибо, что принёс!");
+	say("А вот твоя плата!");
 	DestroyItem(it);
 	var goldamount := ((RandomInt(3)+2)*100)+RandomInt(100);
 	CreateItemInContainer(you.backpack,"goldcoin",goldamount);

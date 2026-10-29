@@ -90,12 +90,12 @@ set_priority(50);
                                         ModifyPCSellList(merchant_type, (ev.source));
                                         var res := SendSellWindow( ev.source, Self(), shop_sell, shop_buy, shop_resale, VENDOR_SEND_AOS_TOOLTIP );
                                         if(res)
-                                          PrintTextAbovePrivate(Self(), "You dont have anything I would be interested in.", ev.source);
+                                          PrintTextAbovePrivate(Self(), "У тебя нет ничего, что меня бы заинтересовало.", ev.source);
                                         else
                                           print("SendSellWindow failed: " + res.errortext);
                                         endif
                                       else
-                                        PrintTextAbovePrivate(Self(), "I cannot afford any more of that", ev.source );
+                                        PrintTextAbovePrivate(Self(), "Я больше не могу себе этого позволить.", ev.source );
                                       endif
                                     elseif(ev.text["vendor train"] || ev.text["vendor teach"] || ev.text["merchant train"])
                                       TurnToward(ev.source);
@@ -103,7 +103,7 @@ set_priority(50);
                                     endif
                                   endif
         SYSEVENT_MERCHANT_BOUGHT: TurnToward(ev.source);
-                                  PrintTextAbovePrivate(Self(), "The total of thy sale is " + ev.amount, ev.source);
+                                  PrintTextAbovePrivate(Self(), "Итого за продажу: " + ev.amount, ev.source);
                                   var mygold := GetObjProperty(me, "MyGold");
                                   mygold := mygold - ev.amount;
                                   SetObjProperty(me, "MyGold", mygold);
@@ -115,7 +115,7 @@ set_priority(50);
                                   endforeach
                                   PlaySoundEffect(me, 0x38);
         SYSEVENT_MERCHANT_SOLD:   TurnToward(ev.source);
-                                  PrintTextAbovePrivate(Self(), "The total of thy purchase is " + ev.amount, ev.source );
+                                  PrintTextAbovePrivate(Self(), "Итого за покупку: " + ev.amount, ev.source );
                                   var mygold := GetObjProperty(me, "MyGold");
                                   mygold := mygold + ev.amount;
                                   SetObjProperty(me, "MyGold", mygold);
@@ -162,11 +162,11 @@ function Lookiehere(who)
 	  if(!elem.guardignore && !GetObjProperty(npc, "called"));
 		if(npc.script != "tamed")
           case(RandomInt(4) + 1)
-            1: hogcall := "Guards! They're killing people here!";
-            2: hogcall := "Guards! I pay my taxes and no guards? Guards!";
-            3: hogcall := "Help! They're dying here! Guards!";
-            4: hogcall := "Guards! Come save us quick!";
-            5: hogcall := "Ah! Help us! Guards!";
+            1: hogcall := "Стража! Здесь убивают!";
+            2: hogcall := "Стража! Я плачу налоги, а стражи нет? Стража!";
+            3: hogcall := "Помогите! Здесь умирают! Стража!";
+            4: hogcall := "Стража! Скорее спасите нас!";
+            5: hogcall := "Ах! Помогите нам! Стража!";
           endcase
           PrintTextAbove(me, hogcall);
           if(guardzone == 1)

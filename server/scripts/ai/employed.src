@@ -234,19 +234,19 @@ function ProcessSpeech(ev)
 	Release();
   elseif(evtext[mename + " guard me"])
 	guarding := ev.source;
-	PrintTextAbove(me,"Im guarding you.");
+	PrintTextAbove(me,"Я охраняю тебя.");
   elseif(evtext[mename + " guard"])
-    say("Who should I guard?");
+    say("Кого мне охранять?");
     var what := Target(master, TGTOPT_HELPFUL + TGTOPT_CHECK_LOS);
 	if(what.isA(POLCLASS_UOBJECT))
       guarding := what;
-	  PrintTextAbove(me,"Im guarding " + guarding.name);
+	  PrintTextAbove(me,"Я охраняю " + guarding.name);
 	endif
   elseif (evtext["all guard me"])
 	guarding := ev.source;
 	PrintTextAbove(me,"Im guarding you");
   elseif (evtext["all guard"])
-    say("Who should I guard?");
+    say("Кого мне охранять?");
 	var what := Target(master, TGTOPT_HELPFUL + TGTOPT_CHECK_LOS);
 	if(AP_GetVital(what, VITALID_LIFE))
       AllCommand(SYSEVENT_ALL_GUARD_CMD, what);
@@ -260,14 +260,14 @@ function ProcessSpeech(ev)
   elseif((evtext[mename + " info"]) || (evtext[mename + " status"]))
     var clk := GetObjProperty(me, "Timer") - ReadGameClock();
     var days := clk / 10800;
-    say("I will continue to work for you for " + days + " days.");
+    say("Я продолжу работать на тебя " + days + " дней.");
   endif
 endfunction
 
 function Fight(opponent)
   if(caster)
     if(AP_GetVital(me, VITALID_MANA) < (AP_GetStat(me, INTELLIGENCE) / 2))
-      say("I must meditate first.");
+      say("Сначала мне нужно помедитировать.");
       meditationloop();
       return;
     endif
@@ -336,7 +336,7 @@ function Fight(opponent)
   opponent := 0;
   if(caster)
     if(AP_GetVital(me, VITALID_MANA) < (AP_GetStat(me, INTELLIGENCE) / 2))
-      say("I must meditate.");
+      say("Мне нужно помедитировать.");
       meditationloop();
       return;
     endif
@@ -388,7 +388,7 @@ function CloseDistance(opponent)
 endfunction
 
 function Release()
-	PrintTextAbovePrivate(me, "I have decided to terminate my employment with you.", master);
+	PrintTextAbovePrivate(me, "Я решил прекратить работу на тебя.", master);
 	me.setmaster(0);
 	EraseObjProperty(me, "master");
 	EraseObjProperty(me, "serial");
@@ -401,7 +401,7 @@ endfunction
 function fetch()
   var tobj := Target(master);
   if(tobj.container)
-    say("um. I cant pick that up.");
+    say("Эм. Я не могу это поднять.");
     return;
   endif
   var times := 0;
@@ -415,11 +415,11 @@ function fetch()
   endwhile
   if((Accessible(me,tobj)) && (CheckLineOfSight(me,tobj)))
     if(!MoveItemToContainer(tobj, mypack))
-      say("That is too heavy.");
+      say("Это слишком тяжело.");
       return;
     endif
   else
-    say("but I cannot reach that.");
+    say("но я не могу до этого дотянуться.");
   endif
 endfunction
 
@@ -442,13 +442,13 @@ function TakeItem(ev)
     days := days * 10800;
     timeleft := timeleft + days;
     SetObjProperty(me, "Timer", (ReadGameClock() + timeleft));
-	PrintTextAbove(me,"I'll just apply that towards my wages.");
+	PrintTextAbove(me,"Засчитаю это в счёт жалованья.");
 	DestroyItem(ev.item);
 	return;
   else
     var yourpack := ev.source.backpack;
     MoveItemToContainer(item, yourpack);
-    say("I have no need for this");
+    say("Мне это не нужно");
   endif
 endfunction
 
@@ -472,7 +472,7 @@ function Follow()
   var d := Distance(me, escortee);
   if(d > 15)
     following := 0;
-    say("My employer seems to have abandoned me.");
+    say("Похоже, хозяин меня бросил.");
     waittime := 60;
   else
     if(d <= 2)
@@ -515,7 +515,7 @@ endfunction
 
 function flee(opponent)
   var runs := 0;
-  say("Argh! Run for your lives!");
+  say("Аргх! Бегите, спасайте свои жизни!");
   while((Distance(me, opponent) < 20) && (runs < 50))
 	RunAwayFrom(opponent);
 	runs := runs +1;

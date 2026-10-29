@@ -71,7 +71,7 @@ program CastleGuard()
 				EVID_DAMAGED:		wanders := 0;
 									next_wander := ReadGameClock()+60;
 									if ( (ev.source) && (!ev.source.dead) )
-									say("Die " + ev.source.name + "!" );
+									say("Умри, " + ev.source.name + "!" );
 									AddToHateList( ev.source );
 									Fight( ev.source );
 									endif
@@ -226,11 +226,11 @@ function CheckForCriminals(jerk)
 		return;
 	endif
 	if (jerk.criminal)
-		say("Stop Criminal!");
+		say("Стой, преступник!");
 		AddToHateList( jerk );
 		Fight(jerk);
 	elseif ( CheckHateList(jerk) )
-		say("You're not welcome in this town, "+ jerk.name );
+		say("Тебе здесь не рады, "+ jerk.name );
 		Fight(jerk);
 	endif
 endfunction

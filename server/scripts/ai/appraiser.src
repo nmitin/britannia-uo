@@ -47,7 +47,7 @@ program appraiser()
 		    TurnToward(ev.source);
 		    appraise(ev.source);
 		  elseif((txt["buy"]) || (txt["sell"]))
-		    PrintTextAbovePrivate(me, "I'm sorry, but you must go elsewhere to buy or sell.", ev.source);
+		    PrintTextAbovePrivate(me, "Извини, но покупать или продавать тебе придётся в другом месте.", ev.source);
 		  endif
         SYSEVENT_ITEM_GIVEN:  processdeedsale(ev.source, ev.item);
       endcase
@@ -64,10 +64,10 @@ program appraiser()
 endprogram
 
 function appraise(who)
-  PrintTextAbovePrivate(me, "Target the item you want me to appraise", who);
+  PrintTextAbovePrivate(me, "Укажи предмет, который хочешь оценить", who);
   var trg := Target(who);
   if(!trg)
-    PrintTextAbovePrivate(me, "changed your mind?", who);
+    PrintTextAbovePrivate(me, "передумал?", who);
     return;
   endif
   var checker := 0;
@@ -78,7 +78,7 @@ function appraise(who)
     endif
   endforeach
   if(checker == 0)
-    PrintTextAbovePrivate(me, "But you dont own that!", who);
+    PrintTextAbovePrivate(me, "Но это тебе не принадлежит!", who);
     return;
   endif
   checker := 0;
@@ -87,17 +87,17 @@ function appraise(who)
     checker := 1;
   endif
   if(checker == 0)
-    PrintTextAbovePrivate(me, "Im not interested in that!", who);
+    PrintTextAbovePrivate(me, "Мне это неинтересно!", who);
     return;
   endif
   var bankbox := CP_GetStorageContainerForMobile( who, bank_region, CP_CREATE );
   if(!bankbox)
-    PrintTextAbove(me, "I cannot seem to find your bankbox!", who);
+    PrintTextAbove(me, "Не могу найти твой банковский ящик!", who);
     return;
   endif
   var cnfg := ReadConfigFile(":multihousing:itemdesc");
   var amt := cnfg[trg.objtype].VendorSellsFor;
-  PrintTextAbovePrivate(me,"I will give you " + CStr(amt) + " gold coins for that deed.", who);
+  PrintTextAbovePrivate(me,"Я дам тебе " + CStr(amt) + " золотых монет за этот документ.", who);
 endfunction
 
 function processdeedsale(who, trg)
@@ -107,13 +107,13 @@ function processdeedsale(who, trg)
     checker := 1;
   endif
   if(checker == 0)
-    PrintTextAbovePrivate(me, "Im not interested in that!", who);
+    PrintTextAbovePrivate(me, "Мне это неинтересно!", who);
     MoveItemToContainer(trg, who.backpack);
     return;
   endif
   var bankbox := CP_GetStorageContainerForMobile( who, bank_region, CP_CREATE );
   if(!bankbox)
-    PrintTextAbovePrivate(me, "I cannot seem to find your bankbox!", who);
+    PrintTextAbovePrivate(me, "Не могу найти твой банковский ящик!", who);
     MoveItemToContainer(trg, who.backpack);
     return;
   endif
@@ -134,7 +134,7 @@ function processdeedsale(who, trg)
            DestroyItem(thing);
          endforeach
          chk := 1;
-         PrintTextAbovePrivate(me, "Your bank box is too full!", who);
+         PrintTextAbovePrivate(me, "Твой банковский ящик переполнен!", who);
          break;
       endif
     else
@@ -145,7 +145,7 @@ function processdeedsale(who, trg)
              DestroyItem(thing);
            endforeach
            chk := 1;
-           PrintTextAbovePrivate(me, "Your bank box is too full!", who);
+           PrintTextAbovePrivate(me, "Твой банковский ящик переполнен!", who);
          endif
          break;
        else
@@ -153,12 +153,12 @@ function processdeedsale(who, trg)
            DestroyItem(thing);
          endforeach
          chk := 1;
-         PrintTextAbovePrivate(me, "Your bank box is too full!", who);
+         PrintTextAbovePrivate(me, "Твой банковский ящик переполнен!", who);
          break;
        endif
     endif
   endwhile
   if(chk == 0)
-    PrintTextAbovePrivate(me, "The funds will be deposited in your bank box forthwith.", who);
+    PrintTextAbovePrivate(me, "Средства будут немедленно положены в твой банковский ящик.", who);
   endif
 endfunction

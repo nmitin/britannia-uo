@@ -86,7 +86,7 @@ function Run( opponent )
         case (ev.type)
             SYSEVENT_DISENGAGED:
                 if (ev.source.serial == opponent.serial)
-                    say( "Whew!" );
+                    say( "Фух!" );
                     break outer;
                 endif
             SYSEVENT_ENGAGED:
@@ -111,33 +111,33 @@ endfunction
 function Spout()
 
 	case (RandomInt(60))
-	0:	say( "Ack! Leave me alone!" );
-	1:	say( "Pick on someone your own size!" );
-	2:	say( "Why are you doing this?  WHY?!" );
-	3:	say( "Leave me be!  I've done you no harm!" );
+	0:	say( "Ай! Оставь меня в покое!" );
+	1:	say( "Напади на кого-нибудь своего размера!" );
+	2:	say( "Зачем ты это делаешь? ЗАЧЕМ?!" );
+	3:	say( "Оставь меня! Я не сделал тебе ничего плохого!" );
 	4:	say( "Kal Ort Por" );
-		say( "Damn! No regs...");
-	5:	say( "Ah!  But I'm too young to die!" );
-	6:	say( "Brute!  Fiend!  Aaaah!" );
-	7:	say( "He who runs and runs away, lives to run another day!" );
-	8:	say( "So... wanna fight eh?  Fight someone else!" );
+		say( "Проклятье! Нет реагентов...");
+	5:	say( "Ах! Я слишком молод, чтобы умирать!" );
+	6:	say( "Грубиян! Изверг! А-а-а!" );
+	7:	say( "Кто убежал — тот и жив!" );
+	8:	say( "Так... драться вздумал? Дерись с кем-нибудь другим!" );
 	9:	say( "Aaahh!  NPCK!!" );
-	10:	say( "I'm going to get help!" );
-	11:	say( "Ouch!  Help!!" );
-	12:	say( "Bet I can outrun you!" );
-	13:	say( "Stop!  I'm serious!  Just stop!" );
-	14:	say( "Aaah!  Spare me!  Please, Spare me!" );
-	15:	say( "Ack!  I'm innocent I tell you!" );
-	16:	say( "Find a more worthy opponent!" );
-	17:	say( "I'm not prepared to meet my maker!" );
-	18:	say( "Wait!  Stop!  I'm a BLEEDER!" );
-	19:	say( "My family will have vengeance!" );
-	20:	say( "Look behind you!  What is that terrible thing!?" );
-	21:	say( "Not in the face!  Not in the face!" );
-	22:	say( "Aaahhh! Help! Help!  I'm dying!");
-	23:	say( "By the virtues! Why? WHY??" );
-	24:	say( "Perhaps it will help to confuse you if I run away some more..." );
-	25:	say( "Run!  Hide!  We're all gonna die!" );
+	10:	say( "Я позову помощь!" );
+	11:	say( "Ой! Помогите!!" );
+	12:	say( "Спорим, я тебя обгоню!" );
+	13:	say( "Стой! Я серьёзно! Просто стой!" );
+	14:	say( "А-а-а! Пощади! Прошу, пощади!" );
+	15:	say( "Ай! Говорю тебе, я невиновен!" );
+	16:	say( "Найди достойного противника!" );
+	17:	say( "Я не готов предстать перед создателем!" );
+	18:	say( "Подожди! Стой! Я истекаю кровью!" );
+	19:	say( "Моя семья отомстит!" );
+	20:	say( "Обернись! Что это за ужас?!" );
+	21:	say( "Только не по лицу! Не по лицу!" );
+	22:	say( "А-а-а! Помогите! Помогите! Я умираю!");
+	23:	say( "Клянусь добродетелями! Зачем? ЗАЧЕМ??" );
+	24:	say( "Может, если я ещё побегаю, ты запутаешься..." );
+	25:	say( "Беги! Прячься! Мы все умрём!" );
 	default:	return;
 	endcase
 
