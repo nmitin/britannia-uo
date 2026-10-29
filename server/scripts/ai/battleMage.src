@@ -5,6 +5,7 @@ use uo;
 use cfgfile;
 
 include "include/client";
+include "include/skillnames_ru";
 include ":attributes:attributes";
 include "include/eventID";
 include "include/sysEvent";
@@ -315,7 +316,7 @@ function MerchantTrain(me, who, text)
       if(holder == "")
         holder := thing;
       else
-        holder := holder + ", " + thing;
+        holder := holder + ", " + SkillNameRu(thing);
       endif
       totaltrain := totaltrain + 1;
     endforeach
@@ -339,7 +340,7 @@ function MerchantTrain(me, who, text)
           return;
         else
           var trainmaxcost := GoldForSkillGain(npclevel, pclevel, thing);
-          say("Я обучу тебя " + thing + " за " + trainmaxcost + " золота.");
+          say("Я обучу тебя " + SkillNameRu(thing) + " за " + trainmaxcost + " золота.");
           SetObjProperty(who, "TrainMaxCost", trainmaxcost);
           SetObjProperty(who, "TrainSkillID", thing);
           return;

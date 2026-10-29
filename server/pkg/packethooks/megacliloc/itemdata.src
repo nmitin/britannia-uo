@@ -13,6 +13,7 @@ include "include/skills";
 include "include/math";
 include ":itemUtils:itemtypes";
 include ":megacliloc:settings";
+include "include/skillnames_ru";
 
 // Charges: 1049116
 program itemdata(xObject)
@@ -252,7 +253,7 @@ program itemdata(xObject)
 			endif // End of elseif (xObject.isa (POLCLASS_WEAPON))
 			var skillid := GetObjProperty(xObject, "skilladv");
 			if (GetObjProperty (xObject, "skill"+skillid))
-				var skillname := GetSkillName(skillid);
+				var skillname := SkillNameRu(GetSkillName(skillid));
 				prop.clilocid := 1060451; // ~1_skillname~ +~2_val~
 				prop.values := array {skillname, GetObjProperty (xObject, "skill"+skillid)};
 				allprops.append (prop);
