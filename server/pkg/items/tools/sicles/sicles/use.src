@@ -93,7 +93,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 		SendSysMessage( mobile, "Недостаточно "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
-		SendSysMessage( mobile, "You must be closer to harvest any "+FormatItemDescription(item_desc)+"!", 0x3, 0x22 );
+		SendSysMessage( mobile, "Нужно подойти ближе, чтобы добыть "+FormatItemDescription(item_desc)+"!", 0x3, 0x22 );
 		return 0;
 	endif
 

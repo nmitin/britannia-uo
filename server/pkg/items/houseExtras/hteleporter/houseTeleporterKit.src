@@ -42,8 +42,8 @@ program HouseTeleporterKit(who, htelekit)
 	endif
 
 	if(!housesign1.IsOwner(who)/*(who.serial == GetObjProperty(housesign1, "ownerserial"))*/)
-		SendSysMessage(who, "You can only place house teleporters inside a house that you own.", color := 33);
-		SendSysMessage(who, "Aborting the task.", color := 33);
+		SendSysMessage(who, "Телепортеры можно ставить только в своём доме.", color := 33);
+		SendSysMessage(who, "Отмена задачи.", color := 33);
 		return 0;
 	elseif((settings.LimitHouseTeleporters) && (CInt(GetObjProperty(housesign1, "numhteles")) >= CInt(settings.MaxHouseTeleporters)))
 		SendSysMessage(who, "You already have the maximum number of 'primary' teleporters in your house.", color := 33);
@@ -59,8 +59,8 @@ program HouseTeleporterKit(who, htelekit)
 		targ := TargetCoordinates(who);
 		htele1 := CreateItemAtLocation(targ.x, targ.y, targ.z, "housetele", 1, targ.realm);
 		if(!htele1)
-			SendSysMessage(who, "I wasn't able to create the teleporter there.", color := 33);
-			SendSysMessage(who, "Aborting the task.", color := 33);
+			SendSysMessage(who, "Не удалось создать телепортер в этом месте.", color := 33);
+			SendSysMessage(who, "Отмена задачи.", color := 33);
 			return 0;
 		endif
 		htele1.movable := 0;
@@ -92,14 +92,14 @@ program HouseTeleporterKit(who, htelekit)
 			return 0;
 		endif
 		if(!(housesign2 && (housesign2.IsOwner(who)/*who.serial == GetObjProperty(housesign2, "ownerserial")*/)))
-			SendSysMessage(who, "You can only place house teleporters inside a house that you own.", color := 33);
+			SendSysMessage(who, "Телепортеры можно ставить только в своём доме.", color := 33);
 			SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 			DestroyItem(htele1);
 			return 0;
 		endif
 		htele2 := CreateItemAtLocation(targ.x, targ.y, /*GetStandingHeight( targ.x, targ.y, targ.z, who.realm )*/targ.z, "housetele", 1, targ.realm);
 		if(!htele2)
-			SendSysMessage(who, "I wasn't able to create the teleporter there.", color := 33);
+			SendSysMessage(who, "Не удалось создать телепортер в этом месте.", color := 33);
 			SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 			DestroyItem(htele1);
 			return 0;

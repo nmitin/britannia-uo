@@ -15,13 +15,13 @@ exported function LastWeapon( byref mobile, byref unused packet )
 		last_equipped := 0;
 
 	if( last_equipped_serial.errortext )
-		SendSysMessage( mobile, "Your last equipped weapon could not be found.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Не удалось найти последнее надетое оружие.", 0x3, 0x32 );
 		return 0;
 	endif
 
 	last_equipped := SystemFindObjectBySerial( last_equipped_serial );
 	if( last_equipped.errortext )
-		SendSysMessage( mobile, "Your last equipped weapon could not be found.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Не удалось найти последнее надетое оружие.", 0x3, 0x32 );
 		return 0;
 	elseif( last_equipped == GetEquipmentByLayer( mobile, last_equipped.tile_layer ) )
 		SendSysMessage( mobile, "That is already equipped!", 0x3, 0x42 );

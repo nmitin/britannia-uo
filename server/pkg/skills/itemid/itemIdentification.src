@@ -24,14 +24,14 @@ program do_itemid( who )
 
   var the_item;
   var ncharges;
-  SendSysMessage( who, "Select an object to identify." );
+  SendSysMessage( who, "Выберите предмет для опознания." );
   the_item := Target(who, TGTOPT_CHECK_LOS);
   if(!the_item)
     SendSysMessage(who, "Выбор цели отменён.");
     return;
   endif
   if(the_item.isA(POLCLASS_MOBILE))
-    SendSysMessage(who, "That's not an item!");
+    SendSysMessage(who, "Это не предмет!");
     return;
   endif
   if(SkillCheck(who,ITEM_IDENTIFICATION, -1, thepoints) > 0)
@@ -97,7 +97,7 @@ program do_itemid( who )
     endif
     if(GetObjProperty(the_item, "type") == "cursed")
 	  if(SkillCheck(who,ITEM_IDENTIFICATION, 65, 0) > 0)
-	    SendSysMessage(who, "* This item is cursed! *");
+	    SendSysMessage(who, "* Этот предмет проклят! *");
 	  endif
     endif
   else

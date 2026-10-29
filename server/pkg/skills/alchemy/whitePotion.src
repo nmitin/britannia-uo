@@ -26,7 +26,7 @@ program use_whitepotion(who, potion)
 	// Prevents mod from being applied twice.
 	// Uses the same as Magery Strength, to keep them from stacking.
 	if ( GetObjProperty(who, "StrengthMod") )
-		SendSysMessage(who, "You are already under the influence.");
+		SendSysMessage(who, "Вы уже под действием эффекта.");
 		return 0;
 	endif
 

@@ -26,7 +26,7 @@ program dyeable(who, dyetub)
   if(!ReserveItem(dyetub))
 	return;
   endif
-  SendSysMessage(who, "Select an item to dye");
+  SendSysMessage(who, "Выберите предмет для покраски");
   var item := Target(who);
   if(!item)
     SendSysMessage(who, "Отменено");
@@ -39,7 +39,7 @@ program dyeable(who, dyetub)
     SendSysMessage(who, "You cant use that!");
     return;
   elseif(!Accessible(who, item))
-    SendSysMessage(who, "You cant reach that!");
+    SendSysMessage(who, "Вы не можете до этого дотянуться!");
     return;
   endif
   var element  := FindConfigElem(cfg,  item.objtype);

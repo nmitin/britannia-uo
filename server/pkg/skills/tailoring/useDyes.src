@@ -5,13 +5,13 @@ include "include/canAccess";
 
 program use_dyes(who, dyes)
   if(!ReserveItem(dyes))
-    SendSysMessage(who, "Those dyes are already in use.");
+    SendSysMessage(who, "Эти красители уже используются.");
     return;
   endif
   if(!can_access(who, dyes))
     return;
   endif
-  SendSysMessage(who, "Select a dye tub to use the dyes on.");
+  SendSysMessage(who, "Выберите чан с краской для использования красителей.");
   var dyetub := Target(who, TGTOPT_CHECK_LOS);
   if(!ReserveItem(dyetub))
      SendSysMessage(who, "Это уже используется.");
@@ -21,11 +21,11 @@ program use_dyes(who, dyes)
     return;
   endif
   if(!Accessible(who, dyetub))
-    SendSysMessage(who, "You cannot reach that!");
+    SendSysMessage(who, "Вы не можете до этого дотянуться!");
     return;
   endif
   if((dyetub.objtype != 0x2B00F) && (dyetub.objtype != 0x0fab))
-    SendSysMessage(who, "That is not a dye tub!");
+    SendSysMessage(who, "Это не чан с краской!");
     return;
   endif
   var color := SelectColor(who, dyetub);

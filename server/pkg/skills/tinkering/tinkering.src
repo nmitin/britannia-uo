@@ -68,7 +68,7 @@ function makeTinkerItems(mobile, what, amt, tool)
 	var requires_mana := Cint(craft_config[what].ManaUsage);
 	if ( requires_mana )
 		if ( !AP_ConsumeVital(mobile, MANA, requires_mana) )
-			SendSysMessage(mobile, "You don't have enough mana to craft that!");
+			SendSysMessage(mobile, "У вас недостаточно маны для создания этого!");
 			return 0;
 		endif
 	endif

@@ -16,7 +16,7 @@ CONST CANCEL_BTN	:= 0xA00001;
 
 program UseDyes(who, dyes)
 	if ( !ReserveItem(dyes) )
-		SendSysMessage(who, "Someone else is already using that.");
+		SendSysMessage(who, "Кто-то уже использует это.");
 		return 0;
 	elseif ( !(dyes in EnumerateItemsInContainer(who.backpack)) )
 		SendSysMessage(who, "That must be in your backpack to be used.");

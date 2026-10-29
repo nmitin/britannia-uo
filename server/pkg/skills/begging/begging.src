@@ -80,9 +80,9 @@ program skill_begging( who )
   var cfgtemplate := ReadConfigFile("::npcdesc");
   var ismob := tgt.isa(POLCLASS_MOBILE);
   if (ismob)
-    PrintTextAbove(who, "*looks at " + tgt.name + "*" );
+    PrintTextAbove(who, "*смотрит на " + tgt.name + "*" );
   else
-    PrintTextAbove( who, "*looks at " + tgt.desc + "*" );
+    PrintTextAbove( who, "*смотрит на " + tgt.desc + "*" );
   endif
   if ((!ismob) || (!tgt.isa(POLCLASS_NPC)))
     return;

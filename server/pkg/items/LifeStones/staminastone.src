@@ -75,7 +75,7 @@ program use_staminastone (who, stone)
                 staminadif := amt; // just give her all the stamina left in the stone
             endif
             AP_SetVital(who, STAMINA, mystamina + staminadif ); // Transfer the stamina to her
-            SendSysMessage (who, "Your mind feels stronger.", color := 68);
+            SendSysMessage (who, "Ваш разум крепнет.", color := 68);
             SetObjProperty (stone, "Amount", amt - staminadif); // Take the stamina "out of" the stone
             PlaySoundEffect(who, 0x1FB); // Play a cool sound effect
 

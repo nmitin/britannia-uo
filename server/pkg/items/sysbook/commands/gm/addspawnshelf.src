@@ -46,7 +46,7 @@ program addspawnshelf(who, text)
 				exit;
 			endif
 			if(!shelf_to_add.IsBookshelf())
-				SendSysMessage(who, "That is not a bookshelf!", color := 33);
+				SendSysMessage(who, "Это не книжная полка!", color := 33);
 			endif
 		until(shelf_to_add.IsBookshelf());
 

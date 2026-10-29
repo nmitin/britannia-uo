@@ -50,7 +50,7 @@ function StartEffect(who, spellid, item)
   charges := charges - 1;
   SetObjProperty(item, "charges", charges);
   if(charges == 0)
-    PrintTextAbovePrivate(item, "That is out of charges", who);
+    PrintTextAbovePrivate(item, "Заряды закончились", who);
   endif
   if(!CheckLineOfSight(who, trg))
     SendSysMessage(who, "You cant see that");
@@ -297,7 +297,7 @@ function identifyit(who, item)
   EraseObjProperty(who, "IsMeditating");
   var charges := CInt(GetObjProperty(item, "charges"));
   var the_item, ncharges;
-  SendSysMessage(who, "Select an object to identify.");
+  SendSysMessage(who, "Выберите предмет для опознания.");
   the_item := Target(who, TGTOPT_CHECK_LOS);
   if(!the_item)
     SendSysMessage(who, "Выбор цели отменён.");
@@ -306,10 +306,10 @@ function identifyit(who, item)
   charges := charges - 1;
   SetObjProperty(item, "charges", charges);
   if(charges == 0)
-    PrintTextAbovePrivate(item, "That is out of charges", who);
+    PrintTextAbovePrivate(item, "Заряды закончились", who);
   endif
   if(the_item.isA(POLCLASS_MOBILE))
-    SendSysMessage(who, "That's not an item!");
+    SendSysMessage(who, "Это не предмет!");
     return;
   endif
   var name := "";
@@ -369,7 +369,7 @@ function identifyit(who, item)
   endif
   if(GetObjProperty(the_item, "type") == "cursed")
     if(SkillCheck( who, ITEM_IDENTIFICATION, 65, 0 ) > 0)
-      SendSysMessage(who, "* This item is cursed! *");
+      SendSysMessage(who, "* Этот предмет проклят! *");
     endif
   endif
 endfunction

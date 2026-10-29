@@ -73,7 +73,7 @@ program use_manastone (who, stone)
                 manadif := amt; // just give her all the mana left in the stone
             endif
             AP_SetVital(who, VITALID_MANA, mymana + manadif); // Transfer the mana to her
-            SendSysMessage (who, "Your mind feels stronger.", color := 68);
+            SendSysMessage (who, "Ваш разум крепнет.", color := 68);
             SetObjProperty (stone, "Amount", amt - manadif); // Take the mana "out of" the stone
             PlaySoundEffect(who, 0x1FB); // Play a cool sound effect
 

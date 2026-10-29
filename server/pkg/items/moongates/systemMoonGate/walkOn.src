@@ -41,7 +41,7 @@ program walkOnScript(mobile, tile)
 	SetObjProperty(mobile, "#Teleported", ReadMillisecondClock());
 	var result := MoveObjectToLocation(mobile, dest.x, dest.y, dest.z, dest.realm, MOVEOBJECT_NORMAL);				
 	if ( result.errortext )
-		SendSysMessage(mobile, "Unable to move ->"+result.errortext);
+		SendSysMessage(mobile, "Не удалось переместить ->"+result.errortext);
 	endif
 		
 	return 1;

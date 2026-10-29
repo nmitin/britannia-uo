@@ -27,7 +27,7 @@ program command_StorageAreas( mobile )
 		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	else
-		SendSysMessage( mobile, "Opening..." );
+		SendSysMessage( mobile, "Открываю..." );
 		SendOpenSpecialContainer( mobile, container );
 	endif
 

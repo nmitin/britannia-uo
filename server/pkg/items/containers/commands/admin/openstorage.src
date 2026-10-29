@@ -23,7 +23,7 @@ program command_OpenStorage( mobile )
 		SendSysMessage( mobile, "Container does not exist. ->"+root_container.errortext );
 		return 0;
 	else
-		SendSysMessage( mobile, "Opening..." );
+		SendSysMessage( mobile, "Открываю..." );
 		SendOpenSpecialContainer( mobile, root_container );
 	endif
 

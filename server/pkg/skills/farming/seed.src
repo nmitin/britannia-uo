@@ -10,7 +10,7 @@ var plant_cfg_file := ReadConfigFile("itemdesc");
 
 program plant_seed(character, seed)
 	if (!ReserveItem(seed))
-		SendSysMessage(character, "You can't use this right now.");
+		SendSysMessage(character, "Сейчас вы не можете это использовать.");
 		return;
 	endif
 
@@ -53,7 +53,7 @@ program plant_seed(character, seed)
 	endif
 
         if (GetMapInfo(location_x, location_y, character.realm).z != character.z || character.multi)
-                SendSysMessage(character, "Uh oh! The seed tried to be planted at a Z lower than you!", color := 33);
+                SendSysMessage(character, "Ой! Семя пытались посадить ниже вас по высоте!", color := 33);
                 return;
         endif
 
@@ -163,7 +163,7 @@ function PlantFlowers(character, seed)
 
 	foreach item in ListItemsNearLocation(character.x, character.y, character.z, 1, character.realm)
  		if (item.IsDoor())
-    			SendSysMessage(character, "You are too close to a door!");
+    			SendSysMessage(character, "Вы слишком близко к двери!");
     			return;
   		endif
 	endforeach
@@ -176,7 +176,7 @@ function PlantFlowers(character, seed)
 		return;
 	endif
 
-	SendSysMessage(character, "Select a vase to put that in, or yourself to plant it where you're standing:");
+	SendSysMessage(character, "Выберите вазу или себя, чтобы посадить на месте:");
 	var targetted := Target(character);
 	if (!targetted)
 		SendSysMessage(character, "Отменено.");
@@ -201,11 +201,11 @@ function PlantFlowers(character, seed)
 			0x11c7:
 				z := targetted.z + 2;
 			default:
-				SendSysMessage(character, "You can't plant the flower there!");
+				SendSysMessage(character, "Здесь нельзя посадить цветок!");
 				return;
 		endcase
 		if (targetted.movable || !GetObjProperty(targetted, "lockeddown") )
-			SendSysMessage(character, "You must place the vase where you want it first!");
+			SendSysMessage(character, "Сначала поставьте вазу туда, куда хотите!");
 			return;
 		endif
 		x := targetted.x;

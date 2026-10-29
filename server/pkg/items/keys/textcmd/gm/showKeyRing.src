@@ -25,11 +25,11 @@ function ShowKeyRingGump( byref mobile, byref keyring )
 		keys := EnumerateItemsInContainer( keyring );
 
 	if( !keys.Size() )
-		SendSysMessage( mobile, "There are no keys on this keyring.", 0x3, 0x32 );
+		SendSysMessage( mobile, "На этой связке нет ключей.", 0x3, 0x32 );
 		return 0;
 	endif
 
-	SendSysMessage( mobile, "You open the keyring.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Вы открываете связку ключей.", 0x3, 0x42 );
 	GFPage( gump, 0 );
 	GFResizePic( gump, 0, 0, 9200, 250, 479 );
 	GFPicTiled( gump, 10, 10, 230, 22, 2624 );
@@ -78,10 +78,10 @@ function RenameKeyRing( byref mobile, byref keyring )
 		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
 		return 0;
 	elseif( name_len > 20 )
-		SendSysMessage( mobile, "That name is too long.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Это имя слишком длинное.", 0x3, 0x22 );
 		return 0;
 	elseif( name_len < 1 )
-		SendSysMessage( mobile, "That name is too short.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Это имя слишком короткое.", 0x3, 0x22 );
 		return 0;
 	elseif( new_name )
 		SetName( keyring, new_name );
@@ -95,7 +95,7 @@ function RemoveKey( byref mobile, byref keyring, byref key )
 		keyring.UpdateGraphicID();
 		return 1;
 	else
-		SendSysMessage( mobile, "That key does not appear to be on the keyring.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Похоже, этого ключа нет на связке.", 0x3, 0x22 );
 		return 0;
 	endif
 endfunction
@@ -122,7 +122,7 @@ function RemoveAllKeys( byref mobile, byref keyring )
 		return 0;
 	endif
 
-	SendSysMessage( mobile, "Target the container to put the keys into (target self to place keys in inventory).", 0x3, 0x42 );
+	SendSysMessage( mobile, "Укажите контейнер для ключей (укажите себя, чтобы положить их в инвентарь).", 0x3, 0x42 );
 	var targ := Target( mobile );
 	if( !targ )
 		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
@@ -136,13 +136,13 @@ function RemoveAllKeys( byref mobile, byref keyring )
 	if( targ.IsA( POLCLASS_CONTAINER ) )
 		if( targ != mobile.backpack )
 			if( !( targ in EnumerateItemsInContainer( mobile.backpack ) ) )
-				SendSysMessage( mobile, "Selected container must be in your inventory.", 0x3, 0x22 );
+				SendSysMessage( mobile, "Выбранный контейнер должен быть в вашем инвентаре.", 0x3, 0x22 );
 				return 0;
 			endif
 		endif
 		container := targ;
 	else
-		SendSysMessage( mobile, "That is not a container.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Это не контейнер.", 0x3, 0x22 );
 		return 0;
 	endif
 
@@ -150,7 +150,7 @@ function RemoveAllKeys( byref mobile, byref keyring )
 		SleepMS( 5 );
 		moved := MoveItemToContainer( item, container );
 		if( moved.errortext )
-			SendSysMessage( mobile, "Could not remove key from keyring.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Не удалось снять ключ со связки.", 0x3, 0x22 );
 			if( item.container != keyring )
 				MoveItemToContainer( item, keyring );
 			endif
