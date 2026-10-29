@@ -29,7 +29,7 @@ program textcmd_itemInfo( mobile, serial )
 
 	info_cfg := ReadConfigFile( ":commands:itemInfo" );
 	if( !info_cfg )
-		SendSysMessage( mobile, "Error reading in iteminfo.cfg ->"+info_cfg, 0x3, 0x22 );
+		SendSysMessage( mobile, "Ошибка чтения iteminfo.cfg ->"+info_cfg, 0x3, 0x22 );
 		return 0;
 	else
 		index_list := GetConfigStringArray( info_cfg["Index"], "Index" );
@@ -355,7 +355,7 @@ function ProcessInput( mobile, targ, input )
 			MethodEdit( mobile, targ, input_info );
 			break;
 		default:
-			GumpPrompt( mobile, "Dont know what to do with edit function type '"+input_info.editFunc+"'" );
+			GumpPrompt( mobile, "Неизвестный тип функции редактирования «"+input_info.editFunc+"'" );
 			break;
 	endcase
 
@@ -393,12 +393,12 @@ function CoordEdit( mobile, targ, input_info )
 
 	if( input_info.name == "realm" )
 		if( !VerifyRealmName( change ) )
-			GumpPrompt( mobile, "Invalid Realm name, valid realm names include: "+Realms().Keys() );
+			GumpPrompt( mobile, "Неверное имя мира. Допустимые: "+Realms().Keys() );
 			return 0;
 		endif
 	else
 		if( !VerifyCoordinateString( change ) )
-			GumpPrompt( mobile, "'"+input_info.name+"' can only be an integer value." );
+			GumpPrompt( mobile, "'"+input_info.name+"» может быть только целым числом." );
 			return 0;
 		endif
 	endif
@@ -424,7 +424,7 @@ function CoordEdit( mobile, targ, input_info )
 
 	var result := MoveObjectToLocation( targ, x, y, z, realm, MOVEOBJECT_FORCELOCATION+MOVEITEM_IGNOREMOVABLE );
 	if( result.errortext )
-		GumpPrompt( mobile, "Movement Error: "+result.errortext );
+		GumpPrompt( mobile, "Ошибка перемещения: "+result.errortext );
 	endif
 
 	return 1;
@@ -441,7 +441,7 @@ function MethodEdit( mobile, targ, input_info )
 	case( Lower( input_info.name ) )
 		0: // Just to remove compiler warnings until real cases are needed.
 		default:
-			GumpPrompt( mobile, "Dont know how to handle method '"+input_info.name+"'" );
+			GumpPrompt( mobile, "Неизвестный метод «"+input_info.name+"'" );
 			break;
 	endcase
 

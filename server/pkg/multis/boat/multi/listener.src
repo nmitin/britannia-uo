@@ -68,19 +68,19 @@ function Initialize( boat )
 
 	g_cmd_cfg := ReadConfigFile( ":boat:commands" );
 	if( !g_cmd_cfg )
-		PrintTextAbove( boat.tillerman, "Unable to open config :boat:commands ->"+g_cmd_cfg.errortext );
+		PrintTextAbove( boat.tillerman, "Не удалось открыть конфигурацию :boat:commands ->"+g_cmd_cfg.errortext );
 		return 0;
 	endif
 
 	g_cmd_list := GetConfigStringArray( g_cmd_cfg["Heirarchy"], "CMD" );
 	if( !g_cmd_list )
-		PrintTextAbove( boat.tillerman, "Unable to load command list heirarchy. "+g_cmd_list.errortext );
+		PrintTextAbove( boat.tillerman, "Не удалось загрузить иерархию команд. "+g_cmd_list.errortext );
 		return 0;
 	endif
 
 	g_wrap_cfg := ReadConfigFile( ":boat:worldWrap" );
 	if( !g_wrap_cfg )
-		PrintTextAbove( boat.tillerman, "Unable to open config :boat:worldWrap ->"+g_wrap_cfg.errortext );
+		PrintTextAbove( boat.tillerman, "Не удалось открыть конфигурацию :boat:worldWrap ->"+g_wrap_cfg.errortext );
 		return 0;
 	endif
 
@@ -126,7 +126,7 @@ function ProcessEvent( boat, byref ev, byref cur_cmd, byref cur_map )
 		endif
 
 		// Run the command(s) in the order spoken.
-		PrintTextAbove( tillerman, "Aye captain.", 3, 55 );
+		PrintTextAbove( tillerman, "Есть, капитан.", 3, 55 );
 		foreach command in ( commands )
 			var new_cmd := g_cmd_cfg[command];
 			DoCommand( boat, cur_cmd, new_cmd );
@@ -198,18 +198,18 @@ function DoCommand( boat, byref cur_cmd, new_cmd )
 	if( new_cmd.Anchor == 2 )
 		if( !tillerman.IsAnchored() )
 			tillerman.SetAnchorStatus(1);
-			PrintTextAbove( tillerman, "The anchor has been lowered.", 3, 55 );
+			PrintTextAbove( tillerman, "Якорь опущен.", 3, 55 );
 		else
-			PrintTextAbove( tillerman, "The anchor has already been lowered.", 3, 55 );
+			PrintTextAbove( tillerman, "Якорь уже опущен.", 3, 55 );
 		endif
 
 		cur_cmd := 0;
 	elseif( new_cmd.Anchor == 1 )
 		if( tillerman.IsAnchored() )
 			tillerman.SetAnchorStatus(0);
-			PrintTextAbove( tillerman, "The anchor has been raised.", 3, 55 );
+			PrintTextAbove( tillerman, "Якорь поднят.", 3, 55 );
 		else
-			PrintTextAbove( tillerman, "The anchor is already raised.", 3, 55 );
+			PrintTextAbove( tillerman, "Якорь уже поднят.", 3, 55 );
 		endif
 
 		cur_cmd := 0;
@@ -244,7 +244,7 @@ function DoCommand( boat, byref cur_cmd, new_cmd )
 			MoveBoatRelative( boat, new_cmd.Direction );
 			if( orig_x == boat.x && orig_y == boat.y )
 				// Unable to move.
-				PrintTextAbove( tillerman, "Arrr we hit land!", 3, 55 );
+				PrintTextAbove( tillerman, "Арр, мы на мели!", 3, 55 );
                                 SmackEveryone( boat );
 				cur_cmd := 0;
 			else
@@ -286,10 +286,10 @@ function CheckWorldWrap( boat )
 
 	var result := MoveObjectToLocation( boat, new_x, new_y, boat.z, boat.realm );
 	if( result.errortext )
-		PrintTextAbove( boat.tillerman, "Unable to move to "+new_x+" "+new_y+" "+boat.z+" "+boat.realm );
-		PrintTextAbove( boat.tillerman, "Reason ->"+result.errortext );
+		PrintTextAbove( boat.tillerman, "Не удалось переместиться в "+new_x+" "+new_y+" "+boat.z+" "+boat.realm );
+		PrintTextAbove( boat.tillerman, "Причина ->"+result.errortext );
 	else
-		PrintTextAbove( boat.tillerman, "Yar.. around tha' world we go!", 3, 55 );
+		PrintTextAbove( boat.tillerman, "Арр.. вокруг света плывём!", 3, 55 );
 	endif
 
 	return result;
@@ -347,7 +347,7 @@ function DryDock( byref mobile, boat )
 
 	var new_boat := CreateItemInContainer( mobile.backpack, ship_type, 1 );
 	if( new_boat.errortext )
-		SendSysMessage( mobile, "Error creating new boat in your backpack -->"+new_boat.errortext );
+		SendSysMessage( mobile, "Ошибка создания лодки в рюкзаке -->"+new_boat.errortext );
 		return 0;
 	endif
 

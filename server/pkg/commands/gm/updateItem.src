@@ -5,5 +5,5 @@ use uo;
 program pyrotechnics (who)
 	var item := TargetCoordinates( who );
 	UpdateItem(item);
-	SendSysMessage(who, "Item updated", color := 66);
+	SendSysMessage(who, "Предмет обновлён", color := 66);
 endprogram

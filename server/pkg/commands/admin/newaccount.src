@@ -7,7 +7,7 @@ program textcmd_newaccount(who, info)
   var check := 0;
   foreach acctname in ListAccounts()
     if(uname == acctname)
-      SendSysMessage(who, "That account name is already taken");
+      SendSysMessage(who, "Такое имя аккаунта уже занято");
       check := 1;
       break;
     endif

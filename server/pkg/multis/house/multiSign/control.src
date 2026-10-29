@@ -172,7 +172,7 @@ function trashbarrel(house, event)
 			SetObjProperty(barrel, "houseserial", house.serial);
 		endif
 	else
-		SendSysMessage(who, "You cannot place that here.");
+		SendSysMessage(who, "Здесь это разместить нельзя.");
 	endif
 endfunction
 
@@ -253,7 +253,7 @@ function HouseFunction(house, event, num)
 					itemt.movable := 1;
 					EraseObjProperty(itemt, "lockeddown");
 					SetObjProperty(house_sign, "RemainingLockdowns", GetObjProperty(house_sign, "RemainingLockdowns") + 1);
-					SendSysMessage(event.source, "Released.");
+					SendSysMessage(event.source, "Освобождено.");
 					return;
 				elseif ((itemt.movable == 0) &&(GetObjProperty(itemt,"secure") ==1))
 					EraseObjProperty(itemt,"secure");
@@ -309,11 +309,11 @@ function secure(sign, event)
 		if(itemt in itemlist)
 			if(itemt.movable == 0)
 				if(GetObjProperty(itemt,"lockeddown") ==1)
-					SendSysMessage(event.source, "securing this container. your house will be credited with one lockdown.");
+					SendSysMessage(event.source, "Защищаю контейнер. Дому засчитано одно закрепление.");
 					SetObjProperty(sign, "RemainingLockdowns", GetObjProperty(sign, "RemainingLockdowns") + 1);
 					EraseObjProperty(itemt,"lockeddown");
 				else
-					SendSysMessage(event.source, "you cannot secure that.");
+					SendSysMessage(event.source, "это нельзя защитить.");
 					return;
 				endif
 			endif
@@ -325,7 +325,7 @@ function secure(sign, event)
 			itemt.usescript := ":multihousing:secureCont";
 			SetObjProperty(sign, "RemainingSecures", GetObjProperty(sign, "RemainingSecures") - 1);
 			SendSysMessageCL(event.source, 1010563, color := 66); // This container is secure.
-			SendSysMessage(event.source, "that item is not inside your house.");
+			SendSysMessage(event.source, "этот предмет не в вашем доме.");
 		endif
 	else
 		SendSysMessageCL(event.source, 1061839, color := 33); // This action would exceed the secure storage limit of the house.
@@ -359,10 +359,10 @@ function unsecure(sign, event)
 		if(lockdowns > 0)
 			SetObjProperty(itemt, "lockeddown", 1);
 			SetObjProperty(sign, "RemainingLockdowns", lockdowns - 1);
-			SendSysMessage(event.source, "The container is locked down and your house has been credited one secure container.", color := 66);
+			SendSysMessage(event.source, "Контейнер закреплён, дому засчитан один защищённый контейнер.", color := 66);
 		else
 			itemt.movable := 1;
-			SendSysMessage(event.source, "The container is no longer locked down and your house has been credited one secure container.");
+			SendSysMessage(event.source, "Контейнер больше не закреплён, но дому засчитан защищённый контейнер.");
 		endif
 	else
 		SendSysMessageCL(event.source, 1005525, color := 33); // That is not in your house.
@@ -398,10 +398,10 @@ function housebanning(house, event, sign)
 			MoveObjectToLocation(idiot, sign.x, sign.y, sign.z, sign.realm);
 			banlist.append(idiot.serial);
 			SetObjProperty(sign, "banlist", banlist);
-			SendSysMessage(event.source, idiot.name + " was banned from your house");
+			SendSysMessage(event.source, idiot.name + " забанен в вашем доме");
 			return;
 		elseif((friend == 1) || (coown == 1) || (act == own))
-			SendSysMessage(who,"you cannot ban friends");
+			SendSysMessage(who,"нельзя банить друзей");
 			return;
 		elseif(banned == 1)
 			SendSysMessageCL(who, 501356, color := 33); // This person is already banned!
@@ -475,10 +475,10 @@ function reveal(sign, event)
 		endforeach
 	endforeach
 	if(!holder)
-		SendSysMessage(event.source, "You didn't find anyone.");
+		SendSysMessage(event.source, "Вы никого не нашли.");
 	elseif(holder == 1)
-		PrintTextAbovePrivate(event.source, "You have found one hider.!!", event.source);
+		PrintTextAbovePrivate(event.source, "Вы нашли одного спрятавшегося!!", event.source);
 	else
-		PrintTextAbovePrivate(event.source, "You have found " + holder + " hiders.!!", event.source);
+		PrintTextAbovePrivate(event.source, "Вы нашли " + holder + " спрятавшихся!!", event.source);
 	endif
 endfunction

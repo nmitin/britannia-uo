@@ -16,6 +16,6 @@ use uo;
 program RevealMe( who )
 
 	who.concealed := 0;
-	SendSysMessage( who, "You are unconcealed.", color := 66 );
+	SendSysMessage( who, "Вы обнаружены.", color := 66 );
 
 endprogram

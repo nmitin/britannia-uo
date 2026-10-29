@@ -3,12 +3,12 @@ use uo;
 program setAnchor(who)
 var anchorArray := {};
 
-  SendSysMessage(who, "Set whose anchor?");
+  SendSysMessage(who, "Чей якорь задать?");
   var what := Target(who);
   if(!what)
     return;
   endif
-  SendSysMessage(who, "To where?");
+  SendSysMessage(who, "Куда?");
   var where := TargetCoordinates(who);
   if(!where)
     return;

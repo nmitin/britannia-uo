@@ -11,7 +11,7 @@ program talk( who )
 		return;
 	endif	
 
-	SendSysMessage( who, "Hit ESCAPE to stop" );
+	SendSysMessage( who, "Нажмите ESC, чтобы остановить" );
 
 	var text;
 	repeat

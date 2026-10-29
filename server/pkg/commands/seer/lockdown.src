@@ -11,11 +11,11 @@ program textcmd_lockdown(who)
         endif
 
         if (what.movable == 0)
-                SendSysMessage(who, "Released.");
+                SendSysMessage(who, "Освобождено.");
                 what.movable := 1;
 				what.decayat := ReadGameClock() + 600;
         else
-                SendSysMessage(who, "Locked down.");
+                SendSysMessage(who, "Закреплено.");
                 what.movable := 0;
         endif
 

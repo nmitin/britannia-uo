@@ -27,14 +27,14 @@ program textcmd_createstack( who, text )
 		what := CreateItemInBackpack( who, objtype, amount );
 		if (what)
 //		SetObjProperty(what, "Created", who.name);
-		PrintTextAbovePrivate( who, "Создано " + what.desc + " in my backpack.", who );
+		PrintTextAbovePrivate( who, "Создано " + what.desc + " в моём рюкзаке.", who );
 		dmy := FormatTime(GetTimeStruct(GetTime()), "<DAY>-<MON>-<YY>");
 		hms := FormatTime(GetTimeStruct(GetTime()), "<HH>:<MM>:<SS>");
 		month := FormatTime(GetTimeStruct(GetTime()), "<MON>-<YY>");
 		LogToFile("::log/createstack_" + month + ".log", "On " + dmy + " at " + hms + " " +  who.name +" on account " + who.acctname + " created  " + amount + " of " + GetObjTypeDesc(what.objtype, 1));
 	
 		else
-			PrintTextAbovePrivate( who, "Couldn't create that: " + what.errortext, who );
+			PrintTextAbovePrivate( who, "Не удалось создать: " + what.errortext, who );
 			return 0;
 		endif
 		junk := junk + 1;

@@ -6,7 +6,7 @@ program textcmd_dupe( who )
   var newitem;
   var copyitem;
   
-    SendSysMessage( who, "What do you want to dupe?" );
+    SendSysMessage( who, "Что вы хотите скопировать?" );
 
     var what := Target( who, TGTOPT_NOCHECK_LOS );
     

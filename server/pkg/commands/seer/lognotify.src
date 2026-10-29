@@ -5,10 +5,10 @@ program textcmd_lognotify(who)
 	var notostatus := CInt(GetObjProperty(who, "LogNotify") );
 
 	if (notostatus == 1)
-		SendSysMessage(who, "You will no longer be notified when players log in.");
+		SendSysMessage(who, "Вы больше не будете получать уведомления о входе игроков.");
 		EraseObjProperty(who, "LogNotify");
 	else
-		SendSysMessage(who, "You will now be notified when players log in.");
+		SendSysMessage(who, "Теперь вы будете получать уведомления о входе игроков.");
 		SetObjProperty(who, "LogNotify", 1);
 	endif
 

@@ -1,7 +1,7 @@
 use uo;
 
 program textcmd_grantpriv(who, priv)
-    SendSysMessage(who, "To whom do you want to grant the '" + priv + "' privilege?");
+    SendSysMessage(who, "Кому выдать «" + priv + "»?");
 
     var subject := Target(who, TGTOPT_NOCHECK_LOS);
     if (subject)

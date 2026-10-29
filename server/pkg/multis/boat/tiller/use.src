@@ -6,7 +6,7 @@ include ":gumps:gumps";
 program UseScript( mobile, tillerman )
 
         if( mobile.warmode )
-		PrintTextAbove( tillerman, "Stop that, or I'll throw ye overboard!", 3, 55 );
+		PrintTextAbove( tillerman, "Прекрати, или я выброшу тебя за борт!", 3, 55 );
                 return 0;
         elseif( mobile.cmdlevel >= 3 )
 		if( !tillerman.GetOwner() )
@@ -16,7 +16,7 @@ program UseScript( mobile, tillerman )
 
         var script := Start_Script( ":boat:navigator/navigator", {mobile, tillerman} );
         if( script.errortext )
-	        SendSysMessage( mobile, "Error starting script <:boat:navigator/navigator> -->"+script.errortext );
+	        SendSysMessage( mobile, "Ошибка запуска скрипта <:boat:navigator/navigator> -->"+script.errortext );
         endif
 
 	return 1;

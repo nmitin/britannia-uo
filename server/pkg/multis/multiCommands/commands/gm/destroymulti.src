@@ -6,17 +6,17 @@ program textcmd_DestroyMulti( mobile, serial )
 
         var multi;
 	if( !serial )
-		SendSysMessage( mobile, "Target an item in the multi." );
+		SendSysMessage( mobile, "Укажите предмет в мульти." );
 		var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 		if( !targ.multi )
-			SendSysMessage( mobile, "It doesn't have a multi property." );
+			SendSysMessage( mobile, "У него нет свойства multi." );
 			return 0;
 		endif
                 multi := targ.multi;
         else
         	multi := SystemFindObjectBySerial( CInt( serial ));
                 if( multi.errortext )
-                        SendSysMessage( mobile, "Error finding multi serial "+serial+" -->"+multi.errortext );
+                        SendSysMessage( mobile, "Ошибка поиска серийного номера мульти "+serial+" -->"+multi.errortext );
                         return 0;
                 endif
 	endif

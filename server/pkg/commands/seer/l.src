@@ -19,12 +19,12 @@ program textcmd_refreshme( who, text )
 		endif
 		who.setlightlevel (ll, 10800);
 		SetObjProperty(who, "LightLevelSet", 1);
-		SendSysMessage(who, "Light level set to user specified level.", 3, 88);
+		SendSysMessage(who, "Уровень света установлен пользователем.", 3, 88);
 	else
 		EraseObjProperty(who, "LightLevelSet");
 		ll := GetRegionLightLevelAtLocation( who.x, who.y, who.realm );
 		who.setlightlevel (ll, 10800);
-		SendSysMessage(who, "Light level set to region light level.", 3, 88);
+		SendSysMessage(who, "Уровень света установлен по региону.", 3, 88);
 	endif
 
 endprogram

@@ -3,7 +3,7 @@ use os;
 
 program RestartBoat( who )
 
-	SendSysMessage( who, "Target the tillerman." );
+	SendSysMessage( who, "Укажите рулевого." );
 	var targ := target( who );
 	if( !targ.IsTillerMan() )
 		SendSysMessage( who, "Отменено." );
@@ -18,7 +18,7 @@ program RestartBoat( who )
 
 	var result := Start_Script( ":boat:multi/listener", multi );
 	if( result.errortext )
-		PrintTextAbove( multi.tillerman, "Error initializing control script"+result.errortext );
+		PrintTextAbove( multi.tillerman, "Ошибка инициализации скрипта управления"+result.errortext );
 		return 0;
 	endif
 

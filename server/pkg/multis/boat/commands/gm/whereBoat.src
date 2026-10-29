@@ -9,23 +9,23 @@ program textcmd_WhereBoat( mobile )
 		SendSysMessage( mobile, "Отменено." );
 		return 0;
 	elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
-		SendSysMessage( mobile, "You must target a player." );
+		SendSysMessage( mobile, "Нужно указать игрока." );
 		return 0;
 	endif
 
 	var boat_serial := GetObjProperty( mobile, "HasBoat" );
 	if( !boat_serial )
-		SendSysMessage( mobile, targ.name+" has no boat." );
+		SendSysMessage( mobile, targ.name+" не имеет лодки." );
 		return 0;
 	endif
 
 	var boat := SystemFindObjectBySerial( boat_serial );
 	if( !boat )
 		EraseObjProperty( mobile, "HasBoat" );
-		SendSysMessage( mobile, targ.name+" has no boat." );
+		SendSysMessage( mobile, targ.name+" не имеет лодки." );
 	endif
 
-	SendSysMessage( mobile, "Boat X: "+boat.x+" Y: "+boat.y+" Z: "+boat.z+" Realm: "+boat.realm );
+	SendSysMessage( mobile, "Лодка X: "+boat.x+" Y: "+boat.y+" Z: "+boat.z+" Мир: "+boat.realm );
 
 	return 1;
 endprogram

@@ -106,7 +106,7 @@ function CreateItem( byref mobile, byref item_entry, byref amount )
 		endif
 	endif
 
-	SendSysMessage( mobile, "Where do you wish to place this object?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Куда поместить этот объект?", 0x3, 0x42 );
 	var loc := TargetCoordinates( mobile );
 	if( !loc )
 		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );

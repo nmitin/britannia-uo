@@ -8,38 +8,38 @@ program textcmd_setskill( who, text )
 
 	text := SplitWords(text);
 	if( !text[1] )
-		SendSysMessage( who, "Usage is : .setskill <skillid> <level>" );
+		SendSysMessage( who, "Использование: .setskill <skillid> <уровень>" );
 		return 0;
 	elseif( !text[2] )
-		SendSysMessage( who, "Usage is : .setskill <skillid> <level>" );
+		SendSysMessage( who, "Использование: .setskill <skillid> <уровень>" );
 		return 0;
 	endif
 		
 	var skillid := Cint(text[1]);
 	if( skillid == error )
-		SendSysMessage( who, "Skillid must be a an integer." );
+		SendSysMessage( who, "Skillid должен быть целым числом." );
 		return 0;
 	endif
 	
 	var level := Cdbl(text[2]);
 	if( level == error )
-		SendSysMessage( who, "Skill level must be a floating value." );
+		SendSysMessage( who, "Уровень навыка должен быть дробным числом." );
 		return 0;
 	endif
 	
-	SendSysMessage( who, "Set skill " + skillid + " to " + level + " on who?" );
+	SendSysMessage( who, "Установить навык " + skillid + " to " + level + " кому?" );
 	var mobile := Target(who);
 	if( !mobile )
 		return 0;
 	elseif( !mobile.IsA(POLCLASS_MOBILE) )
-		SendSysMessage( who, "You must target a mobile." );
+		SendSysMessage( who, "Нужно указать мобиля." );
 		return 0;
 	endif
 	
 	if( SetBaseSkillBaseValue( mobile, skillid, Cint(level*10.0) ) )
-		SendSysMessage( who, "New Effective Skill is " + GetTrueEffectiveSkill( mobile, skillid ) );
+		SendSysMessage( who, "Новый эффективный навык: " + GetTrueEffectiveSkill( mobile, skillid ) );
 	else
-		SendSysMessage( who, "Unable to set the skill." );
+		SendSysMessage( who, "Не удалось установить навык." );
 	endif
 	
 endprogram

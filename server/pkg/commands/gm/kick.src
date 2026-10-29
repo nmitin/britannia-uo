@@ -5,7 +5,7 @@
 use uo;
 
 program textcmd_kick( who )
-    SendSysMessage( who, "Whom do you want to kick?" );
+    SendSysMessage( who, "Кого вы хотите выгнать?" );
 
     var victim := Target( who );
     if (victim)

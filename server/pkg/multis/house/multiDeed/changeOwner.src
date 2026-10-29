@@ -47,8 +47,8 @@ program change_owner(who, deed)
 	EraseObjProperty(home, "Public");
 	// End multi CProps
 	MoveItemToContainer(deed, new_owner_bank);
-	SendSysMessage(who, "Ownership has been transferred to you.", color := 66);
-	GumpPrompt(who, "The deed is in your bank. The locks have been changed and a key has been placed in your bank and backpack. Both are named 'House Key'.");
+	SendSysMessage(who, "Владение передано вам.", color := 66);
+	GumpPrompt(who, "Документ в банке. Замки заменены, ключ положен в банк и рюкзак. Оба называются «House Key».");
 endprogram
 
 function ReKey(byref sign, byref new_key, byref lock_id)

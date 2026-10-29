@@ -30,7 +30,7 @@ program usehousedeed(who, deed)
     return;
   endif
   if(DeedAlreadyBuiltFrom(deed))
-    PrintTextAbovePrivate(deed, "That house has already been built.", who);
+    PrintTextAbovePrivate(deed, "Этот дом уже построен.", who);
   else
     Buildhouse(who, deed);
   endif
@@ -54,15 +54,15 @@ function Buildhouse(who, deed)
   endif
   if((FindCity(who) != "no city") || (FindCity(where) != "no city"))
 	SendSysMessageCL(who, 500269, color := 33); // You cannot build that there.
-    PrintTextAbovePrivate(deed, "You can't build in cities.", who, color := 33);
+    PrintTextAbovePrivate(deed, "Нельзя строить в городах.", who, color := 33);
     return;
   endif
   if (Distance(who,where) > 50)
-    PrintTextAbovePrivate(deed, "You are too far from where you are trying to build.", who);
+    PrintTextAbovePrivate(deed, "Вы слишком далеко от места строительства.", who);
     return;
   endif
   if(!isValidLoc(where.x, where.y) && (who.cmdlevel < 2))
-    PrintTextAbovePrivate(deed, "You may not build in Green Acres.", who);
+    PrintTextAbovePrivate(deed, "Нельзя строить в Green Acres.", who);
     return;
   endif
   set_critical(1);
@@ -124,19 +124,19 @@ function CreatehouseKeysAndBuiltDeed2(character, housetype, where, deed)
 	var x := where.x, y := where.y, z := where.z, map := where.realm;
 	var packkey := CreateItemInBackpack(character, UOBJ_GOLD_KEY);
 	if(!packkey)
-		PrintTextAbovePrivate(character, "Your backpack is too full!", character);
+		PrintTextAbovePrivate(character, "Ваш рюкзак переполнен!", character);
 		return 0;
 	endif
 	var bankkey := CreateItemInContainer(bankbox, UOBJ_GOLD_KEY);
 	if(!bankkey)
-		PrintTextAbovePrivate(character, "Your bankbox is too full!", character);
+		PrintTextAbovePrivate(character, "Ваш банковский ящик переполнен!", character);
 		DestroyItem(packkey);
 		return 0;
 	endif
 	var builtdeed := CreateItemInContainer(bankbox, 0x14ef);
 	SetName(builtdeed, deed.desc + " at " + x + ", " + y + ", " + z + "(built)");
 	if(!builtdeed)
-		PrintTextAbovePrivate(character, "Your bankbox is too full!", character);
+		PrintTextAbovePrivate(character, "Ваш банковский ящик переполнен!", character);
 		DestroyItem(packkey);
 		DestroyItem(bankkey);
 		return 0;
@@ -178,7 +178,7 @@ function CreatehouseKeysAndBuiltDeed2(character, housetype, where, deed)
 		house.visible:=1;
 	endif
 	if(!house)
-		PrintTextAbovePrivate(character, "I can't place the house there.", character);
+		PrintTextAbovePrivate(character, "Здесь нельзя поставить дом.", character);
 		print(house.errortext);
 		DestroyItem(packkey);
 		DestroyItem(bankkey);

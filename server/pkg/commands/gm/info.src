@@ -38,7 +38,7 @@ program textcmd_Info(who, serial)
 
 	info_cfg := ReadConfigFile(":commands:info");
 	if ( !info_cfg )
-		SendSysMessage(who, "Error reading in info.cfg ->"+info_cfg);
+		SendSysMessage(who, "Ошибка чтения info.cfg ->"+info_cfg);
 		return 0;
 	else
 		index_list := GetConfigStringArray(info_cfg["Index"], "Index");
@@ -479,7 +479,7 @@ function ProcessInput(who, targ, input)
 			break;
 		"disconnect":
 			DisconnectClient(targ);
-			GumpPrompt(who, "Client has been disconnected.");
+			GumpPrompt(who, "Клиент отключён.");
 			break;
 		"methodedit":
 			MethodEdit(who, targ, input_info);
@@ -495,7 +495,7 @@ function ProcessInput(who, targ, input)
 		"attribedit":
 			AttributeEdit(who, targ, input_info);
 		default:
-			GumpPrompt(who, "Dont know what to do with edit function type '"+input_info.editFunc+"'");
+			GumpPrompt(who, "Неизвестный тип функции редактирования «"+input_info.editFunc+"'");
 			break;
 	endcase
 
@@ -543,7 +543,7 @@ function CoordEdit(who, targ, input_info)
 
 	var result := MoveObjectToLocation(targ, x, y, z, realm, MOVEOBJECT_FORCELOCATION);
 	if ( result.errortext )
-		GumpPrompt(who, "Movement Error [P] "+result);
+		GumpPrompt(who, "Ошибка перемещения [P] "+result);
 	endif
 
 	return 1;
@@ -571,7 +571,7 @@ function MethodEdit(who, targ, input_info)
 			targ.Squelch(CInt(change));
 			break;
 		default:
-			GumpPrompt(who, "Dont know how to handle method '"+input_info.name+"'");
+			GumpPrompt(who, "Неизвестный метод «"+input_info.name+"'");
 			break;
 	endcase
 

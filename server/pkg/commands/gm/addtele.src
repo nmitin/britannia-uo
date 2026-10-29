@@ -9,8 +9,8 @@ program addteleporter(who)
   elem.+pvalue;
   var elems := array;
   origin_realm := who.realm; // added to record the realm where user was before selecting destination.
-  SendSysMessage(who, "Where would you like the destination to be?");
-  SendSysMessage(who, "You can .goto, .goxyz, or walk to the destination");
+  SendSysMessage(who, "Где должно быть место назначения?");
+  SendSysMessage(who, "Можно .goto, .goxyz или дойти пешком");
   var whereto := TargetCoordinates(who);
   where_to_realm := who.realm; // Added to record where the user was after selecting destination.
   if (!whereto)

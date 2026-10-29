@@ -17,7 +17,7 @@
 use uo;
 
 program textcmd_murder(who, val)
-  SendSysMessage(who, "Whom do you want to make a murderer?", color := 88);
+  SendSysMessage(who, "Кого сделать убийцей?", color := 88);
   var victim :=  Target(who, TGTOPT_NOCHECK_LOS );
   if((!victim) || (!victim.acctname))
 	SendSysMessage( who, "Ошибка: " + victim.errortext );
@@ -26,10 +26,10 @@ program textcmd_murder(who, val)
   if(CInt(val) == 1)
     victim.setMurderer(1);
     victim.alignment := "evil";
-    SendSysMessage(who, victim.name + " is now red as hell.");
+    SendSysMessage(who, victim.name + " теперь красный как ад.");
   else
     victim.setMurderer(0);
     victim.alignment := "good";
-    SendSysMessage(who, victim.name + " is now blue.");
+    SendSysMessage(who, victim.name + " теперь синий.");
   endif
 endprogram

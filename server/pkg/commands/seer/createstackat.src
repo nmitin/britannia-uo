@@ -29,7 +29,7 @@ program textcmd_create( who, text )
 
         // print( "objtype=" + Hex(objtype) + ", amount=" + amount );
        
-            SendSysMessage( who, "Now select a location on the ground, where you want the item to appear." );
+            SendSysMessage( who, "Теперь укажите место на земле, где должен появиться предмет." );
             var place := TargetCoordinates( who );
             var item := CreateItemAtLocation( place.x, place.y, place.z, objtype, amount, who.realm );
             item.decayAt := 600;
@@ -42,7 +42,7 @@ program textcmd_create( who, text )
     else
         var selection := SelectMenuItem2( who, "ItemCreation" );
         if (selection)
-            SendSysMessage( who, "Now select a location on the ground, where you want the item to appear." );
+            SendSysMessage( who, "Теперь укажите место на земле, где должен появиться предмет." );
             var place := TargetCoordinates( who );
             var created := CreateItemAtLocation( place.x, place.y, place.z, selection.objtype, 1, who.realm );
             created.color := selection.color;

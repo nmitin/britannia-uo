@@ -16,7 +16,7 @@ program DropMyHP(who, text)
 	else
 		drop_amount := CInt(text);
 	endif
-	SendSysMessage(who, "HP Dropped by " + Cstr(drop_amount), color := 66);
+	SendSysMessage(who, "HP снижено на " + Cstr(drop_amount), color := 66);
 	AP_SetVital(who, "Hits", drop_amount);
 	return;
 

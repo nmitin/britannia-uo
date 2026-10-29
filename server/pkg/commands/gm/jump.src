@@ -6,7 +6,7 @@ program textcmd_jump(who, text)
     return;
   endif
   var dir := lower(text[1]);
-  SendSysMessage(who, "direction is: " + dir);
+  SendSysMessage(who, "направление: " + dir);
   var x, y, z, where;
   case(dir)
     "n": x := who.x;

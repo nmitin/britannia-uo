@@ -19,8 +19,8 @@ program textcmd_writequip( who, tag )
 
     // TODO: validate 'tag' doesn't already exist as a key in equip.cfg
    
-    SendSysMessage( who, "Target the person to write the equipment of" );
-    SendSysMessage( who, "Equipment will be tagged '" + tag + "'" );
+    SendSysMessage( who, "Укажите человека, чьё снаряжение записать" );
+    SendSysMessage( who, "Снаряжение будет помечено «" + tag + "'" );
     var whom := Target( who );
 
     if (whom)

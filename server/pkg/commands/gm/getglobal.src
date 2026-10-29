@@ -7,6 +7,6 @@ program textcmd_getglobal( who, propname )
     if (res != error)
         SendSysMessage( who, "Свойство " + propname + ": " + res );
     else
-        SendSysMessage( who, "Error getting property: " + res.errortext );
+        SendSysMessage( who, "Ошибка получения свойства: " + res.errortext );
     endif
 endprogram

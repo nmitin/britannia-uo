@@ -12,10 +12,10 @@ program textcmd_create( who, text )
         amount := 1;
     endif
     if(amount > 10)
-      SendSysMessage(who, "Bad Manner GM! [create 10 or less]");
+      SendSysMessage(who, "Недопустимо, ГМ! [создавать не более 10]");
       return;
     endif
-    SendSysMessage(who, "Objtype: " + CInt(objtype));
+    SendSysMessage(who, "Тип: " + CInt(objtype));
     var i, item;
 	var targ := TargetCoordinates(who);
     for( i := 1; i <= amount; i := i + 1 )
@@ -26,7 +26,7 @@ program textcmd_create( who, text )
         SetObjProperty(item, "Created", who.name);
 //        item.decayAt := 0;
       else
-        SendSysMessage( who, "Unable to create: " + item.errortext + ". Your backpack might be full.", 2, 33 );
+        SendSysMessage( who, "Не удалось создать: " + item.errortext + ". Возможно, рюкзак полон.", 2, 33 );
       endif
     endfor
   else

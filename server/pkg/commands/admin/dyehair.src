@@ -596,7 +596,7 @@ program textcmd_haircolor(who)
     return;
   endif
   var oldhair := GetEquipmentByLayer(trg, LAYER_HAIR);
-  SendSysMessage(who, "Old Hair color is: " + oldhair.color);
+  SendSysMessage(who, "Старый цвет волос: " + oldhair.color);
   oldhair.color := haircolor;
   oldhair := GetEquipmentByLayer(trg, LAYER_BEARD);
   oldhair.color := haircolor;

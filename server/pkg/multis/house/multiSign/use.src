@@ -750,7 +750,7 @@ program Mulit_House_sign(who, sign)
 	endif
 	var house := SystemFindObjectBySerial(CInt(hserial));
 	if(!house)
-		SendSysMessage(who, "Cannot find this house in the world data.", color := 33);
+		SendSysMessage(who, "Не удалось найти дом в данных мира.", color := 33);
 		return 0;
 	endif
 	var bank_region := CP_DEFAULT_AREA;
@@ -808,12 +808,12 @@ program Mulit_House_sign(who, sign)
 			ChangeSign(who, house, sign, result[0]);
 		endif
 		case(result[0])
-			1:	SendSysMessage(who, "Enter a name for this house.(nothing to exit)", color := 88);
+			1:	SendSysMessage(who, "Введите название дома (пусто — выход)", color := 88);
 				var newname := RequestInput(who, sign, "");
 				if(!newname)
 					SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 				elseif((len(newname) > 20))
-					SendSysMessage(who, "House sign names may not be longer than 20 characters.", color := 33);
+					SendSysMessage(who, "Название таблички — не длиннее 20 символов.", color := 33);
 				elseif(len(SplitWords(newname)) > 5)
 					SendSysMessage(who, "Название таблички дома — не более 5 слов.", color := 33);
 				else
@@ -828,7 +828,7 @@ program Mulit_House_sign(who, sign)
 			7:	DeleteFriend(sign, who);                                  //delete friend
 			8:	if(confirmationSizable(who,"Clear List?"))                               //clear friend list
 					sign.WipeFriendsList();
-					SendSysMessage(who,"Friend list has been cleared.", color := 66);
+					SendSysMessage(who,"Список друзей очищен.", color := 66);
 				else
 					SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 				endif
@@ -838,7 +838,7 @@ program Mulit_House_sign(who, sign)
 			12: DeleteBan(sign, who);                                     //remove a ban
 			13:	if((oserial == who.serial) or (who.cmdlevel > 2))          //transfer ownership
 					var targetow := Target(who);
-					SendSysMessage(who, "Transfer the house to whom?");
+					SendSysMessage(who, "Кому передать дом?");
 					if(ChangeHouseOwner(who, targetow, sign, bank_region) == 1)
 						SendSysMessage(who, "Передача дома прошла успешно.", color := 66);
 					else
@@ -858,7 +858,7 @@ program Mulit_House_sign(who, sign)
 				endif
 			17:	if(SmallYesNo(who,"Clear List?"))                               //clear co-owner list
 					EraseObjProperty(house, "coownlist");
-					SendSysMessage(who,"Co-owner list has been cleared.");
+					SendSysMessage(who,"Список совладельцев очищен.");
 				else
 					SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 				endif
@@ -887,16 +887,16 @@ function AddFriend(hsign, who)
   endif
   var result := hsign.AddFriend(targetchr);
   if(!result)
-    SendSysMessage(who, "That person is already a friend.", color := 33);
+    SendSysMessage(who, "Этот человек уже друг.", color := 33);
     return;
   elseif(result < 0)
-    SendSysMessage(who, "Your friend list is full.", color := 33);
+    SendSysMessage(who, "Список друзей заполнен.", color := 33);
 	return;
   elseif(targetchr.acctname == GetObjProperty(hsign, "owneracct"))
     SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 	return;
   endif
-  SendSysMessage(who, targetchr.name + " was friended to your house", color := 66);
+  SendSysMessage(who, targetchr.name + " добавлен в друзья дома", color := 66);
   SendSysMessageCL(targetchr, 501337, color := 88); // You have been made a friend of this house.
 endfunction
 
@@ -928,7 +928,7 @@ function DeleteFriend(hsign,who)
 		if(result > 0)
 			SendSysMessageCL(who, 501298, color := 66); // Friend removed from list.
 		elseif(!result)
-			SendSysMessage(who, "The friendlist is empty.", color := 33);
+			SendSysMessage(who, "Список друзей пуст.", color := 33);
 		elseif(result == -1)
 			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
@@ -1023,9 +1023,9 @@ function DeleteBan(hsign,who)
 		var unbanned := SystemFindObjectBySerial(bancheck);
 		var result := hsign.RemoveBan( unbanned );
 		if(result > 0)
-			SendSysMessage(who, "The banned person has been removed from the banned list.", color := 66);
+			SendSysMessage(who, "Забаненный удалён из списка банов.", color := 66);
 		elseif(!result)
-			SendSysMessage(who, "The ban list is empty.", color := 33);
+			SendSysMessage(who, "Список банов пуст.", color := 33);
 		elseif(result == -1)
 			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
@@ -1081,7 +1081,7 @@ function AddCoowner(hsign, who)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		return;
 	endif
-	SendSysMessage(who, targetchr.name + " is now a co-owner of your house", color := 66);
+	SendSysMessage(who, targetchr.name + " теперь совладелец вашего дома", color := 66);
 	SendSysMessageCL(targetchr, 501343, color := 66); // You have been made a co-owner of this house.
 endfunction
 
@@ -1112,9 +1112,9 @@ function DeleteCoowner(hsign,who)
 		var uncoowner := SystemFindObjectBySerial(cocheck);
 		var result := hsign.RemoveCoOwner( uncoowner );
 		if(result > 0)
-			SendSysMessage(who, "The person has been removed from the co-owner list.", color := 66);
+			SendSysMessage(who, "Человек удалён из списка совладельцев.", color := 66);
 		elseif(!result)
-			SendSysMessage(who, "The co-owner list is empty.", color := 33);
+			SendSysMessage(who, "Список совладельцев пуст.", color := 33);
 		elseif(result == -1)
 			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
@@ -1156,17 +1156,17 @@ function ChangeHouseOwner(oldowner, newowner, sign, bank_region)
 				chk := SystemFindObjectBySerial(builtdeed, 2);
 			endif
 			if(!chk)
-				SendSysMessage(newowner, "Error: Could not find built deed. Page a GM.", color := 33);
+				SendSysMessage(newowner, "Ошибка: документ не найден. Сообщите ГМ.", color := 33);
 				return 0;
 			endif
 		else
-			SendSysMessage(newowner, "Error: Could not find built deed. Page a GM.", color := 33);
+			SendSysMessage(newowner, "Ошибка: документ не найден. Сообщите ГМ.", color := 33);
 			return 0;
 		endif
 		var hisbank := CP_GetStorageContainerForMobile( newowner, bank_region, CP_CREATE );
 		if(!hisbank)
-			SendSysMessage(newowner,      "House transfer was NOT successful. I could not find your bank.", color := 33);
-			SendSysMessage(oldowner, "House transfer was NOT successful. I could not find the bank for " + newowner.name + ".", color := 33);
+			SendSysMessage(newowner,      "Передача дома НЕ удалась: банк не найден.", color := 33);
+			SendSysMessage(oldowner, "Передача дома НЕ удалась: банк не найден для " + newowner.name + ".", color := 33);
 			return 0;
 		endif
 		if(!MoveItemToContainer(builtdeed, hisbank))
@@ -1181,7 +1181,7 @@ function ChangeHouseOwner(oldowner, newowner, sign, bank_region)
 		EraseObjProperty(sign, "banlist");
 		EraseObjProperty(sign, "Public");
 		SendSysMessage(newowner,      "Передача дома прошла успешно.", color := 66);
-		SendSysMessage(newowner,      "It would be wise to change the locks soon.", color := 45);
+		SendSysMessage(newowner,      "Стоит поскорее сменить замки.", color := 45);
 		SendSysMessage(oldowner, "Передача дома прошла успешно.", color := 66);
 		return 1;
 	endif
@@ -1201,7 +1201,7 @@ function DeclarePrivPub(who, house, sign)
 			endif
 		endforeach
 		if(check == 1)
-			SendSysMessage(who, "You cannot declare this house private while there are vendors inside.", color := 33);
+			SendSysMessage(who, "Нельзя сделать дом частным, пока внутри торговцы.", color := 33);
 			return;
 		endif
 		foreach thing in (house.components)
@@ -1218,7 +1218,7 @@ function DeclarePrivPub(who, house, sign)
 		SetObjProperty(house, "Private", 1);
 		EraseObjProperty(sign, "Public");
 		SetObjProperty(sign, "Private", 1);
-		SendSysMessage(who, "This house is now private. The front doors have been locked, and friends may no longer place vendors here.", color := 66);
+		SendSysMessage(who, "Дом теперь частный. Входные двери заперты, друзья больше не могут ставить здесь торговцев.", color := 66);
 	else
 		var result := SendDialogGump(who, checklayout, checkdata);
 		if(result[0] == 1)
@@ -1232,7 +1232,7 @@ function DeclarePrivPub(who, house, sign)
 					SetObjProperty(thing, "Public", 1);
 				endif
 			endforeach
-			SendSysMessage(who, "This house is now public. Friends of the house may now place vendors.", color := 66);
+			SendSysMessage(who, "Дом теперь публичный. Друзья дома могут ставить торговцев.", color := 66);
 		else
 			SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		endif
@@ -1306,7 +1306,7 @@ function demolish(house, sign, who, bank_region)
 		endif
 	endforeach
 	if(chk == 1)
-		SendSysMessage(who, "You cannot redeed a house with vendors in it.", color := 33);
+		SendSysMessage(who, "Нельзя свернуть дом с торговцами.", color := 33);
 		return;
 	endif
 	if(chk == 0)
@@ -1397,10 +1397,10 @@ function demolish(house, sign, who, bank_region)
 		endforeach
 		DestroyMulti(house);
 	elseif(chk == 2)
-		SendSysMessage(who, "Could not find the built deed, please page a GM.", color := 33);
+		SendSysMessage(who, "Документ не найден, сообщите ГМ.", color := 33);
 		return;
 	else
-		SendSysMessage(who, "You cannot redeed a house while it has a guildstone.", color := 33);
+		SendSysMessage(who, "Нельзя свернуть дом с камнем гильдии.", color := 33);
 		return;
 	endif
 endfunction

@@ -8,6 +8,6 @@ program textcmd_setlight( who, text )
 
     var res := SetRegionLightLevel( tparams[1], CInt(tparams[2]) );
     if (!res)
-        SendSysMessage( who, "Error setting light level: " + res.errortext );
+        SendSysMessage( who, "Ошибка установки уровня света: " + res.errortext );
     endif
 endprogram

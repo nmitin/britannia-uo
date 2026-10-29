@@ -74,53 +74,53 @@ function Send_Commands( mobile, tillerman )
 
         var command;
         if( input[0xA01] )
-                PrintTextAbove( mobile, "Forward" );
-                command := "Forward";
+                PrintTextAbove( mobile, "Вперёд" );
+                command := "Вперёд";
         elseif( input[0xA02] )
-                PrintTextAbove( mobile, "Forward Right" );
-                command := "Forward Right";
+                PrintTextAbove( mobile, "Вперёд-вправо" );
+                command := "Вперёд-вправо";
         elseif( input[0xA03] )
                 PrintTextAbove( mobile, "Right" );
                 command := "Right";
         elseif( input[0xA04] )
-                PrintTextAbove( mobile, "Backward Right" );
-                command := "Backward Right";
+                PrintTextAbove( mobile, "Назад-вправо" );
+                command := "Назад-вправо";
         elseif( input[0xA05] )
                 PrintTextAbove( mobile, "Back" );
                 command := "Back";
         elseif( input[0xA06] )
-                PrintTextAbove( mobile, "Backward Left" );
-                command := "Backward Left";
+                PrintTextAbove( mobile, "Назад-влево" );
+                command := "Назад-влево";
         elseif( input[0xA07] )
                 PrintTextAbove( mobile, "Left" );
                 command := "Left";
         elseif( input[0xA08] )
-                PrintTextAbove( mobile, "Forward Left" );
-                command := "Forward Left";
+                PrintTextAbove( mobile, "Вперёд-влево" );
+                command := "Вперёд-влево";
         elseif( input[0xA09] )
-                PrintTextAbove( mobile, "Turn Left" );
-                command := "Turn Left";
+                PrintTextAbove( mobile, "Поворот влево" );
+                command := "Поворот влево";
         elseif( input[0xA10] )
-                PrintTextAbove( mobile, "Turn Right" );
-                command := "Turn Right";
+                PrintTextAbove( mobile, "Поворот вправо" );
+                command := "Поворот вправо";
         elseif( input[0xA11] )
                 PrintTextAbove( mobile, "Stop" );
                 command := "Stop";
         elseif( input[0xA12] )
-                PrintTextAbove( mobile, "Raise Anchor" );
-                command := "Raise Anchor";
+                PrintTextAbove( mobile, "Поднять якорь" );
+                command := "Поднять якорь";
         elseif( input[0xA13] )
-                PrintTextAbove( mobile, "Drop Anchor" );
-                command := "Drop Anchor";
+                PrintTextAbove( mobile, "Опустить якорь" );
+                command := "Опустить якорь";
         elseif( input[0xA14] )
-                PrintTextAbove( mobile, "Speed Up" );
-                command := "Speed Up";
+                PrintTextAbove( mobile, "Ускорить" );
+                command := "Ускорить";
         elseif( input[0xA15] )
-                PrintTextAbove( mobile, "Speed Down" );
-                command := "Speed Down";
+                PrintTextAbove( mobile, "Замедлить" );
+                command := "Замедлить";
         elseif( input[0xA16] )
-                PrintTextAbove( mobile, "Drydock" );
-                command := "Drydock";
+                PrintTextAbove( mobile, "В док" );
+                command := "В док";
         endif
 
 	return tillerman.SendCmd( mobile, CStr( command ));

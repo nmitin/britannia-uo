@@ -9,7 +9,7 @@ program textcmd_copylook(who)
 		return;
 	endif
 
-	SendSysMessage(who, "Select NPC to copy.");
+	SendSysMessage(who, "Выберите NPC для копирования.");
 	var oldlook := Target(who);
 	if (!oldlook.isA(POLCLASS_MOBILE))
 		SendSysMessage(who, "Прервано.");

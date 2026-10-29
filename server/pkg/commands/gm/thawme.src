@@ -2,5 +2,5 @@ use uo;
 
 program thawme( gm )
     gm.frozen := 0;
-    PrintTextAbovePrivate( gm, "Fly!  Be free!", gm );
+    PrintTextAbovePrivate( gm, "Лети! Будь свободен!", gm );
 endprogram

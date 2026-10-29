@@ -25,10 +25,10 @@ program StaffScriptTester(who)
 
 	if( !GetObjProperty( who, "StaffScriptTester" ) )
 		SetObjProperty( who, "StaffScriptTester", 1 );
-		SendSysMessage( who, "Script testing enabled.", color := 66 );
+		SendSysMessage( who, "Тестирование скриптов включено.", color := 66 );
 	else
 		EraseObjProperty( who, "StaffScriptTester" );
-		SendSysMessage( who, "Script testing disabled.", color := 66 );
+		SendSysMessage( who, "Тестирование скриптов отключено.", color := 66 );
 	endif
 
 	// For testing the hunger system.

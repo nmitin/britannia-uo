@@ -33,7 +33,7 @@ program textcmd_tile( who, input )
 
 
     if ( ! input )
-        SendSysMessage( who, "No arguments supplied. Usage: .tile [item] ([z]).", color := 33 );
+        SendSysMessage( who, "Аргументы не указаны. Использование: .tile [предмет] ([z]).", color := 33 );
         return;
     endif
 
@@ -43,20 +43,20 @@ program textcmd_tile( who, input )
     var zvalid := 1;  // assume z is correct for now.
 
     if ( ! tilez )
-        SendSysMessage( who, "No Z supplied. Using target #1 Z instead.", 88 );
+        SendSysMessage( who, "Z не указан. Использую Z цели №1.", 88 );
         zvalid := 0;
     else
         if ( ( tilez  < -127 ) || ( tilez > 128 ) ) // check the bounds.
-            SendSysMessage( who, "Z is out of bounds. Using target #1 Z instead.", color := 88 );
+            SendSysMessage( who, "Z вне границ. Использую Z цели №1.", color := 88 );
             zvalid := 0;
         endif
     endif
 
-    SendSysMessage( who, "Select upper left (top) corner: ", color := 88 );
+    SendSysMessage( who, "Укажите верхний левый угол: ", color := 88 );
 
     var coordstructone := TargetCoordinates( who );
 
-    SendSysMessage( who, "Select lower right (bottom) corner: ", color := 88 );
+    SendSysMessage( who, "Укажите нижний правый угол: ", color := 88 );
 
     var coordstructtwo := TargetCoordinates( who );
 
@@ -67,7 +67,7 @@ program textcmd_tile( who, input )
 
     if ( ! zvalid ) // if we are to use the coord #1 Z, check it out.
         if ( coordstructone.z < -127 || coordstructone.z > 128 )
-            SendSysMessage( who, "Z is out of bounds. Aborting.", color := 33 );
+            SendSysMessage( who, "Z вне границ. Отмена.", color := 33 );
             return;
         endif
     endif
@@ -108,7 +108,7 @@ program textcmd_tile( who, input )
         startx := startx + 1;
     endwhile
 
-    SendSysMessage( who, "Command completed.", color := 66 );
+    SendSysMessage( who, "Команда выполнена.", color := 66 );
 endprogram
 
 

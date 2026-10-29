@@ -6,7 +6,7 @@ Program area (who text)
 
 	var coords := 0;
 	while ( !coords )
-		SendSysMessage(who,"Target the North-West corner of the house (Up!)");
+		SendSysMessage(who,"Укажите северо-западный угол дома (вверх!)");
 		coords := TargetCoordinates(who);
 	endwhile
 
@@ -17,7 +17,7 @@ Program area (who text)
 	coords := 0;
 
 	while( !coords )
-		SendSysMessage(who,"Target the South-East corner of the house (Down!)");
+		SendSysMessage(who,"Укажите юго-восточный угол дома (вниз!)");
 		coords := TargetCoordinates(who);
 	endwhile
 
@@ -32,8 +32,8 @@ Program area (who text)
 	area := x * y;
 	amount := CInt(text) * area;
 
-	SendSysMessage(who, "Total area equals " + area);
+	SendSysMessage(who, "Общая площадь: " + area);
 	if (text)
-		SendSysMessage (who, "The purchase price is " + amount);
+		SendSysMessage (who, "Цена покупки: " + amount);
 	endif
 endprogram

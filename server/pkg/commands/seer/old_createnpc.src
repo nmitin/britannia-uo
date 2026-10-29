@@ -12,7 +12,7 @@ program textcmd_createnpc( who, template )
 	var	ai_script := GetConfigString( NPC_entry, "Script" );
 	var node :="";
 
-	SendSysMessage(who, "Script is " + ai_script, color := 88);
+	SendSysMessage(who, "Скрипт: " + ai_script, color := 88);
 	if(ai_script in mercscripts)
 		node := "merc";
 	elseif(ai_script in guardscripts)
@@ -22,8 +22,8 @@ program textcmd_createnpc( who, template )
 	endif
 
 	if(node != "none")
-		GumpPrompt(who, "The NPC you want to create requires a listening node. Therefore I will create one instead of the NPC. " +
-						"Target the location for the node. Use (double-click) the node to create the NPC.", 1, hue:=1153);
+		GumpPrompt(who, "Для создания NPC нужен узел прослушивания. Я создам узел вместо NPC. " +
+						"Укажите место для узла. Дважды щёлкните узел, чтобы создать NPC.", 1, hue:=1153);
 	endif
 
 

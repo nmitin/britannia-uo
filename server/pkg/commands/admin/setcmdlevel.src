@@ -2,7 +2,7 @@
 use uo;
 
 program change_cmdlevel( who, level )
-  SendSysMessage( who, "Change whose CmdLevel?" );
+  SendSysMessage( who, "Чей командный уровень изменить?" );
   var player := Target( who, TGTOPT_NOCHECK_LOS );
   if(player.ip)
     var holder := "a";
@@ -13,7 +13,7 @@ program change_cmdlevel( who, level )
       "seer":   holder := 2;
       "coun":   holder := 1;
       "player": holder := 0;
-      default:  SendSysMessage(who, "that is not a valid command level."); 
+      default:  SendSysMessage(who, "это недопустимый командный уровень."); 
     endcase
     if(holder == "a")
       return;
@@ -21,10 +21,10 @@ program change_cmdlevel( who, level )
       if(holder <= who.cmdlevel)
         player.cmdlevel := holder;
       else
-        SendSysMessage(who, "You cannot grant a command level higher than your own");
+        SendSysMessage(who, "Нельзя выдать уровень выше своего");
       endif
     endif
   else
-    SendSysMessage(who, "That is not a player");
+    SendSysMessage(who, "Это не игрок");
   endif
 endprogram

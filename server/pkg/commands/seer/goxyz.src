@@ -15,7 +15,7 @@ use uo;
 
 program textcmd_goxyz( who, text )
 	if(text == "" || text == "?" || Lower(text) == "help")
-		SendSysMessage(who, "No help is available for this command yet.", color := 88);
+		SendSysMessage(who, "Справки по этой команде пока нет.", color := 88);
 		return;
 	endif
 	var params := SplitWords( text );
@@ -59,6 +59,6 @@ program textcmd_goxyz( who, text )
 	var res := MoveObjectToLocation( who, CInt(params[1]), CInt(params[2]), CInt(ZCoord), facet, MOVEOBJECT_FORCELOCATION );
 
     if (!res)
-        SendSysMessage( who, "Unable to go there: " + res.errortext );
+        SendSysMessage( who, "Не удалось перейти туда: " + res.errortext );
     endif
 endprogram

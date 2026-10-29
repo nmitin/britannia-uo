@@ -2,7 +2,7 @@ use uo;
 use os;
 
 program textcmd_booklock(who)
-  SendSysMessage(who, "Target the book you wish to make read-only");
+  SendSysMessage(who, "Укажите книгу, которую сделать только для чтения");
   var trg := Target(who, TGTOPT_NOCHECK_LOS);
   if(!trg)
     SendSysMessage(who, "Отменено");

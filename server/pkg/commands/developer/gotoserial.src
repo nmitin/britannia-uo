@@ -3,12 +3,12 @@ use uo;
 program goto_serial(who, text)
 
 	if(!text)
-		SendSysMessage(who, "You must enter a serial.", color := 33);
+		SendSysMessage(who, "Нужно ввести серийный номер.", color := 33);
 		return;
 	endif
 	var obj := SystemFindObjectBySerial(CInt(text));
 	if(!obj)
-		SendSysMessage(who, "No object exists with that serial.", color := 40);
+		SendSysMessage(who, "Объекта с таким номером нет.", color := 40);
 		return;
 	endif
 	MoveObjectToLocation(who, obj.x, obj.y, obj.z, obj.realm, MOVEOBJECT_FORCELOCATION);

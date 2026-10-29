@@ -9,6 +9,6 @@ program lockradius( who, text )
         SetObjProperty (thingie, "GMLockeddown", 1);
     endforeach
    
-    SendSysMessage(who, "Locked down everything in a radius of " + ranget);
+    SendSysMessage(who, "Закреплено всё в радиусе " + ranget);
        
 endprogram

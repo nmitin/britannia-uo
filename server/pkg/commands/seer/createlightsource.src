@@ -14,7 +14,7 @@ program createlightsource(caster)
     endif
 
     if (!CheckLosAt( caster, cast_loc.x, cast_loc.y, cast_loc.z ))
-        SendSysMessage( caster, "You don't have line of sight to that." );
+        SendSysMessage( caster, "У вас нет линии видимости до этого." );
         return;
     endif
     var thecritter;

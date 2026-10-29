@@ -15,7 +15,7 @@ program textcmd_kill( who )
             SetObjProperty(mob, "guardkill", 1);
             KillMobile(mob);
         else
-            SendSysMessage( who, "That Tickles!" );
+            SendSysMessage( who, "Щекотно!" );
         endif
     endif
 endprogram

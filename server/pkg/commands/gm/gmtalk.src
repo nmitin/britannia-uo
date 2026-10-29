@@ -5,7 +5,7 @@ include "include/client";
 program textcmd_gmtalk (character, text)
 
 if (!text)
-      SendSysMessage(character, "This command broadcasts a message to all online GM's.  Usage: gmtalk <message>");
+      SendSysMessage(character, "Команда рассылает сообщение всем ГМ в сети. Использование: gmtalk <сообщение>");
       return;
 else
       foreach gm in EnumerateOnlineCharacters()

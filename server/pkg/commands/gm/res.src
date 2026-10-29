@@ -13,7 +13,7 @@ program textcmd_res(speaker)
     	ResPenalties(tgt.mobile);
       endif
     else
-      SendSysMessage(speaker, "But that's not dead!");
+      SendSysMessage(speaker, "Но это не мёртвое!");
     endif
   endif
 endprogram

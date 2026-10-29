@@ -2,7 +2,7 @@
 use uo;
 
 program textcmd_action( who, newscript )
-    SendSysMessage( who, "Target an NPC to restart" );
+    SendSysMessage( who, "Укажите NPC для перезапуска" );
 
     var npc := Target( who, TGTOPT_NOCHECK_LOS );
     if (npc)
@@ -11,7 +11,7 @@ program textcmd_action( who, newscript )
         endif
         var res := RestartScript( npc );
         if (!res)
-            SendSysMessage( who, "Unable to restart: " + res.errortext );
+            SendSysMessage( who, "Не удалось перезапустить: " + res.errortext );
         endif
     endif
 endprogram

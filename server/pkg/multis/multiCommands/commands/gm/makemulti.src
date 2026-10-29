@@ -26,13 +26,13 @@ function CheckCustomHousing( mobile, text )
 
         var cfg_custom := ReadConfigFile( ":multicommands:itemdesc" );
         if( cfg_custom.errortext )
-                SendSysMessage( mobile, "Error reading cfg <:multicommands:itemdesc> -->"+cfg_custom.errortext );
+                SendSysMessage( mobile, "Ошибка чтения конфигурации <:multicommands:itemdesc> -->"+cfg_custom.errortext );
                 return 0;
         endif
 
         var multi_elem := cfg_custom[text];
         if( multi_elem.errortext )
-                SendSysMessage( mobile, "Error reading multi elem <"+text+"> -->"+multi_elem.errortext );
+                SendSysMessage( mobile, "Ошибка чтения элемента мульти <"+text+"> -->"+multi_elem.errortext );
                 return 0;
         endif
 

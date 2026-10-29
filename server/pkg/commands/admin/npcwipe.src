@@ -39,7 +39,7 @@ program npcwipe(who)
 				RevokePrivilege(npc, "invul" );
 				SetObjProperty(npc, "guardkill", 1);
 				KillMobile(npc);
-				SendSysMessage(who, "Wiped an NPC!", color :=33);
+				SendSysMessage(who, "NPC удалён!", color :=33);
 			endif
 	    endif
 		SleepMS(20);
@@ -47,5 +47,5 @@ program npcwipe(who)
 //      endfor
     endfor
   endfor
-  SendSysMessage(who, "Finished wiping npcs", color :=66);
+  SendSysMessage(who, "Очистка NPC завершена", color :=66);
 endprogram

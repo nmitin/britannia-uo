@@ -15,5 +15,5 @@ program npcwipe(who)
       endfor
     endfor
   endfor
-  SendSysMessage(who, "Finished wiping nodes");
+  SendSysMessage(who, "Очистка узлов завершена");
 endprogram

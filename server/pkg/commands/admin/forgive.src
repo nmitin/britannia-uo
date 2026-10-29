@@ -18,17 +18,17 @@ var crimeprops := {"longmurders",
                    "guardkill"};
 
 program textcmd_forgive (me)
-  SendSysMessage(me, "Whom do you want to forgive?");
+  SendSysMessage(me, "Кого простить?");
   var who :=  Target(me, TGTOPT_NOCHECK_LOS );
   if (who == error)
 	SendSysMessage( me, "Ошибка: " + who.errortext );
     return;
   elseif (TypeOf(who) == "ItemRef")
-	SendSysMessage( me, "Not a player character");
+	SendSysMessage( me, "Не игровой персонаж");
 	return;
   elseif (TypeOf(who) == "MobileRef")
     if (who.isA(POLCLASS_NPC))
-      SendSysMessage( me, "Not a player character");
+      SendSysMessage( me, "Не игровой персонаж");
   	  return;
     endif;
     var i := 0;
@@ -38,7 +38,7 @@ program textcmd_forgive (me)
     for (i:=1; i<=lenarr; i:=i+1)
       EraseObjProperty(who, crimeprops[i]);
     endfor
-    SendSysMessage(me, who.name + " is innocent like a new-born child");
+    SendSysMessage(me, who.name + " невиновен, как новорождённый");
   else
     SendSysMessage(me, "Отменено");
   endif

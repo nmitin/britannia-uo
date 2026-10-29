@@ -2,7 +2,7 @@ use os;
 use uo;
 
 program textcmd_lock( speaker )
-    SendSysMessage( speaker, "What do you wish to lock?" );
+    SendSysMessage( speaker, "Что вы хотите запереть?" );
 
     var what := Target( speaker,TGTOPT_NOCHECK_LOS );
     if (what)

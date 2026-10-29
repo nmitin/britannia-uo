@@ -3,13 +3,13 @@ use basic;
 
 program textcmd_getstatic(who)
 
-SendSysMessage(who, "Select coordinates.");
+SendSysMessage(who, "Выберите координаты.");
 
 	var targ := TargetCoordinates(who);
 	if (!targ.objtype)
 		SendSysMessage(who, "Неверный выбор.");
 		return 0;
 	endif
-	SendSysMessage(who, "ObjType: " + CStr( Hex(targ.objtype) ) );
+	SendSysMessage(who, "Тип: " + CStr( Hex(targ.objtype) ) );
 
 endprogram

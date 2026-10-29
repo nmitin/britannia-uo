@@ -2,7 +2,7 @@ use uo;
 
 program textcmd_unlock( who )
 
-    SendSysMessage( who, "What do you wish to unlock?" );
+    SendSysMessage( who, "Что вы хотите отпереть?" );
 
     var what := Target( who );
     if (what)

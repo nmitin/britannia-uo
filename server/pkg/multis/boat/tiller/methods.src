@@ -168,19 +168,19 @@ endfunction
 exported function GetSeafaringCreatures( tiller )
 	var cfg_file := ReadConfigFile( ":boat:seafaringCreatures" );
 	if( cfg_file.errortext )
-		PrintTextAbove( tiller, "Error reading config file <:spawnsystem:defaultGroups> -->"+cfg_file.errortext );
+		PrintTextAbove( tiller, "Ошибка чтения конфигурации <:spawnsystem:defaultGroups> -->"+cfg_file.errortext );
 		return 0;
 	endif
 
 	var elem_creature := cfg_file["Templates"];
 	if( elem_creature.errortext )
-		PrintTextAbove( tiller, "Error reading elem <Templates> -->"+elem_creature.errortext );
+		PrintTextAbove( tiller, "Ошибка чтения элемента <Templates> -->"+elem_creature.errortext );
 		return 0;
 	endif
 
 	var creatures := GetConfigStringArray( elem_creature, "Template" );
 	if( creatures.errortext )
-		PrintTextAbove( tiller, "Error reading elem <creatures> -->"+creatures.errortext );
+		PrintTextAbove( tiller, "Ошибка чтения элемента <creatures> -->"+creatures.errortext );
 		return 0;
 	endif
 

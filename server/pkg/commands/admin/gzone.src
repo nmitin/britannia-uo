@@ -14,12 +14,12 @@ program gzone(who)
     range := SplitWords(range);
 SendSysMessage(who,range);
     if((who.x >= CInt(range[1])) && (who.x <= CInt(range[3])) && (who.y >= CInt(range[2])) && (who.y <= CInt(range[4])))
-      SendSysMessage(who,"you are in a guard zone.");
+      SendSysMessage(who,"вы в охраняемой зоне.");
       guardzone := 1;
       break;
     endif
   endforeach
   if(guardzone == 0)
-   SendSysMessage(who,"you are not in a guardzone.");
+   SendSysMessage(who,"вы не в охраняемой зоне.");
   endif
 endprogram

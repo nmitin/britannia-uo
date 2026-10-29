@@ -20,14 +20,14 @@ program UseBoatDeed( mobile, boat )
 		if( !boat )
 			EraseObjProperty( mobile, "HasBoat" );
 		else
-			SendSysMessage( mobile, "You already have a boat placed and can not place another." );
+			SendSysMessage( mobile, "У вас уже есть лодка, вторую ставить нельзя." );
 			return 0;
 		endif
 	endif
 
 	var ship_name := boat.GetShipName();
 	if( ship_name.errortext )
-		SendSysMessage( mobile, "Error to get ship name -->"+ship_name.errortext );
+		SendSysMessage( mobile, "Ошибка получения имени корабля -->"+ship_name.errortext );
 		return 0;
 	endif
 
@@ -47,7 +47,7 @@ program UseBoatDeed( mobile, boat )
 
 	var dest := DestroyItem( boat );
 	if( dest.errortext )
-		SendSysMessage( mobile, "Error destroying boat model -->"+dest.errortext, color := 33 );
+		SendSysMessage( mobile, "Ошибка уничтожения модели лодки -->"+dest.errortext, color := 33 );
 		return 0;
 	endif
 

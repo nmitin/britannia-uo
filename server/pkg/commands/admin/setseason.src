@@ -5,22 +5,22 @@ include "include/packets";
 program textcmd_setseason( who, text )
 
   if(!text or text == "")
-    SendSysMessage(who, "Useage: .setseason <season>");
-    SendSysMessage(who, "<season>: spring | desolation | fall | winder | summer");
+    SendSysMessage(who, "Использование: .setseason <сезон>");
+    SendSysMessage(who, "<сезон>: spring | desolation | fall | winter | summer");
     return;
   endif
   
   var season := lower(text);
   case(season)
-    "spring":     SetSeasonForAll(SEASON_SPRING); SendSysMessage(who, "Season spring set");
+    "spring":     SetSeasonForAll(SEASON_SPRING); SendSysMessage(who, "Установлена весна");
                   SetGlobalProperty("gseason", "SEASON_SPRING");
-    "desolation": SetSeasonForAll( SEASON_DESOLATION ); SendSysMessage(who, "Season desolation set");
+    "desolation": SetSeasonForAll( SEASON_DESOLATION ); SendSysMessage(who, "Установлено запустение");
                   SetGlobalProperty("gseason", "SEASON_DESOLATION");
-    "fall":       SetSeasonForAll( SEASON_FALL ); SendSysMessage(who, "Season fall set");
+    "fall":       SetSeasonForAll( SEASON_FALL ); SendSysMessage(who, "Установлена осень");
                   SetGlobalProperty("gseason", "SEASON_FALL");
-    "winter":     SetSeasonForAll( SEASON_WINTER ); SendSysMessage(who, "Season winter set");
+    "winter":     SetSeasonForAll( SEASON_WINTER ); SendSysMessage(who, "Установлена зима");
                   SetGlobalProperty("gseason", "SEASON_WINTER");
-    "summer":     SetSeasonForAll( SEASON_SUMMER ); SendSysMessage(who, "Season summer set");
+    "summer":     SetSeasonForAll( SEASON_SUMMER ); SendSysMessage(who, "Установлено лето");
                   SetGlobalProperty("gseason", "SEASON_SUMMER");
   endcase
   
