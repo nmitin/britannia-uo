@@ -86,7 +86,7 @@ function handle_speech(sign, event)
 	elseif((text["reveal thyself"]))
 		reveal(sign, event);
 	elseif((text["am i in the house"]))
-		SendSysMessage(who, "Yep. You're in the house.", 1, 88);
+		SendSysMessage(who, "Да. Вы в доме.", 1, 88);
 	else
 		VendorCommands(event);
 	endif
@@ -95,13 +95,13 @@ endfunction
 function remove(sign, event)
   var who := event.source;
   if(IsInHouse(who))
-    SendSysMessage(who, "target the person you wish to remove");
+    SendSysMessage(who, "укажите того, кого хотите удалить");
     var victim := Target(who, TGTOPT_NOCHECK_LOS);
     if(!victim)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
       return;
     elseif(!GetVital(victim, "Life"))
-      SendSysMessage(who,"you cannot eject items", 3, 40);
+      SendSysMessage(who,"нельзя выгонять предметы", 3, 40);
       return;
     endif
     if(IsInHouse(victim))
@@ -111,19 +111,19 @@ function remove(sign, event)
 //	  multi := multi;
       if((coown == 0) && (friend == 0) && (victim != who) && (!victim.cmdlevel))
         MoveObjectToLocation(victim, sign.x, sign.y, sign.z, sign.realm, MOVEOBJECT_FORCELOCATION);
-        SendSysMessage(victim, "you have been ejected from the house");
+        SendSysMessage(victim, "вас выгнали из дома");
         return;
       elseif((friend == 1) || (coown == 1) || (victim.acctname == GetObjProperty(sign, "owneraccount")))
-        SendSysMessage(who, "you cannot eject friends", 3, 40);
+        SendSysMessage(who, "нельзя выгонять друзей", 3, 40);
         return;
       elseif(victim == who)
-        SendSysMessage(who, "you cannot eject yourself", 3, 40);
+        SendSysMessage(who, "нельзя выгнать себя", 3, 40);
         return;
       else
-        SendSysMessage(who, "you cannot do that!", 3, 40);
+        SendSysMessage(who, "вы не можете этого сделать!", 3, 40);
       endif
     else
-      SendSysMessage(who, "that person isnt inside the house.", 3, 40);
+      SendSysMessage(who, "этого человека нет в доме.", 3, 40);
       return;
     endif
   else
@@ -159,7 +159,7 @@ function trashbarrel(sign, event)
       SetObjProperty(barrel, "houseserial", sign.serial);
     endif
   else
-    SendSysMessage(who, "You cannot place a trash barrel next to a door.", 3, 40);
+    SendSysMessage(who, "Нельзя ставить мусорную бочку рядом с дверью.", 3, 40);
   endif
 endfunction
 
@@ -230,7 +230,7 @@ function HouseFunction(sign, event, num)
 					return;
 				endif
 				if(GetObjProperty(item, "secure"))
-					SendSysMessage(who, "You must unsecure it before you can release it.", 1, 40);
+					SendSysMessage(who, "Сначала снимите защиту, потом отпускайте.", 1, 40);
 					return 0;
 				endif
 /*				if(GetObjProperty(item, "secure"))
@@ -253,7 +253,7 @@ function HouseFunction(sign, event, num)
 					SetObjProperty(sign, "RemainingLockdowns", GetObjProperty(sign, "RemainingLockdowns") + 1);
 					SendSysMessageCL(who, 501726, color := 66); // No longer locked down!
 				else
-					SendSysMessage(who, "You apparently haven't locked anything down yet but the item was released anyway", 3, 40);
+					SendSysMessage(who, "Похоже, вы ещё ничего не закрепляли, но предмет всё равно освобождён.", 3, 40);
 					SendSysMessage(who, "Сообщите об этом администрации. Возможно,", 3, 40);
 					SendSysMessage(who, "остались предметы от предыдущего владельца.", 3, 40);
 				endif
@@ -275,16 +275,16 @@ function HouseFunction(sign, event, num)
 					var otheritem := SystemFindObjectBySerial(CInt(GetObjProperty(item, "othertele")));
 					DestroyItem(item);
 					DestroyItem(otheritem);
-					SendSysMessage(who, "The teleporters have been removed.", 1, 66);
+					SendSysMessage(who, "Телепортеры удалены.", 1, 66);
 				endif
 			elseif(item.movable)
-				SendSysMessage(who, "that is not locked down", 3, 40);
+				SendSysMessage(who, "это не закреплено", 3, 40);
 			else
-				SendSysMessage(who, "you cannot release that", 3, 40);
+				SendSysMessage(who, "вы не можете это отпустить", 3, 40);
 			endif
 		endcase
 	else
-		SendSysMessage(who, "That is not inside your house.", 3, 40);
+		SendSysMessage(who, "Это не в вашем доме.", 3, 40);
 	endif
 endfunction
 
@@ -332,7 +332,7 @@ function secure(sign, event, unused text)
 		SendSysMessageCL(who, 1153761, color := 33); // You cannot secure or lock items down beneath your house sign.
 		return;
 	elseif(!can_access(who, item, "unmovable"))
-		SendSysMessage(who, "You cannot access that.", color := 33);
+		SendSysMessage(who, "У вас нет доступа к этому.", color := 33);
 		return;
 	elseif(GetObjProperty(item, "secure"))
 		SendSysMessageCL(who, 501714, color := 33); // This is already secure!
@@ -346,7 +346,7 @@ function secure(sign, event, unused text)
 		if(item in itemlist)
 			if(item.movable == 0)
 				if(GetObjProperty(sign, "RemainingLockdowns") < GetObjProperty(sign, "MaxLockdowns"))
-					SendSysMessage(who, "Securing this item. Your house will be credited with one lockdown.");
+					SendSysMessage(who, "Защищаю предмет. Дому будет засчитано одно закрепление.");
 					// Add a lockdown to remaining lockdowns.
 					SetObjProperty(sign, "RemainingLockdowns", GetObjProperty(sign, "RemainingLockdowns") + 1);
 					if(GetObjProperty(sign, "RemainingLockdowns") > GetObjProperty(sign, "MaxLockdowns"))
@@ -355,14 +355,14 @@ function secure(sign, event, unused text)
 					SetObjProperty(item, "SecuredLevel", seclevel);
 					EraseObjProperty(item,"lockeddown");
 				elseif(GetObjProperty(sign, "RemainingLockdowns") >= GetObjProperty(sign, "MaxLockdowns"))
-					SendSysMessage(who, "You apparently haven't locked anything down yet", color := 33);
-					SendSysMessage(who, "so you can't be credited with a lockdown", 40);
+					SendSysMessage(who, "Похоже, вы ещё ничего не закрепляли", color := 33);
+					SendSysMessage(who, "поэтому закрепление не будет засчитано", 40);
 					SendSysMessage(who, "Сообщите об этом администрации. Возможно,", color := 33);
 					SendSysMessage(who, "остались предметы от предыдущего владельца.", color := 33);
 				endif
 
 			else
-				SendSysMessage(who, "You cannot secure that unless it is locked down first.", color := 33);
+				SendSysMessage(who, "Сначала предмет нужно закрепить.", color := 33);
 				return;
 			endif
 			SetObjProperty(item, "houseserial", sign.serial);
@@ -421,7 +421,7 @@ function unsecure(sign, event)
 		SendSysMessage(event.source,"Это не защищено.", 3, 40);
 		return 0;
 	elseif(!canunsecure)
-		SendSysMessage(event.source,"You are not authorised to unsecure that.", 3, 40);
+		SendSysMessage(event.source,"У вас нет прав снимать защиту с этого.", 3, 40);
 		return 0;
 	elseif(GetObjProperty(item, "houseserial") == sign.serial)
 		EraseObjProperty(item, "secure");
@@ -450,16 +450,16 @@ function unsecure(sign, event)
 			SetObjProperty(item, "lockeddown", 1);
 			SetObjProperty(sign, "RemainingLockdowns", lockdowns - 1);
 			item.movable := 0;
-			SendSysMessage(event.source, "The item is locked down and your house has been credited one secure container.", 1, 66);
+			SendSysMessage(event.source, "Предмет закреплён, дому засчитан один защищённый контейнер.", 1, 66);
 		else
 			item.movable := 1;
-			SendSysMessage(event.source, "The item has been unsecured but", 1, 33);
-			SendSysMessage(event.source, "is no longer locked down because you have no more lockdowns available.", 1, 33);
-			SendSysMessage(event.source, "However, your house has been credited one secure container.", 1, 66);
+			SendSysMessage(event.source, "Защита с предмета снята, но", 1, 33);
+			SendSysMessage(event.source, "он больше не закреплён, так как лимит закреплений исчерпан.", 1, 33);
+			SendSysMessage(event.source, "Тем не менее дому засчитан один защищённый контейнер.", 1, 66);
 		endif
 		ReleaseItem(item);
 	else
-		SendSysMessage(event.source, "That is not in your house.", 3, 40);
+		SendSysMessage(event.source, "Это не в вашем доме.", 3, 40);
 	endif
 endfunction
 

@@ -65,9 +65,9 @@ sign := sgn;
 			endif
 			SetObjProperty(sign, "housevalue", hv);
 			if((totalvalueofhouses + hv) > maxhousevalue)
-				SendSysMessage(who, "You cannot buy this house because the 'house value'", 3, 40);
-				SendSysMessage(who, "of the house plus the value of the houses you already own", 3, 40);
-				SendSysMessage(who, "would exceed the maximum allowed.", 3, 40);
+				SendSysMessage(who, "Вы не можете купить этот дом: стоимость дома", 3, 40);
+				SendSysMessage(who, "вместе со стоимостью уже имеющихся у вас домов", 3, 40);
+				SendSysMessage(who, "превысит допустимый максимум.", 3, 40);
 				return 0;
 			endif
 		endif
@@ -77,9 +77,9 @@ sign := sgn;
 		set_critical( 0 );
 
 		if (!created)
-			SendSysMessage( who, "ERROR: Unable to create built deed!", color := 33 );
-			SendSysMessage(who, "Your bank box might be too full. Try removing some items from it.", 1, 33);
-			SendSysMessage(who, "Then come back and try buying this house again.", 1, 33);
+			SendSysMessage( who, "ОШИБКА: не удалось создать документ на дом!", color := 33 );
+			SendSysMessage(who, "Возможно, ваш банковский ящик переполнен. Попробуйте убрать часть предметов.", 1, 33);
+			SendSysMessage(who, "Затем вернитесь и попробуйте купить дом снова.", 1, 33);
 			Print(created.errortext);
 		  return 0;
 		endif
@@ -87,7 +87,7 @@ sign := sgn;
 		var packkey := CreateItemInBackpack( who, UOBJ_GOLD_KEY );
 
 		if (!packkey)
-			SendSysMessage( who, "Your backpack is too full! Cannot create the key.", 1, 33);
+			SendSysMessage( who, "Рюкзак переполнен! Не удалось создать ключ.", 1, 33);
 			SendSysMessage(who, "Отмена. Нужно освободить место перед покупкой дома.", 1, 33);
 			DestroyItem(created);
 			return 0;
@@ -96,7 +96,7 @@ sign := sgn;
 		var bankkey := CreateItemInContainer( bankbox, UOBJ_GOLD_KEY );
 
 		if (!bankkey)
-			SendSysMessage( who, "Your bankbox is too full! Cannot create the extra key!", 1, 33);
+			SendSysMessage( who, "Банковский ящик переполнен! Не удалось создать дополнительный ключ!", 1, 33);
 			SendSysMessage(who, "Отмена. Нужно освободить место перед покупкой дома.", 1, 33);
 			DestroyItem(created);
 			DestroyItem( packkey );
@@ -109,11 +109,11 @@ sign := sgn;
 		// If so spend all the gold in his bank and the difference in his pack.
 		// Else tell him he's sore out of luck.
 		if (!who.spendgold (price))
-			SendSysMessage(who, "You don't have enough money in your backpack to buy it.", 1, 33);
-			SendSysMessage(who, "Checking your bank box...", color := 56);
+			SendSysMessage(who, "В рюкзаке недостаточно денег для покупки.", 1, 33);
+			SendSysMessage(who, "Проверяю банковский ящик...", color := 56);
 			Sleep(2);
 			if(!SpendCoin(who, price, bankbox, UOBJ_GOLD_COIN))
-				SendSysMessage(who, "You don't have enough in the bank to buy it either. Sorry.", 1, 33);
+				SendSysMessage(who, "В банке тоже недостаточно средств. Извините.", 1, 33);
 				DestroyItem(created);
 				DestroyItem(packkey);
 				DestroyItem(bankkey);
@@ -139,7 +139,7 @@ sign := sgn;
 				endif
 		endforeach
 		SetObjProperty(sign, "bantiles", bantiles);
-		SendSysMessage(who, "Congratulations! You are the new owner of this house.", 1, 66);
+		SendSysMessage(who, "Поздравляем! Вы новый владелец этого дома.", 1, 66);
 		Sleep(3);
 		EraseObjProperty(sign, "NewHouse");
 		///////////////////////////////////////////////////////
@@ -267,7 +267,7 @@ sign := sgn;
   case (result[0])
             1:var newname := RequestInput( who, sign, "Enter a name for this house." );
               if( (len(newname) > 17) )
-                SendSysMessage( who, "House sign names may not be longer than 17 characters." );
+                SendSysMessage( who, "Название таблички дома — не длиннее 17 символов." );
               else
                 SetName( sign, newname );
                 SetObjProperty(sign,"signname",newname);
@@ -342,17 +342,17 @@ function Eject(who)
 	if(!targ)
 		SendSysMessage(who, "Отменено.", 3, 40);
 	elseif(!targ.isa(POLCLASS_MOBILE))
-		SendSysMessage(who, "You may only eject mobiles.", 3, 40);
+		SendSysMessage(who, "Выгонять можно только существ.", 3, 40);
 	elseif(targ.cmdlevel)
-		SendSysMessage(who, "You cannot eject staff!", 3, 40);
+		SendSysMessage(who, "Нельзя выгонять администрацию!", 3, 40);
 	elseif(targ.npctemplate == "playervendor")
-		SendSysMessage(who, "You cannot eject player vendors.", 3, 40);
+		SendSysMessage(who, "Нельзя выгонять торговцев игроков.", 3, 40);
 	elseif(!IsInHouse(who))
-		SendSysMessage(who, "You can only eject people in your house.", 3, 40);
+		SendSysMessage(who, "Выгонять можно только тех, кто в вашем доме.", 3, 40);
 	else
 		MoveObjectToLocation(targ, sign.x, sign.y, GetWorldHeight(sign.x, sign.y, targ.realm), MOVEOBJECT_FORCELOCATION, targ.realm);
 		SendSysMessage(who, targ.name + " был выгнан!", 1, 66);
-		SendSysMessage(targ, who.name + " has ejected you from the house!", 3, 40);
+		SendSysMessage(targ, who.name + " выгнал вас из дома!", 3, 40);
 	endif
 endfunction
 
@@ -454,7 +454,7 @@ endfunction
 function CreateBuiltDeed( who, sign, bankbox)
     var builtdeed := CreateItemInContainer( bankbox, 0x28888 );
     if (!builtdeed)
-      PrintTextAbovePrivate( who, "Your bank box is too full!", who );
+      PrintTextAbovePrivate( who, "Ваш банковский ящик переполнен!", who );
       return 0; // not built
     endif
     SetName(builtdeed, "a static house at " + sign.x + ", " + sign.y + ", " + sign.z + ", " + sign.realm + "." );
@@ -492,7 +492,7 @@ function ChangeInteriorLocks( who, house )
 			endif
 		endforeach
 	endforeach
-	SendSysMessage( who, "The interior door locks have been changed.", 1, 66 );
+	SendSysMessage( who, "Замки внутренних дверей заменены.", 1, 66 );
 endfunction
 
 function AddFriend( sign, who )
@@ -525,7 +525,7 @@ function AddFriend( sign, who )
 	if(removecoown)
 		sign.RemoveCoOwner(targetchr);
 	endif
-  SendSysMessage( who, targetchr.name + " is now a friend of this house.", 1, 66 );
+  SendSysMessage( who, targetchr.name + " теперь друг этого дома.", 1, 66 );
 endfunction
 
 function addenemy( sign, who )
@@ -589,7 +589,7 @@ function addcoowner( sign, who )
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		return 0;
 	elseif(targetchr == who)
-		SendSysMessage(who, "You cannot be the owner and a co-owner of a house.", color := 33);
+		SendSysMessage(who, "Нельзя быть владельцем и совладельцем одного дома.", color := 33);
 		return 0;
 	elseif(!targetchr.acct)
 		SendSysMessageCL(who, 501362, color := 33); // That can't be a co-owner of the house.
@@ -607,7 +607,7 @@ function addcoowner( sign, who )
 	var test := sign.AddCoOwner(targetchr);
 	if(test == -1)
 		SendSysMessageCL(who, 501368, color := 33); // Your co-owner list is full!
-		SendSysMessage(who, "You need to remove a co-owner before you can add " + targetchr.name + " as a co-owner.", color := 33);
+		SendSysMessage(who, "Сначала удалите совладельца, прежде чем добавлять " + targetchr.name + " в совладельцы.", color := 33);
 		return 0;
 	elseif(!test)
 		SendSysMessageCL(who, 501369, color := 33);	// This person is already on your co-owner list!
@@ -616,7 +616,7 @@ function addcoowner( sign, who )
 	if(removeban)
 		sign.RemoveBan(targetchr);
 	endif
-	SendSysMessage(who, targetchr.name + " is now a co-owner of this house.", color := 66);
+	SendSysMessage(who, targetchr.name + " теперь совладелец этого дома.", color := 66);
 	SendSysMessageCL(targetchr, 501343, color := 88); // You have been made a co-owner of this house.
 
 endfunction
@@ -626,11 +626,11 @@ function removefriend(who, hsign, information )
   var ind := returnindex(friendinfo, information);
   var friend := SystemFindObjectBySerial(information);
   if (ind == 0)
-    SendSysMessage(who, "That slot doesnt contain a friend.", 1, 33);
+    SendSysMessage(who, "В этом слоте нет друга.", 1, 33);
     return;
   endif
   hsign.RemoveFriend(friend);
-  SendSysMessage(who, friend.name + " is no longer a friend of this house.", 1, 66);
+  SendSysMessage(who, friend.name + " больше не друг этого дома.", 1, 66);
 endfunction
 
 function removecoowner(who, hsign, information )
@@ -638,11 +638,11 @@ function removecoowner(who, hsign, information )
   var ind := returnindex(coownerinfo, information);
   var coowner := SystemFindObjectBySerial(information);
   if (ind == 0)
-    SendSysMessage(who, "That slot doesnt contain a co-owner.", 1, 33);
+    SendSysMessage(who, "В этом слоте нет совладельца.", 1, 33);
     return;
   endif
   hsign.RemoveCoOwner(coowner);
-  SendSysMessage(who, coowner.name + " is no longer a co-owner of this house.", 1, 66);
+  SendSysMessage(who, coowner.name + " больше не совладелец этого дома.", 1, 66);
 endfunction
 
 function removeenemy(who, hsign, information )
@@ -650,11 +650,11 @@ function removeenemy(who, hsign, information )
   var ind := returnindex(enemyinfo, information);
   var enemy := SystemFindObjectBySerial(information);
   if (ind == 0)
-    SendSysMessage(who, "That slot doesnt contain an enemy.", 1, 33);
+    SendSysMessage(who, "В этом слоте нет врага.", 1, 33);
     return;
   endif
   hsign.RemoveBan(enemy);
-  SendSysMessage(who, enemy.name + " is no longer an enemy of this house.", 1, 66);
+  SendSysMessage(who, enemy.name + " больше не враг этого дома.", 1, 66);
 endfunction
 
 function returnindex(friendinfo, information)
