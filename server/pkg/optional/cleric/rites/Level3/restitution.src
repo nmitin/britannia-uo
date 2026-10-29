@@ -18,13 +18,13 @@ program dispelmagic(params)
 	var targ := ClericalTarget(who, info.npctemplate, "Select the tamed creature to release.", TGTOPT_CHECK_LOS + TGTOPT_HARMFUL);
 
 	if (GetObjProperty(targ, "summoned"))
-		SendSysMessage(who, "You can not release summoned creatures with this rite.");
+		SendSysMessage(who, "Этим обрядом нельзя освободить призванных существ.");
 		return;
 	elseif ( (!targ.script["tame"]) && (!targ.script["hitch"]) )
-		SendSysMessage(who, "You can not free this creature.");
+		SendSysMessage(who, "Нельзя освободить это существо.");
 		return;
 	elseif(SystemFindObjectBySerial(GetObjProperty(targ,"master")).cmdlevel > who.cmdlevel)
-		SendSysMessage(who, "Error: Cant release GM owned creatures.");
+		SendSysMessage(who, "Ошибка: нельзя освобождать существ, принадлежащих ГМ.");
 		return;
 	endif
 
@@ -40,6 +40,6 @@ program dispelmagic(params)
 	EraseObjProperty(targ, "script");
 	RestartScript(targ);
 
-	PrintTextAbove(targ, targ.name + " can roam free again");
+	PrintTextAbove(targ, targ.name + " снова может бродить свободно");
 
 endprogram

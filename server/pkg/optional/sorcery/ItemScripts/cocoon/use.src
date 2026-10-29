@@ -6,13 +6,13 @@ include ":attributes:attributes";
 program spawnportal_use( mobile, cocoon )
 
 	if( Distance( mobile, cocoon ) > 2 )
-		SendSysMessage( mobile, "You are too far away to attempt to close the portal.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Вы слишком далеко, чтобы закрыть портал.", 0x3, 0x22 );
 		return 0;
 	endif
 
 	while( cocoon )
 		if( Distance( mobile, cocoon ) > 2 )
-			SendSysMessage( mobile, "You have moved too far from the portal to continue.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Вы отошли слишком далеко от портала.", 0x3, 0x22 );
 			return 0;
 		endif
 
@@ -36,7 +36,7 @@ function ApplyDamageToCocoon( byref mobile, byref cocoon )
 		damage := 1;
 	endif
 
-	PrintTextAbove( cocoon, "Damage: " + damage, 0x3, 0x42, JOURNAL_PRINT_NAME );
+	PrintTextAbove( cocoon, "Урон: " + damage, 0x3, 0x42, JOURNAL_PRINT_NAME );
 	if( cocoon.hp > 0 )
 		if( damage > cocoon.hp )
 			hp_diff := damage - cocoon.hp;

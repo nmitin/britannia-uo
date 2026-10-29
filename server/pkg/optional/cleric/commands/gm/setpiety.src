@@ -6,7 +6,7 @@ include "include/client";
 include ":gumps:requestGump";
 
 program SetPiety(who, text)
-	SendSysMessage(who, "Choose the item or character:", color := 88);
+	SendSysMessage(who, "Выберите предмет или персонажа:", color := 88);
 	var targ := Target(who);
 	if(!text)
 		text := RequestGump(who, "Enter the piety value:",  "", "", CANCEL_BTN_ON);
@@ -16,6 +16,6 @@ program SetPiety(who, text)
 		endif
 	endif
 	var Piety := CInt(text);
-	SendSysMessage (who, "Piety = " + Piety);
+	SendSysMessage (who, "Благочестие = " + Piety);
 	SetObjProperty(targ, "Piety", Piety);
 endprogram

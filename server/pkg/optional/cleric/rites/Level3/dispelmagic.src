@@ -29,7 +29,7 @@ function killsummoned(who, piety)
 		if (CheckLineOfSight(who, mobile))
 			if(GetObjProperty(mobile, "summoned") && mobile.npctemplate)
 				PlaySoundEffect(mobile, 531);
-				PrintTextAbove(mobile, "*" + mobile.name + "'s magic essence fades*");
+				PrintTextAbove(mobile, "*" + mobile.name + ": магическая сущность угасает*");
 				sleepms(800);
 				mobile.Kill();
 			endif
@@ -43,7 +43,7 @@ function potions(who, piety)
 		if (CheckLineOfSight(who, mobile))
 			foreach item in EnumerateItemsInContainer(mobile.backpack.serial)
 				if (config[item.objtype].idname)
-					PrintTextAbove(mobile, "*potions shatter in " + mobile.name + "'s backpack*");
+					PrintTextAbove(mobile, "*зелья разбиваются в " + mobile.name + ": рюкзак*");
 					PlaySoundEffect(mobile, 63);
 					DestroyItem(item);
 				endif
@@ -54,9 +54,9 @@ function potions(who, piety)
 	foreach item in ListItemsNearLocation(who.x, who.y, who.z, piety*2, who.realm)
 		if (config[item.objtype].idname)
 			if (item.amount > 1)
-				PrintTextAbove(item, item.desc + " shatter");
+				PrintTextAbove(item, item.desc + " разбиваются");
 			else
-				PrintTextAbove(item, item.desc + " shatters");
+				PrintTextAbove(item, item.desc + " разбивается");
 			endif
 			PlaySoundEffect(item, 63);
 			sleepms(500);
@@ -70,12 +70,12 @@ function breakglyphs(who, piety)
 		if (item.objtype in glyphs)
 			var power := CInt(GetObjProperty(item, "power"));
 			if (SkillCheck(who, CLERIC_SKILL, (power*10), (power*2)) > 0)
-				PrintTextAbove(item, "*" + item.desc + " crumbles*");
+				PrintTextAbove(item, "*" + item.desc + " рассыпается*");
 				PlaySoundEffect(item, 531);
 				sleepms(600);
 				DestroyItem(item);
 			else
-				SendSysMessage(who, "You are unable to crack the power of " + item.desc);
+				SendSysMessage(who, "Вы не можете вскрыть силу " + item.desc);
 			endif
 		endif
 	endforeach

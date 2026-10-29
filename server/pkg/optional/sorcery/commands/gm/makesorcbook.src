@@ -3,7 +3,7 @@ use uo;
 program textcmd_sorcerytext( who )
     var book := CreateItemInBackpack(who,"bookofsorcery", 1);
     if (!book)
-        SendSysMessage ( who, "For some reason I could not create the text of sorcery in your backpack.", color := 33);
+        SendSysMessage ( who, "Не удалось создать текст колдовства в рюкзаке.", color := 33);
         return;
     endif
     SetObjProperty (book, "Incantations", "11111111");

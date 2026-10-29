@@ -30,10 +30,10 @@ program altar(altar)
 		ev := os::wait_for_event(3);
 		case(ev.type)
 			EVID_ENTEREDAREA: 	if (ev.source.ip)
-									SendSysMessage(ev.source, "You feel peace and unity with your surroundings.", color := 56);
+									SendSysMessage(ev.source, "Вы чувствуете покой и единство с окружением.", color := 56);
 								endif
 			EVID_LEFTAREA:	 	if (ev.source.ip)
-									SendSysMessage(ev.source, "The peace you feel begins to fade.", color := 56);
+									SendSysMessage(ev.source, "Покой начинает угасать.", color := 56);
 								endif
 			default:
 		endcase
@@ -54,12 +54,12 @@ program altar(altar)
 			// If the devotion of the character is an opposing devotion deal damage.
 			if ( GetObjProperty(character, "Преданность") in heretics )
 				PlayLightningBoltEffect(character);
-				PrintTextAbove(character, "* Heretic! *");
+				PrintTextAbove(character, "* Еретик! *");
 				ApplyRawDamageEx(character, RandomDiceRoll("3d6"), DMG_ENERGY);
 			endif
 			// If the religion's alignment is good then kill criminals and murderers.
 			if ( alignment == "Good" && (character.criminal || character.murderer) )
-				PrintTextAbove(character, character.name + " is slain!");
+				PrintTextAbove(character, character.name + " убит!");
 				character.kill();
 			endif
 			// If the religion alignment is good or neutral kill undead NPCs.

@@ -28,7 +28,7 @@ program Cocoon(parms)
 	SetObjProperty(cast_on, "OrigZ", cast_on.z);
 	SetObjProperty(cocoon, "PrisonerSerial", cast_on.serial);
 	MoveObjectToLocation(cast_on, cast_on.x, cast_on.y, cast_on.z - 100, cast_on.realm, MOVEOBJECT_FORCELOCATION);
-	SendSysMessage(cast_on, "You have been temporarily sealed in a cocoon and cannot move!", color := 43);
+	SendSysMessage(cast_on, "Вы запечатаны в кокон и не можете двигаться!", color := 43);
 	Set_Critical(1);
 	var max_hp_mod := CInt(AP_GetSkill(caster, MAGERY) * 3);
 	cocoon.maxhp_mod := max_hp_mod;

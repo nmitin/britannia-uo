@@ -5,11 +5,11 @@ include ":cleric:cleric";
 
 program mypiety(who, text)
 	if (!IsCleric(who))
-		SendSysMessage(who, "Your not a cleric.");
+		SendSysMessage(who, "Вы не клирик.");
 		return;
 	endif
 
 	var devotion := GetObjProperty(who, "Преданность");
 	var piety := GetObjProperty(who, "Piety");
-	SendSysMessage(who, "Your piety is " + piety);
+	SendSysMessage(who, "Ваше благочестие: " + piety);
 endprogram

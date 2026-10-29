@@ -21,7 +21,7 @@ program familiar(parms)
 	if (myfamiliar != error)
 		myfamiliar := SystemFindObjectBySerial(myfamiliar);
 		if (myfamiliar != error)
-			SendSysMessage(caster, "You have a familiar - would you like to call it?", color := 88);
+			SendSysMessage(caster, "У вас есть фамильяр — вызвать его?", color := 88);
 			if(yesNo(caster, "Call Familiar?") == 1)
 				MoveObjectToLocation(myfamiliar, caster.x, caster.y, caster.z, caster.realm, MOVEOBJECT_FORCELOCATION);
 				PlaySoundEffect(myfamiliar, 0xff);
@@ -37,25 +37,25 @@ program familiar(parms)
 		return 0;
 	endif
 	if ( !MS_MobileCheck(caster, cast_on) )
-		SendSysMessage(caster, "You must select a non-player character.", color := 33);
+		SendSysMessage(caster, "Нужно выбрать неигрового персонажа.", color := 33);
 		return 0;
 	endif
 
 	if (cast_on.ip)
-		SendSysMessage(caster, "That cannot become your familiar.", color := 33);
+		SendSysMessage(caster, "Это не может стать вашим фамильяром.", color := 33);
 		return 0;
 	endif
 
 	var element := npccfg[cast_on.npctemplate].familiar;
 	if (!element)
-		SendSysMessage(caster, "That cannot become your familiar.", color := 33);
+		SendSysMessage(caster, "Это не может стать вашим фамильяром.", color := 33);
 		return 0;
 	else
 		element := CInt(element);
 	endif
 
 	if (SkillCheck(caster, MEDITATION, element, (element * 3) ) > 0)
-		SendSysMessage(caster, "You have bonded with " + CStr(cast_on.name) + ".", color := 66);
+		SendSysMessage(caster, "Вы связаны с " + CStr(cast_on.name) + ".", color := 66);
 		cast_on.master := caster.serial;
 		SetObjProperty(cast_on, "master", caster.serial);
 		SetObjProperty(cast_on, "Familiar", caster.serial);
@@ -67,7 +67,7 @@ program familiar(parms)
 		element := AP_GetStat(caster, STRENGTH) - 5;
 		SetBaseStrength(caster,element);
 	else
-		SendSysMessage(caster, "You have failed to bond with " + CStr(cast_on.name) + ".", color := 33);
+		SendSysMessage(caster, "Не удалось связаться с " + CStr(cast_on.name) + ".", color := 33);
 	endif
 
 endprogram

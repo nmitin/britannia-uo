@@ -159,8 +159,8 @@ program wizardstext(who, tome)
 	var spellcount := 0;
         var params := {};
         if (GetAttribute(who, "Magery") < 99)
-            SendSysMessage (who, "You are not learned enough in magic to make use of this book.", font := 2, color := 33);
-            SendSysMessage (who, "To become a Wizard requires much knowledge in the magic arts first.", font := 2, color := 33);
+            SendSysMessage (who, "Ваших знаний магии недостаточно для этой книги.", font := 2, color := 33);
+            SendSysMessage (who, "Чтобы стать волшебником, нужно много знаний в магических искусствах.", font := 2, color := 33);
             return;
         endif
 

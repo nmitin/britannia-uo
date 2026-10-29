@@ -8,7 +8,7 @@ include ":cleric:cleric";
 const MAXLEVEL := 7;
 
 program setcanon(who)
-	SendSysMessage(who, "Select a canon:", color := 88);
+	SendSysMessage(who, "Выберите канон:", color := 88);
 	var book := Target(who);
 	if(!book)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.

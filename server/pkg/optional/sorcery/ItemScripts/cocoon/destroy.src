@@ -5,7 +5,7 @@ program SorcCocoon_destroy( cocoon )
 
 	var prisoner := SystemFindObjectBySerial(GetObjProperty(cocoon, "PrisonerSerial"), SYSFIND_SEARCH_OFFLINE_MOBILES);
 	MoveObjectToLocation(prisoner, prisoner.x, prisoner.y, GetObjProperty(prisoner, "OrigZ"), prisoner.realm, MOVEOBJECT_FORCELOCATION);
-	SendSysMessage(prisoner, "Your are free from the cocoon!", color := 56);
+	SendSysMessage(prisoner, "Вы освободились из кокона!", color := 56);
 	EraseObjProperty(prisoner, "OrigZ");
 	return 1;
 

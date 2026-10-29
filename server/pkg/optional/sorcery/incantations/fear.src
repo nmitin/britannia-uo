@@ -46,7 +46,7 @@ program fear(parms)
     endif
 
     if (RandomInt(100) <= resistcheck)
-		SendSysMessage(caster, "Your spell fails.");
+		SendSysMessage(caster, "Заклинание срывается.");
 		PlaySoundEffect(caster, 0x005d);
 		PlayObjectCenteredEffect(caster, 0x3735, 0x0a, 0x1e);
 		return 0;
@@ -56,7 +56,7 @@ program fear(parms)
     SetObjProperty(cast_on, "RegularScript", cast_on.script);
     cast_on.script := "turnedundead";
     RestartScript(cast_on);
-    PrintTextAbove(cast_on, CStr(cast_on.name) + " flees in terror!");
+    PrintTextAbove(cast_on, CStr(cast_on.name) + " в ужасе бежит!");
     PlaySoundEffect(cast_on, SFX_SPELL_WEAKEN);
     PlayObjectCenteredEffect(cast_on, FX_CURSE_EFFECT, 10,10);
 

@@ -27,20 +27,20 @@ program Banish(parms)
 		return 0;
 	endif
 	if(cast_on.isA(POLCLASS_NPC))
-		SendSysMessage(caster, "You may only banish players.", color := 33);
+		SendSysMessage(caster, "Изгонять можно только игроков.", color := 33);
 		return 0;
 	endif
 	if(cast_on.cmdlevel > 1)
-		SendSysMessage(caster, "You will be punished for your misdeed!!!", color := 33);
+		SendSysMessage(caster, "Вы будете наказаны за проступок!!!", color := 33);
 		SleepMS(500);
 		PlayLightningBoltEffect(caster);
 		ApplyRawDamageEx(caster, Cint(AP_GetVital(caster, HITS) / 2));
-		SendSysMessage(cast_on, caster.name + " attempted to caster the sorcery spell Banish on you.", color := 33);
+		SendSysMessage(cast_on, caster.name + " попытался применить на вас заклинание Banish.", color := 33);
 		return 0;
 	endif
 	whereto := GetLocation();
 	success := MoveObjectToLocation(cast_on,whereto.xloc, whereto.yloc, whereto.zloc, whereto.facetloc, MOVEOBJECT_FORCELOCATION);
-	SendSysMessage(cast_on, "You have been bannished to " + whereto.nameloc + "!", 2, 33);
+	SendSysMessage(cast_on, "Вас изгнали в " + whereto.nameloc + "!", 2, 33);
 
 endprogram
 

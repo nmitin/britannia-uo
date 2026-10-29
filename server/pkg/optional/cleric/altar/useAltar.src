@@ -19,7 +19,7 @@ program UseAltar(who, altar)
 		PlayObjectCenteredEffect(who, 0x373A, 7, 14);
 		AP_SetVital(who, HITS, CInt(AP_GetStat(who, STRENGTH)));
 	else
-		SendSysMessage(who, "This is the " + altar_devotion + " altar.", color := 88);
+		SendSysMessage(who, "Это " + altar_devotion + " алтарь.", color := 88);
 		return;
 
 	endif
@@ -137,7 +137,7 @@ function ListAllies(who)
 	var faith := faiths_datafile.FindElement(devotion);
 	var alliances := faith.getprop("Alliance");
 	if(!alliances)
-		SendSysMessage(who, "Your faith does not have an alliance with any other faith.", color := 88);
+		SendSysMessage(who, "У вашей веры нет союза с другими верами.", color := 88);
 		return;
 	endif
 	SelectionGump(who, "Allied Faiths", alliances, BTN_NOTYPE);
@@ -150,7 +150,7 @@ function ListOpposition(who)
 	var faith := faiths_datafile.FindElement(devotion);
 	var opposition := faith.getprop("Opposition");
 	if(!opposition)
-		SendSysMessage(who, "Your faith is not opposed to any other faith.", color := 88);
+		SendSysMessage(who, "Ваша вера не противостоит другим верам.", color := 88);
 		return;
 	endif
 	SelectionGump(who, "Opposing Faiths", opposition, BTN_NOTYPE);
@@ -183,7 +183,7 @@ function EditStatementOfFaith(who)
 
 	var text := GFExtractData(result, 1);
 	faith.setprop("FaithStatement", text);
-	SendSysMessage(who, "The Statement of Faith has been saved.", color := 66);
+	SendSysMessage(who, "Символ веры сохранён.", color := 66);
 
 endfunction
 

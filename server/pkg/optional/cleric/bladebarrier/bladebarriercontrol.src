@@ -16,7 +16,7 @@ program bladebarrier(blades)
 				if (RandomInt(15) == 8)
 					temp := destroyequip(person);
 					if (temp)
-						SendSysMessage(person, "The blades destroy " + temp.desc);
+						SendSysMessage(person, "Клинки уничтожают " + temp.desc);
 						DestroyItem(temp);
 					endif
 				endif

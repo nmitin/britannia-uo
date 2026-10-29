@@ -21,10 +21,10 @@ program ventriloquism(parms)
         SendSysMessage (caster, "Отменено.", color := 33);
         return 0;
     endif
-	SendSysMessage(caster, "What do you want to say?", color := 88);
+	SendSysMessage(caster, "Что вы хотите сказать?", color := 88);
     var saytext := RequestInput(caster, caster.backpack, "");
     if (!saytext)
-            SendSysMessage(caster, "Invalid.");
+            SendSysMessage(caster, "Недопустимо.");
             return 0;
     endif
 

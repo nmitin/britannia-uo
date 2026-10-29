@@ -19,10 +19,10 @@ program countfocci(who)
 
 	endforeach
 
-	SendSysMessage(who, " Power Focci " + power);
-	SendSysMessage(who, " Spirit Focci " + spirit);
-	SendSysMessage(who, " Arcane Focci " + arcane);
-	SendSysMessage(who, " Time Focci " + time);
-	SendSysMessage(who, " Earth Focci " + earth);
-	SendSysMessage(who, " Life Focci " + life);
+	SendSysMessage(who, " Силовые фокусы " + power);
+	SendSysMessage(who, " Духовные фокусы " + spirit);
+	SendSysMessage(who, " Магические фокусы " + arcane);
+	SendSysMessage(who, " Временные фокусы " + time);
+	SendSysMessage(who, " Земляные фокусы " + earth);
+	SendSysMessage(who, " Жизненные фокусы " + life);
 endprogram

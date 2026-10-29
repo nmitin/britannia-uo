@@ -39,7 +39,7 @@ program gustofwind(parms)
 
 
 	var movex, movey;
-	PrintTextAbove(cast_on, CStr(cast_on.name) + " is tossed about by the wind!");
+	PrintTextAbove(cast_on, CStr(cast_on.name) + " швыряет ветром!");
 	send_attack(cast_on, caster);
 	while (movedist > 0)
 		cast_on.setParalyzed(1);

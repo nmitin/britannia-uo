@@ -20,7 +20,7 @@ program pushback(victim)
 	var movedist := 4;
 	var movex, movey;
 
-	SendSysMessage(victim, "You are tossed about by the wind!");
+	SendSysMessage(victim, "Вас швыряет ветром!");
 
 	while (movedist > 0)
 

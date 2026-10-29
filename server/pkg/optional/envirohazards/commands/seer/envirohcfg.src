@@ -35,7 +35,7 @@ program cfg_effects( who )
 	elseif(result[50])
 		SetEffect(who, "Rocks", damage, range);
 	else
-		SendSysMessage(who, "No effect selected.", color := 33);
+		SendSysMessage(who, "Эффект не выбран.", color := 33);
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 		return 0;
 	endif
@@ -45,7 +45,7 @@ endprogram
 
 function SetEffect(who, effect, damage, range)
 
-	SendSysMessage(who, "Where do you want to place the hazard?", color := 88);
+	SendSysMessage(who, "Куда поместить опасность?", color := 88);
 	var place := TargetCoordinates(who);
 	if(!place)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
@@ -55,7 +55,7 @@ function SetEffect(who, effect, damage, range)
 	SetObjProperty(tile, "Damage", CInt(damage));
 	SetObjProperty(tile, "Effect", effect);
 	SetObjProperty(tile, "Range", CInt(range));
-	SendSysMessage(who, "The environmental hazard has been placed successfully", color := 66);
+	SendSysMessage(who, "Опасность успешно размещена", color := 66);
 	return 1;
 
 endfunction

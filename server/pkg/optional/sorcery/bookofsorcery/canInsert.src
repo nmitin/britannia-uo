@@ -22,17 +22,17 @@ program canInsert( mobile, container, move_type, unused inserttype, adding_item,
 	if( move_type == MOVETYPE_COREMOVE )
 		return 1;
 	elseif( adding_item.amount > 1 )
-		SendSysMessage(mobile, "You cannot inscribe more than one scroll at a time.", color := 33);
+		SendSysMessage(mobile, "Нельзя записывать больше одного свитка за раз.", color := 33);
 		return 0;
 	elseif(scroll_elem.SpellType != "Sorcery")
-		SendSysMessage(mobile, "You cannot inscribe that into a book of sorcery.", color := 33);
+		SendSysMessage(mobile, "Это нельзя записать в книгу колдовства.", color := 33);
 		return 0;
 	elseif(IsInSpellInBook(container, spell_id))
-		SendSysMessage(mobile, "That spell is already in the book.", color := 33);
+		SendSysMessage(mobile, "Это заклинание уже в книге.", color := 33);
 		return 0;
 	elseif(!SkillCheck(mobile, INSCRIPTION, 90, 50) > 0)
 	// elseif(AP_GetSkill(mobile, INSCRIPTION) < 80)
-		SendSysMessage(mobile, "You failed to inscribe that scroll.", color := 33);
+		SendSysMessage(mobile, "Не удалось записать свиток.", color := 33);
 		return 0;
 	elseif( AP_GetVital( mobile, MANA ) < mana_required )
 		SendSysMessageCL ( mobile, 1044380, color := 33 ); // You don't have enough mana to inscribe that spell.

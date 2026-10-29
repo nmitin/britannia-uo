@@ -39,7 +39,7 @@ program domination(parms)
 	endif
 
 	if ( !cast_on.npctemplate )
-		SendSysMessage(caster, "Domination has no effect.", color := 40);
+		SendSysMessage(caster, "Господство не действует.", color := 40);
 		PlaySoundEffect(caster, 0x005d);
 		PlayObjectCenteredEffect(caster, 0x3735, 0x0a, 0x1e);
 		return 0;
@@ -54,7 +54,7 @@ program domination(parms)
 
     var resistcheck := CInt(AP_GetStat(cast_on, INTELLIGENCE) + AP_GetSkill(cast_on, RESISTING_SPELLS) - AP_GetSkill(caster, MAGERY) - AP_GetSkill(caster, EVALUATING_INTELLIGENCE) );
 	if (RandomInt(100) <= resistcheck)
-		SendSysMessage(caster, "Your victim has resisted Domination.", color := 40);
+		SendSysMessage(caster, "Жертва сопротивляется господству.", color := 40);
 		PlaySoundEffect(caster, 0x005d);
 		PlayObjectCenteredEffect(caster, 0x3735, 0x0a, 0x1e);
 		return 0;
@@ -66,7 +66,7 @@ program domination(parms)
 	SetObjProperty(cast_on, "happiness", 100);
 	cast_on.script := "tamed";
 	RestartScript(cast_on);
-	PrintTextAbove(cast_on, CStr(cast_on.name) + " appears confused!");
+	PrintTextAbove(cast_on, CStr(cast_on.name) + " выглядит сбитым с толку!");
 	PlaySoundEffect(cast_on, SFX_SPELL_WEAKEN);
 	PlayObjectCenteredEffect(cast_on, FX_CURSE_EFFECT, 10,10);
 

@@ -22,7 +22,7 @@ program InvisibleStalker(parms)
 		return 0;
 	endif
 	if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )
-		SendSysMessage(caster, "you cannot see that.", color := 33);
+		SendSysMessage(caster, "вы этого не видите.", color := 33);
 		return 0;
 	endif
 
@@ -35,7 +35,7 @@ program InvisibleStalker(parms)
     stalker.script := "tamed";
     RestartScript(stalker);
 	MoveObjectToLocation(stalker, caster.x, caster.y, caster.z, caster.realm, MOVEOBJECT_FORCELOCATION);
-	SendSysMessage(cast_on, "You are being attacked by an invisible enemy!!!", color := 33);
+	SendSysMessage(cast_on, "Вас атакует невидимый враг!!!", color := 33);
 
 	var ev := array;
 	ev.+ type;
@@ -54,7 +54,7 @@ program InvisibleStalker(parms)
 	Sleep(30);
 	SetObjProperty(stalker, "guardkill", 1);
 	stalker.kill();
-	SendSysMessage(cast_on, "The invisible enemy is gone.", color := 66);
+	SendSysMessage(cast_on, "Невидимый враг исчез.", color := 66);
 
 endprogram
 

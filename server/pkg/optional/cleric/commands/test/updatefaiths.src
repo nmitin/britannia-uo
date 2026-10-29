@@ -24,12 +24,12 @@ program update_faiths_datafile(who)
 	var file_name := ":cleric:" + text;
 	var clerics_cfg := ReadConfigFile(file_name);
 	if(!clerics_cfg)
-		SendSysMessage(who, "Error reading the source file. Make sure you entered", color := 33);
-		SendSysMessage(who, "the name correctly, including the timestamp.", color := 33);
+		SendSysMessage(who, "Ошибка чтения исходного файла. Убедитесь, что вы ввели", color := 33);
+		SendSysMessage(who, "имя правильно, включая отметку времени.", color := 33);
 		return 0;
 	endif
 	var faiths_datafile := Faiths_OpenDatafile();
-	SendSysMessage(who, "Updating faiths datafile.", color := 88);
+	SendSysMessage(who, "Обновление файла вер.", color := 88);
 	// Clear any existing data from the faiths datafile.
 	foreach key in ( faiths_datafile.Keys() )
 		faiths_datafile.DeleteElement( key );
@@ -46,7 +46,7 @@ program update_faiths_datafile(who)
 			df_elem.SetProp(cfg_prop, GetConfigString( cfg_elem, cfg_prop ));
 		endforeach
 	endforeach
-	SendSysMessage(who, "Finished updating faiths datafile.", color := 66);
+	SendSysMessage(who, "Файл вер обновлён.", color := 66);
 
 endprogram
 

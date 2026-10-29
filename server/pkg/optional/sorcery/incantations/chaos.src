@@ -71,7 +71,7 @@ program chaos(parms)
 		SendEvent(victim, ev);
 		ev.source := victim;
 		SendEvent(dupe, ev);
-		PrintTextAbove(victim, CStr(victim.name) + " appears confused!");
+		PrintTextAbove(victim, CStr(victim.name) + " выглядит сбитым с толку!");
 		PlayObjectCenteredEffect(victim, FX_CURSE_EFFECT, 10,10);
     endforeach
 

@@ -17,7 +17,7 @@ program binddaemon(who, prison)
 	var i;
 
 	if(!GetObjProperty(prison, "Daemon"))
-		SendSysMessage(who, "There are no creatures bound within this stone.", color := 33);
+		SendSysMessage(who, "В этом камне нет привязанных существ.", color := 33);
 		return 0;
 	endif
 
@@ -29,7 +29,7 @@ program binddaemon(who, prison)
 			bindcheck := CInt( ( (bindpower / bindresist) - 0.50) * 100);
 			i := RandomInt(100);
 			if ( (i > bindcheck) || (i == 0) )
-				SendSysMessage(who, "Your power over the daemon has broken, and the daemon turns upon you!", color := 33);
+				SendSysMessage(who, "Ваша власть над демоном пала, и он нападает на вас!", color := 33);
 				DestroyItem(prison);
 				daemon.script := "test";
 				RestartScript(daemon);
@@ -37,17 +37,17 @@ program binddaemon(who, prison)
 			endif
 			SetObjProperty(who, "summoned", 1);
 			PlaySoundEffect(who, 0xff);
-			PrintTextAbove(who, who.name + " has re-bound " + daemon.name + "!");
+			PrintTextAbove(who, who.name + " снова привязал " + daemon.name + "!");
 			EraseObjProperty(prison, "#RELEASED");
 			daemon.kill();
 			return 1;
 		endif
-		SendSysMessage(who, "The power of this crystal has been drained, and the crystal disappears!");
+		SendSysMessage(who, "Сила кристалла исчерпана, и он исчезает!");
 		DestroyItem(prison);
 		return 1;
 	endif
 
-	SendSysMessage(who, "Select a location to release the daemon.");
+	SendSysMessage(who, "Выберите место, чтобы освободить демона.");
 	var targ := TargetCoordinates(who);
 	if (!targ)
 		SendSysMessage(who, "Прервано.");
@@ -55,20 +55,20 @@ program binddaemon(who, prison)
 	endif
 
 	if (!CheckLosAt(who, targ.x, targ.y, targ.z) )
-		SendSysMessage(who, "You cannot see that location.");
+		SendSysMessage(who, "Вы не видите это место.");
 		return 0;
 	endif
 
 	daemon := CreateNpcFromTemplate( (GetObjProperty(prison, "Daemon") ), targ.x, targ.y, targ.z, 0, targ.realm);
 	SetObjProperty(targ, "summoned", 1);
 	PlaySoundEffect(who, 0xff);
-	PrintTextAbove(who, who.name + " has released " + daemon.name + "!");
+	PrintTextAbove(who, who.name + " освободил " + daemon.name + "!");
 	bindresist := CDbl(AP_GetVital(daemon, MANA) + AP_GetSkill(daemon, RESISTING_SPELLS) );
 	bindpower := CDbl(AP_GetStat(who, INTELLIGENCE) + CInt( GetAttribute(who, MEDITATION) * 2) );
 	bindcheck := CInt( ( (bindpower / bindresist) - 0.50) * 100);
 	i := RandomInt(100);
 	if ( (i > bindcheck) || (i == 0) )
-		SendSysMessage(who, "Your power over the daemon has broken, and the daemon turns upon you!");
+		SendSysMessage(who, "Ваша власть над демоном пала, и он нападает на вас!");
 		RestartScript(daemon);
 		DestroyItem(prison);
 		return 1;

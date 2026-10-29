@@ -12,13 +12,13 @@ include ":itemUtils:itemdesc";
 program SorceryOnInsert( mobile, container, unused move_type, unused insert_type, adding_item, unused existing_stack, unused amount_to_add )
 
 	if(!InscribeTheSpell(container, adding_item))
-		SendSysMessage(mobile, "The scroll cannot be inscribed!", color := 33);
-		SendSysMessage(mobile, "Page a staff member and report this!", color := 33);
+		SendSysMessage(mobile, "Свиток нельзя записать!", color := 33);
+		SendSysMessage(mobile, "Сообщите администрации!", color := 33);
 		CreateItemInBackpack(mobile, adding_item.objtype);
 		return 0;
 	endif
 	PlaySoundEffect(container, 0x24a);
-	SendSysMessage(mobile, "You successfully inscribe the scroll in the sorcery book.", color := 66);
+	SendSysMessage(mobile, "Свиток успешно записан в книгу колдовства.", color := 66);
 
 	return 1;
 endprogram

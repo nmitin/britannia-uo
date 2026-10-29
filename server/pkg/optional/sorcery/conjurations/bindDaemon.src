@@ -28,7 +28,7 @@ program binddaemon(parms)
 	Send_attack(cast_on, caster);
 	var element := npccfg[cast_on.npctemplate].elemental;
 	if (element != "daemonic")
-		SendSysMessage(caster, "That is not a daemonic entity!");
+		SendSysMessage(caster, "Это не демоническая сущность!");
 		return 0;
 	endif
 
@@ -47,7 +47,7 @@ program binddaemon(parms)
 	endif
 
 	if (RandomInt(100) > bindcheck)
-		SendSysMessage(caster, "You have failed to bind the daemon.");
+		SendSysMessage(caster, "Не удалось привязать демона.");
 		return 0;
 	endif
 
@@ -60,7 +60,7 @@ program binddaemon(parms)
 
 	SetObjProperty(cast_on, "summoned", 1);
 	PlaySoundEffect(caster, 0xff);
-	PrintTextAbove(caster, caster.name + " has bound " + cast_on.name + "!");
+	PrintTextAbove(caster, caster.name + " привязал " + cast_on.name + "!");
 	cast_on.kill();
 
 endprogram

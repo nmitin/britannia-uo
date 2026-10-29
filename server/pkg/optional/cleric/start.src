@@ -24,7 +24,7 @@ program initialize_faiths_datafile()
 		return 0;
 	endif
 	var faiths_datafile := Faiths_OpenDatafile();
-	Print("Updating faiths datafile.");
+	Print("Обновление файла вер.");
 	// Clear any existing data from the faiths datafile.
 	// Normally there won't be a datafile since this
 	// will run the first time this package is added.
@@ -46,7 +46,7 @@ program initialize_faiths_datafile()
 		endforeach
 	endforeach
 	SetGlobalProperty("ClericsInitialized", 1);
-	Print("Finished updating faiths datafile.");
+	Print("Файл вер обновлён.");
 
 endprogram
 

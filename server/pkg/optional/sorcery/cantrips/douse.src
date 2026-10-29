@@ -74,7 +74,7 @@ program douse(parms)
             for i := 1 to len(litsources)
                     if (litsources[i] == cast_on.graphic)
                             PlaySoundEffect(cast_on, 44);
-                            SendSysMessage(caster, "Extinguished.");
+                            SendSysMessage(caster, "Погашено.");
                             cast_on.graphic := unlitsources[i];
                             AwardRawAttributePoints( caster, MAGERY, 50, SKILLID_MAGERY);
                             return 1;

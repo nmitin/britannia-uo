@@ -32,8 +32,8 @@ program CallMinataurs(parms)
 	Detach();
 	success := s_summon_creature( caster, "minataur", cast_on, qty  );
 	if(!success)
-		SendSysMessage(caster, "This spell could not summon the NPC!", color := 33);
-		SendSysMessage(caster, "Page a GM and report this issue.", color := 33);
+		SendSysMessage(caster, "Заклинание не смогло призвать NPC!", color := 33);
+		SendSysMessage(caster, "Сообщите ГМ об этой проблеме.", color := 33);
 	endif
 
 endprogram

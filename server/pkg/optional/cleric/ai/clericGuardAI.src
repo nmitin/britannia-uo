@@ -100,7 +100,7 @@ program CastleGuard()
 		endif
 
 		if(CInt(GetObjProperty(me,"poison_level")) > 1)
-			say("An Nox");
+			say("Ан Нокс");
 			sleep(2);
 			EraseObjProperty(me,"poison_level");
 		endif
@@ -204,7 +204,7 @@ function sleepmode()
     parms[3] := me;
 	while (1)
 		if(CInt(GetObjProperty(me,"poison_level")) > 1)
-			say("An Nox");
+			say("Ан Нокс");
 			start_script( ":spells:cure", parms );
 			sleep(2);
 		endif
@@ -232,11 +232,11 @@ function CheckForCriminals(jerk)
 		return;
 	endif
 	if (jerk.criminal)
-		say("Stop Criminal!");
+		say("Стой, преступник!");
 		AddToHateList( jerk );
 		Fight(jerk);
 	elseif ( CheckHateList(jerk) )
-		say("You're not welcome in this town, "+ jerk.name );
+		say("Тебе здесь не рады, "+ jerk.name );
 		Fight(jerk);
 	endif
 endfunction

@@ -29,8 +29,8 @@ program summon_aerial_servant( parms )
 
 	success := s_summon_creature( caster, ":sorcery:aerialservant", cast_on );
 	if(!success)
-		SendSysMessage(caster, "This spell could not summon the NPC!", color := 33);
-		SendSysMessage(caster, "Page a GM and report this issue.", color := 33);
+		SendSysMessage(caster, "Заклинание не смогло призвать NPC!", color := 33);
+		SendSysMessage(caster, "Сообщите ГМ об этой проблеме.", color := 33);
 	endif
 
 

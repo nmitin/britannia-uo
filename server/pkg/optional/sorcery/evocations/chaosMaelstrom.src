@@ -46,7 +46,7 @@ program chaosmaelstrom(parms)
 
 			if (thevortex)
 				if (RandomInt(100) < 15)
-					PrintTextAbove(thevortex, "The vortex splits!");
+					PrintTextAbove(thevortex, "Вихрь разделяется!");
 					vortexlen := len(vortexlist) + 1;
 					vortexlist[vortexlen] := CreateItemAtLocation(cast_on.x, cast_on.y, cast_on.z, 0x37cc, 1, caster.realm);
 					vortexlist[vortexlen].color := 0x8455;
@@ -56,7 +56,7 @@ program chaosmaelstrom(parms)
 				if (RandomInt(100) < 4)
 					victims := ListMobilesNearLocationEx(thevortex.x, thevortex.y, thevortex.z, 5, LISTEX_FLAG_NORMAL + LISTEX_FLAG_HIDDEN, thevortex.realm);
 					foreach victim in victims
-						PrintTextAbove(thevortex, "The vortex explodes!");
+						PrintTextAbove(thevortex, "Вихрь взрывается!");
 						PlayObjectCenteredEffect(victim, 0x36b0, 0xf, 0x1e );
 						PlaySoundEffect(victim, 0x020b);
 						ApplyDamageEX(victim, RandomDiceRoll( "10d6" ), DMG_PHYSICAL, 0);

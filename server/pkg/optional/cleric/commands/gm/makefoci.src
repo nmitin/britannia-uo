@@ -21,5 +21,5 @@ program makefocci(who, type)
 	else
 		CreateItemInContainer(bag, GetObjtypeByName(type), 20);
 	endif
-	SendSysMessage(who, "Created the bag of foci and placed it in your backpack.", color := 66);
+	SendSysMessage(who, "Сумка фокусов создана и положена в рюкзак.", color := 66);
 endprogram

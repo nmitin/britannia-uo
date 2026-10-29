@@ -36,7 +36,7 @@ var who := params[1];
 	endif
 	var statue := CreateItemInBackpack(who, CInt(GetObjProperty(mount_piece, "RewardObjType")), 1);
 	if(!statue)
-		SendSysMessage(who, "Could not recreate the reward statue!", color := 33);
+		SendSysMessage(who, "Не удалось воссоздать статую награды!", color := 33);
 	endif
 	Sleep(1);
 	return;

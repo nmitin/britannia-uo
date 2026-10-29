@@ -12,6 +12,6 @@ program clericcmd(who, text)
 			SendSysMessage(who, script.errortext);
 		endif
 	else
-		SendSysMessage(who, "You dont have that rite.");
+		SendSysMessage(who, "У вас нет этого обряда.");
 	endif
 endprogram

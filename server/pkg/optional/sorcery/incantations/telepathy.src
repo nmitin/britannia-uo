@@ -18,8 +18,8 @@ program telepathy(parms)
 	endif
 
 	if (GetObjProperty(whom, "Mindshield") )
-		SendSysMessage(caster, "Something is interfering with this spell.", color := 33);
-		SendSysMessage(whom, "Your mindshield has repulsed a telepathic message.", color := 66);
+		SendSysMessage(caster, "Что-то мешает этому заклинанию.", color := 33);
+		SendSysMessage(whom, "Ваш щит разума отразил телепатическое сообщение.", color := 66);
 		EraseObjProperty(whom, "Mindshield");
 		return 0;
 	endif
@@ -34,7 +34,7 @@ program telepathy(parms)
 
 	foreach char in EnumerateOnlineCharacters()
 		if ( (char.cmdlevel == 5) && (GetObjProperty(char, "HearMsgs") ) )
-			SendSysMessage( char, "Telepathic message from " + caster.name + " to " + whom.name + ": " + themessage);
+			SendSysMessage( char, "Телепатическое сообщение от " + caster.name + " to " + whom.name + ": " + themessage);
 		endif
 	endforeach
 

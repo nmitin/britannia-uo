@@ -5,7 +5,7 @@ include ":cleric:faiths";
 
 program setsymbol(who, symbol)
 	if (GetObjProperty(symbol, "Owner"))
-		SendSysMessage(who, "This symbol has already been set.", color := 33);
+		SendSysMessage(who, "Этот символ уже установлен.", color := 33);
 		return;
 	endif
 	var user_devotion := GetObjProperty(who, "Преданность");
@@ -17,8 +17,8 @@ program setsymbol(who, symbol)
 		faith := Faiths_AddFaith( user_devotion );
 	endif
 	if(!faith)
-		SendSysMessage(who, "There was a problem finding or adding this faith to the datafile.", color := 33);
-		SendSysMessage(who, "Report the following error to a staff member:", color := 33);
+		SendSysMessage(who, "Не удалось найти или добавить эту веру в файл данных.", color := 33);
+		SendSysMessage(who, "Сообщите администрации следующую ошибку:", color := 33);
 		SendSysMessage(who, faith.errortext, color := 33);
 		return;
 	endif

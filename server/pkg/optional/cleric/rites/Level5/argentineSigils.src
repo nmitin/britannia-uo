@@ -12,7 +12,7 @@ program argentinesigils(params)
 	SendSysMessage(who, "Выберите предмет для превращения в сигну:");
 	var targ := Target(who);
 	if (!Accessible(who, targ) )
-		SendSysMessage(who, "You cannot reach that.");
+		SendSysMessage(who, "Вы не можете до этого дотянуться.");
 		return 0;
 	endif
 

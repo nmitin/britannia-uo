@@ -26,10 +26,10 @@ program animateundead(params)
 //		elseif (!GetObjProperty(corpse,"risen") && CheckLineOfSight(corpse, who))
 		if (!GetObjProperty(corpse,"risen") && CheckLineOfSight(corpse, who))
 			SetObjProperty(corpse, "risen", 1);
-			PrintTextAbove(corpse, "*twitches*");
+			PrintTextAbove(corpse, "*дёргается*");
 			sleepms(800);
 			slave := CreateNpcFromTemplate(randtype(), corpse.x, corpse.y, corpse.z, 0, corpse.realm);
-			PrintTextAbove(slave, slave.name + " rises from " + corpse.desc);
+			PrintTextAbove(slave, slave.name + " поднимается из " + corpse.desc);
 			SetObjProperty(slave, "master", who.serial);
 			SetObjProperty(slave, "summoned", 1);
 			slave.SetMaster(who);

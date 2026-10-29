@@ -6,11 +6,11 @@ include "include/client";
 
 program GetPiety(who)
         var targ, Piety;
-		SendSysMessage(who, "Select a character:", color := 88);
+		SendSysMessage(who, "Выберите персонажа:", color := 88);
         targ := target(who);
         Piety := GetObjProperty (targ, "Piety");
         if (GetObjProperty (targ, "Piety"))
-          SendSysMessage ( who, "That person's Piety is " + Piety );
-          else SendSysMessage ( who, "That person is faithless.");
+          SendSysMessage ( who, "Благочестие этого человека: " + Piety );
+          else SendSysMessage ( who, "Этот человек без веры.");
           endif
 endprogram

@@ -41,6 +41,6 @@ program start_init_faiths(who)
 			SysLog(junk1.errortext);
 		endif
 	endforeach
-	SendSysMessage(who, "Finished backing up the faiths datafile.", color := 66);
+	SendSysMessage(who, "Резервная копия файла вер создана.", color := 66);
 endprogram
 
