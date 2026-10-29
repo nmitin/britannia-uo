@@ -13,8 +13,8 @@ program use_guild_stone(who)
 endprogram
 
 function resign(guild,who)
-  SendSysMessage(who, "Are you sure you want to resign?",3,34);
-  var answer:=confirmationSizable(who, "Quit Guild?");
+  SendSysMessage(who, "Вы уверены, что хотите выйти?",3,34);
+  var answer:=confirmationSizable(who, "Покинуть гильдию?");
   if(!answer)
     SendSysMessage(who, "Canceled.",3,34);
     return;
@@ -29,7 +29,7 @@ function resign(guild,who)
   EraseObjProperty(who, "fealty");
   who.title_guild:="";
   EraseObjProperty(who, "abv");
-  SendSysMessage(who, "You are no longer a member of "+guild.getprop("guildname")+".",3,70);
+  SendSysMessage(who, "Вы больше не член "+guild.getprop("guildname")+".",3,70);
   var i,all:=guild.members;
   if(all.size() == 0)
     all := guild.allyguilds;
@@ -49,7 +49,7 @@ function resign(guild,who)
 endfunction
 
 function findgm(guild)
-  var returninfo:={"In Vote", "0"},i,all:=guild.members,gm:=guild.getprop("gm");
+  var returninfo:={"На голосовании", "0"},i,all:=guild.members,gm:=guild.getprop("gm");
   for(i:=1;i<=all.size();i:=i+1)
     if(all[i].serial==gm)
       returninfo[1]:=all[i].name;

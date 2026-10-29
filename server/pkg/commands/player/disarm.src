@@ -89,11 +89,11 @@ endprogram
 
 function SetDisarmBag(me)
 
-	SendSysMessage(me,"Select a container");
+	SendSysMessage(me,"Выберите контейнер");
 	var bag := Target(me);
 
 	if (!InInventory(me.backpack, bag) )
-		SendSysMessage(me,"That is not in your inventory.");
+		SendSysMessage(me,"Этого нет в вашем инвентаре.");
 		return;
 	endif
 

@@ -8,19 +8,19 @@ use uo;
 use basic;
 
 program flip (who)
-    SendSysMessage(who, "Select the item you wish to re-orient. Press <ESC> to exit.", color := 88);
+    SendSysMessage(who, "Выберите предмет, который хотите повернуть. Нажмите <ESC> для выхода.", color := 88);
     var stuff, doorgraphic, cando;
     while(1)
 	cando := 0;
 	var targetfurniture := Target(who);
     
 	if (!targetfurniture.objtype)
-	      SendSysMessage(who, "You must select an item!", color := 33);
+	      SendSysMessage(who, "Нужно выбрать предмет!", color := 33);
 	      return 0;
 	endif
     
 	if (targetfurniture.movable == 0 && !who.cmdlevel)
-	      SendSysMessage(who, "That item is locked down.", color := 33);
+	      SendSysMessage(who, "Этот предмет закреплён.", color := 33);
 	      return 0;
 	endif
 	stuff := EnumerateItemsInContainer( who.backpack );
@@ -31,11 +31,11 @@ program flip (who)
 	endforeach
 	if (targetfurniture.isA(POLCLASS_DOOR))
 	    if ( !cando )
-		SendSysMessage (who, "Doors cannot be re-oriented unless they are in your pack.", color := 33);
+		SendSysMessage (who, "Двери нельзя повернуть, если они не в вашем рюкзаке.", color := 33);
 		return;
 	    endif
 	    if (!targetfurniture.doortype == "wood")
-		SendSysMessage (who, "Only wooden doors can be re-oriented at this tiume.", color := 33);
+		SendSysMessage (who, "В данный момент повернуть можно только деревянные двери.", color := 33);
 		return;
 	    endif
 	    doorgraphic := targetfurniture.graphic;
@@ -349,7 +349,7 @@ program flip (who)
 	    
     
 	    default:
-		SendSysMessage(who, "That item cannot be reoriented.");
+		SendSysMessage(who, "Этот предмет нельзя повернуть.");
 	endcase
     endwhile
     

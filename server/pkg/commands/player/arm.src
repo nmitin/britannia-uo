@@ -55,7 +55,7 @@ program textcmd_arm(me, text)
 
    endif
 
-   SendSysMessage(me,"Equip a weapon and use .DISARM 1 2 or 3");
+   SendSysMessage(me,"Возьмите оружие и используйте .DISARM 1, 2 или 3");
 
 	Detach();
 	sleep(3);

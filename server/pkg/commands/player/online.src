@@ -9,7 +9,7 @@ program textcommand_online(who)
 	foreach person in online_players
 		online_players_names.append(person.name);
 	endforeach
-	SelectionGump( who, "Online Players:", online_players_names, BTN_NOTYPE );
+	SelectionGump( who, "Игроки в сети:", online_players_names, BTN_NOTYPE );
 
 endprogram
 

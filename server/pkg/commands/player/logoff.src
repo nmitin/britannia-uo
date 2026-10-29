@@ -6,7 +6,7 @@ use uo;
 use os;
 
 program textcmd_logoff( who )
-    SendSysMessage(who, "You will be logged off in 5 seconds...", 2, 33 );
+    SendSysMessage(who, "Вы выйдете из игры через 5 секунд...", 2, 33 );
     Sleep(5);
     DisconnectClient(who);
 endprogram

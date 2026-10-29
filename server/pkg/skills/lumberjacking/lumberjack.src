@@ -26,7 +26,7 @@ program use_axe(mobile, axe)
 	if( !useItem_check( mobile, axe, ITEM_EQUIPPED ) )
 		return 0;
 	elseif( GetEquipmentByLayer( mobile, 25 ) )
-		SendSysMessage( mobile, "You cannot dig while mounted.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Нельзя копать верхом.", 0x3, 0x22 );
 		return 0;
 	endif 
  
@@ -36,22 +36,22 @@ program use_axe(mobile, axe)
 		return;
 	endif
 	
-	SendSysMessage(mobile, "You begin chopping...");
+	SendSysMessage(mobile, "Вы начинаете рубить...");
 
     AXE_HarvestResource( mobile, tree, axe );
 endprogram
 
 function TreeNearby(me, axe)
-  SendSysMessage( me, "Select something to chop." );
+  SendSysMessage( me, "Выберите, что рубить." );
   var tree := TargetCoordinates( me );
   if(!tree)
-    SendSysMessage(me, "Cancelled");
+    SendSysMessage(me, "Отменено");
     return 0;
   endif
   var distt := CoordinateDistance( me.x, me.y, tree.x, tree.y );
   if(distt > 1 )
     if(!tree.item.container)
-      SendSysMessage(me,"That is too far away");
+      SendSysMessage(me,"Это слишком далеко");
       return 0;
     endif
   endif
@@ -180,7 +180,7 @@ function chopfurniture(me, theobj)
   endif
   var sign;
   if(GetObjProperty(theobj, "lockeddown") || GetObjProperty(theobj, "secure"))
-    SendSysMessage(me, "You cannot destroy secure or locked down items.");
+    SendSysMessage(me, "Нельзя уничтожать защищённые или закреплённые предметы.");
     return;
   endif
   if(theobj.objtype == 0x17007)
@@ -188,12 +188,12 @@ function chopfurniture(me, theobj)
     sign := SystemFindObjectBySerial(houseserial);
     if(GetObjProperty(sign, "barrelserial") == theobj.serial)
       EraseObjProperty(sign, "barrelserial");
-      SendSysMessage(me, "you cannot destroy that while it is locked down.");
+      SendSysMessage(me, "нельзя уничтожить это, пока оно закреплено.");
       return;
     endif
   endif
   if(!Accessible(me, theobj))
-    SendSysMessage(me, "you cant reach that");
+    SendSysMessage(me, "вы не можете до этого дотянуться");
     return;
   endif
   if(me.multi)
@@ -214,7 +214,7 @@ function chopfurniture(me, theobj)
         endif
       endforeach
       if(!coowner)
-        SendSysMessage(me, "this does not belong to you!");
+        SendSysMessage(me, "это вам не принадлежит!");
         return;
       endif
     endif
@@ -262,7 +262,7 @@ function use_blade(who, blade, use_on)
   elseif(is_fish(checkme))
     CarveFish(who, blade, use_on);
   else
-    SendSysMessage(who, "I don't know how to use those items together.");
+    SendSysMessage(who, "Я не знаю, как использовать это вместе.");
   endif
   
 endfunction
@@ -274,7 +274,7 @@ function process_wool(who, blade, sheep)
     CreateItemInContainer(who.backpack, 0x1f125, 3);
     CheckToolWear (who, blade, TAILORING);
   else
-    SendSysMessage(who,"That sheep is not yet ready to be shorn.");
+    SendSysMessage(who,"Эту овцу ещё рано стричь.");
   endif
 endfunction
 
@@ -292,7 +292,7 @@ endfunction
 
 function CarveFish(who, blade, use_on)
   if((!ReserveItem(use_on)) || (use_on.movable == 0))
-    SendSysMessage(who, "You cannot use that.");
+    SendSysMessage(who, "Вы не можете это использовать.");
     return;
   endif
   var num_steaks := (4 * use_on.amount);
@@ -300,7 +300,7 @@ function CarveFish(who, blade, use_on)
   if(DestroyItem(use_on))
     CreateItemInBackpack(who, UOBJ_FISHSTEAK, num_steaks);
     CheckToolWear (who, blade, FISHING);
-    SendSysMessage(who, "You carve the fish steaks and put them in your backpack");
+    SendSysMessage(who, "Вы нарезаете рыбные стейки и кладёте их в рюкзак");
   endif
   sleep(1);
 endfunction
@@ -309,16 +309,16 @@ endfunction
 function CarveCorpse(who, cadaver)
   Detach();
   if((!Accessible(who, cadaver)) or (!CheckLineOfSight(who, cadaver)))
-    SendSysMessage(who, "You cannot use that");
+    SendSysMessage(who, "Вы не можете это использовать");
     return;
   endif
   if(Distance(who, cadaver) > 2)
-    SendSysMessage(who, "You are not close enough");
+    SendSysMessage(who, "Вы недостаточно близко");
     return;
   endif
   var c_type := cadaver.corpsetype;
   if(GetObjProperty(cadaver, "cut") == "1")
-    SendSysMessage( who, "You cannot get any more from this corpse." );
+    SendSysMessage( who, "Больше из этого трупа ничего не получить." );
     foreach thing in EnumerateItemsInContainer(cadaver)
       MoveObjectToLocation(thing, cadaver.x, cadaver.y, cadaver.z, cadaver.realm, MOVEOBJECT_FORCELOCATION);
     endforeach
@@ -339,8 +339,8 @@ function CarveCorpse(who, cadaver)
     partsarray.append(part);
     SetObjProperty(part, "serial", GetObjProperty(cadaver, "serial"));
     var aname := cadaver.name;
-    aname["A corpse of"] := "";
-    part.name := "The head of " + aname;
+    aname["Труп"] := "";
+    part.name := "Голова: " + aname;
     part := CreateItemAtLocation(cadaver.x-1, cadaver.y, cadaver.z, 0x1da1, 1);
     partsarray.append(part);
     part := CreateItemAtLocation(cadaver.x-1, cadaver.y+1, cadaver.z, 0x1da2, 1);
@@ -365,7 +365,7 @@ function CarveCorpse(who, cadaver)
   else
     if(c_type == 223)
       CreateItemInContainer(cadaver, 0x9f1, 2);
-      SendSysMessage(who, "You place the items on the corpse.");
+      SendSysMessage(who, "Вы кладёте предметы на труп.");
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1);
       sleep(30);
       DestroyItem(cadaver);
@@ -376,7 +376,7 @@ function CarveCorpse(who, cadaver)
     var conf := ReadConfigFile(":*:npcdesc");
     var tmplate := GetObjProperty(cadaver, "npctemplate");
     if(!tmplate)
-      SendSysMessage(who, "You cut the corpse, but fail to find anything useful.", 3, 40);
+      SendSysMessage(who, "Вы освежёвываете труп, но не находите ничего полезного.", 3, 40);
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1);
       sleep(30);
       DestroyItem(cadaver);
@@ -405,7 +405,7 @@ function CarveCorpse(who, cadaver)
         CreateItemInContainer(cadaver, thing, Cint(corpseamt[i]));
         i := i + 1;
       endforeach
-      SendSysMessage(who, "You place the items on the corpse.");
+      SendSysMessage(who, "Вы кладёте предметы на труп.");
       var theblood := CreateItemAtLocation(cadaver.x, cadaver.y, cadaver.z, UOBJ_BLOOD, 1);
       sleep(30);
       DestroyItem(cadaver);

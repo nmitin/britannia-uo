@@ -6,14 +6,14 @@ include ":gumps:confirmationSizable";
 
 program point (who)
 	if (who.concealed)
-		SendSysMessage (who, "Are you really sure you want to do that?");
-		SendSysMessage (who, "Players will be able to see.");
-		if (!confirmationSizable (who, "Continue?"))
+		SendSysMessage (who, "Вы действительно уверены, что хотите это сделать?");
+		SendSysMessage (who, "Игроки это увидят.");
+		if (!confirmationSizable (who, "Продолжить?"))
 			return;
 		endif
 	endif
 
-	SendSysMessage (who, "Point at what?");
+	SendSysMessage (who, "На что указать?");
 	var targetted := TargetCoordinates (who);
 	if (!targetted)
 		SendSysMessage (who, "Canceled.");
@@ -33,16 +33,16 @@ program point (who)
 		targetted := CreateItemAtLocation (targetted.x, targetted.y, targetted.z, 0x706c, 1, who.realm);
 		targetted.graphic := 0x206e;
 		targetted.movable := 0;
-		targetted.name := "location marker";
+		targetted.name := "метка на карте";
 		SetObjProperty (targetted, "destroyme", 1);
-		targettedesc := "that spot";
+		targettedesc := "это место";
 	endif
 
 	PerformAction (who, ANIM_SALUTE);
-	PrintTextAbove (who, "*points at " + targettedesc + "*", FONT_NORMAL, 55);
+	PrintTextAbove (who, "*указывает на " + targettedesc + "*", FONT_NORMAL, 55);
 	sleepms (500);
 	if (!targetted.container)
-		PrintTextAbove (targetted, "*" + who.name + " points here*", FONT_NORMAL, 55);
+		PrintTextAbove (targetted, "*" + who.name + " указывает сюда*", FONT_NORMAL, 55);
 	endif
 	sleep (2);
 	if (targetted.objtype == 0x706c)

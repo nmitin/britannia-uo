@@ -26,13 +26,13 @@ program ConsiderSins(who)
 	endif
 	*/
 	if(longc==0)
-		mesg := "Fear not, thou hast not slain the innocent.";
+		mesg := "Не бойтесь, вы не убили невинного.";
 	elseif(longc==1)
-		mesg := "Although thou hast slain the innocent, thy deeds shall not bring retribution. ";
+		mesg := "Хотя вы убили невинного, ваши деяния пока не влекут возмездия. ";
 	elseif(longc==2)
-		mesg := "You have had your chance, next time you harm an innocent you will be a wanted man";
+		mesg := "Вам дали шанс. В следующий раз за убийство невинного вы станете преступником.";
 	elseif(longc>2)
-		mesg := "You are known throughout the land as a murderous brigand.";
+		mesg := "Вас знают по всей земле как кровожадного разбойника.";
 	endif
 
 	SendSysMessage(who,mesg);

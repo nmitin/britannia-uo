@@ -4,7 +4,7 @@ use uo;
 program textcmd_whereat( who )
 
 //    if( who.cmdlevel >= 1)
-    SendSysMessage (who, "Target a spot to get it's coordinates. Press <esc> when you are done.", color := 66);
+    SendSysMessage (who, "Укажите место, чтобы получить его координаты. Нажмите <esc>, когда закончите.", color := 66);
         var where;
         while (1)
             where := TargetCoordinates(who);

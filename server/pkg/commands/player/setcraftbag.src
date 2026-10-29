@@ -11,33 +11,33 @@ include "include/objtype";
 ///////////////////
 
 program SetCraftBag (who)
-	SendSysMessage (who, "Select a container in which to place crafted or harvested items.", color := 88);
-	SendSysMessage (who, "Target yourself or press <esc> to use your main pack.", color := 88);
+	SendSysMessage (who, "Выберите контейнер для созданных или добытых предметов.", color := 88);
+	SendSysMessage (who, "Укажите себя или нажмите <esc>, чтобы использовать основной рюкзак.", color := 88);
 	var bag := Target(who);
 	if (!bag)
-		SendSysMessage (who, "Crafted or harvested items will be placed in your backpack.", color := 66);
+		SendSysMessage (who, "Созданные или добытые предметы будут помещаться в рюкзак.", color := 66);
 		EraseObjProperty (who, "craftingbagserial");
 		return;
 	endif
 
 	if (bag == who)
-		SendSysMessage (who, "Crafted or harvested items will be placed in your main backpack.", color := 66);
+		SendSysMessage (who, "Созданные или добытые предметы будут помещаться в основной рюкзак.", color := 66);
 		EraseObjProperty (who, "craftingbagserial");
 		return;
 	endif
 
 	if (!InInventory (who.backpack, bag) )
-		SendSysMessage (who, "That is not in your inventory.", color := 33);
+		SendSysMessage (who, "Этого нет в вашем инвентаре.", color := 33);
 		return;
 	endif
 
 	if (!bag.isa (POLCLASS_CONTAINER) )
-				SendSysMessage (who, "You can't put anything in that!", color := 33);
+				SendSysMessage (who, "В это нельзя ничего положить!", color := 33);
 				return 0;
 	endif
 
 	SetObjProperty (who, "craftingbagserial", bag.serial);
-	SendSysMessage (who, "Anything you craft or harvest will now go into that container.", color := 66);
+	SendSysMessage (who, "Всё, что вы создадите или добудете, будет помещаться в этот контейнер.", color := 66);
 endprogram
 
 function InInventory(byref inventory, byref it)
