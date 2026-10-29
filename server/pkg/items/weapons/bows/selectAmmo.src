@@ -19,7 +19,7 @@ program selectammo(who, weapon)
 	weaponElement := FindConfigElem(cWeapon, weapon.objtype);
 
 	if (!arrowElement)
-		SendSysMessage(who, "Invalid selection.");
+		SendSysMessage(who, "Неверный выбор.");
 		return 0;
 	endif
 	// Ammunition must be in the player's backpack.

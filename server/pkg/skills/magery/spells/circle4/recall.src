@@ -26,7 +26,7 @@ program recall(parms)
 			return 0;
 		endif
 		if((cast_on.objtype != UOBJ_RUNE) && (cast_on.objtype != 0x22C5))
-			SendSysMessage(caster, "You can only cast that on a recall rune!");
+			SendSysMessage(caster, "Это можно наложить только на руну возврата!");
 			return;
 		endif
 		if(!ReserveItem(cast_on))
@@ -34,15 +34,15 @@ program recall(parms)
 			return;
 		endif
 		if(Distance(caster, cast_on) > 2)
-			SendSysMessage(caster, "That is too far away!", color := 33);
+			SendSysMessage(caster, "Это слишком далеко!", color := 33);
 			return 0;
 		endif
 		if(!Accessible(caster, cast_on))
-			SendSysMessage(caster, "You can't use that right now.", color := 33);
+			SendSysMessage(caster, "Сейчас вы не можете это использовать.", color := 33);
 			return 0;
 		endif
 		if((!CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) && !cast_on.container))
-			SendSysMessage(caster, "You can't see that!", color := 33);
+			SendSysMessage(caster, "Вы этого не видите!", color := 33);
 			return 0;
 		endif
 		if(GetObjProperty(cast_on, "Vendored"))

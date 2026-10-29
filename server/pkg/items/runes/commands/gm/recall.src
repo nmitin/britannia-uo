@@ -25,7 +25,7 @@ program textcmd_recall( caster )
 	endif
 	
 	if (cast_on.objtype != UOBJ_RUNE)
-		SendSysMessage(caster, "You can only cast that on a recall rune!");
+		SendSysMessage(caster, "Это можно наложить только на руну возврата!");
 		return 0;
 	endif
 

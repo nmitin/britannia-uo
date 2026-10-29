@@ -61,7 +61,7 @@ program GuardNodeManager(who, itm)
 	GetStatus(item, respawn);
 	var retkey  := GFSendGump(who);
 	if((retkey[cancel.keyid]) or (retkey[0] == 0))
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 	elseif(retkey[apply.keyid])
 		ResetGuardNode(item, retkey);
 	endif

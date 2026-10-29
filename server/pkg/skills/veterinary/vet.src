@@ -20,7 +20,7 @@ program use_bandages (parms)
 
   //var anatomy:= GetAttribute(who, ANATOMY);
   if(Distance(who, patient) > 2)
-    SendSysMessage(who, "Your patient is too far away.", color := 33);
+    SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
     return;
   elseif(!CheckLineOfSight(who,patient))
 	SendSysMessage(who,"You cant see your patient.", color := 33);
@@ -40,7 +40,7 @@ program use_bandages (parms)
       SendSysMessage(who,"You start to cure "+patient.name+".");
       cure(who, patient, bandage);
     else
-      SendSysMessage(who, "Your patient is too far away.", color := 33);
+      SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
       return;
     endif
   else
@@ -83,7 +83,7 @@ function heal(who, patient, bandy)
   endif
   while(counter <= cycles)
     if(!GetObjProperty(who, "HealTimer"))
-      SendSysMessage(who, "You stop healing your patient.", color := 33);
+      SendSysMessage(who, "Вы прекращаете лечить пациента.", color := 33);
       break;
     elseif(clock != GetObjProperty(who, "HealTimer"))
       SendSysMessage(who, "You stop healing your patient to work on another.", color := 88);
@@ -96,7 +96,7 @@ function heal(who, patient, bandy)
       break;
     endif
     if(who.warmode)
-      SendSysMessage(who,"You stop healing your patient.", color := 33);
+      SendSysMessage(who,"Вы прекращаете лечить пациента.", color := 33);
       break;
     endif
     if(AP_GetVital(who, VITALID_LIFE) < chp)
@@ -161,7 +161,7 @@ function cure(who, patient, bandy)
   endif
   while(counter <= cycles)
     if(!GetObjProperty(who, "HealTimer"))
-      SendSysMessage(who, "You stop healing your patient.", color := 33);
+      SendSysMessage(who, "Вы прекращаете лечить пациента.", color := 33);
       break;
     elseif(clock != GetObjProperty(who, "HealTimer"))
       SendSysMessage(who, "You stop healing your patient to work on another.", color := 88);
@@ -174,7 +174,7 @@ function cure(who, patient, bandy)
       break;
     endif
     if(who.warmode)
-      SendSysMessage(who,"You stop healing your patient.", color := 33);
+      SendSysMessage(who,"Вы прекращаете лечить пациента.", color := 33);
       break;
     endif
 	if(AP_GetVital(who, VITALID_LIFE) < chp)

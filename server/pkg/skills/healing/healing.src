@@ -134,7 +134,7 @@ program use_bandages(who, item)
 		elseif(!CheckLineOfSight(who,patient))
 			SendSysMessage(who,"Вы больше не видите пациента.", color := 33);
 		elseif(Distance(who, patient) > 1)
-			SendSysMessage(who, "Your patient is too far away.", color := 33);
+			SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
 		elseif(SubtractAmount(item, 1))
 			resurrect_pc(who, patient, 0);
 		else
@@ -145,7 +145,7 @@ program use_bandages(who, item)
 	// Send the animals to vet.
 	elseif(patient.npctemplate)
 		if(Distance(who, patient) >= 2)
-			SendSysMessage(who, "Your patient is too far away.", color := 33);
+			SendSysMessage(who, "Ваш пациент слишком далеко.", color := 33);
 		elseif(SubtractAmount(Item, 1))
 			var parms := array(patient, who, item);
 			Start_Script(":veterinary:vet", parms);

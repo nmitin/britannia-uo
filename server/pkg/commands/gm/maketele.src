@@ -14,7 +14,7 @@ program make_a_tele( who, text )
 	endif
 
 
-    SendSysMessage( who, "Select a rune to gate from." );
+    SendSysMessage( who, "Выберите руну для портала." );
 
     var rune := Target( who, TGTOPT_NOCHECK_LOS );
 

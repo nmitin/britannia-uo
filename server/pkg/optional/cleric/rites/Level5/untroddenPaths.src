@@ -32,7 +32,7 @@ program UntroddenPaths(params)
 	endif
 	type := GetObjProperty(sigil, "Type");
 	if(type != "Travel")
-		SendSysMessage(who, "Nothing happens.", color := 33);
+		SendSysMessage(who, "Ничего не происходит.", color := 33);
 		return 0;
 	endif
 	dest := GetObjProperty(sigil, "Destination");

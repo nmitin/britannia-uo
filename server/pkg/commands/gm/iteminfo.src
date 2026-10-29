@@ -48,7 +48,7 @@ program textcmd_itemInfo( mobile, serial )
 	endif
 
 	if( !targ.IsA( POLCLASS_ITEM ) )
-		SendSysMessage( mobile, "Invalid selection.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Неверный выбор.", 0x3, 0x32 );
 		return 0;
 	endif
 

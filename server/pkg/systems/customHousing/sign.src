@@ -71,7 +71,7 @@ program use_house_sign (character, sign)
 			if (customhouse.custom)
 				var homeinfo := GetObjProperty (sign, "homeinfo");
 				if (!homeinfo)
-					SendSysMessage (character, "Error finding house definition.");
+					SendSysMessage (character, "Ошибка поиска определения дома.");
 					return;	
 				endif
 				CloseHouseDoors (character, sign);
@@ -107,7 +107,7 @@ endprogram
 function CloseHouseDoors (character, sign)
 	var homeinfo := GetObjProperty (sign, "homeinfo");
 	if (!homeinfo)
-		SendSysMessage (character, "Error finding house definition.");
+		SendSysMessage (character, "Ошибка поиска определения дома.");
 		return;	
 	endif
 	foreach item in ListObjectsInBox (homeinfo[2], homeinfo[3], -127, homeinfo[4], homeinfo[5], 127, sign.realm)
@@ -126,17 +126,17 @@ endfunction
 function ChangeHouseLocks (character, sign)
 	var homeinfo := GetObjProperty (sign, "homeinfo");
 	if (!homeinfo)
-		SendSysMessage (character, "Error finding house definition.");
+		SendSysMessage (character, "Ошибка поиска определения дома.");
 		return;	
 	endif
 
-	SendSysmessage (character, "Target the new master key.");
+	SendSysmessage (character, "Укажите новый ключ.");
 	var newkey := Target (character);
 	if (!newkey)
 		SendSysMessage (character, "Отменено.");
 		return;
 	elseif (!IsAKey (newkey))
-		SendSysMessage (character, "That is not a key!");
+		SendSysMessage (character, "Это не ключ!");
 		return;
 	elseif (GetObjProperty (newkey, "lockid"))
 		SendSysMessage (character, "That seems to be the key to something else already.");
@@ -306,7 +306,7 @@ endfunction
 function RenameHouse (character, sign)
 	var newname := SendTextEntryGump (character, "Name it what?", TE_CANCEL_ENABLE, TE_STYLE_NORMAL, 20);
 	if (!newname)
-		SendSysMessage (character, "Canceled");
+		SendSysMessage (character, "Отменено");
 	elseif (len(SplitWords (newname)) > 5)
 		Sendsysmessage (character, "House sign names are limited to 5 words or less.");
 	else

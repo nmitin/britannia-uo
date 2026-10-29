@@ -26,7 +26,7 @@ program textcmd_redeed( mobile )
                 SendSysMessage( mobile, "Отменено." );
 		return 0;
 	elseif( !targ.IsA( POLCLASS_ITEM ))
-		SendSysMessage( mobile, "You must select an item!" );
+		SendSysMessage( mobile, "Нужно выбрать предмет!" );
 		return 0;
 	endif
 

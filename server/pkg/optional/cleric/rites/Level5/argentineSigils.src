@@ -26,7 +26,7 @@ program argentinesigils(params)
 		0x262F1:
 			CraftMoonSigil(who, targ);
 		default:
-			SendSysMessage(who, "Invalid target.");
+			SendSysMessage(who, "Недопустимая цель.");
 			return 0;
 	endcase
 
@@ -54,7 +54,7 @@ function CraftMoonSigil(who, stone)
 	endforeach
 
 	if ( !SubtractAmount(stone, 1) )
-		SendSysMessage(who, "Nothing happens.");
+		SendSysMessage(who, "Ничего не происходит.");
 		return 0;
 	endif
 

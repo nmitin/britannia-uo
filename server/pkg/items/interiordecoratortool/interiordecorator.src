@@ -230,7 +230,7 @@ function DoFlip(who, theItem)
         0xec7:
             theItem.graphic := 0xec6;
         default:
-            SendSysMessage(who, "That item cannot be reoriented.");
+            SendSysMessage(who, "Этот предмет нельзя повернуть.");
     endcase
 
 

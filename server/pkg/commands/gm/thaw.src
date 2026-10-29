@@ -12,6 +12,6 @@ program hideme( gm )
 	endif
         PrintTextAbovePrivate( res.mobile, res.mobile.name + " has been thawed", gm );
     else
-        SendSysMessage( gm, "Cancelled" );
+        SendSysMessage( gm, "Отменено" );
     endif
 endprogram

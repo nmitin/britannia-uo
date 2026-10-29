@@ -37,7 +37,7 @@ program use_explosionpotion(who, potion)
 
 	if(!CheckLosAt(who, throw_to.x, throw_to.y, throw_to.z))
 		MoveObjectToLocation(potion, who.x, who.y, who.z, who.realm, MOVEOBJECT_FORCELOCATION );
-		SendSysMessage(who, "You can't see that!");
+		SendSysMessage(who, "Вы этого не видите!");
 		return 0;
 	endif
 

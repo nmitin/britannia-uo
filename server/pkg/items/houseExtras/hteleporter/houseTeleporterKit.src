@@ -64,7 +64,7 @@ program HouseTeleporterKit(who, htelekit)
 			return 0;
 		endif
 		htele1.movable := 0;
-		SendSysMessage(who, "Locked Down.", color := 66);
+		SendSysMessage(who, "Закреплено.", color := 66);
 		ReleaseItem(htele1);
 	endif
 
@@ -87,25 +87,25 @@ program HouseTeleporterKit(who, htelekit)
 		var housesign2 := FindHouseForLocation (targ.x, targ.y, targ.z, targ.realm);
 		if(!housesign2.IsObjectInsideHouse(targ))
 			SendSysMessage(who, "You can only place house teleporters inside a house.", color := 33);
-			SendSysMessage(who, "Removing the primary teleporter and aborting.", color := 33);
+			SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 			DestroyItem(htele1);
 			return 0;
 		endif
 		if(!(housesign2 && (housesign2.IsOwner(who)/*who.serial == GetObjProperty(housesign2, "ownerserial")*/)))
 			SendSysMessage(who, "You can only place house teleporters inside a house that you own.", color := 33);
-			SendSysMessage(who, "Removing the primary teleporter and aborting.", color := 33);
+			SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 			DestroyItem(htele1);
 			return 0;
 		endif
 		htele2 := CreateItemAtLocation(targ.x, targ.y, /*GetStandingHeight( targ.x, targ.y, targ.z, who.realm )*/targ.z, "housetele", 1, targ.realm);
 		if(!htele2)
 			SendSysMessage(who, "I wasn't able to create the teleporter there.", color := 33);
-			SendSysMessage(who, "Removing the primary teleporter and aborting.", color := 33);
+			SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 			DestroyItem(htele1);
 			return 0;
 		endif
 		htele2.movable := 0;
-		SendSysMessage(who, "Locked Down.", color := 66);
+		SendSysMessage(who, "Закреплено.", color := 66);
 		ReleaseItem(htele2);
 		htele1.invisible := 0;
 		htele2.invisible := 0;
@@ -134,7 +134,7 @@ program HouseTeleporterKit(who, htelekit)
 		// We should never land here!
 		SendSysMessage(who, "Something weird happened.", color := 33);
 		SendSysMessage(who, "Post this problem in the 'Bugs' forum", color :=  33);
-		SendSysMessage(who, "Removing the primary teleporter and aborting.", color := 33);
+		SendSysMessage(who, "Удаляю основной телепортер и прерываю.", color := 33);
 		DestroyItem(htele1);
 		return 0;
 	endif

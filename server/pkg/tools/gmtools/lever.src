@@ -722,7 +722,7 @@ function GMTResisted(who, amt)
   var halfamt := amt/2;
   var rezamt := CInt(((RandomInt(halfamt)+1) * evalint ) / 100);
   if(SkillCheck( who, RESISTING_SPELLS, 70, 300 ) > 0)
-	SendSysMessage(who, "You feel yourself resisting magical energy!");
+	SendSysMessage(who, "Вы чувствуете, как сопротивляетесь магической энергии!");
 	PlaySoundEffect(who, SFX_SPELL_WEAKEN);
 	PlayObjectCenteredEffect( who, FX_CURSE_EFFECT, 5,5);
 	if(evalint > 0)

@@ -21,7 +21,7 @@ program tame( who )
     return;
   endif
   if(!CheckLineOfSight(who, thecreature))
-    SendSysMessage(who, "You can't see that!");
+    SendSysMessage(who, "Вы этого не видите!");
     return;
   endif
   if(Distance(who,thecreature) > 5)

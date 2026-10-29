@@ -6,7 +6,7 @@ program CanInsert( character, container, unused movetype, unused inserttype, add
 	if( adding_item.IsBook() )
 		return 1;
 	elseif( CP_IsLocked( container ))
-		SendSysMessage( character, "You can't insert items into locked containers." );
+		SendSysMessage( character, "В запертые контейнеры нельзя класть предметы." );
 		return 0;
 	else
 		SendSysMessage( character, "That is not a book." );

@@ -16,7 +16,7 @@ program textcmd_lowerTimer(who, params)
 		return 0;
 	endif
 
-	SendSysMessage(who, "Select a mobile.");
+	SendSysMessage(who, "Выберите существо.");
 	var targ := Target(who);
 
 	if ( !targ.IsA(POLCLASS_MOBILE) )

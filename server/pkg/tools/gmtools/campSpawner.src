@@ -20,14 +20,14 @@ program spawntest(item)
     SetObjProperty(item,"waiting", 1);
     foreach char in EnumerateOnlineCharacters()
       if(char.cmdlevel > 1)
-        SendSysMessage(char,"ERROR: Camp Spawner at " + item.x + " " + item.y + " is not functioning properly.");
+        SendSysMessage(char,"ERROR: Camp Spawner at " + item.x + " " + item.y + " работает неправильно.");
       endif
     endforeach
   endif
   while(GetObjProperty(item,"waiting"))
     foreach char in EnumerateOnlineCharacters()
       if(char.cmdlevel > 1)
-        SendSysMessage(char,"ERROR: Camp Spawner at " + item.x + " " + item.y + " is not functioning properly.");
+        SendSysMessage(char,"ERROR: Camp Spawner at " + item.x + " " + item.y + " работает неправильно.");
       endif
     endforeach
     sleep(5);
@@ -109,7 +109,7 @@ function create_guardians(item)
   if(!cfgfile)
     foreach char in EnumerateOnlineCharacters()
       if(char.cmdlevel > 1)
-        SendSysMessage(char,"ERROR: Camp Spawner " + item.serial + " at " + item.x + " " + item.y + " is not functioning properly.");
+        SendSysMessage(char,"ERROR: Camp Spawner " + item.serial + " at " + item.x + " " + item.y + " работает неправильно.");
       endif
     endforeach
     return;
@@ -127,7 +127,7 @@ function create_guardians(item)
   if(!elem)
     foreach char in EnumerateOnlineCharacters()
       if(char.cmdlevel > 1)
-        SendSysMessage(char,"ERROR: Camp Spawner " + item.serial + " at " + item.x + " " + item.y + " is not functioning properly.");
+        SendSysMessage(char,"ERROR: Camp Spawner " + item.serial + " at " + item.x + " " + item.y + " работает неправильно.");
       endif
     endforeach
     return;

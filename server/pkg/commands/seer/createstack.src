@@ -27,7 +27,7 @@ program textcmd_createstack( who, text )
 		what := CreateItemInBackpack( who, objtype, amount );
 		if (what)
 //		SetObjProperty(what, "Created", who.name);
-		PrintTextAbovePrivate( who, "Created " + what.desc + " in my backpack.", who );
+		PrintTextAbovePrivate( who, "Создано " + what.desc + " in my backpack.", who );
 		dmy := FormatTime(GetTimeStruct(GetTime()), "<DAY>-<MON>-<YY>");
 		hms := FormatTime(GetTimeStruct(GetTime()), "<HH>:<MM>:<SS>");
 		month := FormatTime(GetTimeStruct(GetTime()), "<MON>-<YY>");

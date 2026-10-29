@@ -7,7 +7,7 @@ program talk( who )
 
 	var what := Target( who, TGTOPT_NOCHECK_LOS );
 	if (!what)
-		SendSysMessage( who, "Canceled" );
+		SendSysMessage( who, "Отменено" );
 		return;
 	endif	
 

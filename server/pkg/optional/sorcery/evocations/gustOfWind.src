@@ -32,7 +32,7 @@ program gustofwind(parms)
 
 	if ( SkillCheck( cast_on, RESISTING_SPELLS, 60, 40 ) > 0)
 		movedist := CInt(movedist / 2);
-		SendSysMessage(cast_on, "You feel yourself resisting magical energy!");
+		SendSysMessage(cast_on, "Вы чувствуете, как сопротивляетесь магической энергии!");
 		PlaySoundEffect(cast_on, SFX_SPELL_WEAKEN);
 		PlayObjectCenteredEffect(cast_on, FX_CURSE_EFFECT, 5,5);
 	endif

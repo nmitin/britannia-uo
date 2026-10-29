@@ -16,7 +16,7 @@ Const UOBJECT_WOOD_SIGN := 0x0bd0;
 program usehousedeed (character, deed)
 
 	if (!ReserveItem (deed))
-		SendSysMessage (character, "You can't use that right now.");
+		SendSysMessage (character, "Сейчас вы не можете это использовать.");
 		return;
 	endif
 
@@ -24,7 +24,7 @@ program usehousedeed (character, deed)
 	var elem := FindConfigElem (housecfgfile, deed.objtype);
 	var housetype := GetConfigInt (elem, "housetype");
 	if (!housetype)
-		PrintTextAbovePrivate (deed, "That house deed appears to be broken.", character);
+		PrintTextAbovePrivate (deed, "Похоже, этот документ на дом повреждён.", character);
 		return;
 	endif
 	var multiid := 0;
@@ -37,7 +37,7 @@ program usehousedeed (character, deed)
 	elseif (housetype == 0x1147b)
 		gump := BuildThreeStoryGump();
 	else
-		PrintTextAbovePrivate (deed, "That house deed appears to be broken.", character);
+		PrintTextAbovePrivate (deed, "Похоже, этот документ на дом повреждён.", character);
 		return;
 	endif
 	input := GFSendGump( character, gump );

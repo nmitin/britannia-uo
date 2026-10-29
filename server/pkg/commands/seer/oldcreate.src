@@ -30,7 +30,7 @@ program textcmd_create( who, text )
       endif
     endfor
   else
-    SendSysMessage(who, "Cancelled");
+    SendSysMessage(who, "Отменено");
     return;
   endif
 endprogram

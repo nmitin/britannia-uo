@@ -72,7 +72,7 @@ program setbook(who)
       endcase
     endforeach
   else
-    SendSysMessage(who, "Canceled");
+    SendSysMessage(who, "Отменено");
   endif
 endprogram
 

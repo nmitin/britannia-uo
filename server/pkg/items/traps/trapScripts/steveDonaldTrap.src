@@ -18,7 +18,7 @@ program trapScript(params)
 	//var trap_index := params[4];
 	params := 0; // Not needed anymore.
 	
-	SendSysMessage(mobile, "You set off a trap!");
+	SendSysMessage(mobile, "Вы активировали ловушку!");
 	
 	PlayObjectCenteredEffect(mobile, FX_GLOW_SPIKE, 10, 10);
 	

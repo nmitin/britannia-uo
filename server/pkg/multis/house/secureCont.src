@@ -27,6 +27,6 @@ program use_securecont(who, item)
     return;
   else
     SendViewContainer( who, item );
-    SendSysMessage( who, "You open the secure container." );
+    SendSysMessage( who, "Вы открываете защищённый контейнер." );
   endif
 endprogram

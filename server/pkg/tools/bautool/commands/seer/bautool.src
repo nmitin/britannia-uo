@@ -817,10 +817,10 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
         EndIf
       EndIf
     Else
-      SendSysMessage(who, "Abort");
+      SendSysMessage(who, "Отмена");
     EndIf
   Else
-    SendSysMessage(who, "Abort");
+    SendSysMessage(who, "Отмена");
   EndIf
 EndFunction // }}}
 
@@ -859,7 +859,7 @@ Function CreateEinzel(who, byref ret, byref tiles, byref color) // {{{
         item.setprop(CPROP_ITEMS,{item.serial});
         If (ret[ITEMMODIFY])  // Change position
           If (!ModifyItems(who,item))
-            SendSysMessage(who, "Abort");
+            SendSysMessage(who, "Отмена");
             Return;
           EndIf
         EndIf
@@ -885,7 +885,7 @@ Function CreateEinzel(who, byref ret, byref tiles, byref color) // {{{
       ModifyItems(who,items);
     EndIf
   EndIf
-  SendSysMessage(who, "Abort");
+  SendSysMessage(who, "Отмена");
 EndFunction // }}}
 
 ///////////////////////////////////
@@ -1015,7 +1015,7 @@ Function ModifyItemsManual(who) // {{{
               If ((!items) || (items=={}))
                 SendSysMessage(who,"Items could not be found. ");
               Else
-                SendSysMessage(who,items.size()+" Items recognized.");
+                SendSysMessage(who,items.size()+" предметов распознано.");
               EndIf
             Else
               SendSysMessage(who,"Init item not found. ");
@@ -1037,12 +1037,12 @@ Function ModifyItemsManual(who) // {{{
               SleepMS(5);
             EndForEach
             tar.setprop(CPROP_ITEMS,tempitems); // save filtered serials
-            SendSysMessage(who,items.size()+" Items recognized.");
+            SendSysMessage(who,items.size()+" предметов распознано.");
           Else
             SendSysMessage(who,"Invalid Item selected.");
           EndIf
         Else
-          SendSysMessage(who, "Abort");
+          SendSysMessage(who, "Отмена");
           items:={};
         EndIf
       Else // Search for any items
@@ -1054,10 +1054,10 @@ Function ModifyItemsManual(who) // {{{
         zend:=CInt(zend);
         datamodify_M[ZSTARTPOS]:=zstart;
         datamodify_M[ZENDPOS]:=zend;
-        SendSysMessage(who,"Target the first corner of the area");
+        SendSysMessage(who,"Укажите первый угол области");
         tar1:=TargetCoordinates(who);
         If (tar1)
-          SendSysMessage(who,"Target the second corner of the area");
+          SendSysMessage(who,"Укажите второй угол области");
           tar2:=TargetCoordinates(who);
           If (tar2)
             If (tar1.x>tar2.x)  // Sorting the area
@@ -1084,7 +1084,7 @@ Function ModifyItemsManual(who) // {{{
               SleepMS(5);
             EndForEach
             If (items<>{})
-              SendSysMessage(who,items.size()+" Items recognized.");
+              SendSysMessage(who,items.size()+" предметов распознано.");
               If (retmodify[MODIFY_MARK])
                 // Save item series
                 itemserials:={};
@@ -1113,7 +1113,7 @@ Function ModifyItemsManual(who) // {{{
                       SendSysMessage(who,"Item is not among those recognized!");
                     EndIf
                   Else
-                    SendSysMessage(who, "Abort");
+                    SendSysMessage(who, "Отмена");
                     breakflag:=1;
                     Break;
                   EndIf
@@ -1134,11 +1134,11 @@ Function ModifyItemsManual(who) // {{{
               SendSysMessage(who,"No items recognized.");
             EndIf
           Else
-            SendSysMessage(who, "Abort");
+            SendSysMessage(who, "Отмена");
             items:={};
           EndIf
         Else
-          SendSysMessage(who, "Abort");
+          SendSysMessage(who, "Отмена");
           items:={};
         EndIf
       EndIf
@@ -1258,7 +1258,7 @@ Function ModifyItemsManual(who) // {{{
       ElseIf (retmodify[MODIFY_MARKEDIT])
         MarkEdit(who);
       Else  // Gump closed
-        SendSysMessage(who, "Abort");
+        SendSysMessage(who, "Отмена");
         Break;
       EndIf
     EndIf
@@ -1276,10 +1276,10 @@ Function MarkEdit(who) // {{{
     ret:=SendDialogGump(who,layoutmark,datamark,10,50);
 
     If (ret[MARK_SHOW])
-      SendSysMessage(who,"Target the first corner of the area");
+      SendSysMessage(who,"Укажите первый угол области");
       tar1:=TargetCoordinates(who);
       If (tar1)
-        SendSysMessage(who,"Target the second corner of the area");
+        SendSysMessage(who,"Укажите второй угол области");
         tar2:=TargetCoordinates(who);
         If (tar2)
           If (tar1.x>tar2.x)  // Sorting the area
@@ -1323,10 +1323,10 @@ Function MarkEdit(who) // {{{
       EndIf
 
     ElseIf (ret[MARK_HIDE])
-      SendSysMessage(who,"Target the first corner of the area");
+      SendSysMessage(who,"Укажите первый угол области");
       tar1:=TargetCoordinates(who);
       If (tar1)
-        SendSysMessage(who,"Target the second corner of the area");
+        SendSysMessage(who,"Укажите второй угол области");
         tar2:=TargetCoordinates(who);
         If (tar2)
           If (tar1.x>tar2.x)  // Sorting the area
@@ -1414,7 +1414,7 @@ Function MarkEdit(who) // {{{
           If ((!items) || (items=={}))
             SendSysMessage(who,"Items could not be found. ");
           Else
-            SendSysMessage(who,items.size()+" Items recognized.");
+            SendSysMessage(who,items.size()+" предметов распознано.");
           EndIf
         Else
           SendSysMessage(who,"Init item not found. ");
@@ -1438,7 +1438,7 @@ Function MarkEdit(who) // {{{
           SleepMS(5);
         EndForEach
         tar1.setprop(CPROP_ITEMS,tempitems); // save filtered serials
-        SendSysMessage(who,items.size()+" Items recognized.");
+        SendSysMessage(who,items.size()+" предметов распознано.");
       Else
         SendSysMessage(who,"No items recognized.");
       EndIf
@@ -1447,7 +1447,7 @@ Function MarkEdit(who) // {{{
           SendSysMessage(who,"Selects the item to be added / removed.");
           tar1:=Target(who,TGTOPT_NOCHECK_LOS);
           If ((!tar1) && (!tar1.isA(POLCLASS_ITEM)))
-            SendSysMessage(who, "Abort");
+            SendSysMessage(who, "Отмена");
             Break;
           EndIf
           i := tar1.serial in tempitems;
@@ -1503,7 +1503,7 @@ Function MarkEdit(who) // {{{
           SleepMS(5);
         EndForEach
       EndIf
-      SendSysMessage(who, "Abort");
+      SendSysMessage(who, "Отмена");
       Return;
     EndIf
   EndWhile

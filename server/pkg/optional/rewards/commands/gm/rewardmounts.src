@@ -26,7 +26,7 @@ program RewardCreation(who)
 	endforeach
 	choice := SelectionGump( who, "Select a reward mount:", reward_mounts, BTN_TYPE_RADIO );
 	if(!choice)
-		SendSysMessage(who, "Cancelled", color := 33);
+		SendSysMessage(who, "Отменено", color := 33);
 		return;
 	endif
 	mindex := choice in reward_mounts;

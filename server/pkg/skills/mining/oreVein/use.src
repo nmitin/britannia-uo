@@ -55,7 +55,7 @@ program use_OreVein(who, vein)
 		
 		return 1;
 	else
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 endprogram

@@ -15,7 +15,7 @@ program canInsert( mobile, container, move_type, unused inserttype, unused addin
 	elseif( mobile.cmdlevel >= 2 )
 		return 1;
 	elseif( CP_IsLocked( container ))
-		SendSysMessage( mobile, "You can't insert items into locked containers.", color := 33 );
+		SendSysMessage( mobile, "В запертые контейнеры нельзя класть предметы.", color := 33 );
 		return 0;
 	elseif( ContainerIsSecured( mobile, container ) )
 		SendSysMessageCL ( mobile, 1010565, color := 33 ); // You do not have permission to place things in this container.

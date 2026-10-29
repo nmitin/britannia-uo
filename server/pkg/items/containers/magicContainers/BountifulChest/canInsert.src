@@ -19,7 +19,7 @@ program canInsert( mobile, BountifulChest, move_type, unused inserttype, adding_
 	elseif( mobile.cmdlevel >= 2 )
 		return 1;
 	elseif( CP_IsLocked( BountifulChest ))
-		SendSysMessage( mobile, "You can't insert items into locked containers." );
+		SendSysMessage( mobile, "В запертые контейнеры нельзя класть предметы." );
 		return 0;
 	elseif( ContainerIsSecured( mobile, BountifulChest ) )
 		SendSysMessageCL ( mobile, 1010565, color := 33 ); // You do not have permission to place things in this container.

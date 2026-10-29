@@ -51,7 +51,7 @@ endprogram
 function makeBowcraftItems(who, what, amt, tool)
 
 	if(!what)
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 
@@ -95,7 +95,7 @@ function makeBowcraftItems(who, what, amt, tool)
 			else
 				num := CInt(randomint(material)/2) + 1;
 				if(SubtractAmount(use_on, num))
-					SendSysMessage(who, "You lost some material");
+					SendSysMessage(who, "Вы потеряли часть материалов");
 				endif
 			endif
 		else

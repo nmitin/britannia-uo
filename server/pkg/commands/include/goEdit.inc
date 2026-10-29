@@ -78,7 +78,7 @@ function Go_EditSendLocation(who, public:=1)
 				endif
                                 Go_RefreshMyGumps(who);
                         else
-                                SendSysMessage(who, "Cancelled");
+                                SendSysMessage(who, "Отменено");
                         endif
                 else
                         GumpPrompt(who, "Location ["+send_Location.Name+"] does not exist.");

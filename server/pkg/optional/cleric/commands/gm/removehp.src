@@ -16,7 +16,7 @@ program make_high_priest(who)
 	if(!victim)
 		var devotion := RequestGump(who, "Enter the devotion:", "", "", CANCEL_BTN_ON);
 		if(devotion == error)
-			SendSysMessage(who, "Cancelled", color := 33);
+			SendSysMessage(who, "Отменено", color := 33);
 			return 0;
 		endif
 		var faith := Faiths_FindFaith( devotion );

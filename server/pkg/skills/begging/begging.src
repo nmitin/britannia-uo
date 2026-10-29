@@ -61,7 +61,7 @@ program skill_begging( who )
   SendSysMessage( who, "Select the victim" );
   var tgt := Target( who );
   if ( !tgt )
-    SendSysMessage( who, "Cancelled" );
+    SendSysMessage( who, "Отменено" );
     return;
   endif
   if(tgt.serial == who.serial)

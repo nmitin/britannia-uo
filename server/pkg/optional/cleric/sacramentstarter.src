@@ -16,7 +16,7 @@ program start_rite(params, sacnum)
 	endif
 
 	if (GetObjProperty(who, "#medding"))
-		SendSysMessage(who, "You cannot cast right now.");
+		SendSysMessage(who, "Сейчас вы не можете читать заклинание.");
 		return;
 	else
 		SetObjProperty(who, "#medding", 1);

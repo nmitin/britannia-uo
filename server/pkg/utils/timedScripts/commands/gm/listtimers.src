@@ -7,7 +7,7 @@ use os;
 include ":timedScripts:timedScripts";
 
 program textcmd_listTimers(who, type)
-	SendSysMessage(who, "Select a mobile.");
+	SendSysMessage(who, "Выберите существо.");
 	var targ := Target(who, TGTOPT_NOCHECK_LOS);
 	if ( !targ.IsA(POLCLASS_MOBILE) )
 		SendSysMessage(who, "Отменено.");

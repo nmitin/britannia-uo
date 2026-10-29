@@ -21,7 +21,7 @@ const MAX_PER_HIVE	:= 10;
 
 program harvest_honey (character, beehive)
 	if (Distance(character, beehive) > 3)
-		SendSysMessage(character, "That is too far away!");
+		SendSysMessage(character, "Это слишком далеко!");
 		return;
 	endif
 

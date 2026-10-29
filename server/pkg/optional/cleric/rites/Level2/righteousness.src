@@ -11,7 +11,7 @@ program righteousness(params)
 	var targ := ClericalTarget(who, info.npctarget);
 
 	if (!targ.ip || targ == who)
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return;
 	endif
 

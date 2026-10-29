@@ -13,7 +13,7 @@ program textcmd_RefreshVitals( who, text )
 	if( text == "me" )
 		targ := who;
 	else
-		SendSysMessage( who, "Select a mobile." );
+		SendSysMessage( who, "Выберите существо." );
 		targ := Target( who, TGTOPT_NOCHECK_LOS );
 		if( !targ.IsA( POLCLASS_MOBILE ))
 			SendSysMessage( who, "Отменено." );

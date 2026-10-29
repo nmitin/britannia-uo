@@ -4,6 +4,6 @@ include "include/clock";
 
 program time( character )
 
-    SendSysMessage( character, ("Time of Day: " + GetTimeofDay() ) );
+    SendSysMessage( character, ("Время суток: " + GetTimeofDay() ) );
 
 endprogram

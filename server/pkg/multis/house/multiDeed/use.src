@@ -42,7 +42,7 @@ function Buildhouse(who, deed)
   endif
   var housetype := GetHouseObjtype(deed);
   if(housetype == error)
-    PrintTextAbovePrivate(deed, "That house deed appears to be broken.", who);
+    PrintTextAbovePrivate(deed, "Похоже, этот документ на дом повреждён.", who);
     syslog("Deed " + deed.serial + " had no housetype property!");
     return;
   endif

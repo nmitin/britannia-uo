@@ -71,7 +71,7 @@ function cutItems(who, item, tool)
 			endif
 			var created := CreateItemInBackpack(who, "bandage", bandage_amount);
 			if(!created)
-				SendSysMessage(who, "You drop " + bandage_amount + " bandages at your feet.", color := 56);
+				SendSysMessage(who, "Вы роняете " + bandage_amount + " bandages at your feet.", color := 56);
 				created := CreateItemAtLocation(who.x, who.y, who.z, "bandage", bandage_amount, who.realm);
 			endif
 			created.color := item.color;
@@ -91,7 +91,7 @@ function cutItems(who, item, tool)
 			endif
 			var created := CreateItemInBackpack(who, base_resource, leather_amount);
 			if(!created)
-				SendSysMessage(who, "You drop " + leather_amount + " pieces of cut leather at your feet.", color := 56);
+				SendSysMessage(who, "Вы роняете " + leather_amount + " pieces of cut leather at your feet.", color := 56);
 				created := CreateItemAtLocation(who.x, who.y, who.z, base_resource, leather_amount, who.realm);
 			endif
 			created.color := item.color;
@@ -121,20 +121,20 @@ function cutItems(who, item, tool)
 	 		item_color := item.color;
 		else
 			// Since not listed in crafting config, or scissors, don't cut it!
-			SendSysMessage(who, "Scissors cannot be used on that to produce anything.", color := 33);
+			SendSysMessage(who, "Ножницами из этого ничего не получится.", color := 33);
 			return;
 		endif
 //	endif
 
 	// If there is still nothing, we can't do anything with this item! Redundancy
 	if (!material || material.errortext)
-		SendSysMessage(who, "Scissors cannot be used on that to produce anything.", color := 33);
+		SendSysMessage(who, "Ножницами из этого ничего не получится.", color := 33);
 		return;
 	endif
 
 	// If there is no product to make from this, we can't do anything with this item! Redundancy
 	if (!new_item || new_item.errortext)
-		SendSysMessage(who, "Scissors cannot be used on that to produce anything.", color := 33);
+		SendSysMessage(who, "Ножницами из этого ничего не получится.", color := 33);
 		return;
 	endif
 // mods
@@ -191,7 +191,7 @@ function cutItems(who, item, tool)
 			endif
 		endif
  	else
-  		SendSysMessage(who, "Scissors cannot be used on that to produce anything.", color := 33);
+  		SendSysMessage(who, "Ножницами из этого ничего не получится.", color := 33);
   		return;
 	endif
 endfunction

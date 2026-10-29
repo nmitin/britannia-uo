@@ -7,7 +7,7 @@ SendSysMessage(who, "Select coordinates.");
 
 	var targ := TargetCoordinates(who);
 	if (!targ.objtype)
-		SendSysMessage(who, "Invalid selection.");
+		SendSysMessage(who, "Неверный выбор.");
 		return 0;
 	endif
 	SendSysMessage(who, "ObjType: " + CStr( Hex(targ.objtype) ) );

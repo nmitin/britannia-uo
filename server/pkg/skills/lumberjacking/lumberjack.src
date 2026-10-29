@@ -481,7 +481,7 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( amount < 1 )
-			SendSysMessage( mobile, "There's not enough "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Недостаточно "+FormatItemDescription(item_desc)+" здесь для сбора.", 0x3, 0x22 );
 			return 0;
 		endif
 

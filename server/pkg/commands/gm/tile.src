@@ -61,7 +61,7 @@ program textcmd_tile( who, input )
     var coordstructtwo := TargetCoordinates( who );
 
     if ( ( ! coordstructone ) || ( ! coordstructtwo ) ) // check that we got two valid coordstructs.
-        SendSysMessage( who, "Cancelled", color := 33 );
+        SendSysMessage( who, "Отменено", color := 33 );
         return;
     endif
 

@@ -5,7 +5,7 @@ program flip (me)
   SendSysMessage(me, "Select the furniture you wish to re-orient.");
   var targetfurniture := Target(me);
   if (!targetfurniture.objtype)
-    SendSysMessage(me, "You must select an item!");
+    SendSysMessage(me, "Нужно выбрать предмет!");
     return;
   endif
   while(targetfurniture)
@@ -72,7 +72,7 @@ program flip (me)
       0xa38: targetfurniture.graphic := 0xa30;
       0xec6: targetfurniture.graphic := 0xec7;  // Dress form
       0xec7: targetfurniture.graphic := 0xec6;
-      default: SendSysMessage(me, "That item cannot be reoriented.");
+      default: SendSysMessage(me, "Этот предмет нельзя повернуть.");
     endcase
     targetfurniture := 0;
     targetfurniture := Target(me);

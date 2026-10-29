@@ -101,21 +101,8 @@ program onlogon(who)
 		who.color := who.truecolor;
 		EraseObjProperty(who,"poly");
 	endif
-	var mailkeeper := GetObjProperty(who,"mailkeeper");
-	if(!mailkeeper)
-		start_script(":gmtools:mailkeeper", who);
-		mailkeeper := 1;
-		SetObjProperty(who,"mailkeeper", 1);
-	endif
-	if(mailkeeper >= 60)
-		mailkeeper := 1;
-		SetObjProperty(who,"mailkeeper", mailkeeper);
-		Detach();
-		start_script(":gmtools:mailkeeper", who);
-	else
-		mailkeeper := mailkeeper + 1;
-		SetObjProperty(who,"mailkeeper", mailkeeper);
-	endif
+	// Запрос e-mail отключён: старый mailkeeper зацикливался и блокировал вход.
+	// При необходимости вернуть — переписать без рекурсии SendDialogGump.
 	foreach thing in ListEquippedItems(who)
 		if(Cint(GetObjProperty(thing, "#equipped")) != who.serial)
 			ApplyEquipmentMods(who, thing);

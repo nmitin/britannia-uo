@@ -231,14 +231,14 @@ function AccountBanner(who, account)
 		endif
 	endif
 
-	SendSysMessage(who, "Cancelled");
+	SendSysMessage(who, "Отменено");
 	return 0;
 endfunction
 
 function SuspendAccount(who, account)
 	var jail_time := RequestGump(who, "How many days do you want to disable this account?","", CStr(GetNumJailDays(account)), 1);
 	if ( jail_time == error )
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	else
 		jail_time := CInt(jail_time);
@@ -307,7 +307,7 @@ function SetDefaultCmdLevel(who, account)
 		account.SetDefaultCmdLevel(input);
 		SendSysMessage(who, "Account default command level updated.");
 	else
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 	endif
 
 	return 1;
@@ -320,7 +320,7 @@ function ChangeEmail(who, account)
 	endif
 	var input := RequestGump(who, "What do you want to set the new email address for this account to?","", CStr(email), CANCEL_BTN_ON);
 	if ( input == error )
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	else
 		account.SetProp("Email", input);
@@ -334,7 +334,7 @@ function ChangeAcctName(who, account)
 
 	var input := RequestGump(who, "What do you want to change this account's name to?", "", CStr(name), 1);
 	if ( input == error )
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	else
 		var res := account.SetName(input);
@@ -403,7 +403,7 @@ function ProcessInput(who, account, input)
 	elseif ( input[CHANGE_ACCTNAME] )
 		ChangeAcctName(who, account);
 	else
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 

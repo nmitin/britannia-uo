@@ -40,6 +40,6 @@ program textcmd_forgive (me)
     endfor
     SendSysMessage(me, who.name + " is innocent like a new-born child");
   else
-    SendSysMessage(me, "Cancelled");
+    SendSysMessage(me, "Отменено");
   endif
 endprogram

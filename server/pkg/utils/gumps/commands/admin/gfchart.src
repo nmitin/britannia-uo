@@ -75,7 +75,7 @@ program textcmd_gfchart( who )
 
 	var retv := GFSendGump( who, gump );
 	if ( !retv && (retv <> 0) )
-		SendSysMessage( who, "Please close any other user-gumps and try again." );
+		SendSysMessage( who, "Закройте другие пользовательские гумбы и попробуйте снова." );
 		return;
 	endif
 

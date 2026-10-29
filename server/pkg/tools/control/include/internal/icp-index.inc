@@ -56,7 +56,7 @@ function ICP_PackageIndex(who)
 	var input := GFSendGump( who, gump );
 	input := input[0];
 	if( !input )
-		SendSysMessage( who, "Cancelled" );
+		SendSysMessage( who, "Отменено" );
 		return 0;
 	else
 		var elems := ( pkg_info.Keys() );

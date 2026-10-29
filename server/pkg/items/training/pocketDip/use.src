@@ -19,7 +19,7 @@ program PocketDip( who, dummy )
 	if( dummy.container )
 		return 0;
 	elseif( Distance( who, dummy ) > 2 )
-		SendSysMessage( who, "You are too far away." );
+		SendSysMessage( who, "Вы слишком далеко." );
 		return 0;
 	elseif( !useItem_check( who, dummy, DEFAULT_ITEM ))
 		return 0;

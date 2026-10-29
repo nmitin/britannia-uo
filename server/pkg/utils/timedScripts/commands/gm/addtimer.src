@@ -19,7 +19,7 @@ program textcmd_AddTimer(who, params)
 		level := 1;
 	endif
 
-	SendSysMessage(who, "Select a mobile.");
+	SendSysMessage(who, "Выберите существо.");
 	var targ := Target(who);
 	if ( !targ.IsA(POLCLASS_MOBILE) )
 		SendSysMessage(who, "Отменено.");

@@ -299,7 +299,7 @@ program CPropEditor(parms1, parms2)
 	EndIf
 
 	If (!thing)
-		SendSysMessage(who, "Abort");
+		SendSysMessage(who, "Отмена");
 		Return;
 	ElseIf (thing.item);
 		thing := thing.item;

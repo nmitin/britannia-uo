@@ -165,7 +165,7 @@ function MainAILoop()
 	  EVID_ALL_FOLLOW_CMD: following := 1;
                            escortee := ev.target;
 	  SYSEVENT_ALL_GUARD_CMD:  guarding := ev.target;
-		                   PrintTextAbove(me,"*guarding " + guarding.name + "*");
+		                   PrintTextAbove(me,"*охраняет " + guarding.name + "*");
     endcase
     if(following == 1)
       Follow();
@@ -317,7 +317,7 @@ function Fight(opponent)
 	                       SetOpponent( opponent );
 	  EVID_ALL_FOLLOW_CMD: following := ev.target;
 	  SYSEVENT_ALL_GUARD_CMD:  guarding := ev.target;
-		                   PrintTextAbove(me,"*guarding " + guarding.name + "*");
+		                   PrintTextAbove(me,"*охраняет " + guarding.name + "*");
 	  SYSEVENT_SPEECH:     ProcessSpeech(ev);
 	  SYSEVENT_ENGAGED:
 	  SYSEVENT_DAMAGED:        if(ev.source == opponent)
@@ -477,7 +477,7 @@ function Guard()
   if( nextwatch <= ReadGameClock() )
     nextwatch := ReadGameClock() + 7;
     if( RandomInt(8)==1 )
-      PrintTextAbove(me,"*guarding " + guarding.name + "*");
+      PrintTextAbove(me,"*охраняет " + guarding.name + "*");
     endif
     foreach mob in ListHostiles( guarding, 9, 0 );
       Fight(mob);

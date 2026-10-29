@@ -8,6 +8,6 @@ program hideme( gm )
 	SetObjProperty(res.mobile,"frozen",1);
         PrintTextAbovePrivate( res.mobile, res.mobile.name + " is now frozen", gm );
     else
-        SendSysMessage( gm, "Cancelled" );
+        SendSysMessage( gm, "Отменено" );
     endif
 endprogram

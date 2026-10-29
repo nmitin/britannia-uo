@@ -108,12 +108,12 @@ function HouseLockUnlockItem (sign, character, item)
 	endif
 
 	if (item.IsDoor())
-		SendSysMessage(character, "That's a door!");
+		SendSysMessage(character, "Это дверь!");
 		return;
 	endif
 
 	if (!ReserveItem (item))
-		SendSysMessage(character, "It appears to be in use.");
+		SendSysMessage(character, "Похоже, это используется.");
 		return;
 	endif
 	ReleaseItem (item);
@@ -190,7 +190,7 @@ function HouseSecureReleaseContainer (sign, character, item)
 	endif
 
 	if (item.IsDoor())
-		SendSysmessage( character, "That's a door!" );
+		SendSysmessage( character, "Это дверь!" );
 		return;
 	endif
 
@@ -200,7 +200,7 @@ function HouseSecureReleaseContainer (sign, character, item)
 	endif
 
 	if (!ReserveItem (item))
-		SendSysMessage(character, "It appears to be in use.");
+		SendSysMessage(character, "Похоже, это используется.");
 		return;
 	endif
 	ReleaseItem (item);
@@ -267,7 +267,7 @@ function HouseDisplayItem(sign, character, item)
 	endif
 
 	if (item.isA(POLCLASS_DOOR))
-		SendSysmessage( character, "That's a door!", 1, 33 );
+		SendSysmessage( character, "Это дверь!", 1, 33 );
 		return;
 	endif
 
@@ -282,7 +282,7 @@ function HouseDisplayItem(sign, character, item)
 	endif
 
 	if (!ReserveItem (item))
-		SendSysMessage(character, "It appears to be in use.", 1, 33);
+		SendSysMessage(character, "Похоже, это используется.", 1, 33);
 		return;
 	endif
 	ReleaseItem (item);
@@ -341,7 +341,7 @@ function HouseRaiseItem (sign, character, item)
 
 	if (!item.movable)
 		if (!IsLockedDownMovableItem (item))
-			SendSysMessage(character, "You can't move that.");
+			SendSysMessage(character, "Вы не можете это переместить.");
 			return;
 		endif
 	endif
@@ -353,7 +353,7 @@ function HouseRaiseItem (sign, character, item)
 	endif
 
 	if (item.IsDoor())
-		SendSysMessage(character, "That's a door!");
+		SendSysMessage(character, "Это дверь!");
 		return;
 	endif
 
@@ -382,7 +382,7 @@ function HouseLowerItem (sign, character, item);
 
 	if (!item.movable)
 		if (!IsLockedDownMovableItem (item))
-			SendSysMessage(character, "You can't move that.");
+			SendSysMessage(character, "Вы не можете это переместить.");
 			return;
 		endif
 	endif
@@ -394,7 +394,7 @@ function HouseLowerItem (sign, character, item);
 	endif
 
 	if (item.IsDoor())
-		SendSysMessage(character, "That's a door!");
+		SendSysMessage(character, "Это дверь!");
 		return;
 	endif
 

@@ -24,7 +24,7 @@ program make_candles (character, item)
 
 	//make sure the item can be reserved
 	if (!ReserveItem(item) )
-		SendSysMessage(character, "You can't use that right now.");
+		SendSysMessage(character, "Сейчас вы не можете это использовать.");
 		return;
 	endif
 
@@ -46,7 +46,7 @@ program make_candles (character, item)
         endif
 */
 	if (!ReserveItem(targetted) )
-		SendSysMessage(character, "You can't use that right now.");
+		SendSysMessage(character, "Сейчас вы не можете это использовать.");
 		return;
 	endif
 

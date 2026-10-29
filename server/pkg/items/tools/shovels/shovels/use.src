@@ -319,7 +319,7 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 	endif
 
 	if( quantity < 1 )
-		SendSysMessage( mobile, "There's not enough "+resource_name+" здесь для сбора.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Недостаточно "+resource_name+" здесь для сбора.", 0x3, 0x22 );
 		return 0;
 	elseif( CoordinateDistance( mobile.x, mobile.y, use_on.x, use_on.y ) > 2 )
 		SendSysMessage( mobile, "You must be nearer to harvest any "+resource_name+"!", 0x3, 0x22 );
@@ -346,7 +346,7 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( amount < 1 )
-			SendSysMessage( mobile, "There's not enough "+resource_name+" здесь для сбора.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Недостаточно "+resource_name+" здесь для сбора.", 0x3, 0x22 );
 			return 0;
 		endif
 

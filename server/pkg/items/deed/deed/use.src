@@ -217,7 +217,7 @@ function BuildItem ( who, deed, sign, targ, buildCFG, RetainColor, direction )
 			SetObjProperty( part, "lockeddown", 1);
 			SetObjProperty( part, "signserial", sign.serial);
 			//SetObjProperty( sign, "RemainingLockdowns", GetObjProperty(sign, "RemainingLockdowns") - 1);
-			SendSysMessage( who, "Locked Down.", 3, 66);
+			SendSysMessage( who, "Закреплено.", 3, 66);
 
 	//	Let's place the lockdown property on only the last item placed by the deed
 	//	which is a "cheat" to only have deeded items take up one lockdown.

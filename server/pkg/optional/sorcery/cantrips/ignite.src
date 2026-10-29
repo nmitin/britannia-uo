@@ -92,6 +92,6 @@ program ignite(parms)
             endfor
     endif
 
-    SendSysMessage(caster, "Your spell has no effect.");
+    SendSysMessage(caster, "Заклинание не оказывает эффекта.");
 
 endprogram

@@ -29,7 +29,7 @@ x := thetarget.x;
 y := thetarget.y;
 z := thetarget.z;
 if (!CheckLosAt( caster, x, y, z ))
-        SendSysMessage(caster, "You can't see that!");
+        SendSysMessage(caster, "Вы этого не видите!");
         return;
 endif
 var dir := get_direction(caster, x, y, z);

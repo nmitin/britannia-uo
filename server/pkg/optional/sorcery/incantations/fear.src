@@ -34,7 +34,7 @@ program fear(parms)
 
     var npccfg := ReadConfigFile(":*:npcdesc");
     if ( (npccfg[cast_on.npctemplate].nofear) || (npccfg[cast_on.npctemplate].nopsych) )
-		SendSysMessage(caster, "Your spell has no effect.");
+		SendSysMessage(caster, "Заклинание не оказывает эффекта.");
 		PlaySoundEffect(caster, 0x005d);
 		PlayObjectCenteredEffect(caster, 0x3735, 0x0a, 0x1e);
 		return 0;

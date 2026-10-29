@@ -31,7 +31,7 @@ program use_manastone (who, stone)
 		return;
 	endif
 	if (!ReserveItem(stone)) // If the item is in use already
-		SendSysMessage(who, "You can't use that right now!", color := 33);
+		SendSysMessage(who, "Сейчас вы не можете это использовать!", color := 33);
 		return;
 	endif
         if (!GetObjProperty(stone, "ownedby")) // If the stone is not linked already
@@ -138,11 +138,11 @@ function LinkTheItem(who, it)
 
 //      Can only mark one stone at a time
 	if (it.amount > 1 )
-		PrintTextAbovePrivate(it, "You can't mark those.", who );
+		PrintTextAbovePrivate(it, "Вы не можете это пометить.", who );
 		return;
 	endif
 
-	PrintTextAbovePrivate(it, "The stone is now linked to your mind. Only you can use it.", who +".", color := 66 );
+	PrintTextAbovePrivate(it, "Камень связан с вашим разумом. Только вы можете им пользоваться.", who +".", color := 66 );
 	PlaySoundEffect(who, 0x1e9);
 	var ownerserial := who.serial;
 	var ownername := who.name;

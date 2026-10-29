@@ -136,7 +136,7 @@ function createswitch(who);
   SendSysMessage(who,"select the item to make a switch out of");
   var chest := Target(who);
   if(!chest)
-    SendSysMessage(who,"canceled");
+    SendSysMessage(who,"отменено");
   else
     SetObjProperty(chest, "usescript", chest.usescript);
     SendSysMessage(who, "You create a switch out of the item, be sure to change its graphic through the interface.");
@@ -165,7 +165,7 @@ function lighting(who)
 endfunction
 
 function permgate(caster)
-  SendSysMessage(caster, "Select a rune to gate from.");
+  SendSysMessage(caster, "Выберите руну для портала.");
   var cast_on := Target(caster);
   var tox := CInt(GetObjProperty(cast_on, "x"));
   var toy := CInt(GetObjProperty(cast_on, "y"));
@@ -184,7 +184,7 @@ function permgate(caster)
 endfunction
 
 function gate(caster)
-  SendSysMessage(caster, "Select a rune to gate from.");
+  SendSysMessage(caster, "Выберите руну для портала.");
   var cast_on := Target(caster);
   var tox := CInt(GetObjProperty(cast_on, "x"));
   var toy := CInt(GetObjProperty(cast_on, "y"));
@@ -319,7 +319,7 @@ function spawnpoint(who)
   SendSysMessage(who,"where would you like to create it?");
   var tar := TargetCoordinates(who);
   if(!tar)
-    SendSysMessage(who,"canceled");
+    SendSysMessage(who,"отменено");
   else
     var doodad := CreateItemAtLocation(tar.x, tar.y, tar.z, 0x1A401, 1, who.realm);
     doodad.movable := 0;

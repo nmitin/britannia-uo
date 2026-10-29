@@ -28,7 +28,7 @@ bonus := int/5;
 endif
 
 if(Cint(GetObjProperty(caster, "#glife")))
-SendSysMessage(caster, "Juz jestes pod wplywem tego czaru.",3,40);
+SendSysMessage(caster, "Вы уже находитесь под действием этого заклинания.",3,40);
 return 0;
 endif
 

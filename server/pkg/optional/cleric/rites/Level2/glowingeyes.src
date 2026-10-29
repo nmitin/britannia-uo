@@ -16,7 +16,7 @@ program glowingeyes(params)
 	var targ := ClericalTarget(who, info.npctemplate);
 
 	if (!targ.ip && !targ.npctemplate)
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return;
 	endif
 

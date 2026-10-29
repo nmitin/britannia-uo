@@ -11,7 +11,7 @@ program dyeable(who, dyetub)
     SendSysMessage (who, "Staff member using a dye tub. Choose the item:", color := 88);
     var item := Target(who);
     if(!item)
-      SendSysMessage(who, "Cancelled");
+      SendSysMessage(who, "Отменено");
       return;
     endif
     item.color := dyetub.color;
@@ -31,7 +31,7 @@ program dyeable(who, dyetub)
   SendSysMessage(who, "Select an item to dye");
   var item := Target(who);
   if(!item)
-    SendSysMessage(who, "Cancelled");
+    SendSysMessage(who, "Отменено");
     return;
   endif
   if(!can_access(who, item))

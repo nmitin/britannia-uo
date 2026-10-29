@@ -13,7 +13,7 @@ program use_securecontainer(who, item)
 	if(who.cmdlevel >= 3)
 		if(item.isA(POLCLASS_CONTAINER))
 			SendViewContainer( who, item );
-			SendSysMessage( who, "You open the secure container.", color := 66 );
+			SendSysMessage( who, "Вы открываете защищённый контейнер.", color := 66 );
 			return 1;
 		endif
 	endif
@@ -39,7 +39,7 @@ program use_securecontainer(who, item)
 	if(securitylevel == securedlevel)
 		if(item.isA(POLCLASS_CONTAINER))
 			SendViewContainer( who, item );
-			SendSysMessage( who, "You open the secure container.", 1, 66 );
+			SendSysMessage( who, "Вы открываете защищённый контейнер.", 1, 66 );
 			if(GetObjProperty(item, "oldscript" == "wear_and_tear") || GetObjProperty(item, "oldscript" == ":carpentry:wear_and_tear"))
 				Start_Script(":carpentry:wear_and_tear", item);
 			endif

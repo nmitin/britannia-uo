@@ -418,7 +418,7 @@ endfunction
 
 
 function ChangeLocks(sign, byref who)
-	SendSysMessage(who, "Target the new master key.", 1, 66);
+	SendSysMessage(who, "Укажите новый ключ.", 1, 66);
 	// var addonitem;
 	var newkey := Target(who);
 	if(!newkey)
@@ -447,7 +447,7 @@ function ChangeLocks(sign, byref who)
 		endif */
 		SendSysMessage(who, "Locks have been changed.", 1, 66);
 	else
-		SendSysMessage(who, "That is not a key!", 3, 40);
+		SendSysMessage(who, "Это не ключ!", 3, 40);
 	endif
 endfunction
 
@@ -466,14 +466,14 @@ endfunction
 function ChangeInteriorLocks( who, house )
 	footage := GetObjProperty(house, "footage");
 	var extdoors := GetObjProperty(house, "exteriordoors");
-	SendSysMessage( who, "Target the new master key.", 1, 88 );
+	SendSysMessage( who, "Укажите новый ключ.", 1, 88 );
 	var newkey := Target( who, "" );
 	if (!newkey)
 		SendSysMessage(who, "Отменено.", 1, 33);
 		return;
 	endif
 	if( !newkey.IsKey() && newkey.IsKeyring() )
-		SendSysMessage( who, "That is not a key!", 1, 33 );
+		SendSysMessage( who, "Это не ключ!", 1, 33 );
 		return;
 	endif
 	if(newkey.GetLockId())

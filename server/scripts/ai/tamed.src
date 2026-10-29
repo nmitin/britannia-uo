@@ -156,7 +156,7 @@ function MainAILoop()
         EVID_ALL_ATTACK_CMD:    Fight(ev.target);
         EVID_ALL_FOLLOW_CMD:    following := ev.target;
         SYSEVENT_ALL_GUARD_CMD: guarding := ev.target;
-                                PrintTextAbove(me,"*guarding " + guarding.name + "*");
+                                PrintTextAbove(me,"*охраняет " + guarding.name + "*");
       endcase
       if(following)
         waittime := 0;
@@ -226,7 +226,7 @@ function Fight(opponent)
                                SetOpponent(opponent);
       EVID_ALL_FOLLOW_CMD:     following := ev.target;
       SYSEVENT_ALL_GUARD_CMD:  guarding := ev.target;
-                               PrintTextAbove(me,"*guarding " + guarding.name + "*");
+                               PrintTextAbove(me,"*охраняет " + guarding.name + "*");
       SYSEVENT_SPEECH:         ProcessSpeech(ev);
       SYSEVENT_ENGAGED:
       SYSEVENT_DAMAGED:        if(ev.source == opponent)
@@ -314,7 +314,7 @@ function Transfer()
   SendSysMessage(master, "Передать " + me.name + " кому?");
    var whom := Target(master, TGTOPT_NOCHECK_LOS);
   if(!whom)
-    SendSysMessage(master, "Canceled");
+    SendSysMessage(master, "Отменено");
     return;
   endif
   if(!whom.acctname)
@@ -634,7 +634,7 @@ function Guard()
   if(nextwatch <= ReadGameClock())
     nextwatch := ReadGameClock()+ 7;
     if(RandomInt(8)==1)
-      PrintTextAbove(me,"*guarding " + guarding.name + "*");
+      PrintTextAbove(me,"*охраняет " + guarding.name + "*");
     endif
     foreach mob in ListHostiles(guarding, 9, 0);
       Fight(mob);

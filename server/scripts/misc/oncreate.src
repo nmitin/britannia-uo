@@ -37,7 +37,7 @@ program oncreate(who, skillids, unused profession)
       var newbackpack := CreateItemAtLocation(who.x, who.y, who.z, 0xe75,1, who.realm);
       if (!EquipItem(who, newbackpack))
         Print("Could not create a backpack on player " + who.name);
-        SysLog("Could not create a backpack on player " + who.name);
+        SysLog("Could not create a backpack on player " + who.name + " obj=" + newbackpack + " err=" + newbackpack.errortext);
       endif
   endif
 

@@ -28,7 +28,7 @@ program setpages(who, text)
 		SendSysMessage(who, "Press <ESC> to cancel.", color := 88);
 		var trg := Target(who, TGTOPT_NOCHECK_LOS);
 		if(!trg)
-			SendSysMessage(who, "Canceled");
+			SendSysMessage(who, "Отменено");
 			return;
 		endif
 		SetObjProperty(trg, "maxpages", page_count);

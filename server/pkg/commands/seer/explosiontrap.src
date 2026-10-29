@@ -10,7 +10,7 @@ program DartTrap(who, strngth)
 	SendSysMessage(who,"Select the container you wish to place a trap on:", color := 88);
 	var chest := Target(who);
 	if (!chest)
-		SendSysMessage(who,"canceled");
+		SendSysMessage(who,"отменено");
 		return;
 	endif
 	if( !chest.IsA(POLCLASS_CONTAINER) )

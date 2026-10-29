@@ -43,7 +43,7 @@ program setbooktospawn(who)
 	selected_books := SelectionGumpEx(who, CStr(book_titles.size()) + " books not spawning in the library:", book_titles, BTN_TYPE_CHECKBOX);
 
 	if(selected_books.errortext == "No option was selected.")
-		SendSysMessage(who, "No books were selected.", color := 33);
+		SendSysMessage(who, "Книги не выбраны.", color := 33);
 		return 0;
 	endif
 

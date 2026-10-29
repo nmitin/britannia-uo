@@ -18,7 +18,7 @@ function TP_CheckRange( mobile, weapon, targ )
 	endif
 
 	if( Distance( mobile, targ ) > wpn_range )
-		SendSysMessage( mobile, "You are too far away." );
+		SendSysMessage( mobile, "Вы слишком далеко." );
 		return 0;
 	endif
 

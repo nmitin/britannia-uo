@@ -80,7 +80,7 @@ program decorate (who)
 
 	if (!item.movable)
 		if (!IsLockedDownMovableItem (item, hsign))
-			SendSysMessage(who, "You can't move that.", 0x3, 0x21);
+			SendSysMessage(who, "Вы не можете это переместить.", 0x3, 0x21);
 			SendSysMessage(who, "Try releasing it first.");
 			return;
 		endif

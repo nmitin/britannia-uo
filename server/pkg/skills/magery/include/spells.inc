@@ -452,7 +452,7 @@ function Resisted(circle, caster, cast_on, amt)
                 return 0;
         endif
         if(SkillCheck( cast_on, RESISTING_SPELLS, diff, points ) > 0)
-                SendSysMessage(cast_on, "You feel yourself resisting magical energy!");
+                SendSysMessage(cast_on, "Вы чувствуете, как сопротивляетесь магической энергии!");
                 PlaySoundEffect(cast_on, SFX_SPELL_WEAKEN);
                 PlayObjectCenteredEffect(cast_on, FX_CURSE_EFFECT, 5,5);
                 amt := (amt * 0.5);

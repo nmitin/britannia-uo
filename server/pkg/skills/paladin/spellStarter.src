@@ -58,7 +58,7 @@ program SpellStarter(params)
 	endif
 
 	if ( GetObjProperty(mobile, "#Casting") )
-		SendSysMessage(mobile, "You cannot cast right now.", color := 33);
+		SendSysMessage(mobile, "Сейчас вы не можете читать заклинание.", color := 33);
 		return 0;
 	elseif ( mobile.squelched && !mobile.npctemplate )
 		SendSysMessage(mobile, "Something prevents you from casting.", color := 33);

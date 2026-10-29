@@ -30,7 +30,7 @@ program herd(who)
                 return;
         endif */
         if(!CheckLineOfSight(who, npc))
-                SendSysMessage(who, "You can't see that!");
+                SendSysMessage(who, "Вы этого не видите!");
         endif
         var cfg := ReadConfigFile("::npcdesc");
         var herdskill := CInt( cfg[npc.npctemplate]."herdskill" * 3 );

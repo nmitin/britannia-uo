@@ -74,7 +74,7 @@ program SpellStarter(params)
 	endif
 
 	if ( GetObjProperty(mobile, "#Casting") )
-		SendSysMessage(mobile, "You cannot cast right now.", color := 33);
+		SendSysMessage(mobile, "Сейчас вы не можете читать заклинание.", color := 33);
 		return 0;
 	elseif ( mobile.frozen )
 		SendSysMessage(mobile, "You cannot cast a spell while frozen.", color := 33);

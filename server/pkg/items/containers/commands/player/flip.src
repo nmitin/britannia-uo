@@ -7,7 +7,7 @@ program flip (who)
     var targetfurniture := Target(who);
 
     if (!targetfurniture.objtype)
-          SendSysMessage(who, "You must select an item!");
+          SendSysMessage(who, "Нужно выбрать предмет!");
           return;
     endif
 
@@ -866,7 +866,7 @@ program flip (who)
 	//stone bench
 	 targetfurniture.graphic :=  0x3dff;
 		default:
-            SendSysMessage(who, "That item cannot be reoriented.");
+            SendSysMessage(who, "Этот предмет нельзя повернуть.");
 	endcase
 
 

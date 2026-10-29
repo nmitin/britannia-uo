@@ -18,7 +18,7 @@ program cfg_effects( who )
 	var damage := 0;
 	var range := 0;
 		if((result[0] == 666) || (result[0] == 1))
-		SendSysMessage(who, "Canceled", color := 33);
+		SendSysMessage(who, "Отменено", color := 33);
 		return 0;
 	endif
 	damage := GFExtractData(result, 100);

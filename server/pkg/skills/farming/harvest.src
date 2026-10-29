@@ -22,7 +22,7 @@ program harvest (who, plant)
 	endif
 
         if (Distance(who, plant) > 3)
-		SendSysMessage(who, "That is too far away!", color :=33);
+		SendSysMessage(who, "Это слишком далеко!", color :=33);
 		return;
 	endif
 

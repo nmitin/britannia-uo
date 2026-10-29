@@ -51,7 +51,7 @@ endprogram
 function makeTailoringItems(who, what, amt, tool)
 
 	if(!what)
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 

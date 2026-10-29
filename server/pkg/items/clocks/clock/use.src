@@ -8,6 +8,6 @@ include "include/clock";
 
 program UseScript(who, item)
 //	PrintTextAbovePrivate(item, GetGameHour()+":"+GetGameMinute(), who);
-	PrintTextAbovePrivate(item, ("Time of Day: " + GetTimeofDay()), who);
+	PrintTextAbovePrivate(item, ("Время суток: " + GetTimeofDay()), who);
 	return 1;
 endprogram

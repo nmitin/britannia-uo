@@ -44,7 +44,7 @@ program chaos(parms)
     endforeach
 
     if (len(victims) == 0)
-		SendSysMessage(caster, "Your spell has no effect.");
+		SendSysMessage(caster, "Заклинание не оказывает эффекта.");
 		return 0;
     endif
 

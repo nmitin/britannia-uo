@@ -33,11 +33,11 @@ program earthquake(params)
 				var hand2 := GetEquipmentByLayer(who, 2);
 				if (hand1 && mobile.ip)
 					MoveObjectToLocation(hand1, who.x, who.y, who.z, who.realm, MOVEOBJECT_NORMAL);
-					SendSysMessage(who, "You drop " + hand1.desc);
+					SendSysMessage(who, "Вы роняете " + hand1.desc);
 				endif
 				if (hand2 && mobile.ip)
 					MoveObjectToLocation(hand2, mobile.x, mobile.y, mobile.z, mobile.realm, MOVEOBJECT_NORMAL);
-					SendSysMessage(mobile, "You drop " + hand2.desc);
+					SendSysMessage(mobile, "Вы роняете " + hand2.desc);
 				endif
 				// Dismount the player.
 				var mount := GetEquipmentByLayer(who, 25);

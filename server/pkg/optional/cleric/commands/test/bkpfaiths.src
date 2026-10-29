@@ -20,7 +20,7 @@ program start_init_faiths(who)
 	var junk := {};
 	var fname := RequestGump(who, "Enter a file name:", "The file name will be time stamped.", "", 1);
 	if(fname == error)
-		SendSysMessage(who, "Cancelled", color := 33);
+		SendSysMessage(who, "Отменено", color := 33);
 		return 0;
 	endif
 	fname := ":cleric:" + fname;

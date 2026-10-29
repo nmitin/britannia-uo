@@ -9,14 +9,14 @@ function Go_AddNewLocation(who, public:=1)
 	var targ := TargetCoordinates(who);
 
 	if (!targ)
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 
 	var name := RequestInput(who, who.backpack, "What do you want to call this go location?");
 
 	if ( !name )
-		SendSysMessage(who, "Cancelled");
+		SendSysMessage(who, "Отменено");
 		return 0;
 	endif
 

@@ -50,7 +50,7 @@ program addtoshardlibrary(who)
 	selected_books := InitializeBookGump( who, book_titles, "Add Books to Shard Library" );
 
 	if(selected_books.errortext == "No option was selected.")
-		SendSysMessage(who, "No books were selected.", color := 33);
+		SendSysMessage(who, "Книги не выбраны.", color := 33);
 		return 0;
 	endif
 	// This is where the magic happens.

@@ -105,7 +105,7 @@ function makeAlchemyItems(who, what, amt, tool)
 			else
 				num := CInt(randomint(material)/2) + 1;
 				if(SubtractAmount(use_on, num))
-					SendSysMessage(who, "You lost some material");
+					SendSysMessage(who, "Вы потеряли часть материалов");
 				endif
 			endif
 			CheckToolWear (who, tool, craft_skill);

@@ -17,7 +17,7 @@ program cast_mark(parms)
 	endif
 
 	if (!cast_on.IsRecallRune())
-		SendSysMessage(caster, "You can only cast that on a recall rune!", color := 33);
+		SendSysMessage(caster, "Это можно наложить только на руну возврата!", color := 33);
 		return;
 	endif
 

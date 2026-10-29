@@ -23,7 +23,7 @@ program spiritualhammer(params)
 	SendSysMessage(who, "Select victim:", color := 88);
 	var victim := Target(who);
 	if (!victim.isA(POLCLASS_MOBILE))
-		SendSysMessage(who, "Invalid target.");
+		SendSysMessage(who, "Недопустимая цель.");
 		return;
 	endif
 

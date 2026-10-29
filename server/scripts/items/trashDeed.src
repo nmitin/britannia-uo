@@ -11,7 +11,7 @@ program maketrash( who, deed )
   var where := TargetCoordinates( who );
   var place;
   if(!where)
-    SendSysMessage( who, "Cancelled");
+    SendSysMessage( who, "Отменено");
     return;
   else
     if(!checkfortrashcans(where, who.realm))

@@ -46,7 +46,7 @@ endprogram
 function makeTinkerItems(mobile, what, amt, tool)
 
 	if(!what)
-		SendSysMessage(mobile, "Cancelled");
+		SendSysMessage(mobile, "Отменено");
 		return 0;
 	endif
 
@@ -97,7 +97,7 @@ function makeTinkerItems(mobile, what, amt, tool)
 			else
 				num := CInt(randomint(material)/2) + 1;
 				if(SubtractAmount(use_on, num))
-					SendSysMessage(mobile, "You lost some material", color := 33);
+					SendSysMessage(mobile, "Вы потеряли часть материалов", color := 33);
 				endif
 			endif
 			CheckToolWear (mobile, tool, craft_skill);
