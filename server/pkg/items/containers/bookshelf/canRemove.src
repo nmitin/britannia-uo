@@ -14,7 +14,7 @@ program canRemoveScript( mobile, container, unused item, unused movetype )
 	endif
 
 	if( CP_IsLocked( container ))
-		SendSysMessage( mobile, "You can't remove items from locked containers." );
+		SendSysMessage( mobile, "Нельзя доставать предметы из запертых контейнеров." );
 		return 0;
 	endif
 

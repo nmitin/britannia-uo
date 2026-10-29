@@ -38,7 +38,7 @@ program daycycle()
 		SetGlobalProperty("NewDay", ReadGameClock() );
 //		If you want less dark nights, comment out the "Dark nights" 'SetRegionLightLevel'
 //		uncomment the "Not so dark nights" 'SetRegionLightLevel'.
-		SetRegionLightLevel("Background", 30); // Dark nights.
+		SetRegionLightLevel("Background", 12); // Soft nights.
 //		SetRegionLightLevel("Background", 25); // Not so dark nights.
 		Broadcast("It is midnight.");
 		time := CInt(n / 2);
@@ -50,7 +50,7 @@ program daycycle()
 		time := CInt(t / 28);
 //		If you want less dark nights, comment out the "Dark nights" 'for'
 //		uncomment the "Not so dark nights" 'for'.
-		for (i := 29; i >= 3; i := i - 1)
+		for (i := 13; i >= 3; i := i - 1)
 //		for (i := 24; i >= 3; i := i - 1) // temp change
 			SetRegionLightLevel("Background", i);
 			sleep(time);
@@ -89,14 +89,14 @@ program daycycle()
 		time := CInt(t / 28);
 //		If you want less dark nights, comment out the "Dark nights" 'for'
 //		uncomment the "Not so dark nights" 'for'.
-		for (i := 2; i <= 28; i := i + 1) // Dark nights
+		for (i := 2; i <= 12; i := i + 1) // Soft nights
 //		for (i := 2; i <= 24; i := i + 1) // Not so dark nights
 			SetRegionLightLevel("Background", CInt(i));
 			sleep(time);
 		endfor
 //		If you want less dark nights, comment out the "Dark nights" 'SetRegionLightLevel'
 //		uncomment the "Not so dark nights" 'SetRegionLightLevel'.
-		SetRegionLightLevel("Background", 29); // Dark nights.
+		SetRegionLightLevel("Background", 12); // Soft nights.
 //		SetRegionLightLevel("Background", 25); // Not so dark nights.
 		time := t - (CInt(t / 28) * 27);
 		sleep(time);
@@ -111,7 +111,7 @@ program daycycle()
 		SetGlobalProperty("DayPhase", "Night");
 //		If you want less dark nights, comment out the "Dark nights" 'SetRegionLightLevel'
 //		uncomment the "Not so dark nights" 'SetRegionLightLevel'.
-		SetRegionLightLevel("Background", 30); // Dark nights.
+		SetRegionLightLevel("Background", 12); // Soft nights.
 //		SetRegionLightLevel("Background", 25); // Not so dark nights.
 		Broadcast("It is evening.");
 		time := n - CInt(n / 2);

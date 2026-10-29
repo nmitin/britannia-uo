@@ -35,7 +35,7 @@ program use_bedroll( who, bedroll )
          SendSysMessage( who, "You abandon your preparations to camp.");
          return;
       endif
-      SendSysMessage( who, "You must wait " + ttl + " more seconds to log out." );
+      SendSysMessage( who, "Нужно подождать " + ttl + " more seconds to log out." );
       ttl := ttl - 5;
       sleep(5);
    endwhile

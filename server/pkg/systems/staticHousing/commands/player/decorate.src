@@ -126,7 +126,7 @@ program decorate (who)
 
 			OPTION_MOVE_UP:
 				if (item.z >= who.z + 15)
-					SendSysMessage(who, "You can't raise that any higher.", 0x3, 0x21);
+					SendSysMessage(who, "Выше это уже не поднять.", 0x3, 0x21);
 				else
 					ManipulateItemHeight(item, 1);
 				endif

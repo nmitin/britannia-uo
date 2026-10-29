@@ -62,7 +62,7 @@ program CreateFocus(params)
 		if (CheckMana(who, CInt(10/piety)))
 			if(ConsumeSubstance(who.backpack, targ.objtype, 1))
 				created := CreateItemInBackpack( who, focci, 1 );
-				SendSysMessage(who, "You created a " + focci.desc +".");
+				SendSysMessage(who, "Вы создали " + focci.desc +".");
 			else
 				break;
 			endif

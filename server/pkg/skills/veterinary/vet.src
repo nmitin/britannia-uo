@@ -92,7 +92,7 @@ function heal(who, patient, bandy)
     chp:=AP_GetVital(who, VITALID_LIFE);
     sleep(1);
     if(Distance(who, patient) > 2)
-      SendSysMessage(who,"Your patient isn't close enough.", color := 33);
+      SendSysMessage(who,"Пациент недостаточно близко.", color := 33);
       break;
     endif
     if(who.warmode)
@@ -170,7 +170,7 @@ function cure(who, patient, bandy)
     chp:=AP_GetVital(who, VITALID_LIFE);
     sleep(1);
     if(Distance(who, patient) > 1)
-      SendSysMessage(who,"Your patient isn't close enough.", color := 33);
+      SendSysMessage(who,"Пациент недостаточно близко.", color := 33);
       break;
     endif
     if(who.warmode)

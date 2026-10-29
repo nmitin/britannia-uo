@@ -2,9 +2,9 @@ use uo;
 use os;
 
 program teleto(who)
-  SendSysMessage(who, "Move Who?");
+  SendSysMessage(who, "Кого переместить?");
   var what := Target(who);
-  SendSysMessage(who, "Move where?");
+  SendSysMessage(who, "Куда переместить?");
   var where := TargetCoordinates(who);
   var chk := 0;
   while(chk == 0)
@@ -15,12 +15,12 @@ program teleto(who)
       chk := 1;
     endif
     MoveObjectToLocation(what, where.x, where.y, where.z, what.realm, MOVEOBJECT_FORCELOCATION);
-    SendSysMessage(who, "Move Who?");
+    SendSysMessage(who, "Кого переместить?");
     what := Target(who);
     if(!what)
       chk := 1;
     endif
-    SendSysMessage(who, "Move where?");
+    SendSysMessage(who, "Куда переместить?");
     where := TargetCoordinates(who);
     if(!where)
       chk := 1;

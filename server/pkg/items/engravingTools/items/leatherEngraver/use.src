@@ -15,7 +15,7 @@ program leather_container_engraving_tool( mobile, item )
 		return 0;
 	endif
 
-	SendSysMessage( mobile, "Select an object to engrave.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Выберите предмет для гравировки.", 0x3, 0x42 );
 	var use_on := Target( mobile );
 	if( !use_on )
 		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
@@ -35,7 +35,7 @@ program leather_container_engraving_tool( mobile, item )
 
 	var engraving := EngravingGump( mobile, "<center>Leather Container Engraving Tool</center>" );
 	if( !engraving )
-		SendSysMessage( mobile, "The object was not engraved.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Предмет не был выгравирован.", 0x3, 0x32 );
 		return 0;
 	endif
 
@@ -44,15 +44,15 @@ program leather_container_engraving_tool( mobile, item )
 			return 0;
 		endif
 
-		SendSysMessage( mobile, "You remove the engraving from the object.", 0x3, 0x42 );
+		SendSysMessage( mobile, "Вы удаляете гравировку с предмета.", 0x3, 0x42 );
 		use_on.RemoveEngraving();
 	else
-		SendSysMessage( mobile, "You engraved the object.", 0x3, 0x42 );
+		SendSysMessage( mobile, "Вы выгравировали надпись.", 0x3, 0x42 );
 		use_on.SetEngraving( engraving );
 	endif
 
 	if( !item.ConsumeUses() )
-		SendSysMessage( mobile, "You have worn out your tool!", 0x3, 0x22 );
+		SendSysMessage( mobile, "Вы износили инструмент!", 0x3, 0x22 );
 		DestroyItem( item );
 	endif
 

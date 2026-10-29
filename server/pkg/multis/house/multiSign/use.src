@@ -840,7 +840,7 @@ program Mulit_House_sign(who, sign)
 					var targetow := Target(who);
 					SendSysMessage(who, "Transfer the house to whom?");
 					if(ChangeHouseOwner(who, targetow, sign, bank_region) == 1)
-						SendSysMessage(who, "House transfer was successful.", color := 66);
+						SendSysMessage(who, "Передача дома прошла успешно.", color := 66);
 					else
 						SendSysMessage(who, "Передача дома НЕ удалась.", color := 33);
 					endif
@@ -882,7 +882,7 @@ function AddFriend(hsign, who)
     return;
   endif
   if(!targetchr.isA(POLCLASS_MOBILE))
-    SendSysMessage(who, "That cannot be added to the list.", color := 33);
+    SendSysMessage(who, "Это нельзя добавить в список.", color := 33);
     return;
   endif
   var result := hsign.AddFriend(targetchr);
@@ -930,7 +930,7 @@ function DeleteFriend(hsign,who)
 		elseif(!result)
 			SendSysMessage(who, "The friendlist is empty.", color := 33);
 		elseif(result == -1)
-			SendSysMessage(who, "There is no person in that slot.", color := 33);
+			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
 	endif
 endfunction
@@ -969,7 +969,7 @@ function AddBan(hsign, who)
 		return;
 	endif
 	if(!targetchr.isA(POLCLASS_MOBILE))
-		SendSysMessage(who, "That cannot be added to the list.", color := 33);
+		SendSysMessage(who, "Это нельзя добавить в список.", color := 33);
 		return;
 	endif
 	var result := hsign.IsBanned(targetchr);
@@ -1027,7 +1027,7 @@ function DeleteBan(hsign,who)
 		elseif(!result)
 			SendSysMessage(who, "The ban list is empty.", color := 33);
 		elseif(result == -1)
-			SendSysMessage(who, "There is no person in that slot.", color := 33);
+			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
 	endif
 endfunction
@@ -1116,7 +1116,7 @@ function DeleteCoowner(hsign,who)
 		elseif(!result)
 			SendSysMessage(who, "The co-owner list is empty.", color := 33);
 		elseif(result == -1)
-			SendSysMessage(who, "There is no person in that slot.", color := 33);
+			SendSysMessage(who, "В этом слоте никого нет.", color := 33);
 		endif
 	endif
 	SendSysMessageCL(who, 501299, color := 66); // Co-owner removed from list.
@@ -1180,9 +1180,9 @@ function ChangeHouseOwner(oldowner, newowner, sign, bank_region)
 		EraseObjProperty(sign, "friendlist");
 		EraseObjProperty(sign, "banlist");
 		EraseObjProperty(sign, "Public");
-		SendSysMessage(newowner,      "House transfer was successful.", color := 66);
+		SendSysMessage(newowner,      "Передача дома прошла успешно.", color := 66);
 		SendSysMessage(newowner,      "It would be wise to change the locks soon.", color := 45);
-		SendSysMessage(oldowner, "House transfer was successful.", color := 66);
+		SendSysMessage(oldowner, "Передача дома прошла успешно.", color := 66);
 		return 1;
 	endif
 	SendSysMessage(newowner,      "Передача дома НЕ удалась.", color := 33);

@@ -1382,7 +1382,7 @@ function GFTextWidth(gump_text)
 		if ( i>=0 )
 			points += gft_length.width[CInt(i/14)+1];
 		else
-			print("XGFTextWidth: Unknown Character = '"+gump_text[j]+"'");
+			points += 8; // Non-ASCII: approximate width
 		endif
 	endfor
 

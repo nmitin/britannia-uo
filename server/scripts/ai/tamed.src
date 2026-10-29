@@ -785,7 +785,7 @@ function ProcessSpeech(ev)
 	endif
   elseif(evtext["all guard me"])
 	guarding := ev.source;
-	PrintTextAbove(me,"Im guarding you");
+	PrintTextAbove(me,"Я охраняю тебя");
   elseif(evtext["all guard"])
     say("Кого мне охранять?");
 	var what := Target(master, TGTOPT_HELPFUL + TGTOPT_CHECK_LOS);

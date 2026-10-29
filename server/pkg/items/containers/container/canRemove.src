@@ -20,7 +20,7 @@ program canRemove( mobile, container, unused item, move_type )
 	elseif( move_type == MOVETYPE_COREMOVE )
 		return 1;
 	elseif( CP_IsLocked( container ))
-		SendSysMessage( mobile, "You can't remove items from locked containers." );
+		SendSysMessage( mobile, "Нельзя доставать предметы из запертых контейнеров." );
 		return 0;
 	elseif( ContainerIsSecured( mobile, container ) )
 		SendSysMessageCL ( mobile, 503301, color := 33 ); // You don't have permission to do that.

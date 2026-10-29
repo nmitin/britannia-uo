@@ -77,7 +77,7 @@ function makeTinkerItems(mobile, what, amt, tool)
 
 	while(counter < amt)
 		if((mobile.x != x) || (mobile.y != y))
-			SendSysMessage(mobile, "You stop brewing.");
+			SendSysMessage(mobile, "Вы прекращаете варить зелье.");
 			break;
 		endif
 		if(!tool)
@@ -102,7 +102,7 @@ function makeTinkerItems(mobile, what, amt, tool)
 			endif
 			CheckToolWear (mobile, tool, craft_skill);
 		else
-			SendSysMessage(mobile, "You don't have the resources required to make that item.", color := 33);
+			SendSysMessage(mobile, "У вас нет нужных ресурсов для этого.", color := 33);
 			counter := 100;
 			break;
 		endif

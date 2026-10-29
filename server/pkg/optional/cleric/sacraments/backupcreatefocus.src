@@ -47,7 +47,7 @@ program createfocus(params)
 	endfor
 
 	if (!focci)
-		SendSysMessage(who, "You can't make anything with this material.");
+		SendSysMessage(who, "Из этого материала ничего не получится.");
 		return;
 	endif
 

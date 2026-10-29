@@ -99,7 +99,7 @@ function makeBowcraftItems(who, what, amt, tool)
 				endif
 			endif
 		else
-			SendSysMessage(who, "You don't have the resources required to make that item.");
+			SendSysMessage(who, "У вас нет нужных ресурсов для этого.");
 			return 0;
 		endif
 		counter := counter + 1;

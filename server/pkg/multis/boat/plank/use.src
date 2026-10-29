@@ -8,7 +8,7 @@ program UsePlank( mobile, plank )
 	var LockId := GetObjProperty(plank, "LockID");
 	if(plank.locked)
 		if(!KP_HasKeyForLock(mobile, LockId))
-			SendSysMessage(mobile, "That is locked.", color := 33);
+			SendSysMessage(mobile, "Это заперто.", color := 33);
 			return;
 		endif
 	endif

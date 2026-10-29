@@ -136,7 +136,7 @@ function remove(house, sign, event)
 			return;
 		endif
 	else
-		SendSysMessage(who,"you must be in a house to do this");
+		SendSysMessage(who,"для этого нужно находиться в доме");
 		return;
 	endif
 endfunction
@@ -154,7 +154,7 @@ function trashbarrel(house, event)
 			endif
 		endforeach
 		if(exists == 1)
-			SendSysMessage(who, "This house already has a trash barrel");
+			SendSysMessage(who, "В этом доме уже есть мусорная бочка");
 			return;
 		endif
 	endif
@@ -341,7 +341,7 @@ function unsecure(sign, event)
 		return;
 	endif
 	if (!GetObjProperty(itemt,"secure") ==1)
-		SendSysMessage(event.source,"You cannot unsecure that.", color := 33);
+		SendSysMessage(event.source,"Вы не можете снять защиту.", color := 33);
 		return;
 	endif
 	EraseObjProperty(itemt,"secure");
@@ -383,7 +383,7 @@ function housebanning(house, event, sign)
 		return;
 	endif
 	if(!AP_GetStat(idiot, STRENGTH))
-		SendSysMessage(who, "That cannot be added to the list.");
+		SendSysMessage(who, "Это нельзя добавить в список.");
 		return;
 	endif
 	if((sign.IsObjectInsideHouse(idiot)) || (idiot.multi == house))

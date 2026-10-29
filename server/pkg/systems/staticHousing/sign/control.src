@@ -127,7 +127,7 @@ function remove(sign, event)
       return;
     endif
   else
-    SendSysMessage(who, "you must be in a house to do this", 3, 40);
+    SendSysMessage(who, "для этого нужно находиться в доме", 3, 40);
     return;
   endif
 endfunction
@@ -137,7 +137,7 @@ function trashbarrel(sign, event)
   var barrelcheck := GetObjProperty(sign, "barrelserial");
   if(barrelcheck)
     if(SystemFindObjectBySerial(barrelcheck))
-      SendSysMessage(who, "This house already has a trash barrel", 3, 40);
+      SendSysMessage(who, "В этом доме уже есть мусорная бочка", 3, 40);
       return;
     endif
   else
@@ -254,8 +254,8 @@ function HouseFunction(sign, event, num)
 					SendSysMessageCL(who, 501726, color := 66); // No longer locked down!
 				else
 					SendSysMessage(who, "You apparently haven't locked anything down yet but the item was released anyway", 3, 40);
-					SendSysMessage(who, "You should report this to a Staff member. It is possible that", 3, 40);
-					SendSysMessage(who, "there were left over items from a previous owner.", 3, 40);
+					SendSysMessage(who, "Сообщите об этом администрации. Возможно,", 3, 40);
+					SendSysMessage(who, "остались предметы от предыдущего владельца.", 3, 40);
 				endif
 /*			elseif((item.movable == 0) && (GetObjProperty(item,"secure")))
 				EraseObjProperty(item,"secure");
@@ -357,8 +357,8 @@ function secure(sign, event, unused text)
 				elseif(GetObjProperty(sign, "RemainingLockdowns") >= GetObjProperty(sign, "MaxLockdowns"))
 					SendSysMessage(who, "You apparently haven't locked anything down yet", color := 33);
 					SendSysMessage(who, "so you can't be credited with a lockdown", 40);
-					SendSysMessage(who, "You should report this to a Staff member. It is possible that", color := 33);
-					SendSysMessage(who, "there were left over items from a previous owner.", color := 33);
+					SendSysMessage(who, "Сообщите об этом администрации. Возможно,", color := 33);
+					SendSysMessage(who, "остались предметы от предыдущего владельца.", color := 33);
 				endif
 
 			else
@@ -418,7 +418,7 @@ function unsecure(sign, event)
 	endif
 
 	if(!GetObjProperty(item,"secure"))
-		SendSysMessage(event.source,"That is not secured.", 3, 40);
+		SendSysMessage(event.source,"Это не защищено.", 3, 40);
 		return 0;
 	elseif(!canunsecure)
 		SendSysMessage(event.source,"You are not authorised to unsecure that.", 3, 40);
@@ -485,7 +485,7 @@ function housebanning(sign, event)
 		SendSysMessageCL(who, 1062040, color := 33); // You cannot ban that.
 		return 0;
 	elseif(victim.cmdlevel >= 2)
-		SendSysMessage(who, "You cannot ban staff!", 3, 33);
+		SendSysMessage(who, "Вы не можете забанить администрацию!", 3, 33);
 		return 0;
 	elseif(sign.IsBanned(victim))
 		SendSysMessageCL(who, 501356, 3, 33); // This person is already banned!

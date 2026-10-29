@@ -21,7 +21,7 @@ program makecanon(params)
 	var temp;
 	var itemlist := { };
 	if (!checkmana(who, 65))
-		SendSysMessage(who, "You are too tired to cast.");
+		SendSysMessage(who, "Вы слишком устали, чтобы читать заклинание.");
 		FailCast(who);
 		return;
 	endif

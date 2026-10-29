@@ -76,7 +76,7 @@ function makeScribeItems(mobile, what, amt, tool)
 
 	while(counter < amt)
 		if((mobile.x != x) || (mobile.y != y))
-			SendSysMessage(mobile, "You stop brewing.");
+			SendSysMessage(mobile, "Вы прекращаете варить зелье.");
 			break;
 		endif
 		if(!tool)
@@ -101,7 +101,7 @@ function makeScribeItems(mobile, what, amt, tool)
 			endif
 			CheckToolWear (mobile, tool, craft_skill);
 		else
-			SendSysMessage(mobile, "You don't have the resources required to make that item.");
+			SendSysMessage(mobile, "У вас нет нужных ресурсов для этого.");
 			counter := 100;
 			break;
 		endif

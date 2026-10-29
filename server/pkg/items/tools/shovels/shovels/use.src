@@ -388,14 +388,14 @@ function SHOVEL_HarvestResource( byref mobile, byref use_on, byref tool )
 		var create_item := CreateItemInBackpack( mobile, settings.ResourceType, amount );
 		if( create_item )
 			if( resource_name == "sand" )
-				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "grain%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
+				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "grain%s% of "+resource_name, amount )+" в вашем рюкзаке.", 0x3, 0x42 );
 			elseif( resource_name == "clay" )
-				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "brick%s% of "+resource_name, amount )+" in your backpack.", 0x3, 0x42 );
+				SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( "brick%s% of "+resource_name, amount )+" в вашем рюкзаке.", 0x3, 0x42 );
 			endif
 		else
 		
 			CreateStackableItemAtLocation(mobile, settings.ResourceType, amount, range := 0);
-			SendSysMessage( mobile, "Your backpack is full and the "+resource_name+" is placed at your feet.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Ваш рюкзак полон, а "+resource_name+" положен у ваших ног.", 0x3, 0x32 );
 			
 		endif
 

@@ -75,7 +75,7 @@ function makeAlchemyItems(who, what, amt, tool)
 
 	while(counter < amt)
 		if((who.x != x) || (who.y != y))
-			SendSysMessage(who, "You stop brewing.");
+			SendSysMessage(who, "Вы прекращаете варить зелье.");
 			break;
 		endif
 		if(!tool)

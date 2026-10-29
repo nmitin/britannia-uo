@@ -401,7 +401,7 @@ function resurrect_pc(who, patient, counter)
 		elseif(clock != GetObjProperty(who, "HealTimer"))
 			break;
 		elseif(Distance(who, patient) > 1)
-			SendSysMessage(who,"Your patient isn't close enough.");
+			SendSysMessage(who,"Пациент недостаточно близко.");
 			SendSysMessage(patient, who.name + " перестал(а) вас лечить.");
 			break;
 		elseif(AP_GetVital(who, VITALID_LIFE) < chp)

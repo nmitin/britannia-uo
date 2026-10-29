@@ -44,7 +44,7 @@ function ContainerIsLocked( mobile, container )
 		// Nothing to worry about.
 		return 0;
 	elseif( KP_HasKeyForLock( mobile, container ))
-		SendSysMessage( mobile, "You use your key to open the container." );
+		SendSysMessage( mobile, "Вы открываете контейнер ключом." );
 		return 0;
 	elseif ( mobile.cmdlevel >= 3 )
 		SendSysMessageCL( mobile, 501745, color := 66 ); // It appears to be locked, but you open it with your godly powers.

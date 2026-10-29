@@ -132,7 +132,7 @@ function HouseLockUnlockItem (sign, character, item)
 			item.movable := 0;
 			SetObjProperty (item, "lockeddown", sign.serial);
 			sign.UpdateLockdowns();
-			PrintTextAbovePrivate( item, "That is lockeddown.", character, 0x3, 0x42 );
+			PrintTextAbovePrivate( item, "Это закреплено.", character, 0x3, 0x42 );
 		//we can lock down containers with no items in them, but to prevent the player from using them
 		//for storage, we replace them with another item with a changed graphic
 		else
@@ -147,7 +147,7 @@ function HouseLockUnlockItem (sign, character, item)
 			newitem.movable := 0;
 			SetObjProperty (newitem, "lockeddown", sign.serial);
 			sign.UpdateLockdowns();
-			PrintTextAbovePrivate( item, "That is lockeddown.", character, 0x3, 0x42 );
+			PrintTextAbovePrivate( item, "Это закреплено.", character, 0x3, 0x42 );
 			DestroyItem (item);
 		endif
 	elseif (GetObjProperty (item, "lockeddown"))
@@ -159,12 +159,12 @@ function HouseLockUnlockItem (sign, character, item)
 				sign.UpdateLockdowns(-1);
 			endif
 		else
-			SendSysMessage(character, "You cannot release that!");
+			SendSysMessage(character, "Вы не можете это отпустить!");
 			return;
 		endif
 	else
 		if (!IsADeedItem (character, item))
-			SendSysMessage(character, "You cannot release that!");
+			SendSysMessage(character, "Вы не можете это отпустить!");
 		endif
 		return;
 	endif
@@ -221,22 +221,22 @@ function HouseSecureReleaseContainer (sign, character, item)
 		if ( getobjproperty( item, "secured") == sign.serial )
 			if (!IsADeedItem(character, item))
 				item.movable := 1;
-				PrintTextAbovePrivate( item, "(no longer secure)", character, 0x3, 0x21 );
+				PrintTextAbovePrivate( item, "(больше не защищено)", character, 0x3, 0x21 );
 				EraseObjProperty( item, "secured");
 			endif
 		else
 			if (systemfindobjectbyserial(getobjproperty(item,"secured")))
-				SendSysMessage(character, "You cannot unsecure that.");
+				SendSysMessage(character, "Вы не можете снять защиту.");
 				return;
 			else
 				eraseobjproperty (item, "secured");
 				item.movable := 1;
-				PrintTextAbovePrivate( item, "(no longer secure)", character, 0x3, 0x21 );
+				PrintTextAbovePrivate( item, "(больше не защищено)", character, 0x3, 0x21 );
 				return;
 			endif
 		endif
 	else
-		sendsysmessage( character, "That is not secured.");
+		sendsysmessage( character, "Это не защищено.");
 		return;
 	endif
 endfunction
@@ -348,7 +348,7 @@ function HouseRaiseItem (sign, character, item)
 
 	if (item == sign or item.objtype == 0x20bd0 || item.objtype == 0x20bcf || item.objtype == 0x20bd1 ||
 		item.objtype == 0x20bd2 || item.objtype == 0x260FA)
-		SendSysMessage(character, "You can't move the house sign!");
+		SendSysMessage(character, "Вы не можете переместить табличку дома!");
 		return;
 	endif
 
@@ -358,7 +358,7 @@ function HouseRaiseItem (sign, character, item)
 	endif
 
 	if (item.z >= character.z + 19)
-		SendSysMessage(character, "You can't raise that any higher.");
+		SendSysMessage(character, "Выше это уже не поднять.");
 		return;
 	endif
 
@@ -389,7 +389,7 @@ function HouseLowerItem (sign, character, item);
 
 	if (item == sign or item.objtype == 0x20bd0 || item.objtype == 0x20bcf || item.objtype == 0x20bd1 ||
 		item.objtype == 0x20bd2 || item.objtype == 0x260FA)
-		SendSysMessage(character, "You can't move the house sign!");
+		SendSysMessage(character, "Вы не можете переместить табличку дома!");
 		return;
 	endif
 

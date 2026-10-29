@@ -12,7 +12,7 @@ program canRemove( mobile, corpse, item, move_type )
         
 	if( CP_RootContainerLocked( item ))
 		// Verify the locked status of containers.
-		SendSysMessage( mobile, "You can't remove items from locked containers." );
+		SendSysMessage( mobile, "Нельзя доставать предметы из запертых контейнеров." );
 		return 0;
         elseif( move_type == MOVETYPE_COREMOVE || mobile.dead )
 		// Core has freedom to remove items at all times.

@@ -2,7 +2,7 @@ use os;
 use uo;
 
 program textcmd_sayabove( who, text )
-    SendSysMessage( who, "Say above what or whom?" );
+    SendSysMessage( who, "Над кем или чем сказать?" );
 
     var what := Target( who );
     if (what)

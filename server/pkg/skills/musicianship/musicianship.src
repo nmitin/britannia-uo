@@ -12,7 +12,7 @@ var config;
 program play(who, item)
   EraseObjProperty(who, "IsMeditating");
   if(Cint(GetObjProperty(who, "LastMusic")) > ReadGameClock())
-    SendSysMessage(who, "You must wait a moment before playing again.");
+    SendSysMessage(who, "Подождите немного перед следующей игрой.");
     return;
   endif
   SetObjProperty(who, "LastMusic", Cint(ReadGameClock() + 2));

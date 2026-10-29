@@ -8,7 +8,7 @@ program walk_on_moongate( mobile, gate )
   var magery := CInt(GetObjProperty(gate,"magery"));
   if((magery) && (mobile.acctname))
     if(GetAttribute(mobile, MAGERY) < magery)
-      SendSysMessage(mobile,"your knowledge of the arcane arts is too low to traverse this gate.");
+      SendSysMessage(mobile,"ваших знаний тайных искусств недостаточно, чтобы пройти через эти врата.");
       return;
     endif
   endif

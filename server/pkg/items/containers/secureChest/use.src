@@ -45,10 +45,10 @@ function ContainerIsLocked( mobile, container )
 		// Nothing to worry about.
 		return 0;
 	elseif( KP_HasKeyForLock( mobile, container ))
-		SendSysMessage( mobile, "You use your key to open the container." );
+		SendSysMessage( mobile, "Вы открываете контейнер ключом." );
 		return 0;
 	else
-		PrintTextAbovePrivate( container, "That is locked.", mobile );
+		PrintTextAbovePrivate( container, "Это заперто.", mobile );
 		return 1;
 	endif
 endfunction

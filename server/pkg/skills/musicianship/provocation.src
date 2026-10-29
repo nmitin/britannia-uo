@@ -11,7 +11,7 @@ include "include/eventID";
 program bard_provoke(who)
   EraseObjProperty(who, "IsMeditating");
     if(Cint(GetObjProperty(who, "LastProvoke")) > ReadGameClock())
-    SendSysMessage(who, "You must wait a moment before playing again.");
+    SendSysMessage(who, "Подождите немного перед следующей игрой.");
     return;
   endif
   SetObjProperty(who, "LastProvoke", Cint(ReadGameClock() + 2));

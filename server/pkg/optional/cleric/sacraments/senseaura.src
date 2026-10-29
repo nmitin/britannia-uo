@@ -7,7 +7,7 @@ program senseaura(params)
 	var who := params[1];
 
 	if (!checkmana(who, 25))
-		SendSysMessage(who, "You are too tired to cast.");
+		SendSysMessage(who, "Вы слишком устали, чтобы читать заклинание.");
 		FailCast(who);
 		return;
 	endif

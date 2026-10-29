@@ -57,16 +57,16 @@ program use_potionkeg(who, keg)
 							endforeach
 						endif
 						if(friend == 0)
-							SendSysMessage(who, "That does not belong to you.");
+							SendSysMessage(who, "Это вам не принадлежит.");
 							return 0;
 						endif
 					else
-						SendSysMessage(who, "That does not belong to you.");
+						SendSysMessage(who, "Это вам не принадлежит.");
 						return 0;
 					endif
 				endif
 			else
-				SendSysMessage(who, "That does not belong to you.");
+				SendSysMessage(who, "Это вам не принадлежит.");
 				return 0;
 			endif
 		endif

@@ -543,7 +543,7 @@ function addenemy( sign, who )
 		SendSysMessageCL(who, 1062040, color := 33); // You cannot ban that.
 		return 0;
 	elseif(targetchr.cmdlevel >= 2)
-		SendSysMessage(who, "You cannot ban staff!", 3, 33);
+		SendSysMessage(who, "Вы не можете забанить администрацию!", 3, 33);
 		return 0;
 	elseif(sign.IsAFriend(targetchr))
 		if (!yesNo(who, targetchr.name + " is a friend. Are you sure?"))

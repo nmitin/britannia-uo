@@ -75,7 +75,7 @@ program createfocus(params)
 	// endfor
 
 	if (!valid_material)
-		SendSysMessage(who, "You can't make anything with this material.", color := 33);
+		SendSysMessage(who, "Из этого материала ничего не получится.", color := 33);
 		return;
 	endif
 
@@ -86,7 +86,7 @@ program createfocus(params)
     if (SkillCheck( who, CLERIC_SKILL, 40, 80 ) > 0)
 		SkillCheck( who, CLERIC_SKILL, 40, 80 );
 		created := CreateItemInBackpack( who, foci_info[4], 1 );
-		SendSysMessage(who, "You created a " + foci_info[3] + " focus.", color := 66);
+		SendSysMessage(who, "Вы создали " + foci_info[3] + " focus.", color := 66);
 		PlaySoundEffect(who, 508);
 	endif
 endprogram

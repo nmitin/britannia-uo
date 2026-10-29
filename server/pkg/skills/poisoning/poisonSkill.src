@@ -125,7 +125,7 @@ program do_poisoning( who )
 				endif
 			elseif((the_item.objtype == 0xf3f) || (the_item.objtype == 0x1bfb)) // arrow and crossbow bolt
 				if(!ReserveItem(the_item))
-					SendSysMessage(who,"cancelled");
+					SendSysMessage(who,"отменено");
 					return 0;
 				endif
 				if(the_item.amount < 10)

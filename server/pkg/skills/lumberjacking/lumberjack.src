@@ -531,11 +531,11 @@ function AXE_HarvestResource( byref mobile, byref use_on, byref tool )
 		
 		
 		if( create_item )
-			SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( item_desc, amount )+" in your backpack.", 0x3, 0x42 );
+			SendSysMessage( mobile, "Вы кладёте "+FormatItemDescription( item_desc, amount )+" в вашем рюкзаке.", 0x3, 0x42 );
 		else
 		
 			CreateStackableItemAtLocation(mobile, cfg_file.LogType, amount, range := 0);
-			SendSysMessage( mobile, "Your backpack is full and the "+FormatItemDescription( item_desc, amount )+" is placed at your feet.", 0x3, 0x32 );
+			SendSysMessage( mobile, "Ваш рюкзак полон, а "+FormatItemDescription( item_desc, amount )+" положен у ваших ног.", 0x3, 0x32 );
 			
 		endif
 

@@ -24,9 +24,9 @@ Program HungerStatus(who)
     endif
 
     case (hungerstatus)
-      10 : SendSysMessage(who, "You are not hungry.", color := 66);
-       9 : SendSysMessage(who, "You are not hungry.", color := 66);
-       8 : SendSysMessage(who, "You are not hungry.", color := 66);
+      10 : SendSysMessage(who, "Вы не голодны.", color := 66);
+       9 : SendSysMessage(who, "Вы не голодны.", color := 66);
+       8 : SendSysMessage(who, "Вы не голодны.", color := 66);
 	   7 : SendSysMessage(who, "Mmm.. you could eat something.", color := 56);
 	   6 : SendSysMessage(who, "You should have a bite to eat soon.", color := 56);
 	   5 : SendSysMessage(who, "You are hungry.", color := 44);

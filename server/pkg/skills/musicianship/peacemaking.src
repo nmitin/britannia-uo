@@ -8,7 +8,7 @@ include "include/eventID";
 program bard_peacemake(who)
   EraseObjProperty(who, "IsMeditating");
     if(Cint(GetObjProperty(who, "LastPeace")) > ReadGameClock())
-    SendSysMessage(who, "You must wait a moment before playing again.");
+    SendSysMessage(who, "Подождите немного перед следующей игрой.");
     return;
   endif
   SetObjProperty(who, "LastPeace", Cint(ReadGameClock() + 2));

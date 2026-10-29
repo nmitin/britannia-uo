@@ -57,7 +57,7 @@ program start_rite(params, scroll)
 		return;
 
 	elseif (!checkmana(who, RiteInfo(ritenum).BaseMana))
-		SendSysMessage(who, "You are too tired to cast.");
+		SendSysMessage(who, "Вы слишком устали, чтобы читать заклинание.");
 		FailRite(who);
 		return;
 

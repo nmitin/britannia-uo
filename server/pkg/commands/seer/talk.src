@@ -3,7 +3,7 @@ use uo;
 
 program talk( who )
 
-	SendSysMessage( who, "Say above what or whom?" );
+	SendSysMessage( who, "Над кем или чем сказать?" );
 
 	var what := Target( who, TGTOPT_NOCHECK_LOS );
 	if (!what)

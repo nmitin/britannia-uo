@@ -1,12 +1,12 @@
 use uo;
 
 program teleto(who)
-  SendSysMessage(who, "Move Who?");
+  SendSysMessage(who, "Кого переместить?");
   var what := Target(who);
   if(!what)
     return;
   endif
-  SendSysMessage(who, "Move where?");
+  SendSysMessage(who, "Куда переместить?");
   var where := TargetCoordinates(who);
   if(!where)
     return;

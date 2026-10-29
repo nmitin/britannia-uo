@@ -192,14 +192,14 @@ function statuscheck(who);
   mypay := mypay + Cint(fees / 100);
   var gamedays := (gold + rsrv) / mypay;
   var realdays := gamedays / 8;
-  PrintTextAbovePrivate(me, "I am holding " + gold + " gold coins for you.", who);
+  PrintTextAbovePrivate(me, "У меня " + gold + " gold coins for you.", who);
   sleep(1);
   PrintTextAbovePrivate(me, "and am holding " + rsrv + " gold coins for future wages.", who);
   sleep(1);
   if(realdays == 1)
-    PrintTextAbovePrivate(me, "I have enough gold to continue working for " + gamedays + " day. [1 real world day]", who);
+    PrintTextAbovePrivate(me, "У меня достаточно золота, чтобы работать ещё " + gamedays + " day. [1 real world day]", who);
   else
-    PrintTextAbovePrivate(me, "I have enough gold to continue working for " + gamedays + " days. [" + realdays + " real world days]", who);
+    PrintTextAbovePrivate(me, "У меня достаточно золота, чтобы работать ещё " + gamedays + " days. [" + realdays + " real world days]", who);
   endif
 endfunction
 
@@ -212,7 +212,7 @@ function process_sale(who);
   PrintTextAbovePrivate(me, "What do you wish to purchase?", who);
   var trg := Target(who);
   if(!trg)
-    SendSysMessage(who,"cancelled");
+    SendSysMessage(who,"отменено");
     return;
   endif
   var ok := 0;
@@ -237,7 +237,7 @@ function process_sale(who);
     if(GetPayment(who, price))
       trg.movable:=1;
       if(MoveItemToContainer(trg, who.backpack))
-        PrintTextAbovePrivate(me,"I have withdrawn " + price + " gold from your backpack.", who);
+        PrintTextAbovePrivate(me,"Я снял " + price + " gold from your backpack.", who);
         SetObjProperty(me,"g", (price + gold));
         holder.append(trg);
         if(trg.isA(POLCLASS_CONTAINER))
@@ -247,7 +247,7 @@ function process_sale(who);
         endif
         clearance(who, holder);
       else
-        PrintTextAbovePrivate(me,"You do not have enough room for that in your backpack", who);
+        PrintTextAbovePrivate(me,"В рюкзаке недостаточно места для этого", who);
         GiveRefund(who, price);
       endif
     else
@@ -262,7 +262,7 @@ function process_sale(who);
       if(amt != 0)
         if(SubtractAmount(amt, price))
           if(MoveItemToContainer(trg, who.backpack))
-            PrintTextAbovePrivate(me,"I have withdrawn " + price + " gold from your bank account.", who);
+            PrintTextAbovePrivate(me,"Я снял " + price + " gold from your bank account.", who);
             SetObjProperty(me,"g", (price + gold));
             holder.append(trg);
             if(trg.isA(POLCLASS_CONTAINER))
@@ -272,7 +272,7 @@ function process_sale(who);
             endif
             clearance(who, holder);
           else
-            PrintTextAbovePrivate(me,"You do not have enough room for that in your backpack", who);
+            PrintTextAbovePrivate(me,"В рюкзаке недостаточно места для этого", who);
             AddAmount(amt, price);
           endif
         endif
@@ -349,7 +349,7 @@ function stockitem(tev)
           break;
         endforeach
         if(items == 1)
-          PrintTextAbovePrivate(me, "Well, just keep it, then", tev.source);
+          PrintTextAbovePrivate(me, "Ну, тогда оставь это себе", tev.source);
           if(item.isa(POLCLASS_CONTAINER))
             foreach thing in EnumerateItemsInContainer(item)
               thing.name := GetObjProperty(thing,"OldName");
@@ -373,7 +373,7 @@ function stockitem(tev)
         cost := "Not For Sale";
       endif
     else
-      PrintTextAbovePrivate(me, "Well, just keep it, then", tev.source);
+      PrintTextAbovePrivate(me, "Ну, тогда оставь это себе", tev.source);
       if(item.isa(POLCLASS_CONTAINER))
         foreach thing in EnumerateItemsInContainer(item)
           thing.name := GetObjProperty(thing,"OldName");
@@ -559,11 +559,11 @@ function addthingstobuy(who)
     buyprice[ len(buyprice)+1] := CInt(SendTextEntryGump( master,"How much shall I pay for this item? ", TE_CANCEL_ENABLE, TE_STYLE_NORMAL));
     buyobj[ len(buyobj)+1] := what.objtype;
     if (len(buylist)==1)
-      PrintTextAbovePrivate(me, "I will purchase "+buylist[1], master);
+      PrintTextAbovePrivate(me, "Я куплю "+buylist[1], master);
     elseif (len(buylist)==2)
-        PrintTextAbovePrivate(me, "I will purchase "+buylist[1] +" and "+ buylist[2], master);
+        PrintTextAbovePrivate(me, "Я куплю "+buylist[1] +" and "+ buylist[2], master);
     else
-        var buying := "I will purchase "+buylist[1];
+        var buying := "Я куплю "+buylist[1];
         for (i := 2; i<=len(buylist)-1; i:=i+1)
             buying := buying + ", " +buylist[i];
         endfor
@@ -616,7 +616,7 @@ function buyitem(you, it)
         buyobj := GetObjProperty(me,"buyobj");
     endif
     if (!(it.objtype in buyobj))
-      PrintTextAbovePrivate(me, "Ugh, I don't want that.", you);
+      PrintTextAbovePrivate(me, "Фу, мне это не нужно.", you);
         MoveItemToContainer(it,you.backpack);
         return;
     endif
@@ -628,7 +628,7 @@ function buyitem(you, it)
         endif
     endfor
     if (!index)
-      PrintTextAbovePrivate(me, "Ugh, I don't want that.", you);
+      PrintTextAbovePrivate(me, "Фу, мне это не нужно.", you);
         MoveItemToContainer(it,you.backpack);
         return;
     endif
@@ -680,7 +680,7 @@ function TakeGold(ev)
     if(goldamount)
       mygold := mygold + goldamount;
       var totalgold := CInt(GetObjProperty(me,"g")) + mygold;
-      PrintTextAbovePrivate(me, "I am holding " + totalgold + " gold for you.", ev.source);
+      PrintTextAbovePrivate(me, "У меня " + totalgold + " gold for you.", ev.source);
     endif
     SetObjProperty(me, "r", mygold);
     DestroyItem(ev.item);

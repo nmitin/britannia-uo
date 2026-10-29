@@ -57,7 +57,7 @@ function DoorIsLocked( byref mobile, byref door )
 		return 0;
 	endif
 
-	PrintTextAbovePrivate( door, "That is locked.", mobile, 0x3, 0x22 );
+	PrintTextAbovePrivate( door, "Это заперто.", mobile, 0x3, 0x22 );
 
 	return 1;
 endfunction

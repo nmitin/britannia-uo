@@ -71,7 +71,7 @@ program UseStuff(character, stuff)
 
 
     if (stuff.amount < quantity1)
-        SendSysMessage(character, "You don't have enough of that to make anything");
+        SendSysMessage(character, "Этого недостаточно, чтобы что-то сделать");
         return;
     endif
 
@@ -92,7 +92,7 @@ program UseStuff(character, stuff)
     endif
 
     if (use_on.amount < quantity2)
-        SendSysMessage(character, "You don't have enough of that to make anything");
+        SendSysMessage(character, "Этого недостаточно, чтобы что-то сделать");
         return;
     endif
 
