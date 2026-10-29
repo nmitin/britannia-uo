@@ -46,13 +46,13 @@ program cast_strength(parms)
   endif
 */
 	if ( !cast_on.IsA(POLCLASS_CONTAINER) )
-		SendSysMessage(caster, "This spell wont work on that!"); // what is the cliloc?
+		SendSysMessage(caster, "Это заклинание на это не действует!"); // what is the cliloc?
 		return 0;
 	endif
 
 	foreach trap_info in (GetTrapList(cast_on))
 		if ( trap_info.Name == "magicTrap" )
-			SendSysMessage(caster, "This container is already trapped!");
+			SendSysMessage(caster, "На этом контейнере уже есть ловушка!");
 			return 0;
 		endif
 	endforeach

@@ -22,7 +22,7 @@ program mind_rot( params )
 	endif
 
 	if(!cast_on.isa(POLCLASS_MOBILE))
-		SendSysMessage(spell_caster, "You cannot use this spell on that.",3,40);
+		SendSysMessage(spell_caster, "Нельзя применить это заклинание к этому.",3,40);
 		return 0;
 	endif
 

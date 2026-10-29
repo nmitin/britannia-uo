@@ -21,16 +21,16 @@ program cast_strength( parms )
     endif
 
 	if ( !cast_on.IsA(POLCLASS_CONTAINER) )
-		SendSysMessage(caster, "That is not a container.", 3, 33);
+		SendSysMessage(caster, "Это не контейнер.", 3, 33);
 		return 0;
 	elseif( cast_on.IsLeather() )
-		SendSysMessage( caster, "You cannot lock leather containers.", 3, 33 );
+		SendSysMessage( caster, "Нельзя запирать кожаные контейнеры.", 3, 33 );
 		return 0;
 	elseif( cast_on.IsA(POLCLASS_SPELLBOOK) || cast_on.IsA(POLCLASS_CORPSE) )
-		SendSysMessage(  caster, "You cannot lock that.", 3, 33);
+		SendSysMessage(  caster, "Вы не можете это запереть.", 3, 33);
 		return 0;
 	elseif ( cast_on.locked )
-		SendSysMessage(caster, "That object is already locked.");
+		SendSysMessage(caster, "Этот объект уже заперт.");
 		return 0;
 	endif
 

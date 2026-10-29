@@ -30,10 +30,10 @@ program cast_heal(parms)
 	HealDamage(cast_on, points);
 	healed := AP_GetVital(cast_on, HITS) - healed;
 
-	SendSysMessage(caster, "You healed "+healed+" hit points of damage.");
+	SendSysMessage(caster, "Вы вылечили "+healed+" единиц урона.");
 	
 	if ( caster.serial != cast_on.serial )
-		SendSysMessage(cast_on, "You have had "+healed+" hit points of damage healed.");
+		SendSysMessage(cast_on, "У вас вылечено "+healed+" единиц урона.");
 	endif
 	
 	return 1;

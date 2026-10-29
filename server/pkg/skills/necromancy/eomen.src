@@ -20,7 +20,7 @@ program evil_omen( params )
 	endif
 
 	if(!cast_on.isa(POLCLASS_MOBILE))
-		SendSysMessage(caster, "You can not use this spell on items.",3,40);
+		SendSysMessage(caster, "Это заклинание нельзя применять к предметам.",3,40);
 		return 0;
 	endif
 

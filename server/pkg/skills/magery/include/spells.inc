@@ -131,7 +131,7 @@ function MS_Target(mobile, targ:=0, prompt := "Выберите цель.", flag
 
 	if ( !allow_precast )
 		if ( mobile.x != orig_x || mobile.y != orig_y || mobile.realm != orig_realm )
-			SendSysMessage(mobile, "Your concentration is disturbed, thus ruining thy spell.", color := 33);
+			SendSysMessage(mobile, "Концентрация нарушена, заклинание сорвано.", color := 33);
 			PlaySoundEffect(mobile, SFX_SPELL_FAIL);
 			return 0;
 		endif
@@ -184,7 +184,7 @@ function MS_TargetCoordinates(mobile, targ:=0, prompt := "Выберите це�
 
 	if ( !allow_precast )
 		if ( mobile.x != orig_x || mobile.y != orig_y || mobile.realm != orig_realm )
-			SendSysMessage(mobile, "Your concentration is disturbed, thus ruining thy spell.", color := 33);
+			SendSysMessage(mobile, "Концентрация нарушена, заклинание сорвано.", color := 33);
 			PlaySoundEffect(mobile, SFX_SPELL_FAIL);
 			return 0;
 		endif

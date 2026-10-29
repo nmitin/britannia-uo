@@ -14,7 +14,7 @@ program pushback_textcmd( mobile, power )
 		power := 3;
 	endif
 
-	SendSysMessage( mobile, "Select the epicenter of the shockwave.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Выберите эпицентр ударной волны.", 0x3, 0x42 );
 	var epicenter := TargetCoordinates( mobile );
 	if( !epicenter )
 		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );

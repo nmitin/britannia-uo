@@ -29,13 +29,13 @@ bonus := int/5;
 endif
 
 if(Cint(GetObjProperty(caster, "#reaper")))
-SendSysMessage(caster, "Jestes juz pod postacia zniwiarza.",3,40);
+SendSysMessage(caster, "Вы уже в облике жнеца.",3,40);
 return 0;
 endif
 
 var wierzchowiec := GetEquipmentByLayer(caster, 25);
   if(wierzchowiec)
-  SendSysMessage(caster, "Nie mozesz uzywac tego czaru na wierchowcu.", FONT_NORMAL, 40);
+  SendSysMessage(caster, "Вы не можете использовать это заклинание на этом существе.", FONT_NORMAL, 40);
   return;
   endif
 

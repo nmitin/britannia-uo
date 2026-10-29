@@ -24,7 +24,7 @@ program mana_drain ( parms )
     endif
     
 	if ( caster.serial == cast_on.serial )
-		SendSysMessage(caster, "You cannot mana drain yourself!");
+		SendSysMessage(caster, "Нельзя вытягивать ману у себя!");
 		return 0;
 	endif
 	

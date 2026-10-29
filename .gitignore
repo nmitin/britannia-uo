@@ -35,4 +35,6 @@
 /server/regions/*.orig
 /server/config/*.orig
 server/pol.pid
+
+/backups/
 __pycache__/

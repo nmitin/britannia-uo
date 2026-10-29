@@ -121,7 +121,7 @@ function GumpTextWidth(gumptext)
     if (i>0) // siehe Speed-Dummy
       points:=points+length.width[i-1];
     else
-      syslog("GumpTextWidth: Unknown Character = '"+gumptext[j]+"'");
+      points:=points+8; // Non-ASCII: approximate width
     endif
   endfor
 
@@ -139,7 +139,7 @@ function GumpTextWidthFast(gumptext)
     if (i>=0)
       points:=points+length.width[CInt(i/15)+1];
     else
-      syslog("GumpTextWidthFast: Unknown Character = '"+gumptext[j]+"'");
+      points:=points+8; // Non-ASCII: approximate width
     endif
   endfor
 

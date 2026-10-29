@@ -29,7 +29,7 @@ program spell_gate(parms)
 			return;
 		endif
 		if(!ReserveItem(cast_on))
-			SendSysMessage(caster, "That is in use right now.", color := 33);
+			SendSysMessage(caster, "Это сейчас используется.", color := 33);
 			return;
 		endif
 		if(Distance(caster, cast_on) > 2)
@@ -45,13 +45,13 @@ program spell_gate(parms)
 			return 0;
 		endif
 		if(GetObjProperty(cast_on, "Vendored"))
-			SendSysMessage(caster, "You cannot recall off of runes on a vendor", color := 33);
+			SendSysMessage(caster, "Нельзя вернуться по руне, находящейся у торговца.", color := 33);
 			return;
 		endif
 		dest := cast_on.GetDestination();
 
 		if(!dest.realm)
-			SendSysMessage(caster, "That rune has not been marked with a location.", 2, 33);
+			SendSysMessage(caster, "На этой руне не отмечено место.", 2, 33);
 			return 0;
 		endif
 	else
@@ -62,15 +62,15 @@ program spell_gate(parms)
 	var toz := CInt(dest.z);
 	var torealm := dest.realm;
 	if (torealm != caster.realm)
-		SendSysMessage (caster, "You do not have enough power to cross the boundary to that realm.");
+		SendSysMessage (caster, "У вас недостаточно силы, чтобы пересечь границу этого мира.");
 		return;
 	endif
 	if(GetObjProperty(cast_on, "Vendored"))
-		SendSysMessage(caster, "You cannot gate off of runes on a vendor");
+		SendSysMessage(caster, "Нельзя открыть портал по руне у торговца.");
 		return;
 	endif
 	if(!isValidLoc(tox,toy))
-		SendSysMessage(caster, "You may not gate into Green Acres.");
+		SendSysMessage(caster, "Нельзя открыть портал в Green Acres.");
 		if( !info.runebook );
 			DestroyItem(cast_on);
 		endif
@@ -79,7 +79,7 @@ program spell_gate(parms)
 	PlaySoundEffect( caster, SFX_SPELL_GATE_TRAVEL );
 	var chk := 0;
 	if((caster.x >= 5120) && (caster.x <= 5375) && (caster.y >= 0) && (caster.y <= 255))
-		SendSysMessage(caster, "Your spell fails!");
+		SendSysMessage(caster, "Заклинание срывается!");
 		if(cast_on.objtype == UOBJ_RUNE)
 			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		elseif(cast_on.objtype == 0x22C5)
@@ -99,7 +99,7 @@ program spell_gate(parms)
 	foreach sign in signs
 		if( sign.IsStaticHouseSign() )
 			if( sign.IsLocationInsideHouse(dest) )
-				SendSysMessage( caster, "Your spell fails and consumes the rune!" );
+				SendSysMessage( caster, "Заклинание срывается и уничтожает руну!" );
 				DestroyItem( cast_on );
 			endif
 		endif
@@ -127,12 +127,12 @@ program spell_gate(parms)
 	gate2.movable := 0;
 	if(!gate1)
 		DestroyItem(gate2);
-		SendSysMessage(caster, "something is interfering with the spell");
+		SendSysMessage(caster, "что-то мешает заклинанию");
 		return;
 	endif
 	if (!gate2)
 		DestroyItem(gate1);
-		SendSysMessage(caster, "something is interfering with the spell");
+		SendSysMessage(caster, "что-то мешает заклинанию");
 		return;
 	endif
 	set_critical(0);

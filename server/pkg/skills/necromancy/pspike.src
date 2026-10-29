@@ -30,7 +30,7 @@ program pain_spike( params )
 
 
 	if(Cint(GetObjProperty(caster, "#pspike")))
-		SendSysMessage(caster, "You have to wait until the enemy heals some of the damage.",3,40);
+		SendSysMessage(caster, "Нужно подождать, пока противник залечит часть урона.",3,40);
 		return 0;
 	endif
 

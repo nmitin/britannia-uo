@@ -20,7 +20,7 @@ program curse_weapon( params )
 	PlayObjectCenteredEffectEx( spell_caster, 0x37B9, 1, 14, 9902, 32, 255, 5 );
 
 	if(GetObjProperty(spell_caster.weapon, "cursed"))
-		SendSysMessage(spell_caster, "This weapon has already been cursed!");
+		SendSysMessage(spell_caster, "Это оружие уже проклято!");
 		return 0;
 	endif
 

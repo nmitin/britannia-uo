@@ -24,7 +24,7 @@ program SpellStarter(params)
 	// if (scroll == 1)
 	// endif
 	if ( !Attach(mobile) )
-		SendSysMessage(mobile, "You are already doing something.", color := 33);
+		SendSysMessage(mobile, "Вы уже чем-то заняты.", color := 33);
 		return 0;
 	endif
 
@@ -34,12 +34,12 @@ program SpellStarter(params)
 	if ( spell_elem.TestOnly and !mobile.cmdlevel )
 		// TestOnly spell, check for #SpellTester
 		if ( !GetObjProperty(mobile, "#SpellTester") )
-			SendSysMessage(mobile, "This spell has been temporarily disabled.", color := 33);
+			SendSysMessage(mobile, "Это заклинание временно отключено.", color := 33);
 			FailSpell(mobile);
 			return 0;
 		endif
 	elseif ( spell_elem.NPCOnly && !mobile.npctemplate )
-		PrintTextAbove(mobile, "Unable to cast - NPC only spell.");
+		PrintTextAbove(mobile, "Нельзя прочитать — заклинание только для NPC.");
 		return 0;
 	endif
 
@@ -77,19 +77,19 @@ program SpellStarter(params)
 		SendSysMessage(mobile, "Сейчас вы не можете читать заклинание.", color := 33);
 		return 0;
 	elseif ( mobile.frozen )
-		SendSysMessage(mobile, "You cannot cast a spell while frozen.", color := 33);
+		SendSysMessage(mobile, "Нельзя читать заклинание, пока вы обездвижены.", color := 33);
 		FailSpell(mobile);
 		return 0;
 	elseif ( mobile.paralyzed )
-		SendSysMessage(mobile, "You cannot cast a spell while paralyzed.", color := 33);
+		SendSysMessage(mobile, "Нельзя читать заклинание, пока вы парализованы.", color := 33);
 		FailSpell(mobile);
 		return 0;
 	elseif ( mobile.squelched && !mobile.npctemplate )
-		SendSysMessage(mobile, "Something prevents you from casting.", color := 33);
+		SendSysMessage(mobile, "Что-то мешает вам читать заклинание.", color := 33);
 		FailSpell(mobile);
 		return 0;
 	elseif ( !EquipmentCheck(mobile) )
-		SendSysMessage(mobile, "Your hands must be free to cast spells.", color := 33);
+		SendSysMessage(mobile, "Для чтения заклинаний руки должны быть свободны.", color := 33);
 		FailSpell(mobile);
 		return 0;
 	endif
@@ -104,7 +104,7 @@ program SpellStarter(params)
 			endif
 		endif
 		if ( !AP_ConsumeVital(mobile, VITALID_MANA, manacost) )
-			SendSysMessage(mobile, "You don't have enough mana to cast that spell!");
+			SendSysMessage(mobile, "У вас недостаточно маны для этого заклинания!");
 			FailSpell(mobile);
 			return 0;
 		endif
@@ -112,7 +112,7 @@ program SpellStarter(params)
 
 	if ( requires_regs )
 		if ( !CheckReagents(mobile, spell_elem, scroll) )
-			SendSysMessage(mobile, "You don't have the proper reagents.", color := 33);
+			SendSysMessage(mobile, "У вас нет нужных реагентов.", color := 33);
 			FailSpell(mobile);
 			return 0;
 		endif
@@ -163,7 +163,7 @@ program SpellStarter(params)
 			// accurate to grab the pid from ApplyDamageEX and send a damaged event to this
 			// script, on top of also checking the health.
 			if ( orig_hp > AP_GetVital(mobile, "Hits")  )
-				SendSysMessage(mobile, "Your concentration is disturbed, thus ruining thy spell.", color := 33);
+				SendSysMessage(mobile, "Концентрация нарушена, заклинание сорвано.", color := 33);
 				FailSpell(mobile);
 				PlaySoundEffect(mobile, SFX_SPELL_FAIL);
 				PlayObjectCenteredEffect(mobile, FX_SPELL_FAIL, 5, 50);
@@ -241,7 +241,7 @@ program SpellStarter(params)
 	else
 	// Plan to add chaoseffects here.
 		PlaySoundEffect(mobile, SFX_SPELL_FAIL);
-		SendSysMessage(mobile, "The spell fizzles.", color := 33);
+		SendSysMessage(mobile, "Заклинание срывается.", color := 33);
 	endif
 
 //	MS_SpellDebug(mobile, "Spell starter completed.");
@@ -291,7 +291,7 @@ function CheckReagents(mobile, byref spell_elem, scroll)
 
 		if ( AmountInContainer(mobile.backpack, properties) < amount )
 			if ( mobile.cmdlevel )
-				SendSysMessage(mobile, "You do not have enough "+GetObjTypeDesc(objtype, (amount>1))+".");
+				SendSysMessage(mobile, "У вас недостаточно "+GetObjTypeDesc(objtype, (amount>1))+".");
 			endif
 			return 0;
 		endif

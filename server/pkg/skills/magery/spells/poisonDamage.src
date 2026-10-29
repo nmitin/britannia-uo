@@ -22,7 +22,7 @@ program poisondamage (passparms)
   endif
   TS_StartTimer(who, "DefaultPoison", 120, level, attacker);
   if(pfield == 1)
-    PrintTextAbovePrivate(who, "You choke on the noxious fumes!", who);
+    PrintTextAbovePrivate(who, "Вы задыхаетесь от ядовитых испарений!", who);
 	// var dmg := Resisted(5, attacker, who, CInt(GetAttribute(attacker, "magery") / 25));
 	// We now do a resisting spells check in damage.inc
     var dmg := CInt(GetAttribute(attacker, "magery") / 25);

@@ -34,7 +34,7 @@ program strangle( params )
 	endif
 
 	if(Cint(GetObjProperty(cast_on, "strangle")))
-		SendSysMessage(caster, "Your victim is under the influence of the spell.");
+		SendSysMessage(caster, "Жертва уже под действием этого заклинания.");
 		EraseObjProperty (caster, "casting");
 		return 0;
 	endif

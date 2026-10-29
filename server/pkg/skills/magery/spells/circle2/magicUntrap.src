@@ -19,7 +19,7 @@ program cast_strength(parms)
     endif
 
 	if ( !cast_on.IsA(POLCLASS_CONTAINER) )
-		SendSysMessage(caster, "This spell wont work on that!"); // what is the cliloc?
+		SendSysMessage(caster, "Это заклинание на это не действует!"); // what is the cliloc?
 		return 0;
 	endif
 	
@@ -34,7 +34,7 @@ program cast_strength(parms)
 	endfor
 	
 	if ( !index )
-		SendSysMessage(caster, "This container isn't trapped!");
+		SendSysMessage(caster, "На этом контейнере нет ловушки!");
 		return 0;
 	endif
 	

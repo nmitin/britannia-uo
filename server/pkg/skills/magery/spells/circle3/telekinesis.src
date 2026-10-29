@@ -19,7 +19,7 @@ program telekinesis(parms)
 
 	if ( !(cast_on.IsA(POLCLASS_CONTAINER) && cast_on.IsA(POLCLASS_ITEM)) )
 		// Doesn't do anything to mobiles
-		SendSysMessage(caster, "This spell wont work on that!", 3, 33);
+		SendSysMessage(caster, "Это заклинание на это не действует!", 3, 33);
 		return 0;
 	endif
 	

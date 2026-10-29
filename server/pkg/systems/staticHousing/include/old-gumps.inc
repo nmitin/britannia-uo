@@ -954,7 +954,8 @@ Function XGFTextWidth(gumptext)
     If (i>=0)
       points:=points+aGFTlength.width[CInt(i/14)+1];
     Else
-      print("XGFTextWidth: Unknown Character = '"+gumptext[j]+"'");
+      // Non-ASCII (Cyrillic): approximate width
+      points:=points+8;
     EndIf
   EndFor
 

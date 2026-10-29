@@ -30,7 +30,7 @@ program recall(parms)
 			return;
 		endif
 		if(!ReserveItem(cast_on))
-			SendSysMessage(caster, "That is in use right now.", color := 33);
+			SendSysMessage(caster, "Это сейчас используется.", color := 33);
 			return;
 		endif
 		if(Distance(caster, cast_on) > 2)
@@ -46,12 +46,12 @@ program recall(parms)
 			return 0;
 		endif
 		if(GetObjProperty(cast_on, "Vendored"))
-			SendSysMessage(caster, "You cannot recall off of runes on a vendor");
+			SendSysMessage(caster, "Нельзя вернуться по руне, находящейся у торговца.");
 			return;
 		endif
 		dest := cast_on.GetDestination();
 		if(!dest)
-			SendSysMessage(caster, "That rune has not been marked with a location.", 2, 33);
+			SendSysMessage(caster, "На этой руне не отмечено место.", 2, 33);
 			return 0;
 		endif
 	else
@@ -63,16 +63,16 @@ program recall(parms)
 	var torealm := dest.realm;
 	if (torealm)
         if (torealm != caster.realm)
-            SendSysMessage (caster, "You do not have enough power to cross the boundary to that realm.");
+            SendSysMessage (caster, "У вас недостаточно силы, чтобы пересечь границу этого мира.");
             return;
         endif
 	endif
 	if(!tox)
-		SendSysMessage(caster, "The rune must be marked.");
+		SendSysMessage(caster, "Руна должна быть отмечена.");
 		return;
 	endif
 	if(!isValidLoc(tox,toy))
-		SendSysMessage(caster, "You may not recall into that area.");
+		SendSysMessage(caster, "Нельзя вернуться в эту область.");
 		if( !info.runebook );
 			DestroyItem(cast_on);
 		endif
@@ -82,7 +82,7 @@ program recall(parms)
 	Detach();
 	var chk := 0;
 	if((caster.x >= 5120) && (caster.x <= 5375) && (caster.y >= 0) && (caster.y <= 255))
-		SendSysMessage(caster, "Your spell fails!");
+		SendSysMessage(caster, "Заклинание срывается!");
 		if(cast_on.objtype == UOBJ_RUNE)
 			SendSysMessage(caster,"Что-то мешает в этом месте.", 1, 33);
 		elseif(cast_on.objtype == 0x22C5)
@@ -113,7 +113,7 @@ program recall(parms)
 	foreach sign in signs
 		if( sign.IsStaticHouseSign() )
 			if( sign.IsLocationInsideHouse(dest) )
-				SendSysMessage( caster, "Your spell fails and consumes the rune!" );
+				SendSysMessage( caster, "Заклинание срывается и уничтожает руну!" );
 				DestroyItem( cast_on );
 			endif
 		endif
@@ -126,7 +126,7 @@ program recall(parms)
   if (failure == 0);
 	MoveObjectToLocation( caster, tox, toy, toz, "britannia" );
   elseif (failure == 2)
-    SendSysMessage(caster, "your spell fails and consumes the rune!");
+    SendSysMessage(caster, "ваше заклинание срывается и уничтожает руну!");
     if(cast_on.objtype == UOBJ_RUNE)
       DestroyItem(cast_on);
     endif

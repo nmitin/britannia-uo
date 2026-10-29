@@ -8,17 +8,17 @@ program animate_dead( params )
 	//var info := params[2]; // Struct containing additional info about the spell.
 	//var spellID := params[3];
 
-	SendSysMessage(caster, "Animate what corpse?", 1, 88);
+	SendSysMessage(caster, "Какой труп оживить?", 1, 88);
 	var cast_on := Target(caster);
 	var player := SystemFindObjectBySerial( cast_on.ownerserial, 1);
 
 	if(!cast_on.ownerserial)
-		SendSysMessage(caster,  "You cannot animate that.");
+		SendSysMessage(caster,  "Вы не можете это оживить.");
 		return 0;
 	endif
 
 	if(player)
-		SendSysMessage(caster,  "You cannot target players.");
+		SendSysMessage(caster,  "Нельзя выбирать игроков.");
 		return 0;
 	endif
 

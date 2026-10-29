@@ -16,7 +16,7 @@ program corpse_skin( params )
 	var duration := CInt(((sspeak - targrs) / 2.5) + 40);
 
 	if(!cast_on.isa(POLCLASS_MOBILE))
-		SendSysMessage(caster, "You cannot cast this spell on items.");
+		SendSysMessage(caster, "Это заклинание нельзя применять к предметам.");
 		return 0;
 	endif
 

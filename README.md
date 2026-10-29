@@ -48,6 +48,19 @@ logs/          логи
 
 Учётная запись администратора по умолчанию: `admin` / `admin` (сменить!).
 
+Автозапуск (systemd, пользовательский сервис):
+
+```bash
+./scripts/install-systemd.sh
+systemctl --user status uo-shard
+```
+
+Резервные копии (последние 14 архивов в `backups/`):
+
+```bash
+./scripts/backup.sh
+```
+
 ## Конвертация мира
 
 ```bash

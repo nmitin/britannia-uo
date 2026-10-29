@@ -121,7 +121,7 @@ program spellStarter( parms )
 			// accurate to grab the pid from ApplyDamageEX and send a damaged event to this
 			// script, on top of also checking the health.
 			if ( orig_hp > AP_GetVital(mobile, "Hits")  )
-				SendSysMessage(mobile, "Your concentration is disturbed, thus ruining thy spell.", color := 33);
+				SendSysMessage(mobile, "Концентрация нарушена, заклинание сорвано.", color := 33);
 				//FailSpell(mobile);
 				//PlaySoundEffect(mobile, SFX_SPELL_FAIL);
 				//PlayObjectCenteredEffect(mobile, FX_SPELL_FAIL, 5, 50);

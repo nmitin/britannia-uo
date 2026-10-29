@@ -41,13 +41,13 @@ program chrcast_wdeath( parms )
 		if(chance > (RandomInt(100)) + 1) // 10% szansy
 
 			if(hapek < makshp) // sprawdza czy koles ma mniej niz 30% hape
-				SendSysMessage(caster, cast_on.name + " przegral ze smiercia!",3,66);
+				SendSysMessage(caster, cast_on.name + " проиграл смерти!",3,66);
 				KillMobile(cast_on);
 			else
-				SendSysMessage(caster, cast_on.name + " ma za duzo Hp. Minimum 30% maksymalnej wartosci.",3,40);
+				SendSysMessage(caster, cast_on.name + " у него слишком много HP. Минимум 30% от максимума.",3,40);
 			endif
 		else
-			SendSysMessage(caster, cast_on.name + " wygral ze smiercia!",3,40);
+			SendSysMessage(caster, cast_on.name + " победил смерть!",3,40);
 
 			PlayObjectCenteredEffect( cast_on, 0x37c3, 0x0a,0x1e);
 			ApplyRawDamage(cast_on, Resisted(circle, caster, cast_on, dmg));
