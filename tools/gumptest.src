@@ -1,0 +1,17 @@
+use uo;
+use http;
+include ":gumps:gumps";
+
+program gumptest()
+  foreach chr in EnumerateOnlineCharacters()
+    var gump := GFCreateGump(100, 100, 420, 300);
+    GFResizePic(gump, 0, 0, 2600, 420, 300);
+    GFTextLine(gump, 30, 30, 1152, "Проверка кириллицы в гумпах");
+    GFTextLine(gump, 30, 65, 1152, "Привет, мир! Это русский текст.");
+    GFTextLine(gump, 30, 100, 1152, "Кузнечное дело: кольчуга, меч, щит.");
+    GFTextLine(gump, 30, 135, 1152, "ЖЁЛТЫЙ ёжик подъезд съешь ещё этих мягких булок.");
+    GFAddButton(gump, 190, 250, 4005, 4006, GF_CLOSE_BTN, 0);
+    GFSendGump(chr, gump);
+  endforeach
+  WriteHtml("<html><body><h1>Gump sent</h1></body></html>");
+endprogram

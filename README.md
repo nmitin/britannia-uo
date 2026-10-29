@@ -14,6 +14,8 @@
 
 ![Мир Британии](docs/screenshots/world.png)
 
+![Русский текст в гумпах](docs/screenshots/gump_ru.png)
+
 ## Структура
 
 ```
