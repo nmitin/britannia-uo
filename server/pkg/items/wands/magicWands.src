@@ -18,13 +18,13 @@ program magicwands(who, item)
     return;
   endif
   if(!IsWandEquipped(who, item))
-    SendSysMessage(who,"You need to equip that to use it.");
+    SendSysMessage(who,"Чтобы использовать это, нужно надеть.");
     return;
   endif
   var charges := CInt(GetObjProperty(item, "charges"));
   var spellid := CInt(GetObjProperty(item, "SpellId"));
   if(!spellid)
-    SendSysMessage(who, "This wand is broken");
+    SendSysMessage(who, "Эта палочка сломана");
     return;
   endif
   if(charges)
@@ -35,7 +35,7 @@ program magicwands(who, item)
       StartEffect(who, spellid, item);
     endif
   else
-    SendSysMessage(who, "That item is out of charges.");
+    SendSysMessage(who, "У этого предмета закончились заряды.");
   endif
 endprogram
 
@@ -53,15 +53,15 @@ function StartEffect(who, spellid, item)
     PrintTextAbovePrivate(item, "Заряды закончились", who);
   endif
   if(!CheckLineOfSight(who, trg))
-    SendSysMessage(who, "You cant see that");
+    SendSysMessage(who, "Вы этого не видите");
     return;
   endif
   if(!AP_GetVital(trg, VITALID_LIFE))
-    SendSysMessage(who, "You can only use that on living things.");
+    SendSysMessage(who, "Это можно использовать только на живых.");
     return;
   endif
   if(trg.dead)
-    SendSysMessage(who, "You cant cast that on ghosts.");
+    SendSysMessage(who, "Это нельзя наложить на призраков.");
     return;
   endif
   case(spellid)
@@ -228,7 +228,7 @@ function MWReflected(cast_on)
     sleepms(500);
     PlaySoundEffect(cast_on, SFX_SPELL_MAGIC_REFLECTION);
     PlayObjectCenteredEffect( cast_on, FX_CURSE_EFFECT, 10,10);
-    SendSysMessage(cast_on, "Your magic reflect spell saved you!");
+    SendSysMessage(cast_on, "Ваше отражение магии спасло вас!");
     EraseObjProperty(cast_on, "mr");
     return 1;
   elseif(reflect == 2)

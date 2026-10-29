@@ -39,7 +39,7 @@ program eat(who, food)
 	endif
 
 	if ( !SubtractAmount(food, 1) )
-		SendSysMessage(who, "Error - unable to subtract 1 from item.");
+		SendSysMessage(who, "Ошибка — не удалось вычесть 1 из предмета.");
 		return 0;
 	endif
 

@@ -27,8 +27,8 @@ Program HungerStatus(who)
       10 : SendSysMessage(who, "Вы не голодны.", color := 66);
        9 : SendSysMessage(who, "Вы не голодны.", color := 66);
        8 : SendSysMessage(who, "Вы не голодны.", color := 66);
-	   7 : SendSysMessage(who, "Mmm.. you could eat something.", color := 56);
-	   6 : SendSysMessage(who, "You should have a bite to eat soon.", color := 56);
+	   7 : SendSysMessage(who, "Ммм... вам стоит что-нибудь съесть.", color := 56);
+	   6 : SendSysMessage(who, "Вам скоро стоит перекусить.", color := 56);
 	   5 : SendSysMessage(who, "Вы голодны.", color := 44);
 	   4 : SendSysMessage(who, "Вы очень голодны.", color := 44);
 	   3 : SendSysMessage(who, "Вы так голодны, что кружится голова.", color := 44);

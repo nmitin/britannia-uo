@@ -11,7 +11,7 @@ program leather_container_engraving_tool( mobile, item )
 	if( !useItem_check( mobile, item, ITEM_INCONTAINER, 0 ) )
 		return 0;
 	elseif( ( GetAttributeBaseValue( mobile, CARPENTRY ) < 800 ) && mobile.cmdlevel < 2 )
-		SendSysMessage( mobile, "Your carpentry skill is too low to use this.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Ваш навык плотника слишком низок.", 0x3, 0x22 );
 		return 0;
 	endif
 

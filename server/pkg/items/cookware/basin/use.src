@@ -7,7 +7,7 @@ use uo;
 
 program use_basin(who, basin)
 	basin := basin;
-	SendSysMessage(who, "You wash your face and hands.", 3, 88);
-	SendSysMessage(who, "You feel refreshed.", 3, 88);
+	SendSysMessage(who, "Вы умываете лицо и руки.", 3, 88);
+	SendSysMessage(who, "Вы чувствуете свежесть.", 3, 88);
 
 endprogram

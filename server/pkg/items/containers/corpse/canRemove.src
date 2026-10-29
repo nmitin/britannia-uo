@@ -22,7 +22,7 @@ program canRemove( mobile, corpse, item, move_type )
                 AddLooter( mobile, corpse, item );
 		return 1;
 	elseif( GetObjProperty( item, "NoLoot" ))
-                SendSysMessage( mobile, "That item cannot be looted at all." );
+                SendSysMessage( mobile, "Этот предмет вообще нельзя обыскать." );
                 return 0;
 	endif
 
@@ -53,7 +53,7 @@ program canRemove( mobile, corpse, item, move_type )
 
 	//If it got this far then it was an illegal looting.
 	mobile.SetCriminal(1);
-	SendSysMessage( mobile, "You have been flagged as a criminal!" );
+	SendSysMessage( mobile, "Вы отмечены как преступник!" );
         AddLooter( mobile, corpse, item );
 
 	return 1;

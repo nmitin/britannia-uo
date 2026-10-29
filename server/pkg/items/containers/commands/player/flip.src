@@ -3,7 +3,7 @@ use basic;
 use cfgfile;
 
 program flip (who)
-    SendSysMessage(who, "Select the furniture you wish to re-orient.");
+    SendSysMessage(who, "Выберите мебель для поворота.");
     var targetfurniture := Target(who);
 
     if (!targetfurniture.objtype)

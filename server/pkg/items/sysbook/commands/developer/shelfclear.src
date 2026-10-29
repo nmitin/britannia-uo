@@ -40,5 +40,5 @@ program shelfclear(who)
 		endif
 		sleepms(5);
 	endforeach
-	sendsysmessage(who, "Total Books Destroyed: " + count);
+	sendsysmessage(who, "Уничтожено книг: " + count);
 endprogram

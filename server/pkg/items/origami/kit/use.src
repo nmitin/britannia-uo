@@ -48,7 +48,7 @@ function BuildOrigamiGump(who)
 	
 	var cfg	:= ReadConfigFile( ":origami:origami" );
     if( cfg.errortext )
-        SendSysMessage( who, "Error reading config <:ores:itemdesc> -->"+cfg.errortext );
+        SendSysMessage( who, "Ошибка чтения конфигурации <:ores:itemdesc> -->"+cfg.errortext );
     return 0;
     endif
 

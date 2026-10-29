@@ -6,7 +6,7 @@ program use_spittoon ( who, spittoon )
 		return;
 	endif
 
-	PrintTextAbove ( who, "*spits*" );
+	PrintTextAbove ( who, "*плюёт*" );
 	if ( who.gender == 0 )
 		PlaySoundEffect ( who, 0x447 ); // Male Spit sound
 	else

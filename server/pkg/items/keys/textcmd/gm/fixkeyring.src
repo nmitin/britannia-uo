@@ -6,14 +6,14 @@ use polsys;
 include ":npcs:NPCBackpacks";
 
 program fix_key_ring( mobile )
-	SendSysMessage( mobile, "Which keyring would you like to fix?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Какую связку исправить?", 0x3, 0x42 );
 	var old_ring := Target( mobile );
 
 	if( !old_ring )
 		SendSysMessage( mobile, "Действие отменено.", 0x3, 0x32 );
 		return 0;
 	elseif( old_ring.objtype != 0x1011 )
-		SendSysMessage( mobile, "That is not a keyring!", 0x3, 0x22 );
+		SendSysMessage( mobile, "Это не связка ключей!", 0x3, 0x22 );
 		return 0;
 	endif
 

@@ -11,19 +11,19 @@ program textcommand_fixbank( mobile )
  	 	SendSysMessage( mobile, "Отменено." );
  	 	return 0;
         elseif( !targ.IsA( POLCLASS_MOBILE ) || targ.IsA( POLCLASS_NPC ))
-                SendSysMessage( mobile, "You must target a player." );
+                SendSysMessage( mobile, "Нужно указать игрока." );
                 return 0;
  	endif
 
  	var bank_box := CP_GetStorageContainerForMobile( targ, CP_DEFAULT_AREA );
         if( !bank_box )
-                SendSysMessage( mobile, targ.name+" has no bank box." );
+                SendSysMessage( mobile, targ.name+" не имеет банковского ящика." );
                 return 0;
         endif
 
         var chest := CreateItemAtLocation( mobile.x, mobile.y, mobile.z, "bankbox", 1, mobile.realm );
         if( chest.errortext )
-                SendSysMessage( mobile, "Couldn't create bankbox for targ "+targ.name+" -->"+chest.errortext );
+                SendSysMessage( mobile, "Не удалось создать банковский ящик для "+targ.name+" -->"+chest.errortext );
                 return 0;
         endif
 
@@ -44,7 +44,7 @@ program textcommand_fixbank( mobile )
 
                 var move := MoveItemToContainer( obj, chest );
                 if( move.errortext )
-                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" in chest -->"+move.errortext );
+                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" в сундуке -->"+move.errortext );
                         move_all_to_chest := 0;
 
                 endif
@@ -60,14 +60,14 @@ program textcommand_fixbank( mobile )
                 var box_id := CP_GetMobileContainerID( targ );
                 var destroy_bank := CP_RemoveStorageAreaContainer( box_id, CP_DEFAULT_AREA );
                 if( destroy_bank.errortext )
-                        SendSysMessage( mobile, "Error destroying bank_box of targ: "+targ.name+" -->"+destroy_bank.errortext );
+                        SendSysMessage( mobile, "Ошибка уничтожения банковского ящика: "+targ.name+" -->"+destroy_bank.errortext );
                         return 0;
                 endif
         endif
 
         var new_bank := CP_GetStorageContainerForMobile( targ, CP_DEFAULT_AREA, CP_CREATE );
         if( new_bank.errortext )
-                SendSysMessage( mobile, "Couldn't create new bank box for targ "+targ.name+" -->"+new_bank.errortext );
+                SendSysMessage( mobile, "Не удалось создать новый банковский ящик для "+targ.name+" -->"+new_bank.errortext );
                 return 0;
         endif
 
@@ -83,7 +83,7 @@ program textcommand_fixbank( mobile )
 
                 var move := MoveItemToContainer( obj, new_bank );
                 if( move.errortext )
-                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" in new bank -->"+move.errortext );
+                        SendSysMessage( mobile, "Error moving obj serial: "+obj.serial+" в новом банке -->"+move.errortext );
                         move_all_to_new_bank := 0;
                         continue;
                 endif
@@ -96,7 +96,7 @@ program textcommand_fixbank( mobile )
         if( move_all_to_new_bank )
                 var destroy_chest := DestroyItem( chest );
                 if( destroy_chest.errortext )
-                        SendSysMessage( mobile, "Error destroying chest of targ: "+targ.name+" -->"+destroy_chest.errortext );
+                        SendSysMessage( mobile, "Ошибка уничтожения сундука: "+targ.name+" -->"+destroy_chest.errortext );
                         return 0;
                 endif
         endif

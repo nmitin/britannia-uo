@@ -91,6 +91,6 @@ function SmeltOre(who, ore, ingot, difficulty)
 			return;
 		endif
 	else
-		SendSysMessage(who, "That is not a forge.");
+		SendSysMessage(who, "Это не горн.");
 	endif
 endfunction

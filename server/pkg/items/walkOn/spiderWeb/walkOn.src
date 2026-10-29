@@ -14,7 +14,7 @@ program WalkOn(mobile, unused spiderweb)
 		return 0;
 	endif
 
-	SendSysMessage(mobile, "You become caught in the sticky web.");
+	SendSysMessage(mobile, "Вы запутались в липкой паутине.");
 	TS_StartTimer(mobile, "paralysis", 30);
 
 	return 1;

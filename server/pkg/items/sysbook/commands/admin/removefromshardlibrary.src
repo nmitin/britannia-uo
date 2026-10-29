@@ -32,7 +32,7 @@ program removefromshardlibrary(who)
 	endif
 	var book_keys := shard_library.keys();
 	if(!book_keys.Size())
-		SendSysMessage(who, "There  are no books in the Shard Library to remove.", color := 53);
+		SendSysMessage(who, "В библиотеке шарда нет книг для удаления.", color := 53);
 		return 0;
 	endif
 
@@ -68,6 +68,6 @@ program removefromshardlibrary(who)
 		endforeach	// ...key in book_keys
 		Sleepms(5);
 	endforeach		// ...selected_title in selected_books
-	SendSysMessage(who, "Finished deleting the selected books from the Shard Library.", color := 66);
+	SendSysMessage(who, "Выбранные книги удалены из библиотеки шарда.", color := 66);
 
 endprogram

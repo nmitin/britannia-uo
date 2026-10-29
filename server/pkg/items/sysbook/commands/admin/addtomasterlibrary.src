@@ -72,7 +72,7 @@ program addtomasterlibrary(who)
 	endwhile
     UnloadConfigFile(filename);
 
-    SendSysMessage(who, "The book was added successfully to the Master Library.", color :=66);
+    SendSysMessage(who, "Книга добавлена в главную библиотеку.", color :=66);
 
 endprogram
 
@@ -99,17 +99,17 @@ function PromptUser(user)
 var is_valid_book := 0;
 var book_choice := 0;
 	repeat
-		SendSysMessage(user, "Choose the book to add to the Master Library.", color := 88);
-		SendSysMessage(user, " or press <ESC> when you are finished adding books.", color := 88);
+		SendSysMessage(user, "Выберите книгу для добавления в главную библиотеку.", color := 88);
+		SendSysMessage(user, " или нажмите <ESC>, когда закончите.", color := 88);
 		book_choice := Target(user);
 		if(!book_choice)
-			SendSysMessage(user, "Finished.", color := 88);
+			SendSysMessage(user, "Готово.", color := 88);
 			exit;
 		elseif(!book_choice.IsBook())
-			SendSysMessage(user, "That object is not a book.", color := 33);
-			SendSysMessage(user, "Try again or press <ESC> to cancel.", color := 88);
+			SendSysMessage(user, "Это не книга.", color := 33);
+			SendSysMessage(user, "Попробуйте снова или нажмите <ESC>.", color := 88);
 		elseif(!GetObjProperty(book_choice, "contents"))
-			SendSysMessage(user, "This book is blank! We don't want an empty book in the Master Library, silly!", color := 33);
+			SendSysMessage(user, "Эта книга пуста! В главной библиотеке не нужны пустые книги!", color := 33);
 		else
 			is_valid_book := 1;
 		endif

@@ -24,7 +24,7 @@ program walkOnScript(mobile, tile)
 		SendSysMessage(mobile, "Отменено.");
 		return 0;
 	elseif ( Distance(mobile, tile) > 1 )
-		SendSysMessage(mobile, "No longer close enough to the moongate.");
+		SendSysMessage(mobile, "Вы больше не рядом с лунными вратами.");
 		return 0;
 	endif
 	

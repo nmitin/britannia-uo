@@ -17,17 +17,17 @@ program useContainer( mobile, container )
  
         var house_ref := container.multi;
         if( !house_ref.CanAccess( mobile ))
-		SendSysMessage( mobile, "You cannot open that secured chest." );
+		SendSysMessage( mobile, "Вы не можете открыть этот защищённый сундук." );
 		return 0;
 	elseif( mobile.cmdlevel >= 3 )
-		SendSysMessage( mobile, "Command level is present - container is skipping locks, traps, etc." );
+		SendSysMessage( mobile, "Присутствует командный уровень — контейнер игнорирует замки и ловушки." );
 		SendViewContainer( mobile, container );
 		return 1;
 	elseif( ContainerIsLocked( mobile, container ))
 		return 0;
 	endif
  
-        SendSysMessage( mobile, "You open the secured chest." );
+        SendSysMessage( mobile, "Вы открываете защищённый сундук." );
 	SendViewContainer( mobile, container );
 
 	if(( item_cfg.OpenGraphic ) && ( item_cfg.CloseGraphic ))

@@ -9,7 +9,7 @@ program BB_canInsert( mobile, bulletin_board, movetype, inserttype, adding_item,
 
 	if( movetype == MOVETYPE_PLAYER )
 		if( !adding_item.IsMessageBoardNote() )
-			SendSysMessage( mobile, "You can not add that to the bulletin board.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Это нельзя добавить на доску.", 0x3, 0x22 );
 			return 0;
 		endif
 	endif

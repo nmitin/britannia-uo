@@ -9,7 +9,7 @@ program CanInsert( character, container, unused movetype, unused inserttype, add
 		SendSysMessage( character, "В запертые контейнеры нельзя класть предметы." );
 		return 0;
 	else
-		SendSysMessage( character, "That is not a book." );
+		SendSysMessage( character, "Это не книга." );
 		return 0;
 	endif
 endprogram

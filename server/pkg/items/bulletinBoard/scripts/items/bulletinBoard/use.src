@@ -199,18 +199,18 @@ function BBPostMessage( byref mobile, byref packet )
 
 	message := CreateItemInContainer( bulletin_board, message, 1 );
 	if( message.errortext )
-		SendSysMessage( mobile, "Error posting message: "+message.errortext, 0x3, 0x32 );
+		SendSysMessage( mobile, "Ошибка публикации: "+message.errortext, 0x3, 0x32 );
 	endif
 
 	if( replying )
 		var thread := SystemFindObjectBySerial( CInt( replying ) ),
 			title := GetObjProperty( thread, "Title" );
-		SendSysMessage( mobile, "You have posted a reply to: "+title, 0x3, 0x42 );
+		SendSysMessage( mobile, "Вы ответили на: "+title, 0x3, 0x42 );
 		thread.SetLastActivity();
 		thread.AddReply( message );
 		SetObjProperty( mobile, "#NextBBReply", ReadGameClock()+next_reply );
 	else
-		SendSysMessage( mobile, "Your note has been pinned to the bulletin board.", 0x3, 0x42 );
+		SendSysMessage( mobile, "Заметка закреплена на доске.", 0x3, 0x42 );
 		message.SetLastActivity();
 		SetObjProperty( mobile, "#NextBBPost", ReadGameClock()+next_post );
 	endif

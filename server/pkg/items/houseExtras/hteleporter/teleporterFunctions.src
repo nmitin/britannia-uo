@@ -14,7 +14,7 @@ program teleporter_use(who, teleporter)
 
 	sign := FindHouseForLocation(who.x, who.y, who.z, who.realm);
 	if(who.serial != CInt(GetObjProperty(sign, "ownerserial")))
-		SendSysMessage(who, "Only the house owner can access teleporter functions.", color := 33);
+		SendSysMessage(who, "Функции телепортера доступны только владельцу дома.", color := 33);
 		return 0;
 	endif
 	if(!Accessible(who, teleporter, 2))
@@ -32,7 +32,7 @@ program teleporter_use(who, teleporter)
 		1: RenameTele(who, teleporter);
 		2: SetAccess(who, sign, teleporter);
 		3: RemoveTeleporter(who, teleporter);
-		default: SendSysMessage(who, "Something isn't working.", color := 33);
+		default: SendSysMessage(who, "Что-то не работает.", color := 33);
 	endcase
 
 	return 1;
@@ -48,7 +48,7 @@ function RenameTele(who, tele)
 	endif
 
 	tele.name := new_name;
-	SendSysMessage(who, "Teleporter renamed to '" + new_name + "'.", color := 66);
+	SendSysMessage(who, "Телепортер переименован в «" + new_name + "'.", color := 66);
 
 endfunction
 
@@ -58,8 +58,8 @@ function SetAccess(who, sign, tele)
 	var othertele := SystemFindObjectBySerial(GetObjProperty(tele, "Othertele"));
 	var othertelehouse := FindHouseForLocation (othertele.x, othertele.y, othertele.z, othertele.realm);
 	if(!othertele)
-		SendSysMessage(who, "Something is wrong. I can't find the matching teleporter.", color := 33);
-		SendSysMessage(who, "This is a bug. Please report it.", color := 33);
+		SendSysMessage(who, "Что-то не так. Не удалось найти парный телепортер.", color := 33);
+		SendSysMessage(who, "Это ошибка. Сообщите о ней.", color := 33);
 	endif
 
 
@@ -91,8 +91,8 @@ function RemoveTeleporter(who, tele)
 	if(confirmationSizable(who, msg))
 		var othertele := SystemFindObjectBySerial(GetObjProperty(tele, "Othertele"));
 		if(!othertele)
-			SendSysMessage(who, "I cannot locate the destination teleporter!", color := 33);
-			SendSysMessage(who, "I will remove this teleporter anyway.", color := 33);
+			SendSysMessage(who, "Не удалось найти телепортер назначения!", color := 33);
+			SendSysMessage(who, "Телепортер всё равно будет удалён.", color := 33);
 		endif
 		var housesign := SystemFindObjectBySerial(GetObjProperty(tele, "signserial"));
 		if(GetObjProperty(tele, "Primary"))
@@ -116,7 +116,7 @@ function RemoveTeleporter(who, tele)
 			endif
 			DestroyItem(othertele);
 		endif
-		SendSysMessage(who, "Removed.", color := 66);
+		SendSysMessage(who, "Удалено.", color := 66);
 		return;
 	endif
 	SendSysMessage(who, "Отменено.", color := 33);

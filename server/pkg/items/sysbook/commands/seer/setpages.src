@@ -17,15 +17,15 @@ program setpages(who, text)
 
 	var page_count := CInt(text);
 	if(!page_count)
-		SendSysMessage(who, "No page count entered. Defaulting to 33 pages.", color := 88);
+		SendSysMessage(who, "Количество страниц не указано. По умолчанию 33.", color := 88);
 		page_count := 33;
 	endif
 	if(page_count%2 == 0)
 		page_count += 1;
 	endif
 	while(1)
-		SendSysMessage(who, "Set the pages to " + CStr(page_count) + " pages for which book?", color := 88);
-		SendSysMessage(who, "Press <ESC> to cancel.", color := 88);
+		SendSysMessage(who, "Установить страниц: " + CStr(page_count) + " для какой книги?", color := 88);
+		SendSysMessage(who, "Нажмите <ESC> для отмены.", color := 88);
 		var trg := Target(who, TGTOPT_NOCHECK_LOS);
 		if(!trg)
 			SendSysMessage(who, "Отменено");

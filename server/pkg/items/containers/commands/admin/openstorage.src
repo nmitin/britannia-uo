@@ -20,7 +20,7 @@ program command_OpenStorage( mobile )
 
 	var root_container := CP_GetStorageAreaContainer( container_id, storage_area );
 	if( !root_container )
-		SendSysMessage( mobile, "Container does not exist. ->"+root_container.errortext );
+		SendSysMessage( mobile, "Контейнер не существует. ->"+root_container.errortext );
 		return 0;
 	else
 		SendSysMessage( mobile, "Открываю..." );

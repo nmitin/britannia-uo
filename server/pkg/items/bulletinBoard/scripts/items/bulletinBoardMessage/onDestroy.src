@@ -15,7 +15,7 @@ program BBM_OnDestroy( note )
 		if( reply )
 			destroy_item := DestroyItem( reply );
 			if( !destroy_item || destroy_item.errortext )
-				PrintTextAbove( reply.container, "Could not destroy reply: "+destroy_item.errortext, 0x3, 0x42 );
+				PrintTextAbove( reply.container, "Не удалось удалить ответ: "+destroy_item.errortext, 0x3, 0x42 );
 				return 0;
 			endif
 		endif

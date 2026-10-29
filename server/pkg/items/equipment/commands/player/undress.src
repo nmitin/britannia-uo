@@ -17,10 +17,10 @@ program txtcommand_undress( mobile, text )
 	endif
 
 	if( !text )
-		SendSysMessage( mobile, "Options are:" );
-		SendSysMessage( mobile, "all - Removes all items that are equipped." );
-		SendSysMessage( mobile, "jewelry - Only unequips jewelry items (rings, necklaces, etc)." );
-		SendSysMessage( mobile, "nojewelry - Unequips everything except jewelry items." );
+		SendSysMessage( mobile, "Варианты:" );
+		SendSysMessage( mobile, "all — снимает всё надетое." );
+		SendSysMessage( mobile, "jewelry — снимает только украшения." );
+		SendSysMessage( mobile, "nojewelry — снимает всё, кроме украшений." );
 		return;
 	endif
 

@@ -13,7 +13,7 @@ program walkOnScript(mobile, tile)
 	SetObjProperty(mobile, "#Teleported", ReadMillisecondClock());
 	var result := tile.SendToDestination(mobile);
 	if ( result.errortext )
-		SendSysMessage(mobile, "Error teleporting:"+result.errortext);
+		SendSysMessage(mobile, "Ошибка телепортации:"+result.errortext);
 		return 0;
 	endif
 	

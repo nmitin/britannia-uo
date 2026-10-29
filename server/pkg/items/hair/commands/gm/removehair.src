@@ -18,7 +18,7 @@ program command_RemoveHair(who, text)
 	endif
 	
 	if ( layers.Size() < 1 )
-		SendSysMessage(who, "Syntax: .removehair (head) (beard)");
+		SendSysMessage(who, "Синтаксис: .removehair (голова) (борода)");
 		return 0;
 	endif
 	

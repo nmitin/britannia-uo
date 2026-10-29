@@ -14,18 +14,18 @@ program textcmd_Equip( speaker )
                 return 0;
         endif
 
-	SendSysMessage( speaker, "What shall be equipped?", color := 88 );
+	SendSysMessage( speaker, "Что надеть?", color := 88 );
 	var what := TargetCoordinates( speaker );
 	if( !what )
 		return 0;
 	endif
 
-	SendSysMessage( speaker, "On whom shall "+what.Desc+" be equipped?", color := 88 );
+	SendSysMessage( speaker, "На кого надеть "+what.Desc+"?", color := 88 );
 	var who := Target( speaker, TGTOPT_NOCHECK_LOS );
 	if( !who )
 		return 0;
         elseif( !who.IsA( POLCLASS_MOBILE ))
-                SendSysMessage( speaker, "You must select a player or npc.", color := 33 );
+                SendSysMessage( speaker, "Нужно выбрать игрока или NPC.", color := 33 );
                 return 0;
 	endif
 
@@ -33,7 +33,7 @@ program textcmd_Equip( speaker )
 	if( res )
 		SendSysMessage( speaker, "Готово!", color := 66 );
 	else
-		SendSysMessage( speaker, "Unable to equip item: "+res.errortext, color := 33 );
+		SendSysMessage( speaker, "Не удалось надеть предмет: "+res.errortext, color := 33 );
 		return 0;
 	endif
 

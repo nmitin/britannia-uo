@@ -11,8 +11,8 @@ use os;
 program bookro(who)
 
 	while(1)
-		SendSysMessage(who, "Target the book you wish to make read-only:", color := 88);
-		SendSysMessage(who, "Press <ESC> to cancel.", color := 88);
+		SendSysMessage(who, "Укажите книгу, которую хотите сделать только для чтения:", color := 88);
+		SendSysMessage(who, "Нажмите <ESC> для отмены.", color := 88);
 		var trg := Target(who, TGTOPT_NOCHECK_LOS);
 		if(!trg)
 			SendSysMessage(who, "Отменено");

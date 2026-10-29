@@ -22,11 +22,11 @@ program textcmd_addMod( mobile, text )
             value := CInt( param[2] );
 
         if( !attrib || !value )
-               SendSysMessage( mobile, "Usage is .addMod <attribute> <value>" );
+               SendSysMessage( mobile, "Использование: .addMod <атрибут> <значение>" );
                return 0;
         endif
 
-        SendSysMessage( mobile, "Select the item to apply the modification." );
+        SendSysMessage( mobile, "Выберите предмет для изменения." );
         var targ := Target( mobile );
         if( !targ.IsA( POLCLASS_EQUIPMENT ))
                SendSysMessage( mobile, "Отменено" );
@@ -35,7 +35,7 @@ program textcmd_addMod( mobile, text )
 
         var result := AddModifierToEquipment( targ, attrib, value );
         if( result.errortext )
-               SendSysMessage( mobile, "Error --> "+result.errortext );
+               SendSysMessage( mobile, "Ошибка --> "+result.errortext );
                return 0;
         endif
 

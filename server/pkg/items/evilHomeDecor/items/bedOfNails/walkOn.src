@@ -36,6 +36,6 @@ program BedOfNails_WalkOn ( who, unused bed, unused lastx, unused lasty, unused 
 		blood.movable := 0;
 	endfor
 	*/
-	SendSysMessage ( who, "I am also getting here." );
+	SendSysMessage ( who, "Я тоже сюда добираюсь." );
 	return 1;
 endprogram

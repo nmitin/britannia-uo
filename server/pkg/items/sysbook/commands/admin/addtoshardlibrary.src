@@ -96,13 +96,13 @@ program addtoshardlibrary(who)
 					contents_array := {};
 				else
 					// Otherwise complain that the book exists in the library and do not add it.
-					SendSysMessage(who, selected_title + " is already in the library.", color := 33);
+					SendSysMessage(who, selected_title + " уже есть в библиотеке.", color := 33);
 				endif
 			endif
 			Sleepms(5);
 		endforeach	// ...key in book_keys
 		Sleepms(5);
 	endforeach		// ...selected_title in selected_books
-	SendSysMessage(who, "Finnished adding the selected books to the Shard Library.", color := 66);
+	SendSysMessage(who, "Выбранные книги добавлены в библиотеку шарда.", color := 66);
 
 endprogram

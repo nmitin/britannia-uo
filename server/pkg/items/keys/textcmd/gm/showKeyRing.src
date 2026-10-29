@@ -5,7 +5,7 @@ include ":gumps:gumps";
 include ":gumps:requestGump";
 
 program kering_gump( mobile )
-	SendSysMessage( mobile, "What keyring do you want to view?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Какую связку показать?", 0x3, 0x42 );
 	var targ := Target( mobile );
 
 	if( !targ )

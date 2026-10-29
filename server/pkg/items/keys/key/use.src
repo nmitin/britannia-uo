@@ -11,7 +11,7 @@ program UseKey( who, key )
 		return 0;
 	endif
 
-	SendSysMessage( who, "What do you want to use this on?" );
+	SendSysMessage( who, "На что вы хотите это применить?" );
 	var targ := Target( who );
         if( !targ )
                 SendSysMessage( who, "Отменено." );
@@ -23,14 +23,14 @@ program UseKey( who, key )
 		CopyKey( who, key, targ );
 		return 1;
 	elseif( !KP_IsLockable( targ ))
-		SendSysMessage( who, "That is not lockable." );
+		SendSysMessage( who, "Это нельзя запереть." );
 		return 0;
 	endif
 
 	if( key.KeyMatchesLock( targ ))
 		KP_ToggleLock( targ, who );
 	else
-		SendSysMessage( who, "This key does not match that lock." );
+		SendSysMessage( who, "Этот ключ не подходит к замку." );
 	endif
 
 	return 1;
@@ -45,10 +45,10 @@ function RenameKey( who, key )
 		SendSysMessage( who, "Отменено." );
 		return 0;
 	elseif( name_len > 20 )
-		SendSysMessage( who, "Name is too long." );
+		SendSysMessage( who, "Имя слишком длинное." );
 		return 0;
 	elseif( name_len < 1 )
-		SendSysMessage( who, "Name is too short." );
+		SendSysMessage( who, "Имя слишком короткое." );
 		return 0;
 	elseif( new_name )
 		SetName( key, new_name );
@@ -60,15 +60,15 @@ function CopyKey( who, key, targ )
 
 	var key_id := key.GetLockId();
 	if( !key_id )
-		SendSysMessage( who, "You can not copy a blank key." );
+		SendSysMessage( who, "Нельзя скопировать чистый ключ." );
 		return 0;
 	elseif( targ.GetLockId() )
-		SendSysMessage( who, "The destination key is not blank." );
+		SendSysMessage( who, "Целевой ключ не чистый." );
 		return 0;
 	endif
 
 	targ.SetLockId( key_id );
-	SendSysMessage( who, "Done copying keys." );
+	SendSysMessage( who, "Копирование ключей завершено." );
 
 	return 1;
 endfunction

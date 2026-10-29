@@ -24,10 +24,10 @@ exported function LastWeapon( byref mobile, byref unused packet )
 		SendSysMessage( mobile, "Не удалось найти последнее надетое оружие.", 0x3, 0x32 );
 		return 0;
 	elseif( last_equipped == GetEquipmentByLayer( mobile, last_equipped.tile_layer ) )
-		SendSysMessage( mobile, "That is already equipped!", 0x3, 0x42 );
+		SendSysMessage( mobile, "Это уже надето!", 0x3, 0x42 );
 		return 1;
 	elseif( !( last_equipped in EnumerateItemsInContainer( mobile.backpack ) )  )
-		SendSysMessage( mobile, "That must be in your inventory to equip it!", 0x3, 0x22 );
+		SendSysMessage( mobile, "Чтобы надеть, предмет должен быть в инвентаре!", 0x3, 0x22 );
 		return 0;
 	endif
 

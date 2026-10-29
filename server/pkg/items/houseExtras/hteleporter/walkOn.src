@@ -15,8 +15,8 @@ program houseTeleporter(mobile, htele)
 	endif
 	// Need to account for banned list in destination teleporter's location!
 	if(mobile.serial in GetObjProperty(othersign, "banlist"))
-		SendSysMessage(mobile, "You were banned from entering the other house", color := 33);
-		SendSysMessage(mobile, "where the teleporter destination is located.", color := 33);
+		SendSysMessage(mobile, "Вам запрещён вход в другой дом,", color := 33);
+		SendSysMessage(mobile, "где находится телепортер назначения.", color := 33);
 		return 0;
 	endif
 

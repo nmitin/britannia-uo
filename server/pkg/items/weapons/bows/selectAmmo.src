@@ -13,7 +13,7 @@ program selectammo(who, weapon)
 	var weaponElement;
 	var arrowElement;
 	var valid_ammo := 0;
-	SendSysMessage(who, "Select the stack of ammunition you would like to use.");
+	SendSysMessage(who, "Выберите стопку боеприпасов.");
 	var ammo := Target(who);
 	arrowElement := FindConfigElem(cWeapon, ammo.objtype);
 	weaponElement := FindConfigElem(cWeapon, weapon.objtype);
@@ -24,7 +24,7 @@ program selectammo(who, weapon)
 	endif
 	// Ammunition must be in the player's backpack.
 	if (ammo.container != who.backpack)
-		SendSysMessage(who, "The ammunition must be in the top layer of your backpack.");
+		SendSysMessage(who, "Боеприпасы должны быть на верхнем уровне рюкзака.");
 		return 0;
 	endif
 	// Check to see the ammunition type is matched to the weapon.
@@ -37,11 +37,11 @@ program selectammo(who, weapon)
 	if( valid_ammo )
 		SetObjProperty(weapon, "ProjectileAnim", CInt(arrowElement.ProjectileAnim));
 		SetObjProperty(weapon, "AmmoType", CInt(ammo.objtype) );
-		SendSysMessage(who, "Now switching to " + CStr(ammo.desc) + ".");
+		SendSysMessage(who, "Переключаюсь на " + CStr(ammo.desc) + ".");
 		DuplicateProps(ammo, weapon);
 		return 1;
 	else
-		SendSysMessage(who, "You cannot fire that type of missile from this weapon.");
+		SendSysMessage(who, "Из этого оружия нельзя стрелять такими снарядами.");
 		return 0;
 	endif
 

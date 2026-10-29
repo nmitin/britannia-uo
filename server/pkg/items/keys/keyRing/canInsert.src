@@ -8,14 +8,14 @@ program OnInsert( mobile, keyring, movetype, insert_type, adding_item, existing_
 	movetype := movetype;
 
 	if( !adding_item.IsKey() )
-		SendSysMessage( mobile, "Only keys can be put on a keyring.", 0x3, 0x22 );
+		SendSysMessage( mobile, "На связку можно вешать только ключи.", 0x3, 0x22 );
 		return 0;
 	elseif( EnumerateItemsInContainer( keyring ).Size() >= keyring.MaxItems() )
-		SendSysMessage( mobile, "This keyring is full.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Связка заполнена.", 0x3, 0x22 );
 		return 0;
 	endif
 
-	SendSysMessage( mobile, "You put the key on the ring." );
+	SendSysMessage( mobile, "Вы повесили ключ на связку." );
 
 	return 1;
 endprogram

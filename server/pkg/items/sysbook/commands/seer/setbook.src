@@ -48,8 +48,8 @@ var data := {
 
 program setbook(who)
 
-	SendSysMessage(who, "Target the book you wish to modify.", color := 88);
-	SendSysMessage(who, "Press <EsC> to cancel.", color := 88);
+	SendSysMessage(who, "Укажите книгу, которую хотите изменить.", color := 88);
+	SendSysMessage(who, "Нажмите <ESC> для отмены.", color := 88);
 	var book := Target(who, TGTOPT_NOCHECK_LOS);
 
 	if(!book)

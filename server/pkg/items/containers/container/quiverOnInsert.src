@@ -15,7 +15,7 @@ program quiverCanInsert( character, container, unused movetype, unused inserttyp
 		SendSysMessage( character, "В запертые контейнеры нельзя класть предметы." );
 		return 0;
 	elseif( !( adding_item.objtype in ammo_list ))
-		SendSysMessage( character, "Quivers can only hold ammunition for Archery weapons." );
+		SendSysMessage( character, "Колчаны хранят только боеприпасы для луков." );
 		return 0;
 	endif
 

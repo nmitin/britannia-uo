@@ -44,13 +44,13 @@ exported function PostMessage(mobile, byref packet)
 	if( packet.GetInt32( 8 ) )
 		last_post := GetObjProperty( mobile, "#NextBBReply" );
 		if( last_post > ReadGameClock() )
-			SendSysMessage( mobile, "Нужно подождать "+( last_post - ReadGameClock() )+" seconds before replying to another thread.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Нужно подождать "+( last_post - ReadGameClock() )+" секунд до ответа в другой теме.", 0x3, 0x22 );
 			return 1;
 		endif
 	else
 		last_post := GetObjProperty( mobile, "#NextBBPost" );
 		if( last_post > ReadGameClock() )
-			SendSysMessage( mobile, "Нужно подождать "+( last_post - ReadGameClock() )+" seconds before creating a new thread.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Нужно подождать "+( last_post - ReadGameClock() )+" секунд до создания новой темы.", 0x3, 0x22 );
 			return 1;
 		endif
 	endif
@@ -72,6 +72,6 @@ exported function RemoveMessage( mobile, byref packet )
 		return 1;
 	endif
 
-	SendSysMessage( mobile, "Deleting: "+message.desc+" from "+bulletin_board.desc+".", 0x3, 0x42 );
+	SendSysMessage( mobile, "Удаляю: "+message.desc+" из "+bulletin_board.desc+".", 0x3, 0x42 );
 	DestroyItem( message );
 endfunction

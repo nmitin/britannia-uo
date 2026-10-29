@@ -26,7 +26,7 @@ program canInsert( mobile, FountainOfLife, move_type, unused inserttype, adding_
 		return 0;
 	// We only allow clean bandages to be placed in the fountain
 	elseif(!adding_item.IsBandage())
-		SendSysMessage(mobile, "You may only place clean bandages in the fountain.", color := 33);
+		SendSysMessage(mobile, "В фонтан можно класть только чистые бинты.", color := 33);
 		return 0;
 	endif
 

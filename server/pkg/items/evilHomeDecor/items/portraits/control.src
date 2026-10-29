@@ -16,7 +16,7 @@ program portrait_control ( portrait )
         ev := wait_for_event(120);
         if(ev)
             who := ev.source;
-            PrintTextAbove(portrait, who.name + " said: " + ev.text);
+            PrintTextAbove(portrait, who.name + " сказал: " + ev.text);
         endif
     endwhile
 

@@ -38,7 +38,7 @@ program addspawnshelf(who, text)
 
 	while(1)
 		repeat
-			SendSysMessage(who, "Please target a bookshelf:", color := 88);
+			SendSysMessage(who, "Укажите книжную полку:", color := 88);
 			SendSysMessage(who, "(Нажмите <ESC> для отмены)", color := 88);
 			shelf_to_add := Target(who);
 			if(!shelf_to_add)
@@ -57,9 +57,9 @@ program addspawnshelf(who, text)
 
 		bookshelf := bookshelves.CreateElement(shelf_to_add.serial);
 		bookshelf.SetProp("MaxBooks", max_books);
-		SendSysMessage(who, "The bookshelf has been added to the datafile.", color := 66);
+		SendSysMessage(who, "Полка добавлена в файл данных.", color := 66);
 		RestockTheShelf(shelf_to_add, max_books);
-		SendSysMessage(who, "It has been populated with " + CStr(max_books) + "text books.", color := 66);
+		SendSysMessage(who, "Она заполнена " + CStr(max_books) + "книгами.", color := 66);
 	endwhile
 
 

@@ -11,7 +11,7 @@ program walkon(mobile, tile)
 	if( mobile.dead )
 		Resurrect(mobile);
 	else
-		SendSysMessage(mobile, "You are at peace...");
+		SendSysMessage(mobile, "Вы спокойны...");
 	endif
 
 	return 1;

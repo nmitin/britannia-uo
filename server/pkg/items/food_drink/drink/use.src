@@ -12,7 +12,7 @@ include "include/math";
 
 program use_Drink(who, drink)
 	if( drink.movable == 0 )
-		SendSysMessage(who, "You cannot drink that.");
+		SendSysMessage(who, "Это нельзя выпить.");
 		return 0;
 	endif
 

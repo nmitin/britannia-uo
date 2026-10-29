@@ -59,6 +59,6 @@ program shelfstock(who);
 		endif
 		Sleepms(50);
 	endforeach
-	SendSysMessage(who, "Finished!", color := 66);
+	SendSysMessage(who, "Готово!", color := 66);
 endprogram
 

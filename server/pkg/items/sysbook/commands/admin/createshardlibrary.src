@@ -37,21 +37,21 @@ program createshardlibrary(who)
 		return 0;
 	endif
 
-	SendSysMessage(who, "Please target a container in which to place the books:", color := 88);
+	SendSysMessage(who, "Укажите контейнер для книг:", color := 88);
 	var holder := Target(who);
 	if(!holder)
 		SendSysMessage(who, "Отменено.", color := 33);
 		return 0;
 	endif
 	if(!holder.IsContainer())
-		SendSysMessage(who, "You must target a valid container.", color := 33);
+		SendSysMessage(who, "Нужно указать допустимый контейнер.", color := 33);
 		return 0;
 	endif
 	book_keys := shard_library.Keys();
 	foreach key in book_keys
 		book := CreateItemInContainer(holder, 0xFF0, 1); // Tan book (book2)
 		if(!book)
-			SendSysMessage(who, "I could not create a book. Maybe the container is too small to hold all of the in-game books.", color := 33);
+			SendSysMessage(who, "Не удалось создать книгу. Возможно, контейнер слишком мал.", color := 33);
 			return 0;
 		endif
 		bookContents := GetBookContents(key);
@@ -62,6 +62,6 @@ program createshardlibrary(who)
 		book.name := bookContents.title;
 		Sleepms(5);
 	endforeach
-	SendSysMessage(who, "The library has been created successfuly.", color := 66);
+	SendSysMessage(who, "Библиотека успешно создана.", color := 66);
 
 endprogram

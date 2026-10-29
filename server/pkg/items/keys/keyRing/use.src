@@ -10,7 +10,7 @@ program UseKeyRing( mobile, keyring )
 // Here for legacy keyrings that for some reason used storage areas....yuck..
 	DuplicateKeyRing( keyring );
 
-	SendSysMessage( mobile, "What do you want to unlock?", 0x3, 0x42 );
+	SendSysMessage( mobile, "Что вы хотите отпереть?", 0x3, 0x42 );
 	var targ := Target( mobile );
 	if( !targ )
 		SendSysMessage( mobile, "Отменено.", 0x3, 0x32 );
@@ -21,7 +21,7 @@ program UseKeyRing( mobile, keyring )
 		ShowKeyRingGump( mobile, keyring );
 		return 1;
 	elseif( !KP_IsLockable( targ ))
-		SendSysMessage( mobile, "That cannot be locked.", 0x3, 0x32 );
+		SendSysMessage( mobile, "Это нельзя запереть.", 0x3, 0x32 );
 		return 0;
 	endif
 
@@ -30,7 +30,7 @@ program UseKeyRing( mobile, keyring )
 	elseif( KP_HasKeyForLock( keyring, targ ))
 		KP_ToggleLock( targ, mobile );
 	else
-		SendSysMessage( mobile, "You do not have a key for that.", 0x3, 0x22 );
+		SendSysMessage( mobile, "У вас нет ключа от этого.", 0x3, 0x22 );
 	endif
 
 	return 1;

@@ -18,7 +18,7 @@ endfunction
 exported function GetRessourceName( item )
 	var item_elem := GetItemDescInfo( item.objtype );
 	if( item_elem.errortext )
-			PrintTextAbove( item, "Error reading description of item -->"+item_elem.errortext );
+			PrintTextAbove( item, "Ошибка чтения описания предмета -->"+item_elem.errortext );
 			return 0;
 	endif
 

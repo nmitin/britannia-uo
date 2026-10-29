@@ -40,6 +40,6 @@ program use_magicfish(who, fish)
      44: who.hidden := 1;
     endcase
   else
-    SendSysMessage(who, "Yech, that was a rotten fish!");
+    SendSysMessage(who, "Фу, это была гнилая рыба!");
   endif
 endprogram

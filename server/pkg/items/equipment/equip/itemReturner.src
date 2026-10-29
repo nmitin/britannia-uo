@@ -25,7 +25,7 @@ program item_Returner( item )
         
         var move_item := MoveItemToContainer( item, owner.backpack );
         if( move_item.errortext )
-                PrintTextAbove( item, "Error moving item to "+owner_name+" item: "+item.serial+" --> "+move_item.errortext );
+                PrintTextAbove( item, "Ошибка перемещения предмета в "+owner_name+" предмет: "+item.serial+" --> "+move_item.errortext );
         endif
 
         return 1;

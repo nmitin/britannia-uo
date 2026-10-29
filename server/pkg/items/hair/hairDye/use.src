@@ -19,7 +19,7 @@ program UseDyes(who, dyes)
 		SendSysMessage(who, "Кто-то уже использует это.");
 		return 0;
 	elseif ( !(dyes in EnumerateItemsInContainer(who.backpack)) )
-		SendSysMessage(who, "That must be in your backpack to be used.");
+		SendSysMessage(who, "Чтобы использовать, это должно быть в рюкзаке.");
 		return 0;
 	endif
 
@@ -49,7 +49,7 @@ program UseDyes(who, dyes)
 	if ( !IsValidHairColor(color) )
 		// Occurs when custom values are inserted into the gump with client cheats.
 		// Remember Raph Koster's rule - "The client is in the hands of the enemy. Never trust it."
-		SendSysMessage(who, "Error - Color found ["+color+"] is invalid.");
+		SendSysMessage(who, "Ошибка — найден цвет ["+color+"] недопустим.");
 		return 0;
 	endif
 

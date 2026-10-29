@@ -23,18 +23,18 @@ program usePitcher (who, pitcher)
 	EraseObjProperty(who, "#IsMeditating");
 	EraseObjProperty(who, "#HealTimer");
 
-	SendSysMessage(who, "What would you like to fill the pitcher from?");
+	SendSysMessage(who, "Из чего наполнить кувшин?");
 	var targetted := TargetCoordinates(who);
 	if(!targetted || targetted.errortext )
 		SendSysMessage(who, "Отменено.");
 		return 0;
 	endif
 	if(!CheckLosAt( who, targetted.x, targetted.y, targetted.z ))
-		SendSysMessage(who,"You cannot see that.");
+		SendSysMessage(who,"Вы этого не видите.");
 		return 0;
 	endif
 	if(!CheckDistance( who, targetted.x, targetted.y, targetted.z ))
-		SendSysMessage(who,"That location is too far away.");
+		SendSysMessage(who,"Это место слишком далеко.");
 		return 0;
 	endif
 	if( CheckWaterAt(targetted) )
@@ -46,7 +46,7 @@ program usePitcher (who, pitcher)
 		DestroyItem(pitcher);
 		CreateItemInBackpack(who, 0x9AD, 1);
 	else
-		SendSysMessage(who,"You cannot fill the pitcher there.");
+		SendSysMessage(who,"Здесь нельзя наполнить кувшин.");
 		return 0;
 	endif
 	return 1;
