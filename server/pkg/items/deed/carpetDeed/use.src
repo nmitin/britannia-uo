@@ -95,12 +95,12 @@ program gump_CarpetSelection(who, carpet_deed)
     endif
 
 	if (!CheckLosAt(who, target_one.x, target_one.y, target_one.z))
-		SendSysMessage(who, "Target not within line of sight.");
+		SendSysMessage(who, "Цель вне поля зрения.");
 	return;
 	endif
 
     if (!sign.IsObjectInsideHouse(target_one))
-        SendSysMessage(who, "Location out of house borders.");
+        SendSysMessage(who, "Место за пределами дома.");
 	return;
     endif
 
@@ -114,12 +114,12 @@ program gump_CarpetSelection(who, carpet_deed)
     endif
 
 	if (!CheckLosAt(who, target_two.x, target_two.y, target_two.z))
-		SendSysMessage(who, "Target not within line of sight.");
+		SendSysMessage(who, "Цель вне поля зрения.");
 	return;
 	endif
 
     if ( !sign.IsObjectInsideHouse(target_two) )
-        SendSysMessage(who, "Location out of house borders.");
+        SendSysMessage(who, "Место за пределами дома.");
 	return;
     endif
 

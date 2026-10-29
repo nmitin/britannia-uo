@@ -7,7 +7,7 @@ use uo;
 
 program textcmd_lastDamage( mobile )
 
-	SendSysMessage( mobile, "What would you like to evaluate?" );
+	SendSysMessage( mobile, "Что вы хотите оценить?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
                 SendSysMessage( mobile, "Отменено." );
@@ -31,7 +31,7 @@ program textcmd_lastDamage( mobile )
                 answer := SystemFindObjectBySerial( Last_Damage[1] );
                 SendSysMessage( mobile, "I see it was damaged by "+answer.name+" by "+type+" damage." );
         else
-                SendSysMessage( mobile, "No, I can't find anything..." );
+                SendSysMessage( mobile, "Нет, ничего не нахожу..." );
                 return 0;
         endif
 

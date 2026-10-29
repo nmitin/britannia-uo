@@ -31,11 +31,11 @@ var origLoc := {};
 
   if (doMultiCheck)
     if (who.multi == error)
-      SendSysMessage(who, "You aren't in a house!");
+      SendSysMessage(who, "Вы не в доме!");
       return;
     endif
     if (!inOwnedMulti(who, theTarget))
-      SendSysMessage(who, "That isn't in something you own!");
+      SendSysMessage(who, "Это не в вашей собственности!");
       return;
     endif
   endif
@@ -51,14 +51,14 @@ var origLoc := {};
 
   if (doMultiCheck)
     if (who.multi == error)
-      SendSysMessage(who, "You aren't in a house!");
+      SendSysMessage(who, "Вы не в доме!");
       theTarget.movable := 1;
       MoveObjectToLocation(theTarget, origLoc[1], origLoc[2], origLoc[3], who.realm, MOVEOBJECT_FORCELOCATION);
       theTarget.movable := 0;
       return;
     endif
     if (!inOwnedMulti(who, theTarget))
-      SendSysMessage(who, "That isn't in something you own!");
+      SendSysMessage(who, "Это не в вашей собственности!");
       theTarget.movable := 1;
       MoveObjectToLocation(theTarget, origLoc[1], origLoc[2], origLoc[3], who.realm, MOVEOBJECT_FORCELOCATION);
       theTarget.movable := 0;

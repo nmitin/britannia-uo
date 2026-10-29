@@ -33,7 +33,7 @@ program enable_merchant_nodes_textcmd( mobile )
 		endforeach
 	endforeach
 
-	SendSysMessage( mobile, "Task completed.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Задача выполнена.", 0x3, 0x42 );
 
 	return 1;
 endprogram

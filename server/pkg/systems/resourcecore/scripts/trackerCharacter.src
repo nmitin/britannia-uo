@@ -27,12 +27,12 @@ program RC_TrackCharacter( parameters )
 			GetProcess( rc_tracker_pid ).Kill();
 			break;
 		elseif( CoordinateDistance( mobile.x, mobile.y, x, y ) > 2 )
-			SendSysMessage( mobile, "You have moved too far away.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Вы отошли слишком далеко.", 0x3, 0x22 );
 			GetProcess( script_pid ).Kill();
 			GetProcess( rc_tracker_pid ).Kill();
 			break;
 		elseif( mobile.realm != realm )
-			SendSysMessage( mobile, "You have moved too far away.", 0x3, 0x22 );
+			SendSysMessage( mobile, "Вы отошли слишком далеко.", 0x3, 0x22 );
 			GetProcess( script_pid ).Kill();
 			GetProcess( rc_tracker_pid ).Kill();
 			break;

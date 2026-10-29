@@ -84,7 +84,7 @@ program command_newAccount(who)
 			GumpPrompt(who, "Error Creating Account [P] "+account.errortext);
 			return 0;
 		else
-			GumpPrompt(who, "Account created successfully.");
+			GumpPrompt(who, "Аккаунт успешно создан.");
 			return 1;
 		endif
 	endif

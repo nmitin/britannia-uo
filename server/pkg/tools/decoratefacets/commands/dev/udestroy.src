@@ -7,7 +7,7 @@ use uo;
 program textcmd_udestroy( who )
 	SendSysMessage(who, "This command only destroys items placed", color := 88);
 	SendSysMessage(who, "by the decoratefacets command", color := 88);
-	SendSysMessage( who, "Please target something to destroy.", 1, 88 );
+	SendSysMessage( who, "Укажите, что уничтожить.", 1, 88 );
 	SendSysMessage( who, "Press <esc>> when you are done..", 1, 88 );
 	while(1)
 		var tgt := Target( who );

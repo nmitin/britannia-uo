@@ -32,7 +32,7 @@ program makegold(mobile, amount)
 			created := created + 60000;
 			stacks := stacks + 1;
 		else
-			SendSysMessage(mobile, "The container is full!");
+			SendSysMessage(mobile, "Контейнер полон!");
 			SendSysMessage(mobile, "Создано "+CStr(created)+", remaining: "+CStr(orgamount-created));
 			return;
 		endif
@@ -42,7 +42,7 @@ program makegold(mobile, amount)
 		if(CreateItemInContainer(cont, "GoldCoin", amount))
 			created := created + amount;
 		else
-			SendSysMessage(mobile, "The container is full!");
+			SendSysMessage(mobile, "Контейнер полон!");
 			SendSysMessage(mobile, "Создано "+CStr(created)+", remaining: "+CStr(orgamount-created));
 		endif
 	endif

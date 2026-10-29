@@ -120,7 +120,7 @@ program use_spawnpoint(who, spawnpoint)
 	if(!i in critterarray)
 		var thecritter := CreateNpcFromTemplate(i, spawnpoint.x, spawnpoint.y, spawnpoint.z, 0, spawnpoint.realm);
 		if(!thecritter)
-			SendSysMessage(who, "Invalid creature type.");
+			SendSysMessage(who, "Неверный тип существа.");
 //			spawn := "NONE";
 			spawn := "";
 		else
@@ -130,7 +130,7 @@ program use_spawnpoint(who, spawnpoint)
 	else
 		var thecritter := CreateNpcFromTemplate(GetCritter(i), spawnpoint.x, spawnpoint.y, spawnpoint.z, 0, spawnpoint.realm);
 		if(!thecritter)
-			SendSysMessage(who, "Invalid creature type.");
+			SendSysMessage(who, "Неверный тип существа.");
 //			spawn := "NONE";
 			spawn := "";
 		else

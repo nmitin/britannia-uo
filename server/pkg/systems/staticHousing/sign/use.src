@@ -88,7 +88,7 @@ sign := sgn;
 
 		if (!packkey)
 			SendSysMessage( who, "Your backpack is too full! Cannot create the key.", 1, 33);
-			SendSysMessage(who, "Aborting. You must make room before buying this house.", 1, 33);
+			SendSysMessage(who, "Отмена. Нужно освободить место перед покупкой дома.", 1, 33);
 			DestroyItem(created);
 			return 0;
 		endif
@@ -97,7 +97,7 @@ sign := sgn;
 
 		if (!bankkey)
 			SendSysMessage( who, "Your bankbox is too full! Cannot create the extra key!", 1, 33);
-			SendSysMessage(who, "Aborting. You must make room before buying this house.", 1, 33);
+			SendSysMessage(who, "Отмена. Нужно освободить место перед покупкой дома.", 1, 33);
 			DestroyItem(created);
 			DestroyItem( packkey );
 			return 0;
@@ -177,7 +177,7 @@ sign := sgn;
 		endif
 
 
-		SendSysMessage( who, "You have taken ownership of the house.", 1, 66);
+		SendSysMessage( who, "Вы стали владельцем дома.", 1, 66);
 		gumpmessage(who, "A key has been placed in your backpack. The deed is in your bank box along with a spare key.");
 		Sign.name := "A house sign";
 		SetObjProperty( sign, "ownername", who.name );
@@ -351,7 +351,7 @@ function Eject(who)
 		SendSysMessage(who, "You can only eject people in your house.", 3, 40);
 	else
 		MoveObjectToLocation(targ, sign.x, sign.y, GetWorldHeight(sign.x, sign.y, targ.realm), MOVEOBJECT_FORCELOCATION, targ.realm);
-		SendSysMessage(who, targ.name + " was ejected!", 1, 66);
+		SendSysMessage(who, targ.name + " был выгнан!", 1, 66);
 		SendSysMessage(targ, who.name + " has ejected you from the house!", 3, 40);
 	endif
 endfunction
@@ -427,7 +427,7 @@ function ChangeLocks(sign, byref who)
 	endif
 	if(newkey.IsKey() && !newkey.IsKeyring())
 		if(newkey.GetLockId())
-			SendSysMessage(who, "That is not a blank key.", color := 33);
+			SendSysMessage(who, "Это не чистый ключ.", color := 33);
 			return 0;
 		endif
 		var LockID := AllocateLockId();
@@ -445,7 +445,7 @@ function ChangeLocks(sign, byref who)
 			addonitem.locked := 1;
 			SetObjProperty(addonitem, "LockID", LockID);
 		endif */
-		SendSysMessage(who, "Locks have been changed.", 1, 66);
+		SendSysMessage(who, "Замки заменены.", 1, 66);
 	else
 		SendSysMessage(who, "Это не ключ!", 3, 40);
 	endif
@@ -477,7 +477,7 @@ function ChangeInteriorLocks( who, house )
 		return;
 	endif
 	if(newkey.GetLockId())
-		SendSysMessage(who, "That is not a blank key.", color := 33);
+		SendSysMessage(who, "Это не чистый ключ.", color := 33);
 		return 0;
 	endif
 	var doors := 0;
@@ -563,7 +563,7 @@ function addenemy( sign, who )
 	var test := sign.AddBan(targetchr);
 	if(test == -1)
 		SendSysMessageCL(who, 1149994, color := 33); // Your ban list is full!
-		SendSysMessage(who, "You need to remove a ban before you can ban " + targetchr.name + ".", color := 33);
+		SendSysMessage(who, "Сначала снимите бан, прежде чем банить " + targetchr.name + ".", color := 33);
 		return 0;
 	elseif(!test)
 		SendSysMessageCL(who, 501356, color := 33);	// This person is already banned!

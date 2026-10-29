@@ -6,7 +6,7 @@ use cfgfile;include "include/objtype";
 
 program cast_mark( caster, text )
        
-    SendSysMessage( caster, "Select a rune to mark." );
+    SendSysMessage( caster, "Выберите руну для отметки." );
     var cast_on := Target( caster, TGTOPT_CHECK_LOS );
 
     if (!cast_on)
@@ -16,7 +16,7 @@ program cast_mark( caster, text )
 
     if (cast_on.IsRecallRune())
 		cast_on.SetDestination(caster.x, caster.y, caster.z, caster.realm);
-		SendSysMessage( caster, "You marked: " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
+		SendSysMessage( caster, "Вы отметили: " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
 		if(text)
 			SetName (cast_on, "A recall rune for " + text);
 		else

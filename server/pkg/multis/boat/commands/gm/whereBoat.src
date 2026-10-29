@@ -3,7 +3,7 @@ use os;
 
 program textcmd_WhereBoat( mobile )
 
-	SendSysMessage( mobile, "Select a player." );
+	SendSysMessage( mobile, "Выберите игрока." );
 	var targ := Target( mobile );
 	if( !targ )
 		SendSysMessage( mobile, "Отменено." );

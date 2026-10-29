@@ -7,7 +7,7 @@ program infernotrap(who, item)
     return;
   endif
   if(GetObjProperty(item,"#isrunning") == 1)
-    PrintTextAbove(item,"you step on a trigger, but nothing seems to happen!");
+    PrintTextAbove(item,"вы наступаете на механизм, но ничего не происходит!");
     return;
   endif
   var charges := GetObjProperty(item,"charges");
@@ -19,7 +19,7 @@ program infernotrap(who, item)
     charges := charges - 1;
     SetObjProperty(item,"charges", charges);
   elseif (charges == 0)
-    PrintTextAbove(item,"you step on a trigger, but nothing seems to happen!");
+    PrintTextAbove(item,"вы наступаете на механизм, но ничего не происходит!");
     return;
   endif
   SetObjProperty(item,"#isrunning", 1);

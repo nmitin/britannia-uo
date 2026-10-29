@@ -1,7 +1,7 @@
 use uo;
 
 program textcmd_destroy( who )
-	SendSysMessage( who, "Please target something to destroy.", 1, 88 );
+	SendSysMessage( who, "Укажите, что уничтожить.", 1, 88 );
 	SendSysMessage( who, "Press <ESC> to exit.", 1, 88 );
 	while(1)
 		var tgt := Target( who, TGTOPT_NOCHECK_LOS );

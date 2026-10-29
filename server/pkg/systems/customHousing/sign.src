@@ -194,7 +194,7 @@ function MakeADeed (character, house)
 			endif
 			var theprice := price - discount;
 
-			SendSysMessage (character, "The value of this house is " + theprice + " gold.");
+			SendSysMessage (character, "Стоимость этого дома — " + theprice + " gold.");
 			if (!YesNo (character, "Sell it?"))
 				SendSysMessage (character, "Отменено.");
 				return 0;
@@ -245,7 +245,7 @@ function DisownHouse (character, sign)
 	endif
 	var theprice := price - discount;
 
-	SendSysMessage (character, "The value of this house is " + theprice + " gold.");
+	SendSysMessage (character, "Стоимость этого дома — " + theprice + " gold.");
 	if (!YesNo (character, "Sell it?"))
 		SendSysMessage (character, "Отменено.");
 		return;
@@ -308,7 +308,7 @@ function RenameHouse (character, sign)
 	if (!newname)
 		SendSysMessage (character, "Отменено");
 	elseif (len(SplitWords (newname)) > 5)
-		Sendsysmessage (character, "House sign names are limited to 5 words or less.");
+		Sendsysmessage (character, "Название таблички дома — не более 5 слов.");
 	else
 		SetObjProperty (sign, "housename", newname);
 		sign.name := "A House Sign";

@@ -508,7 +508,7 @@ function housebanning(sign, event)
 	var test := sign.AddBan(victim);
 	if(test == -1)
 		SendSysMessageCL(who, 1149994, color := 33); // Your ban list is full!
-		SendSysMessage(who, "You need to remove a ban before you can ban " + victim.name + ".", color := 33);
+		SendSysMessage(who, "Сначала снимите бан, прежде чем банить " + victim.name + ".", color := 33);
 		return 0;
 	elseif(!test)
 		SendSysMessageCL(who, 501356, color := 33);	// This person is already banned!

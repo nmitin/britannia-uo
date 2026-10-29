@@ -128,7 +128,7 @@ program ChangeHouseOwner(who, deed)
 	SetObjProperty(sign, "ownerserial", who.serial);
 	SetObjProperty(sign, "ownername", who.name);
 	sign.RefreshHouse();
-	SendSysMessage( who, "You have taken ownership of the house.", color := 66);
+	SendSysMessage( who, "Вы стали владельцем дома.", color := 66);
 	gumpmessage(who, "A key has been placed in your backpack. The deed is in your bank box along with a spare key.");
 	Sign.name := "A house sign";
 endprogram

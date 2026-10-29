@@ -38,7 +38,7 @@ program textcmd_AccountInfo(who, acctname)
 		acctname := person.acctname;
 	endif
 	if ( !acctname )
-		SendSysMessage(who, "Select a player.");
+		SendSysMessage(who, "Выберите игрока.");
 		var targ := Target(who);
 		if ( !targ.acctname )
 			SendSysMessage(who, "Отменено.");

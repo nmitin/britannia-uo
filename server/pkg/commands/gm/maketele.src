@@ -24,7 +24,7 @@ program make_a_tele( who, text )
     endif
 
     if (rune.objtype != UOBJ_RUNE)
-            SendSysMessage(who, "You can only use this on a rune!");
+            SendSysMessage(who, "Это можно использовать только на руне!");
             return;
     endif
 	var dest := rune.GetDestination();

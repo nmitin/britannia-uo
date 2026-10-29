@@ -211,11 +211,11 @@ function gate(caster)
 endfunction
 
 function mark(caster)
-  SendSysMessage(caster, "Select a rune to mark.");
+  SendSysMessage(caster, "Выберите руну для отметки.");
   var cast_on := Target(caster);
     if (cast_on.IsRecallRune())
 		cast_on.SetDestination(caster.x, caster.y, caster.z, caster.realm);
-		SendSysMessage( caster, "You marked: " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
+		SendSysMessage( caster, "Вы отметили: " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
 		SetName(cast_on, "a Marked Recall Rune");
 		return 1;
 	else
@@ -266,7 +266,7 @@ function GMT_removetrap(who)
 		if(untrapped.errortext)
 			SendSysMessage(who, "There were no traps on that container.", color := 40);
 		else
-			SendSysMessage(who, "All traps removed.", color := 66);
+			SendSysMessage(who, "Все ловушки удалены.", color := 66);
 		endif
 	endif
 
@@ -552,12 +552,12 @@ function info(who, character, unused trg)
 			var bankbox		:= CP_GetStorageContainerForMobile( who, bank_region, CP_CREATE );
             SendOpenSpecialContainer(who, bankbox);
           else
-            SendSysMessage(who, "Only can be used on players.");
+            SendSysMessage(who, "Можно использовать только на игроках.");
           endif
       22: if(!character.isA(POLCLASS_NPC))
             SendOpenSpecialContainer(who, character.backpack);
           else
-            SendSysMessage(who, "Only can be used on players.");
+            SendSysMessage(who, "Можно использовать только на игроках.");
           endif
       23: MoveObjectToLocation(character, who.x, who.y, who.z, who.realm);
       24: SetName(character, RequestInput(who, who.backpack, "Enter a new name."));
@@ -647,7 +647,7 @@ function FillInWeapon(who)
 endfunction
 
 function EditStat(who, character, result)
-    SendSysMessage(who, "Caution! Values are changed immediately, Integers only!. Hit ESC to cancel.");
+    SendSysMessage(who, "Внимание! Значения меняются сразу, только целые числа. ESC — отмена.");
     var val := CInt(RequestInput(who, who.backpack, "Enter a new value."));
     if(!val)
       SendSysMessage(who, "Отменено.");
@@ -671,7 +671,7 @@ function EditStat(who, character, result)
 endfunction
 
 function EditSkill(who, character, skill);
-    SendSysMessage(who, "Caution! Values are changed immediately, Integers only!. Hit ESC to cancel.");
+    SendSysMessage(who, "Внимание! Значения меняются сразу, только целые числа. ESC — отмена.");
     var val := CInt(RequestInput(who, who.backpack, "Enter a new value.")) * 10;
     if((!val) &&(val != 0))
       SendSysMessage(who, "Отменено.");

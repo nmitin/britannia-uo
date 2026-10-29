@@ -815,7 +815,7 @@ program Mulit_House_sign(who, sign)
 				elseif((len(newname) > 20))
 					SendSysMessage(who, "House sign names may not be longer than 20 characters.", color := 33);
 				elseif(len(SplitWords(newname)) > 5)
-					SendSysMessage(who, "House sign names are limited to 5 words or less.", color := 33);
+					SendSysMessage(who, "Название таблички дома — не более 5 слов.", color := 33);
 				else
 					SetName(sign, newname);
 					SetObjProperty(sign, "signname", newname);
@@ -1262,7 +1262,7 @@ function Eject(hsign, who)
 		return;
 	endif
 	MoveObjectToLocation(targetchr, hsign.x, hsign.y, hsign.z, hsign.realm, MOVEOBJECT_FORCELOCATION);
-	SendSysMessage(who,targetchr.name + " was ejected!");
+	SendSysMessage(who,targetchr.name + " был выгнан!");
 endfunction
 
 // Removes a character from one or both lists.
@@ -1456,7 +1456,7 @@ function ChangeLocks(who, house)
       addonitem.locked:=1;
       SetObjProperty(addonitem,"LockID",LockID);
     endif
-    SendSysMessage(who, "Locks have been changed.", color := 66);
+    SendSysMessage(who, "Замки заменены.", color := 66);
   else
     SendSysMessage(who,"Это не ключ!", color := 33);
   endif

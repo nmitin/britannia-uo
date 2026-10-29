@@ -18,7 +18,7 @@ program textcmd_newaccount(who, info)
       SendSysMessage(who, "" + act.errortext);
       return;
     endif
-    SendSysMessage(who, "Account created successfully.");
+    SendSysMessage(who, "Аккаунт успешно создан.");
     act.set_uo_expansion("ML");
   endif
 endprogram

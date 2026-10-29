@@ -14,7 +14,7 @@ program textcmd_moveitem( who )
             if(result)
               PrintTextAbovePrivate(itm, "Готово!", who);
             else
-              SendSysMessage(who, "Unable to move item: " + result.errortext);
+              SendSysMessage(who, "Не удалось переместить предмет: " + result.errortext);
             endif
           else
             itm.movable := 1;
@@ -22,7 +22,7 @@ program textcmd_moveitem( who )
             if(result)
               PrintTextAbovePrivate(itm, "Готово!", who);
             else
-              SendSysMessage(who, "Unable to move item: " + result.errortext);
+              SendSysMessage(who, "Не удалось переместить предмет: " + result.errortext);
             endif
             itm.movable := 0;
           endif

@@ -33,8 +33,8 @@ program PoisonScript(params)
 			89: SendSysMessage(mobile, "You have a sore stomach."); break;
 			60: SendSysMessage(mobile, "You feel a knot in your stomach."); break;
 			50: SendSysMessage(mobile, "Your stomach size begins to expand outward."); break;
-			40: SendSysMessage(mobile, "You feel sharp stomach pains."); break;
-			35: SendSysMessage(mobile, "You feel sharp stomach pains."); break;
+			40: SendSysMessage(mobile, "Вы чувствуете резкую боль в животе."); break;
+			35: SendSysMessage(mobile, "Вы чувствуете резкую боль в животе."); break;
 			25: SendSysMessage(mobile, "You feel something sharp poking at your innards."); break;
 			15: SendSysMessage(mobile, "You feel intensely sharp pains coming from all over the inside of your torso."); break;
 			10: SendSysMessage(mobile, "You feel your innards being shreaded to bits!"); break;

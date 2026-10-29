@@ -272,10 +272,10 @@ function ShowGuildMasterInfo( who, text_charter, g_icon )
 		 9: DismissMember( who, p_guild );
 			return 1;
 		10: // DeclareWar( who, p_guild );
-			SendSysMessage( who, "Option not finished yet, but we are working on it.", 3, 68 );
+			SendSysMessage( who, "Эта возможность ещё не готова, но мы над ней работаем.", 3, 68 );
 			return 1;
 		11: // DeclarePeace( who, p_guild );
-			SendSysMessage( who, "Option not finished yet, but we are working on it.", 3, 68 );
+			SendSysMessage( who, "Эта возможность ещё не готова, но мы над ней работаем.", 3, 68 );
 			return 1;
 		12: TransferLeader( who, p_guild );
 			return 1;

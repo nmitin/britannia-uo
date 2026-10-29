@@ -15,7 +15,7 @@ program trapScript(params)
 	//var trap_index := params[4];
 	params := 0; // Not needed anymore.
 
-	SendSysMessage(mobile, "You set off a needle trap!");
+	SendSysMessage(mobile, "Вы активировали игольчатую ловушку!");
 	PerformAction(mobile, ANIM_HIT);
 	// var strngth := RandomDiceRoll("5d10");
 	var strngth := trap_info.Strength;

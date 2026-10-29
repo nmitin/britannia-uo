@@ -7,7 +7,7 @@ use uo;
 
 program textcmd_lastLooter( mobile )
 
-	SendSysMessage( mobile, "What would you like to evaluate?" );
+	SendSysMessage( mobile, "Что вы хотите оценить?" );
 	var targ := Target( mobile, TGTOPT_NOCHECK_LOS );
 	if( !targ )
                 SendSysMessage( mobile, "Отменено." );
@@ -23,7 +23,7 @@ program textcmd_lastLooter( mobile )
                 answer := SystemFindObjectBySerial( Last_Loot[1] );
                 SendSysMessage( mobile, "I see that it was looted by "+answer.name+"." );
         else
-                SendSysMessage( mobile, "No, I can't find anything..." );
+                SendSysMessage( mobile, "Нет, ничего не нахожу..." );
                 return 0;
         endif
 

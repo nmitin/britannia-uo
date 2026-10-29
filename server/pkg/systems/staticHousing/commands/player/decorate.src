@@ -69,11 +69,11 @@ program decorate (who)
 			until (!who || !item || move_success == 1);
 
 			if (!move_success)
-				SendSysMessage(who, "That item is not within your house!", 0x3, 0x21);
+				SendSysMessage(who, "Этот предмет не в вашем доме!", 0x3, 0x21);
 				return;
 			endif
 		else
-			SendSysMessage(who, "That item is not within your house!", 0x3, 0x21);
+			SendSysMessage(who, "Этот предмет не в вашем доме!", 0x3, 0x21);
 			return;
 		endif
 	endif

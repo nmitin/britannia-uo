@@ -234,7 +234,7 @@ function trappedswitch(who, item, mid, stt, snd)
   case (traptype)
     1:   PlaySoundEffect(who, SFX_224);
          var dmg :=(RandomInt(20) + CInt(trapstrength));
-         SendSysMessage(who, "You set off a needle trap!");
+         SendSysMessage(who, "Вы активировали игольчатую ловушку!");
          ApplyDamageEX(who, dmg, DMG_PHYSICAL);
     2:   PlaySoundEffect(who, SFX_232);
          PrintTextAbovePrivate(who, "You set off a poison trap!", who);
