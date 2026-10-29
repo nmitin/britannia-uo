@@ -8,7 +8,7 @@ program summonnpc(who,item)
   endif
   var monlink := GetObjProperty(item,"mobilearray");
   if (!monlink)
-	SendSysMessage(who, "no mobiles attached.");
+	SendSysMessage(who, "мобили не привязаны.");
 	return;
   endif
   var radius := CInt(SendTextEntryGump( who, "what radius would you like them to spawn in? (Min 1, Max 10)", 40 ));
@@ -34,7 +34,7 @@ program summonnpc(who,item)
     endcase
     newz:= GetWorldHeight(newx, newy, who.realm);
     if ( !MoveObjectToLocation(monstr, newx, newy, newz, who.realm, MOVEOBJECT_FORCELOCATION) )
-	  SendSysMessage(who, "NPC no longer exists.");
+	  SendSysMessage(who, "NPC больше не существует.");
 	  return;
     endif
   endfor

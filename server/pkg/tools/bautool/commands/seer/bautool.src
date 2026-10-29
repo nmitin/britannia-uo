@@ -144,7 +144,7 @@ Program bautool(who, param)
 
   If (!GetGlobalProperty("BauServer"))
     If (who.cmdlevel<3)
-      SendSysMessage(who,"You are not authorized to use this command!");
+      SendSysMessage(who,"У вас нет прав на эту команду!");
       Return;
     EndIf
   EndIf
@@ -161,15 +161,15 @@ Program bautool(who, param)
       cfgrandom:=ReadConfigFile(":bautool:bautoolrandom");
       cfgeinzel:=ReadConfigFile(":bautool:bautooleinzel");
       cfgset   :=ReadConfigFile(":bautool:bautoolset");
-      SendSysMessage(who,"Datafile building...");
+      SendSysMessage(who,"Построение файла данных...");
       Init();
-      SendSysMessage(who,"Datafile completed");
+      SendSysMessage(who,"Файл данных готов");
       Return;
     EndIf
   EndIf
 
   If (GetGlobalProperty("bautoolinit"))
-    SendSysMessage(who,"Datafile is still being generated, try again later.");
+    SendSysMessage(who,"Файл данных ещё создаётся, попробуйте позже.");
     Return;
   EndIf
 
@@ -335,7 +335,7 @@ Function ShowMenu(who) // {{{
         "Set":
           CreateSet(who,ret,tile[2],color);
         default:
-          SendSysMessage(who,"error...");
+          SendSysMessage(who,"ошибка...");
           Return;
       EndCase
 
@@ -415,15 +415,15 @@ EndFunction // }}}
 Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, byref element) // {{{
   Var tar1, tar2, item, x, y, z, Tarx, Tary, Tarx2, Tary2, itemdef, items:={}, itemserials:={};
 
-  SendSysMessage(who, "Target first corner");
+  SendSysMessage(who, "Укажите первый угол");
   tar1:=TargetCoordinates(who);
   If (tar1)
-    SendSysMessage(who, "Target the second corner");
+    SendSysMessage(who, "Укажите второй угол");
     tar2:=TargetCoordinates(who);
     If (tar2)
       If ((tar1.item) || (tar2.item))
         If ((tar1.item.container) || (tar2.item.container))
-          SendSysMessage(who,"cancellation. Item in Container targeted!");
+          SendSysMessage(who,"отмена. Указан предмет в контейнере!");
           Return;
         EndIf
       EndIf
@@ -442,7 +442,7 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
         Tary2:=tar2.y;
       EndIf
       If (((Tarx2-Tarx)>MAXAREASIZE) || ((Tary2-Tary)>MAXAREASIZE))
-        SendSysMessage(who, "Cancellation.  " + MAXAREASIZE  + "x" + MAXAREASIZE + " Generate items!");
+        SendSysMessage(who, "Отмена.  " + MAXAREASIZE  + "x" + MAXAREASIZE + " Создать предметы!");
         Return;
       EndIf
       z:=ret[ITEMPOS];
@@ -461,7 +461,7 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
             If ((x==Tarx) && (y==Tary)) //NW corner
               itemdef:=GetConfigString(cfgrandom[element],"nw");
               If (!itemdef)
-                SendSysMessage(who, "NW corner is missing.");
+                SendSysMessage(who, "Нет северо-западного угла.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -472,8 +472,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create Error!  "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания!  "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -488,14 +488,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! NW-Corner 2nd item"+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет СЗ-угла"+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf ((x==Tarx2) && (y==Tary)) //NE corner
               itemdef:=GetConfigString(cfgrandom[element],"no");
               If (!itemdef)
-                SendSysMessage(who, "NE corner missing.");
+                SendSysMessage(who, "Нет северо-восточного угла.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -506,8 +506,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! NE-corner Item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет СВ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -522,14 +522,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! NE-Corner 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет СВ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf ((x==Tarx2) && (y==Tary2)) //SE corner
               itemdef:=GetConfigString(cfgrandom[element],"so");
               If (!itemdef)
-                SendSysMessage(who, "SE-Corner is missing.");
+                SendSysMessage(who, "Нет юго-восточного угла.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -540,8 +540,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! SO-Ecke Item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет ЮВ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -556,14 +556,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! SE-Corner 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет ЮВ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf ((x==Tarx) && (y==Tary2)) //SW corner
               itemdef:=GetConfigString(cfgrandom[element],"sw");
               If (!itemdef)
-                SendSysMessage(who, "SW-Corner is missing.");
+                SendSysMessage(who, "Нет юго-западного угла.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -574,8 +574,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! SW-corner Item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет ЮЗ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -590,14 +590,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! SW-Corner 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет ЮЗ-угла "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf (y==Tary) //N page
               itemdef:=GetConfigString(cfgrandom[element],"n");
               If (!itemdef)
-                SendSysMessage(who, "N-Page is missing.");
+                SendSysMessage(who, "Нет северной стороны.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -608,8 +608,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! N-Item page "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет северной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -624,14 +624,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! N-Page 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет северной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf (x==Tarx2) //E side
               itemdef:=GetConfigString(cfgrandom[element],"o");
               If (!itemdef)
-                SendSysMessage(who, "E-side is missing.");
+                SendSysMessage(who, "Нет восточной стороны.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -642,8 +642,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! E-side item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет восточной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -658,14 +658,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! E-side 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет восточной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf (y==Tary2) //S side
               itemdef:=GetConfigString(cfgrandom[element],"s");
               If (!itemdef)
-                SendSysMessage(who, "S side is missing.");
+                SendSysMessage(who, "Нет южной стороны.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -676,8 +676,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! S-Item page "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет южной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -692,14 +692,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! S-side 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет южной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             ElseIf (x==Tarx) //W page
               itemdef:=GetConfigString(cfgrandom[element],"w");
               If (!itemdef)
-                SendSysMessage(who, "W-Page is missing.");
+                SendSysMessage(who, "Нет западной стороны.");
               Else
                 itemdef:=SplitWords(itemdef);
                 itemdef:=ChooseRandom(itemdef);
@@ -710,8 +710,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! W side item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет западной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -726,14 +726,14 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! W-Page 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет западной стороны "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             Else //centerpiece
               itemdef:=ChooseRandom(tiles);
               If (!itemdef)
-                SendSysMessage(who, "Middle piece is missing.");
+                SendSysMessage(who, "Нет средней части.");
               Else
                 itemdef:=SplitWords(itemdef,",");
                 item:=CreateItemAtLocation(x,y,tar1.z+CInt(itemdef[2])+z,CInt(itemdef[1]),1,who.realm);
@@ -742,8 +742,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! Midsection item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Предмет середины "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
               //Create second item
@@ -756,8 +756,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                   item.movable:=0;
                   items.append(item);
                 Else
-                  SendSysMessage(who, "Create error! Middle part 2nd item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                            +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                  SendSysMessage(who, "Ошибка создания! Второй предмет середины "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                            +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
                 EndIf
               EndIf
             EndIf
@@ -769,7 +769,7 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
           For (y:=Tary;y<=Tary2;y+=1)
             itemdef:=ChooseRandom(tiles);
             If (!itemdef)
-              SendSysMessage(who, "Middle piece is missing.");
+              SendSysMessage(who, "Нет средней части.");
             Else
               itemdef:=SplitWords(itemdef,",");
               item:=CreateItemAtLocation(x,y,tar1.z+CInt(itemdef[2])+z,CInt(itemdef[1]),1,who.realm);
@@ -778,8 +778,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                 item.movable:=0;
                 items.append(item);
               Else
-                SendSysMessage(who, "Create error! Item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                          +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                SendSysMessage(who, "Ошибка создания! Предмет "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                          +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
               EndIf
             EndIf
             //Create second item
@@ -792,8 +792,8 @@ Function CreateRandom(who, byref ret, byref tiles, byref tiles1, byref color, by
                 item.movable:=0;
                 items.append(item);
               Else
-                SendSysMessage(who, "Create error! 2nd Item "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
-                                          +Hex(itemdef[1])+" ErrorText: "+item.errortext);
+                SendSysMessage(who, "Ошибка создания! Второй предмет "+x+" "+y+" "+(tar1.z+CInt(itemdef[2])+z)+" "
+                                          +Hex(itemdef[1])+" Текст ошибки: "+item.errortext);
               EndIf
             EndIf
             SleepMS(5);
@@ -832,10 +832,10 @@ Function CreateEinzel(who, byref ret, byref tiles, byref color) // {{{
   Var z, itemdef:={}, iTarget, item, items:={}, itemserials:={};
 
   If (!tiles[ret.keys[2]])
-    SendSysMessage(who, "No item selected");
+    SendSysMessage(who, "Предмет не выбран");
     Return;
   EndIf
-  SendSysMessage(who, "Target position");
+  SendSysMessage(who, "Укажите позицию");
   z:=ret[ITEMPOS];
   z[1,6]:="";
   z:=CInt(z);
@@ -844,7 +844,7 @@ Function CreateEinzel(who, byref ret, byref tiles, byref color) // {{{
   iTarget:=TargetCoordinates(who);
   If (iTarget.item)
     If (iTarget.item.container)
-      SendSysMessage(who,"cancellation. Item in Container targeted!");
+      SendSysMessage(who,"отмена. Указан предмет в контейнере!");
       Return;
     EndIf
   EndIf
@@ -867,8 +867,8 @@ Function CreateEinzel(who, byref ret, byref tiles, byref color) // {{{
         items.append(item);
       EndIf
     Else
-      SendSysMessage(who, "Create error! Item "+iTarget.x+" "+iTarget.y+" "+(iTarget.z+itemdef[2]+z)+" "
-                                +Hex(tiles[ret.keys[2]])+" ErrorText: "+item.errortext);
+      SendSysMessage(who, "Ошибка создания! Предмет "+iTarget.x+" "+iTarget.y+" "+(iTarget.z+itemdef[2]+z)+" "
+                                +Hex(tiles[ret.keys[2]])+" Текст ошибки: "+item.errortext);
     EndIf
     iTarget:=TargetCoordinates(who);
   EndWhile
@@ -1013,12 +1013,12 @@ Function ModifyItemsManual(who) // {{{
               EndForEach
               inititem.setprop(CPROP_ITEMS,tempitems); // save filtered serials
               If ((!items) || (items=={}))
-                SendSysMessage(who,"Items could not be found. ");
+                SendSysMessage(who,"Предметы не найдены. ");
               Else
                 SendSysMessage(who,items.size()+" предметов распознано.");
               EndIf
             Else
-              SendSysMessage(who,"Init item not found. ");
+              SendSysMessage(who,"Начальный предмет не найден. ");
               items := RecoverInitItem(tar);
               // items:={};
             EndIf
@@ -1039,7 +1039,7 @@ Function ModifyItemsManual(who) // {{{
             tar.setprop(CPROP_ITEMS,tempitems); // save filtered serials
             SendSysMessage(who,items.size()+" предметов распознано.");
           Else
-            SendSysMessage(who,"Invalid Item selected.");
+            SendSysMessage(who,"Выбран недопустимый предмет.");
           EndIf
         Else
           SendSysMessage(who, "Отмена");
@@ -1092,7 +1092,7 @@ Function ModifyItemsManual(who) // {{{
                   itemserials.append(item.serial);
                   SleepMS(2);
                 EndForEach
-                SendSysMessage(who,"Choose the original item.");
+                SendSysMessage(who,"Выберите исходный предмет.");
                 breakflag:=0;
                 While (who.connected)
                   tar:=Target(who,TGTOPT_NOCHECK_LOS);
@@ -1110,7 +1110,7 @@ Function ModifyItemsManual(who) // {{{
                       tar.setprop(CPROP_ITEMS,itemserials);
                       Break;
                     Else
-                      SendSysMessage(who,"Item is not among those recognized!");
+                      SendSysMessage(who,"Предмет не входит в распознанные!");
                     EndIf
                   Else
                     SendSysMessage(who, "Отмена");
@@ -1127,11 +1127,11 @@ Function ModifyItemsManual(who) // {{{
                     EndIf
                     SleepMS(5);
                   EndForEach
-                  SendSysMessage(who,".. and branded.");
+                  SendSysMessage(who,".. и помечен.");
                 EndIf
               EndIf
             Else
-              SendSysMessage(who,"No items recognized.");
+              SendSysMessage(who,"Предметы не распознаны.");
             EndIf
           Else
             SendSysMessage(who, "Отмена");
@@ -1225,7 +1225,7 @@ Function ModifyItemsManual(who) // {{{
               SleepMS(2);
             EndForEach
             dupe[1].setprop(CPROP_ITEMS,dupeserials);
-            SendSysMessage(who,dupe.size()+" Items successfully duplicated.");
+            SendSysMessage(who,dupe.size()+" предметов успешно скопировано.");
             items:=dupe; // Continue working with a copy
           ElseIf (retmodify[MODIFY_X])
             temp:=retmodify[MODIFY_X_ENTRY];
@@ -1253,7 +1253,7 @@ Function ModifyItemsManual(who) // {{{
             EndForEach
           EndIf
         Else
-          SendSysMessage(who,"No items selected.");
+          SendSysMessage(who,"Предметы не выбраны.");
         EndIf
       ElseIf (retmodify[MODIFY_MARKEDIT])
         MarkEdit(who);
@@ -1388,7 +1388,7 @@ Function MarkEdit(who) // {{{
       EndIf
 
     ElseIf (ret[MARK_EDIT])
-      SendSysMessage(who,"Selects the item group.");
+      SendSysMessage(who,"Выберите группу предметов.");
       tar1:=Target(who,TGTOPT_NOCHECK_LOS);
       items:={};
       tempitems:={};
@@ -1412,12 +1412,12 @@ Function MarkEdit(who) // {{{
           EndForEach
           inititem.setprop(CPROP_ITEMS,tempitems); // save filtered serials
           If ((!items) || (items=={}))
-            SendSysMessage(who,"Items could not be found. ");
+            SendSysMessage(who,"Предметы не найдены. ");
           Else
             SendSysMessage(who,items.size()+" предметов распознано.");
           EndIf
         Else
-          SendSysMessage(who,"Init item not found. ");
+          SendSysMessage(who,"Начальный предмет не найден. ");
           items := RecoverInitItem(tar1);
           // items:={};
         EndIf
@@ -1440,11 +1440,11 @@ Function MarkEdit(who) // {{{
         tar1.setprop(CPROP_ITEMS,tempitems); // save filtered serials
         SendSysMessage(who,items.size()+" предметов распознано.");
       Else
-        SendSysMessage(who,"No items recognized.");
+        SendSysMessage(who,"Предметы не распознаны.");
       EndIf
       If (items<>{})
         While (who.connected)
-          SendSysMessage(who,"Selects the item to be added / removed.");
+          SendSysMessage(who,"Выберите предмет для добавления/удаления.");
           tar1:=Target(who,TGTOPT_NOCHECK_LOS);
           If ((!tar1) && (!tar1.isA(POLCLASS_ITEM)))
             SendSysMessage(who, "Отмена");
@@ -1611,7 +1611,7 @@ Function ModifyItems(who,byref items) // {{{
         SleepMS(2);
       EndForEach
       dupe[1].setprop(CPROP_ITEMS,dupeserials);
-      SendSysMessage(who,dupe.size()+" Items successfully duplicated.");
+      SendSysMessage(who,dupe.size()+" предметов успешно скопировано.");
       items:=dupe; // Edit copy further
     ElseIf (retmodify[MODIFY_X])
       temp:=retmodify[MODIFY_X_ENTRY];

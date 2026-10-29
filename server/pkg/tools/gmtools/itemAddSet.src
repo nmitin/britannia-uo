@@ -7,7 +7,7 @@ program itemaddset( who, item)
   var totalthings := GetObjProperty(item,"totalthings");
   var itemtotal := len(totalthings);
   var i :=1;
-  SendSysMessage(who,"where do you want this to appear?");
+  SendSysMessage(who,"где это должно появиться?");
   var where := TargetCoordinates(who);
   for (i:=1;i<=itemtotal;i:=i+1)
     var iteminfo := GetObjProperty(item, "iteminfo" +i);

@@ -2,7 +2,7 @@ use uo;
 use os;
 
 program hide(me, unused item)
-	SendSysMessage(me,"what to hide");
+	SendSysMessage(me,"что скрыть");
 	var targ := Target(me);
 	targ.hidden := 1;
 endprogram

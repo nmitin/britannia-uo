@@ -11,7 +11,7 @@ program MOTD(who)
 	if ( data_elem.GetProp("noshow") )
 		var first_line := ReadFile("motd.txt")[1];
 		if ( data_elem.GetProp("FirstLine") != first_line )
-			SendSysMessage(who, "The messages of the day have been updated since you last viewed them. Use .motd to view them.");
+			SendSysMessage(who, "Сообщения дня обновились. Используйте .motd.");
 		endif
 	else
 		Start_Script("motd", who);

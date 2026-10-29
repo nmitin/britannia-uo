@@ -173,7 +173,7 @@ program TimedScript_Incognito(params)
 			EquipItem(mobile, new_horn);
 		endif
 	else
-		SendSysMessage(mobile, "You must be in your natural form for this spell.", color := 33);
+		SendSysMessage(mobile, "Для этого заклинания нужна естественная форма.", color := 33);
 		return;
 	endif
 	// Give mobile a random name

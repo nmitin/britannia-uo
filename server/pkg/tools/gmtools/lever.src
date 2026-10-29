@@ -102,7 +102,7 @@ var data := array(
 
 program lever(who, item)
   if(GetObjProperty(item, "#inuse") == 1)
-    SendSysMessage(who,"that switch is in use");
+    SendSysMessage(who,"этот переключатель используется");
     return;
   endif
   if(who.cmdlevel > 2)
@@ -135,7 +135,7 @@ endprogram
 function normalusage(who, item)
   var funct  := GetObjProperty(item, "function");
   if(!funct)
-    SendSysMessage(who,"this switch seems to be broken");
+    SendSysMessage(who,"похоже, переключатель сломан");
     return;
   endif
   var status := GetObjProperty(item, "status");
@@ -237,12 +237,12 @@ function trappedswitch(who, item, mid, stt, snd)
          SendSysMessage(who, "Вы активировали игольчатую ловушку!");
          ApplyDamageEX(who, dmg, DMG_PHYSICAL);
     2:   PlaySoundEffect(who, SFX_232);
-         PrintTextAbovePrivate(who, "You set off a poison trap!", who);
+         PrintTextAbovePrivate(who, "Вы активировали ядовитую ловушку!", who);
          PlayObjectCenteredEffect( who, FX_POISON_GAS, 10,10);
 	 var passparms := { who, who, "poison trap", trapstrength };
 	 start_script(":spells:poisonDamage", passparms);
     3:   PlaySoundEffect(who, SFX_208);
-         SendSysMessage(who, "You set off an explosion trap!");
+         SendSysMessage(who, "Вы активировали взрывную ловушку!");
          PlayObjectCenteredEffect( who, FX_EXPLODE_3, 10,10);
          var dmg :=(RandomInt(20) + CInt(trapstrength));
          ApplyRawDamageEX(who, dmg, DMG_PHYSICAL);
@@ -606,7 +606,7 @@ endfunction
 
 function bindlights(who, item)
   var newarray := {};
-  SendSysMessage(who,"target the lights to link to the switch. cancel to end");
+  SendSysMessage(who,"укажите огни для привязки к переключателю. Отмена — конец");
   var trg;
   while(1)
     trg := Target(who);
@@ -629,7 +629,7 @@ function createpassage(who, item)
   var newarray := {};
   var linkarray := {};
   linkarray.append(item.serial);
-  SendSysMessage(who,"target the pieces to link to the switch. cancel to end");
+  SendSysMessage(who,"укажите части для привязки. Отмена — конец");
   var trg;
   while(1)
     trg := Target(who);
@@ -638,13 +638,13 @@ function createpassage(who, item)
     endif
     newarray.append(trg.serial);
   endwhile
-  SendSysMessage(who,"target the item you wish sounds to originate from");
+  SendSysMessage(who,"укажите предмет, от которого должен идти звук");
   var snd := Target(who);
   var speaker := {};
   speaker.append(snd.x);
   speaker.append(snd.y);
   speaker.append(snd.z);
-  SendSysMessage(who,"now target any other switches you wish to link together.");
+  SendSysMessage(who,"теперь укажите другие переключатели для связи.");
   while(1)
     trg := Target(who);
     if(!trg)
@@ -664,7 +664,7 @@ endfunction
 
 function doorstatus(who, item)
   var newarray := {};
-  SendSysMessage(who,"target the door you wish to link this switch to. cancel to end");
+  SendSysMessage(who,"укажите дверь для привязки. Отмена — конец");
   var trg;
   while(1)
     trg := Target(who);
@@ -675,7 +675,7 @@ function doorstatus(who, item)
   endwhile
   SetObjProperty(item,"function", "door");
   SetObjProperty(item,"ds", newarray);
-  SendSysMessage(who,"the switch has successfully been linked to the door(s)");
+  SendSysMessage(who,"переключатель успешно привязан к дверям");
 endfunction
 
 function setprp(who, item, result)
@@ -699,13 +699,13 @@ function setprp(who, item, result)
 endfunction
 
 function linkteleport(who, item)
-  SendSysMessage(who, "target the rune you wish this switch to teleport the user to");
+  SendSysMessage(who, "укажите руну, куда переключатель телепортирует");
   var darray := {};
   var trgd, trga;
   while(1)
-    SendSysMessage(who,"target the departure tile");
+    SendSysMessage(who,"укажите плитку отправления");
     trgd := Target(who);
-    SendSysMessage(who,"target the arrival tile");
+    SendSysMessage(who,"укажите плитку прибытия");
     trga := Target(who);
     if((!trgd) ||(!trga))
       break;

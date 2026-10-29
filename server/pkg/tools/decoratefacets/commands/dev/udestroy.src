@@ -5,10 +5,10 @@
 use uo;
 
 program textcmd_udestroy( who )
-	SendSysMessage(who, "This command only destroys items placed", color := 88);
-	SendSysMessage(who, "by the decoratefacets command", color := 88);
+	SendSysMessage(who, "Эта команда уничтожает только предметы,", color := 88);
+	SendSysMessage(who, "размещённые командой decoratefacets", color := 88);
 	SendSysMessage( who, "Укажите, что уничтожить.", 1, 88 );
-	SendSysMessage( who, "Press <esc>> when you are done..", 1, 88 );
+	SendSysMessage( who, "Нажмите <ESC>, когда закончите..", 1, 88 );
 	while(1)
 		var tgt := Target( who );
 		if(!tgt)
@@ -16,12 +16,12 @@ program textcmd_udestroy( who )
 			return 0;
 		endif
 		if(!GetObjProperty(tgt, "DecorateFacetsStatic"))
-			SendSysMessage(who, "You may only use this command to destroy items", color := 40);
-			SendSysMessage(who, "placed by the decoratefacets command.", color := 40);
+			SendSysMessage(who, "Этой командой можно уничтожать только предметы,", color := 40);
+			SendSysMessage(who, "размещённые командой decoratefacets.", color := 40);
 		elseif(!tgt.isA(POLCLASS_NPC) || !tgt.client)
 			DestroyItem( tgt);
 		else
-		SendSysMessage( who, "You can only destroy items", 1, 33 );
+		SendSysMessage( who, "Уничтожать можно только предметы", 1, 33 );
 		endif
 	endwhile
 endprogram

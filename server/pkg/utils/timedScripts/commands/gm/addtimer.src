@@ -13,7 +13,7 @@ program textcmd_AddTimer(who, params)
 	var level	:= CInt(params[3]);
 
 	if ( !timer_name || !duration )
-		SendSysMessage(who, "Command syntax .addtimer <duration> (level)");
+		SendSysMessage(who, "Синтаксис: .addtimer <длительность> (уровень)");
 		return 0;
 	elseif ( !level )
 		level := 1;

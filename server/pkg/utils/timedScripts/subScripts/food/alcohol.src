@@ -15,15 +15,15 @@ program TimedScript_Alcohol( params )
 	while( 1 )
 		cycle += 1;
 		if( cycle == 1 )
-			SendSysMessage( mobile, "You feel no effects from the alcohol." );
+			SendSysMessage( mobile, "Вы не чувствуете эффекта алкоголя." );
 		elseif( cycle == 5 )
-			SendSysMessage( mobile, "You think you might get drunk if you have anymore alcohol." );
+			SendSysMessage( mobile, "Ещё немного алкоголя — и вы опьянеете." );
 		elseif( cycle == 8 )
-			SendSysMessage( mobile, "You begin to feel a little buzzed." );
+			SendSysMessage( mobile, "Вы начинаете чувствовать лёгкое опьянение." );
 		elseif( cycle == 13 )
-			SendSysMessage( mobile, "You become drunk and stumble about." );
+			SendSysMessage( mobile, "Вы пьянеете и спотыкаетесь." );
 		elseif( cycle == 20 )
-			SendSysMessage( mobile, "You begin to feel ill from the alcohol." );
+			SendSysMessage( mobile, "Вам становится плохо от алкоголя." );
 		endif
 
 		var roll := RandomInt( 10 );
@@ -31,7 +31,7 @@ program TimedScript_Alcohol( params )
 			mobile.facing := RandomInt( 8 );
 			if( !RandomInt( 6 ) )
 				PlaySoundEffect( mobile, ( !mobile.gender ? 0x41E : 0x30F ) );
-				PrintTextAbove( mobile, "*Burps*" );
+				PrintTextAbove( mobile, "*рыгает*" );
 			else
 				PlaySoundEffect( mobile, ( !mobile.gender ? 0x42F : 0x31F ) );
 				PrintTextAbove( mobile, "*Hic*" );

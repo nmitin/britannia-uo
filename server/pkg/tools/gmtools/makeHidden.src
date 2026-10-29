@@ -5,7 +5,7 @@ program makhidden(who)
     if (who.cmdlevel < 2)
       return;
     endif
-    SendSysMessage( who, "Select an item to make hidden." );
+    SendSysMessage( who, "Выберите предмет, чтобы скрыть." );
     var item := Target( who, TGTOPT_NOCHECK_LOS );
     if (!item)
       SendSysMessage(who, "Выбор цели отменён.");

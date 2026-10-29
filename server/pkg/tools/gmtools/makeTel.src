@@ -8,7 +8,7 @@ program maketele(who)
     if (who.cmdlevel < 2)
       return;
     endif
-    SendSysMessage( who, "Select a rune to create teleporter from." );
+    SendSysMessage( who, "Выберите руну для создания телепортера." );
     var rune := Target( who, TGTOPT_NOCHECK_LOS );
     if (!rune)
       SendSysMessage(who, "Выбор цели отменён.");

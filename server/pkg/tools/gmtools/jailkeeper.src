@@ -16,7 +16,7 @@ program jailkeeper()
         if (ReadGameClock() >= CInt(relday))
           foreach person in ppl
             if (person.cmdlevel > 0)
-              SendSysMessage(person, "releasing account " + account + " from jail!");
+              SendSysMessage(person, "освобождаю аккаунт " + account + " из тюрьмы!");
             endif
           endforeach
           act.enable();

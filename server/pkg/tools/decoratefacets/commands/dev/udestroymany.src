@@ -15,11 +15,11 @@ program textcmd_udestroyRadius(who, text)
     endif
     range := CInt(text);
     if (range < 0 or range > 10)
-        SendSysMessage (who, "The range you specified is out of bounds. Defaulting to single item destroy mode.", color := 33);
+        SendSysMessage (who, "Диапазон вне границ. Режим уничтожения одного предмета.", color := 33);
         range := 1;
     endif
-	SendSysMessage(who, "This command only destroys items placed", color := 88);
-	SendSysMessage(who, "by the decoratefacets command", color := 88);
+	SendSysMessage(who, "Эта команда уничтожает только предметы,", color := 88);
+	SendSysMessage(who, "размещённые командой decoratefacets", color := 88);
 	SendSysMessage(who, "Press <esc> to exit.", color := 88);
     while(1)
 		trg := TargetCoordinates(who);

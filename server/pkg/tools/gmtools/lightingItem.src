@@ -8,13 +8,13 @@ program lighting(me,item)
 	SetScriptController( me );
 	if (item.color == 0x481)
 	  item.color := 0x455;
-	  SendSysMessage(me, "lighting is now off.");
+	  SendSysMessage(me, "освещение отключено.");
 	  return;
 	endif
 	item.color := 0x481;
     Detach();
 	while (item.color == 0x481)
-	  SendSysMessage(me, "maintaining light");
+	  SendSysMessage(me, "поддержание света");
       me.setlightlevel( 0, 60 );
 	  sleep(60);
 	endwhile

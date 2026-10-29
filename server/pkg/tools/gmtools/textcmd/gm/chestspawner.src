@@ -87,7 +87,7 @@ program chestspawner(who)
     duration[1, find(duration, ": ", 1)+1]:="";
     var newduration := (CInt(duration) * 60);
     if(newduration < 60)
-      SendSysMessage(who,"Duration Error: Aborting");
+      SendSysMessage(who,"Ошибка длительности: отмена");
       return;
     endif
     var item := CreateItemAtLocation(targ.x, targ.y, targ.z, 0x1888B, 1, who.realm);

@@ -7,12 +7,12 @@ program toggleops(who, unused item)
 	if(level > 0)
 		SetObjProperty(who, "OrigCmdLvl", level - 1);
 		who.cmdlevel := 0;
-		SendSysMessage(who, "You are now a player.", color := 66);
+		SendSysMessage(who, "Теперь вы игрок.", color := 66);
 	elseif(!GetObjProperty(who, "OrigCmdLvl") == "player")
 		who.cmdlevel := (GetObjProperty(who, "OrigCmdLvl") in cmd_levels) - 1;
-		SendSysMessage(who, "You have been restored to " + cmd_levels[who.cmdlevel - 1] + " level.", color := 66);
+		SendSysMessage(who, "Вам возвращён уровень " + cmd_levels[who.cmdlevel - 1] + " .", color := 66);
 	else
-		SendSysMessage(who, "There was a problem restoring your command level.", color := 33);
+		SendSysMessage(who, "Не удалось восстановить командный уровень.", color := 33);
 	endif
 	EraseObjProperty(who, "OrigCmdLvl");
 endprogram

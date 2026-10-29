@@ -111,7 +111,7 @@ function chestspawner(who)
     var newduration :=(CInt(duration) * 60);
     print("new " +newduration);
     if(newduration < 60)
-      SendSysMessage(who,"Duration Error: Aborting");
+      SendSysMessage(who,"Ошибка длительности: отмена");
       return;
     endif
     var item := CreateItemAtLocation(targ.x, targ.y, targ.z, 0x1888b, 1, who.realm);
@@ -133,20 +133,20 @@ function chestspawner(who)
 endfunction
 
 function createswitch(who);
-  SendSysMessage(who,"select the item to make a switch out of");
+  SendSysMessage(who,"выберите предмет для создания переключателя");
   var chest := Target(who);
   if(!chest)
     SendSysMessage(who,"отменено");
   else
     SetObjProperty(chest, "usescript", chest.usescript);
-    SendSysMessage(who, "You create a switch out of the item, be sure to change its graphic through the interface.");
+    SendSysMessage(who, "Вы создали переключатель; смените его графику через интерфейс.");
     chest.usescript := ":gmtools:lever";
   endif
 
 endfunction
 
 function lighting(who)
-  SendSysMessage(who,"Target the item you want wish to set this command to.");
+  SendSysMessage(who,"Укажите предмет, к которому привязать команду.");
   var targetitem :=Target(who);
   var oldscript := targetitem.script;
   SetObjProperty(targetitem,"oldscript", oldscript);
@@ -219,13 +219,13 @@ function mark(caster)
 		SetName(cast_on, "a Marked Recall Rune");
 		return 1;
 	else
-		SendSysMessage(caster, "You can only mark recall runes.", color := 33);
+		SendSysMessage(caster, "Отмечать можно только руны возврата.", color := 33);
 	endif
 //  maintaingump(caster);
 endfunction
 
 function recall(caster)
-  SendSysMessage(caster, "Select a rune to recall from.");
+  SendSysMessage(caster, "Выберите руну для возврата.");
   var cast_on := Target(caster);
   var tox := CInt(GetObjProperty(cast_on, "x"));
   var toy := CInt(GetObjProperty(cast_on, "y"));
@@ -241,7 +241,7 @@ function hideinferno(who, range)
     x.movable := 0;
 	i := i + 1;
   endforeach
-  SendSysMessage(who, "hid " + i + " infernos.");
+  SendSysMessage(who, "hid " + i + " адских ловушек.");
 
 endfunction
 
@@ -249,22 +249,22 @@ function showinferno(who, range)
   var i := 0;
   foreach x in ListItemsNearLocationOfType(who.x, who.y, who.z, range, 0x1888a, who.realm)
     x.graphic := 0x1ea7;
-	PrintTextAbove(x, "Hello, I am bringer of DOOM!");
+	PrintTextAbove(x, "Привет, я несущий ГИБЕЛЬ!");
 	i := i + 1;
   endforeach
-  SendSysMessage(who, "Revealed " + i + " infernos.");
+  SendSysMessage(who, "Обнаружено " + i + " адских ловушек.");
 
 endfunction
 
 function GMT_removetrap(who)
-	SendSysMessage(who,"Select the container you wish to completely untrap:", color := 88);
+	SendSysMessage(who,"Выберите контейнер, чтобы полностью снять ловушки:", color := 88);
 	var chest := Target(who);
 	if(!chest)
 		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
 	else
 		var untrapped := RemoveTrap(chest, "all");
 		if(untrapped.errortext)
-			SendSysMessage(who, "There were no traps on that container.", color := 40);
+			SendSysMessage(who, "На этом контейнере не было ловушек.", color := 40);
 		else
 			SendSysMessage(who, "Все ловушки удалены.", color := 66);
 		endif
@@ -278,7 +278,7 @@ function standard_trap(who, type)
 	var str := RequestGump(who, "Enter the trap strength (1, 2 or 3):", "Trap strength", "1", CANCEL_BTN_ON, 1);
 	str := CInt(str);
 	if(str)
-		SendSysMessage(who,"Select the container you wish to trap:", color := 88);
+		SendSysMessage(who,"Выберите контейнер для установки ловушки:", color := 88);
 		var chest := Target(who);
 		if(chest)
 			case(type)
@@ -300,7 +300,7 @@ function hidespawn(who, range)
     x.graphic := 0x0001;
 	i := i + 1;
   endforeach
-  SendSysMessage(who, "hid " + i + " spawnpoints.");
+  SendSysMessage(who, "hid " + i + " точек появления.");
 
 endfunction
 
@@ -308,15 +308,15 @@ function showspawn(who, range)
   var i := 0;
   foreach x in ListItemsNearLocationOfType(who.x, who.y, who.z, range, 0x1A401, who.realm)
     x.graphic := 0x1ea7;
-	PrintTextAbove(x, "Hello, I am a spawnpoint!");
+	PrintTextAbove(x, "Привет, я точка появления!");
 	i := i + 1;
   endforeach
-  SendSysMessage(who, "Revealed " + i + " spawnpoints.");
+  SendSysMessage(who, "Обнаружено " + i + " точек появления.");
 
 endfunction
 
 function spawnpoint(who)
-  SendSysMessage(who,"where would you like to create it?");
+  SendSysMessage(who,"где это создать?");
   var tar := TargetCoordinates(who);
   if(!tar)
     SendSysMessage(who,"отменено");
@@ -328,7 +328,7 @@ function spawnpoint(who)
 endfunction
 
 function setinfernotrap(who)
-  SendSysMessage(who,"set it where");
+  SendSysMessage(who,"укажите место");
   var where := TargetCoordinates(who);
   CreateItemAtLocation(where.x, where.y, where.z, 0x1888a, 1, who.realm);
   Detach();
@@ -337,12 +337,12 @@ endfunction
 
 function setsummonnpc(who)
   var mobilearray := {};
-  SendSysMessage(who,"target the NPC you wish to call from the item");
+  SendSysMessage(who,"укажите NPC, которого вызывать из предмета");
   var npctarget := Target(who);
   if(!npctarget.isA(POLCLASS_NPC))
-    SendSysMessage(who,"that is not a NPC");
+    SendSysMessage(who,"это не NPC");
   else
-    SendSysMessage(who,"Now target the item you want wish to call the npc from");
+    SendSysMessage(who,"Теперь укажите предмет, из которого вызывать NPC");
     var targetitem :=Target(who);
     var oldscript := targetitem.script;
     SetObjProperty(targetitem,"oldscript", oldscript);
@@ -355,11 +355,11 @@ endfunction
 
 function setsummongroup(who)
   var mobilearray := {};
-  SendSysMessage(who,"to define the NPCs you wish to summon, the script will ask you to target 2 coordinates that it uses to create a box around the npcs");
-  SendSysMessage(who,"the script will now ask you to choose the coordinates to create that box");
-  SendSysMessage(who,"target the northwest corner of area your NPCs are stored");
+  SendSysMessage(who,"чтобы задать NPC, укажите две координаты — скрипт создаст вокруг них область");
+  SendSysMessage(who,"скрипт попросит координаты этой области");
+  SendSysMessage(who,"укажите северо-западный угол области с NPC");
   var boxnw := TargetCoordinates(who);
-  SendSysMessage(who,"now target the southwest corner of the ares your NPCs are stored");
+  SendSysMessage(who,"теперь укажите юго-западный угол области с NPC");
   var boxse := TargetCoordinates(who);
   var box := ListObjectsInBox(boxnw.x, boxnw.y, boxnw.z, boxse.x, boxse.y, boxse.z, who.realm);
   foreach item in box
@@ -367,7 +367,7 @@ function setsummongroup(who)
       mobilearray.append(item.serial);
     endif
   endforeach
-  SendSysMessage(who,"Now target the item you want wish to call the npc from");
+  SendSysMessage(who,"Теперь укажите предмет, из которого вызывать NPC");
   var targetitem :=Target(who);
   var oldscript := targetitem.script;
   SetObjProperty(targetitem,"oldscript", oldscript);
@@ -377,7 +377,7 @@ function setsummongroup(who)
 endfunction
 
 function setgomenu(who)
-  SendSysMessage(who,"Target the item you want wish to set this command to.");
+  SendSysMessage(who,"Укажите предмет, к которому привязать команду.");
   var targetitem :=Target(who);
   var oldscript := targetitem.script;
   SetObjProperty(targetitem,"oldscript", oldscript);
@@ -387,9 +387,9 @@ endfunction
 
 function itemaddset(who)
   var range := CInt(SendTextEntryGump(who, "what range do you want to search for items", 40));
-  SendSysMessage(who,"select an item to add this set to");
+  SendSysMessage(who,"выберите предмет, к которому добавить набор");
   var targetitem := Target(who);
-  SendSysMessage(who, "Select the center of the set area(radius " + range + ")");
+  SendSysMessage(who, "Выберите центр области набора (радиус " + range + ")");
   var whereleft := TargetCoordinates(who);
   var stuff := ListItemsNearLocation(whereleft.x,whereleft.y,whereleft.z, CInt(range), who.realm);
   var numthings := 1;
@@ -417,7 +417,7 @@ function itemaddset(who)
 endfunction
 
 function setmakehidden(who)
-  SendSysMessage(who,"Target the item you want wish to set this command to.");
+  SendSysMessage(who,"Укажите предмет, к которому привязать команду.");
   var targetitem :=Target(who);
   var oldscript := targetitem.script;
   SetObjProperty(targetitem,"oldscript", oldscript);
@@ -426,7 +426,7 @@ function setmakehidden(who)
 endfunction
 
 function setcrimflagging(who)
-  SendSysMessage(who,"Target the item you want wish to set this command to.");
+  SendSysMessage(who,"Укажите предмет, к которому привязать команду.");
   var targetitem :=Target(who);
   var oldscript := targetitem.script;
   SetObjProperty(targetitem,"oldscript", oldscript);
@@ -445,7 +445,7 @@ function setcrimflagging(who)
 endfunction
 
 function setitemtodefaults(who)
-  SendSysMessage(who,"target the item you wish to return to normal");
+  SendSysMessage(who,"укажите предмет, который вернуть в обычное состояние");
   var targetitem := Target(who);
   var scrip := GetObjProperty(targetitem,"oldscript");
   EraseObjProperty(targetitem,"oldscript");
@@ -514,7 +514,7 @@ function info(who, character, unused trg)
     character := SystemFindObjectBySerial(character, SYSFIND_SEARCH_OFFLINE_MOBILES);
   endif
   if(!character)
-     SendSysMessage(who, "That player does not exist. Cancelled.");
+     SendSysMessage(who, "Такого игрока нет. Отмена.");
   else
     infodata[1] := "Info On: " + character.name;
     FillInStats(character);
@@ -541,10 +541,10 @@ function info(who, character, unused trg)
       13:
       15: EditStat(who, character, result[0]);
       16: EditSkill(who, character, reskey-1000);
-      17: character.frozen := 1; SendSysMessage(who, character.name + " is frozen.");
-      18: character.frozen := 0; SendSysMessage(who, character.name + " is unfrozen.");
+      17: character.frozen := 1; SendSysMessage(who, character.name + " заморожен.");
+      18: character.frozen := 0; SendSysMessage(who, character.name + " разморожен.");
       19: if(!character.isA(POLCLASS_NPC))
-            SendSysMessage(character, "You were kicked by " + who.name + ".");
+            SendSysMessage(character, "Вас выгнал " + who.name + ".");
             DisconnectClient(character);
           endif
       20: MoveObjectToLocation(character, 5288, 1176, 0, "britannia");

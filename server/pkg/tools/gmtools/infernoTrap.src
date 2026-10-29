@@ -23,7 +23,7 @@ program infernotrap(who, item)
     return;
   endif
   SetObjProperty(item,"#isrunning", 1);
-  PrintTextAbove(item,"you step on a trigger and set off a trap!");
+  PrintTextAbove(item,"вы наступаете на механизм и активируете ловушку!");
   summoninferno(item);
   sleep(40);
   EraseObjProperty(item,"#isrunning");

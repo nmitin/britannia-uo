@@ -11,7 +11,7 @@ program grey(me, item)
 	SetScriptController( me );
 	if (item.color == 910)
 	  item.color := 88;
-	  SendSysMessage(me, "Criminal flag will expire in under two minutes.");
+	  SendSysMessage(me, "Флаг преступника истечёт менее чем через две минуты.");
 	  return;
 	endif
 	item.color := 910;
@@ -24,19 +24,19 @@ program grey(me, item)
       boy.squelch(0);
     Detach();
 	if (!boy)
-	  SendSysMessage(me,"Sorry, unable to create the whipping boy");
+	  SendSysMessage(me,"Извините, не удалось создать мальчика для битья");
 	  item.color := 88;
 	  return;
 	else
       boy.frozen := 1;
 	  set_critical(0);
-	  SendSysMessage(me, "You are now flagged criminal");
+	  SendSysMessage(me, "Вы отмечены как преступник");
 	  ApplyDamage(boy,1);
 	  AP_SetVital(boy, VITALID_LIFE, boy.maxhp);
 	  sleep(120);
 	endif
 	while (item.color == 910)
-	  SendSysMessage(me, "Still grey");
+	  SendSysMessage(me, "Всё ещё серый");
 	  ApplyDamage(boy,1);
 	  AP_SetVital(boy, VITALID_LIFE, boy.maxhp);
 	  sleep(120);
@@ -45,5 +45,5 @@ program grey(me, item)
 	RevokePrivilege( boy, "invul" );
 	SetObjProperty(boy,"guardkill",1);
 	KillMobile(boy);
-	SendSysMessage(me, "Criminal flag has expired");
+	SendSysMessage(me, "Флаг преступника истёк");
 endprogram

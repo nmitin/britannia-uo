@@ -12,7 +12,7 @@ program textcmd_lowerTimer(who, params)
 	var amount	:= CInt(params[2]);
 
 	if ( !timer_name || !amount )
-		SendSysMessage(who, "Command syntax: .lowertimer <timer name> <amount>");
+		SendSysMessage(who, "Синтаксис: .lowertimer <имя таймера> <количество>");
 		return 0;
 	endif
 

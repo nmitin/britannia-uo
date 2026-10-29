@@ -93,7 +93,7 @@ program textcmd_CommandBar( mobile )
 			ICP_SaveUserSetting( mobile, "Movable", input[MOVABLE_CHK] );
 			ICP_SaveUserSetting( mobile, "Transparent", input[TRANSPARENT_CHK] );
 			ICP_SaveUserSetting( mobile, "NoCmdBarLogin", (input[LOGIN_CHK] == error ));
-			GumpPrompt( mobile, "Settings updated." );
+			GumpPrompt( mobile, "Настройки обновлены." );
 		elseif( input[0] >= CMD_START )
 			var command := commands[cur_pkg][cur_lvl][input[0]-CMD_START];
 			var result := StartCommand( mobile, cur_pkg, cur_lvl, command );
@@ -156,7 +156,7 @@ endfunction
 function StartCommand( mobile, cur_pkg, cur_lvl, command )
 
 	if( cur_lvl > mobile.cmdlevel )
-		GumpPrompt( mobile, "Your command level is not high enough." );
+		GumpPrompt( mobile, "Ваш командный уровень недостаточен." );
 		return 0;
 	endif
 
@@ -164,7 +164,7 @@ function StartCommand( mobile, cur_pkg, cur_lvl, command )
 	var script := Start_Script( path, mobile );
 
 	if( script.errortext )
-		GumpPrompt( mobile, "Failed to start "+path+" [P] "+script.errortext );
+		GumpPrompt( mobile, "Не удалось запустить "+path+" [P] "+script.errortext );
 		return 0;
 	else
 		return 1;

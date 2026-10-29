@@ -20,7 +20,7 @@ endprogram
 function FillInArrays( tname )
     var telelocations := ReadConfigFile("::golocs");
     if (!telelocations)
-      SendSysMessage(who,"no telelocations");
+      SendSysMessage(who,"нет мест телепортации");
     endif
     var datalen;
     var layoutlen;
@@ -29,7 +29,7 @@ function FillInArrays( tname )
     var buttonret := 1;
     var i;
     var numlocations := GetConfigMaxIntKey(telelocations);
-    SendSysMessage(who,"numlocations is: " + numlocations);
+    SendSysMessage(who,"количество мест: " + numlocations);
     var currloc;
     for( i := 1; i <= numlocations; i := i + 1  )
       currloc := telelocations[i];

@@ -10,13 +10,13 @@ program MOTD(who, text)
 		var data_elem := DFFindElement(data_file, who.acctname, DF_CREATE);
 		
 		if ( text == "off" )
-			SendSysMessage(who, "'Messages of the day' will no longer pop up on login.");
+			SendSysMessage(who, "«Сообщения дня» больше не будут появляться при входе.");
 			data_elem.SetProp("noshow", 1);
 		elseif ( text == "on" )
-			SendSysMessage(who, "'Messages of the day' will pop up on login.");
+			SendSysMessage(who, "«Сообщения дня» будут появляться при входе.");
 			data_elem.EraseProp("noshow");
 		else
-			SendSysMessage(who, "Syntax: .motd on off");
+			SendSysMessage(who, "Синтаксис: .motd on off");
 		endif
 	else
 		Start_Script("motd", who);

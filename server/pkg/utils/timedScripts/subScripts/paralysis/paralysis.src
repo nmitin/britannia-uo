@@ -17,7 +17,7 @@ program TimedScript_Paralysis(params)
 	var cliloc_desc :=  CInt(ts_cfg_elem.cliloc_desc);
 
 	PlaySoundEffect(defender, 0x205);
-	SendSysMessage(defender, "You are unable to move.");
+	SendSysMessage(defender, "Вы не можете двигаться.");
 	defender.addbuff(buff_icon, duration, cliloc_name, cliloc_desc, "");
 	while ( defender )
 		defender.paralyzed := 1;
