@@ -1,0 +1,14 @@
+use uo;
+use os;
+
+include ":mounts:mounts";
+
+program DismountCharacter(who)
+
+	var mount := GetEquipmentByLayer(who, 25);
+	if(mount)
+		MP_Unmount(who);
+	endif
+
+endprogram
+

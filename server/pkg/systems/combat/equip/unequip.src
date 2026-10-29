@@ -1,0 +1,130 @@
+use uo;
+use os;
+use cfgfile;
+
+include "include/client";
+include ":attributes:attributes";
+include ":damage:damage";
+
+const EVID_UNEQUIP   := 0x123456;
+
+program unequip(who, item)
+
+	// Handle guild color changes of items being equipped, if needed.
+	var guild_color := who.guild.getprop("GuildColor");
+	if( who.guild )
+		if( (item.color != guild_color) && (item.getprop("GuildColor") >= 0) )
+			item.color := guild_color;
+			if( !guild_color )
+				item.eraseprop("GuildColor");
+			else
+				item.setprop("GuildColor", guild_color);
+			endif
+			SendSysMessage( who, "That item's color has been changed to reflect your guild's current color.", color := 88 );
+		endif
+	endif
+
+
+	set_critical(1);
+	var itemdesc := ReadConfigFile("itemdesc");
+	var penalty := CInt(itemdesc[item.objtype].DexPenalty);
+	if(penalty)
+		EraseObjProperty(item, "#equipped");
+		AP_SetStatMod(who, DEXTERITY, AP_GetStatMod(who, DEXTERITY) + penalty);
+	endif
+	var type := GetObjProperty(item,"type");
+	var val := 0;
+	case(type)
+		"accuracy":     val := accuracy(who,item);
+		"cursed":       val := cursed(who,item);
+		"sight":        val := sight(who,item);
+		"reflect":      val := reflect(who,item);
+		"protection":   val := protection(who,item);
+		"wizzohat":     val := wizzohat(who,item);
+		"strength":     val := strengthRemove(who,item);
+		"invisibility": val := invisibility(who, item);
+		default:        val := 1;
+	endcase
+
+	if( item.IsA( POLCLASS_WEAPON ) )
+		SetObjProperty( who, "#LastWeapon", item.serial );
+	endif
+
+	return val;
+	set_critical(0);
+endprogram
+
+function strengthRemove(who,item)
+  RemoveMods(who, item);
+  return 1;
+endfunction
+
+function wizzohat(who,item)
+  AP_SetStatMod(who, INTELLIGENCE, AP_GetStatMod(who, INTELLIGENCE) - 10);
+  AP_SetStatMod(who, STRENGTH, AP_GetStatMod(who, STRENGTH) + 5);
+  AP_SetStatMod(who, DEXTERITY, AP_GetStatMod(who, DEXTERITY) + 5);
+  EraseObjProperty(item, "#equipped");
+  return 1;
+endfunction
+
+function cursed(who,item)
+// Someday items will have a cursed property and this function will be relevant.
+who := who;
+item := item;
+  return 0;
+endfunction
+
+function invisibility(who,item)
+  RemoveMods(who, item);
+  return 1;
+endfunction
+
+function sight(who,item)
+  RemoveMods(who, item);
+  return 1;
+endfunction
+
+function reflect(who,item)
+  RemoveMods(who, item);
+  return 1;
+endfunction
+
+function accuracy(who,item)
+  if(GetObjProperty(item, "#equipped") == who.serial)
+    var amt := CInt(GetObjProperty(item,"gain"));
+    amt := (0 - amt);
+    if((!amt) || (amt == 0))
+      amt := (0 - 5);
+    endif
+    var cfg := ReadConfigFile(":combat:itemdesc");
+    var attrib := cfg[item.objtype].Attribute;
+    case(attrib)
+      "Wrestling": ModifyAttributeTemporaryMod(who, WRESTLING,     amt);
+      "Fencing":   ModifyAttributeTemporaryMod(who, FENCING,       amt);
+      "Archery":   ModifyAttributeTemporaryMod(who, ARCHERY,       amt);
+      "Swords":    ModifyAttributeTemporaryMod(who, SWORDSMANSHIP, amt);
+      "Mace":      ModifyAttributeTemporaryMod(who, MACEFIGHTING,  amt);
+    endcase
+    EraseObjProperty(item, "#equipped");
+    return 1;
+  else
+    return 1;
+  endif
+
+endfunction
+
+function protection(who,item)
+  RemoveMods(who, item);
+  return 1;
+endfunction
+
+function RemoveMods(who, item)
+  var proc := GetProcess(GetObjProperty(item, "Pid"));
+  who := who;
+  if(proc)
+    var ev := {};
+    ev.+type := EVID_UNEQUIP;
+    proc.sendevent(ev);
+  endif
+  EraseObjProperty(item, "#equipped");
+endfunction

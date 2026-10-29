@@ -1,0 +1,15 @@
+use uo;
+
+include ":gumps:selectionGump";
+
+program textcommand_online(who)
+
+	var online_players := EnumerateOnlineCharacters();
+	var online_players_names := {};
+	foreach person in online_players
+		online_players_names.append(person.name);
+	endforeach
+	SelectionGump( who, "Online Players:", online_players_names, BTN_NOTYPE );
+
+endprogram
+

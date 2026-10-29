@@ -1,0 +1,40 @@
+use cliloc;
+
+include ":alchemy:drinkPotion";
+include ":timedScripts:timedScripts";
+include ":timedScripts:poisonUtil";
+include ":itemUtils:itemdesc";
+
+program use_orangepotion(who, potion)
+
+	if( (!potion.movable) || !ReserveItem(potion) )
+		SendSysMessageCL(who, 501973, {}, 3, 33); // You cannot use that.
+		return 0;
+	elseif( !(potion in EnumerateItemsInContainer(who.backpack)) )
+		SendSysMessageCL(who, 1042593, {}, 3, 33); // That is not in your backpack.
+		return 0;
+	endif
+	var potion_info := GetItemDescInfo(GetObjtype( potion ));
+
+
+	EraseObjProperty(who, "#IsMeditating");
+	EraseObjProperty(who, "#HealTimer");
+
+	if( !CheckToDrink(who, "#orange") )
+		return 0;
+	endif
+
+	var potion_strength := 1;
+	case(potion_info.Name)
+		"lessercure": potion_strength := 1;
+		"curepotion": potion_strength := 2;
+		"greatercure": potion_strength := 3;
+	endcase
+	empty_bottle(who, potion);
+	if( TS_GetTimerNames(who, "P").size() > 0 )
+		PlaySoundEffect(who, SOUND_EFFECT_CURE);
+		PlayObjectCenteredEffect(who, EFFECT_SPARKLE, 10, 10);
+		TS_CurePoison(who, 120, "P", potion_strength);
+	endif
+
+endprogram

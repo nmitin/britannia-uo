@@ -1,0 +1,54 @@
+
+use uo;
+use os;
+
+include "include/client";
+include "include/objtype";
+//include "include/itemtypes";
+
+///////////////////
+//  set the bag into which the crafted items will go
+///////////////////
+
+program SetCraftBag (who)
+	SendSysMessage (who, "Select a container in which to place crafted or harvested items.", color := 88);
+	SendSysMessage (who, "Target yourself or press <esc> to use your main pack.", color := 88);
+	var bag := Target(who);
+	if (!bag)
+		SendSysMessage (who, "Crafted or harvested items will be placed in your backpack.", color := 66);
+		EraseObjProperty (who, "craftingbagserial");
+		return;
+	endif
+
+	if (bag == who)
+		SendSysMessage (who, "Crafted or harvested items will be placed in your main backpack.", color := 66);
+		EraseObjProperty (who, "craftingbagserial");
+		return;
+	endif
+
+	if (!InInventory (who.backpack, bag) )
+		SendSysMessage (who, "That is not in your inventory.", color := 33);
+		return;
+	endif
+
+	if (!bag.isa (POLCLASS_CONTAINER) )
+				SendSysMessage (who, "You can't put anything in that!", color := 33);
+				return 0;
+	endif
+
+	SetObjProperty (who, "craftingbagserial", bag.serial);
+	SendSysMessage (who, "Anything you craft or harvest will now go into that container.", color := 66);
+endprogram
+
+function InInventory(byref inventory, byref it)
+
+	foreach item in EnumerateItemsInContainer(inventory)
+		if (item == it)
+			return 1;
+		endif
+	endforeach
+
+	return 0;
+
+endfunction
+

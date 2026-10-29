@@ -1,0 +1,29 @@
+/*
+        Maintained by The POL Distro Team
+
+        2018-07-25
+*/
+use uo;
+
+include ":attributes:attributes";
+
+program textcmd_RefreshVitals( who, text )
+
+	var targ, time := 86400;
+	if( text == "me" )
+		targ := who;
+	else
+		SendSysMessage( who, "Select a mobile." );
+		targ := Target( who, TGTOPT_NOCHECK_LOS );
+		if( !targ.IsA( POLCLASS_MOBILE ))
+			SendSysMessage( who, "Cancelled." );
+			return 0;
+		endif
+		time := 3600;
+	endif
+
+	AP_RefreshVitals( targ );
+	targ.SetLightLevel( 0, time );
+
+	SendSysMessage( who, "Done." );
+endprogram

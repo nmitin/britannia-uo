@@ -1,0 +1,19 @@
+use os;
+use uo;
+
+include "include/client";
+include ":attributes:attributes";
+
+program textcmd_setskill( who, text )
+
+	if( !CInt( text ) || !text )
+		text := 100;
+	endif
+
+	foreach attribute in ( AP_ListAttributesByType( "skill" ) )
+		SetAttributeBaseValue( who, attribute, CInt( text*10 ) );
+		SleepMS( 5 );
+	endforeach
+	who.SetLightLevel( 0, 86400 );
+
+endprogram

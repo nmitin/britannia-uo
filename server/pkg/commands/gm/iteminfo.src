@@ -1,0 +1,491 @@
+use uo;
+use os;
+
+include ":gumps:gumps";
+include ":gumps:gumpPrompt";
+include ":gumps:requestGump";
+include ":gumps:yesNo";
+include ":itemutils:itemdesc";
+include "include/uo_extend";
+
+CONST START_Y	:= 45;   // These are to track the display area height.
+CONST END_Y	:= 410;  // These are to track the display area height.
+CONST MENU_BTN	:= 0xF000; // Value of the first menu button.
+
+// Storing these globally just makes the script easier to use...
+var info_cfg;			// info.cfg
+var index_list; 		// info.cfg "Index" lines from Settings elem
+var template;			// Template gump (so it doesn't need to be rebuilt)
+
+var btn_list := Array;	// Stores button information for the current gump (since its so dynamic)
+var btn_info := Struct{ "editFunc", "name" }; // Individual button tracking that goes into the btn_list array.
+
+program textcmd_itemInfo( mobile, serial )
+
+	if( TypeOfInt( mobile ) == OT_ARRAY )
+		serial := mobile[2];
+		mobile := mobile[1];
+	endif
+
+	info_cfg := ReadConfigFile( ":commands:itemInfo" );
+	if( !info_cfg )
+		SendSysMessage( mobile, "Error reading in iteminfo.cfg ->"+info_cfg, 0x3, 0x22 );
+		return 0;
+	else
+		index_list := GetConfigStringArray( info_cfg["Index"], "Index" );
+	endif
+
+	var targ;
+	if( serial )
+		serial := CInt( serial );
+		if( serial && TypeOfInt( serial ) == OT_LONG )
+			targ := SystemFindObjectBySerial( CInt( serial ) );
+		elseif( serial.IsA( POLCLASS_ITEM ) )
+			targ := serial;
+		endif
+	else
+		targ := TargetCoordinates( mobile ).item;
+	endif
+
+	if( !targ.IsA( POLCLASS_ITEM ) )
+		SendSysMessage( mobile, "Invalid selection.", 0x3, 0x32 );
+		return 0;
+	endif
+
+	template := GumpTemplate( targ );
+	var cur_gump := 1;
+
+	while( 1 )
+		var gump := BuildGump( mobile, targ, cur_gump );
+		var input := GFSendGump( mobile, gump );
+		input := input[0];
+
+		if( input >= MENU_BTN )
+			cur_gump := input - MENU_BTN;
+			btn_list.Shrink( 0 ); // New panel, reset button tracking.
+		elseif( input > 0 )
+			ProcessInput( mobile, targ, input );
+		endif
+
+		if( !input )
+			break;
+		elseif( !mobile.connected )
+			break;
+		elseif( !cur_gump )
+			break;
+		endif
+	endwhile
+endprogram
+
+function BuildGump( mobile, targ, index_num )
+
+	var index := index_list[index_num];
+	var gump := template;
+	var cfg_elem := info_cfg["Index-"+index];
+	var groups := GetConfigStringArray( cfg_elem, "Group" );
+	var y_pos := START_Y;
+	BuildEntries( mobile, targ, gump, cfg_elem, y_pos );
+	foreach group in ( groups )
+		var group_elem := info_cfg[group];
+		BuildEntries( mobile, targ, gump, group_elem, y_pos );
+		SleepMS( 2 );
+	endforeach
+
+	return gump;
+endfunction
+
+function BuildEntries( mobile, targ, byref gump, byref cfg_elem, byref y_pos )
+
+	var entries := GetConfigStringArray( cfg_elem, "Entry" );
+	if( entries.Size() < 1 )
+		return 0;
+	endif
+
+	if( cfg_elem.AutoBox )
+		var num_entries := entries.Size();
+		var height := num_entries*22;
+		GFPicTiled( gump, 177, y_pos, 405, height+4, 2624 );
+		GFPicTiled( gump, 179, y_pos+2, 401, height, 3004 );
+		y_pos+=2;
+	endif
+
+	foreach entry in ( entries )
+		entry := SplitWords( entry, " " );
+		case( Lower( entry[1] ) )
+			"member":
+			"custom":
+				DisplayMember( mobile, targ, gump, entry, y_pos );
+				break;
+			"text":
+				var text := "";
+				entry.Erase( 1 );
+				foreach line in ( entry )
+					text := text+" "+line;
+					SleepMS( 2 );
+				endforeach
+				GFHTMLArea( gump, 184, y_pos, 401, 36, "<BASEFONT COLOR=#293959><DIV ALIGN=CENTER>"+text, 0, 0 );
+				y_pos += 22;
+				break;
+			"displaygeneral":
+				DisplayGeneral( targ, gump, y_pos );
+				break;
+			"blank":
+				var buffer := CInt( entry[2] );
+				if( !buffer )
+					buffer := 22;
+				endif
+				y_pos := y_pos+buffer;
+				break;
+			default:
+				GFHTMLArea( gump, 184, y_pos, 401, 36, "<BASEFONT COLOR=#293959><DIV ALIGN=CENTER>"+entry, 0, 0 );
+				y_pos += 22;
+				break;
+		endcase
+		SleepMS( 2 );
+	endforeach
+	y_pos+=5;
+
+	return 1;
+endfunction
+
+function DisplayMember( mobile, targ, byref gump, byref entry, byref y_pos )
+
+	if( entry[5] )
+		var btn_id := 0;
+		if( Lower( entry[5] ) == "boolean" )
+			btn_id := GFAddButton( gump, 184, y_pos, 4020, 4022, GF_CLOSE_BTN );
+		else
+			btn_id := GFAddButton( gump, 184, y_pos, 4011, 4013, GF_CLOSE_BTN );
+		endif
+		RegisterButton( btn_id, entry[3], entry[5] );
+		GFHTMLArea( gump, 219, y_pos+3, 100, 36, "<DIV ALIGN=LEFT>"+ParseEntryName( entry[2] ), 0, 0 );
+	else
+		GFHTMLArea( gump, 184, y_pos, 120, 36, "<DIV ALIGN=LEFT>"+ParseEntryName( entry[2] ), 0, 0 );
+	endif
+
+	var value := "";
+	if( Lower( entry[1] ) == "member" )
+		value := ParseMembers( mobile, targ, entry[3] );
+	else
+		value := GetCustom( targ, entry[2] );
+	endif
+	if( value == error )
+		value := "None";
+	endif
+
+	case( Lower( entry[4] ) )
+		"binary":
+			value := Bin( CInt( value ) );
+			break;
+		"double":
+			value := CDbl( value );
+			break;
+		"hex":
+			value := Hex( value );
+			break;
+		"script":
+			value := ParseScriptName( value );
+			break;
+	endcase
+	GFHTMLArea( gump, 314, y_pos+3, 260, 36, "<DIV ALIGN=RIGHT>"+value, 0, 0 );
+
+	y_pos += 22;
+	return 1;
+endfunction
+
+function DisplayWeaponInfo( targ, byref gump, byref entry, byref y_pos )
+
+	var weapon := targ.weapon;
+	case ( Lower( entry[1] ) )
+		"weaponspeed":
+		"damagedice":
+		"averagedamage":
+	endcase
+
+	y_pos += 20;
+
+	return 1;
+endfunction
+
+function DisplayGeneral( targ, byref gump, byref y_pos )
+
+	var isa_types := GetIsAType( targ, ISA_GET_ALL ),
+		i:=0;
+	isa_types.Reverse();
+	var class_names := "Object Class Tree:\n";
+	foreach type in ( isa_types )
+		type := GetIsAName( type );
+		for( i:=0; i<=_type_iter; i++ )
+			class_names+=" ";
+		endfor
+		if( _type_iter != isa_types.Size() )
+			class_names+=type+"\n";
+		else
+			class_names+="<BASEFONT COLOR=#3E5929>"+type+"</BASEFONT>";
+		endif
+		SleepMS( 2 );
+	endforeach
+
+	GFHTMLArea( gump, 177, y_pos, 405, 100, class_names, 1, 1 );
+	y_pos += 103;
+	GFPicTiled( gump, 177, y_pos, 405, 159, 2624 );
+	GFPicTiled( gump, 179, y_pos+2, 401, 155, 3004 );
+	GFTilePic( gump, 340, y_pos+55, targ.graphic, targ.color );
+	y_pos += 162;
+
+	return 1;
+endfunction
+
+function ParseEntryName( entry_name )
+
+	while ( entry_name["_"] )
+		entry_name["_"] := " ";
+		SleepMS( 2 );
+	endwhile
+
+	return entry_name;
+endfunction
+
+function ParseMembers( unused mobile, targ, members, new_val:=error )
+
+	members := SplitWords( members, "." );
+	var result := targ;
+	foreach member in ( members )
+		var temp := result.Get_Member( member );
+
+		if( new_val != error && _member_iter == members.Size() )
+			var	typeof_str := "";
+			if( new_val == "NULL" )
+				new_val := "";
+			endif
+			case( TypeOfInt( temp ) )
+				OT_LONG:	new_val := CInt( new_val ); typeof_str := "integer"; break;
+				OT_STRING:	new_val := CStr( new_val ); typeof_str := "string"; break;
+				OT_DOUBLE:	new_val := CDbl( new_val ); typeof_str := "double"; break;
+				default:
+					return error{ "errortext":="'"+typeof_str+"' is not a supported data type." };
+			endcase
+			return result.Set_Member( member, new_val );
+		elseif( temp == error )
+			return error;
+		else
+			result := temp;
+		endif
+
+		SleepMS( 2 );
+	endforeach
+
+	return result;
+endfunction
+
+function GetCustom( targ, property )
+
+	case( Lower( property ) )
+		"weapon_speed":
+			return GetItemDescInfo( targ.objtype ).Speed;
+		"damage_dice":
+			return GetItemDescInfo( targ.objtype ).Damage;
+		"average_damage":
+			var weapon_desc := GetItemDescriptor( targ.objtype );
+			return CInt( weapon_desc.MinDamage + ( weapon_desc.MaxDamage / 2 ) );
+	endcase
+
+	return "Unknown custom type!";
+endfunction
+
+function ParseScriptName( path )
+
+	while( path["/"] )
+		var pos := Find( path, "/", 1 );
+		path[1, pos] := "";
+		SleepMS( 2 );
+	endwhile
+
+	return path;
+endfunction
+
+function GumpTemplate( targ )
+
+	var gump := GFCreateGump( 50, 50 );
+	GFPage( gump, 0 );
+	GFResizePic( gump, 0, 0, 9250, 600, 530 );
+	GFPicTiled( gump, 13, 13, 574, 504, 3004 );
+	GFHTMLArea( gump, 18, 18, 564, 36, "<DIV ALIGN=CENTER>"+targ.desc, 0, 0 );
+
+	GFPicTiled( gump, 18, 45, 154, 467, 2624 );
+	GFPicTiled( gump, 20, 47, 150, 463, 3004 );
+	var y_pos := 52;
+	foreach entry in ( index_list )
+		GFAddButton( gump, 20, (y_pos), 4005, 4007, GF_CLOSE_BTN, (MENU_BTN+_entry_iter ) );
+		GFHTMLArea( gump, 55, y_pos+3, 110, 36, "<DIV ALIGN=LEFT>"+entry, 0, 0 );
+		y_pos += 22;
+		SleepMS( 2 );
+	endforeach
+	GFPage( gump, 1 );
+
+	return gump;
+endfunction
+
+function RegisterButton( btn_id, name, edit_function )
+
+	btn_info.editFunc := edit_function;
+	btn_info.name := name;
+	btn_list[btn_id] := btn_info;
+
+	return 1;
+endfunction
+
+function ProcessInput( mobile, targ, input )
+
+	var input_info := btn_list[input];
+	case ( Lower( CStr( input_info.editFunc ) ) )
+		"amountedit":
+			AmountEdit( mobile, targ, input_info );
+			break;
+		"boolean":
+			BoolEdit( mobile, targ, input_info );
+			break;
+		"coordedit":
+			CoordEdit( mobile, targ, input_info );
+			break;
+		"propedit":
+			PropEdit( mobile, targ, input_info );
+			break;
+		"methodedit":
+			MethodEdit( mobile, targ, input_info );
+			break;
+		default:
+			GumpPrompt( mobile, "Dont know what to do with edit function type '"+input_info.editFunc+"'" );
+			break;
+	endcase
+
+	return 0;
+endfunction
+
+function BoolEdit( mobile, targ, input_info )
+
+	var value := ParseMembers( mobile, targ, input_info.name );
+	ParseMembers( mobile, targ, input_info.name, ( value ? 0 : 1 ) );
+	IncRevision( targ );
+
+	return 1;
+endfunction
+
+function PropEdit( mobile, targ, input_info )
+
+	var value := ParseMembers( mobile, targ, input_info.name );
+	var change := RequestGump(mobile, "New value to assign "+input_info.name+" to.", "'NULL' to set as non-value.", CStr(value), CANCEL_BTN_ON);
+	if( change != error )
+		ParseMembers( mobile, targ, input_info.name, change );
+	endif
+	IncRevision( targ );
+
+	return 1;
+endfunction
+
+function CoordEdit( mobile, targ, input_info )
+
+	var value := ParseMembers( mobile, targ, input_info.name );
+	var change := RequestGump(mobile, "New value to assign "+input_info.name+" to.", "", CStr(value), CANCEL_BTN_ON);
+	if( change == error )
+		return 0;
+	endif
+
+	if( input_info.name == "realm" )
+		if( !VerifyRealmName( change ) )
+			GumpPrompt( mobile, "Invalid Realm name, valid realm names include: "+Realms().Keys() );
+			return 0;
+		endif
+	else
+		if( !VerifyCoordinateString( change ) )
+			GumpPrompt( mobile, "'"+input_info.name+"' can only be an integer value." );
+			return 0;
+		endif
+	endif
+
+	var x := targ.x;
+	var y := targ.y;
+	var z := targ.z;
+	var realm := targ.realm;
+	case ( Lower( input_info.name ) )
+		"x":
+			x := CInt( change );
+			break;
+		"y":
+			y := CInt( change );
+			break;
+		"z":
+			z := CInt( change );
+			break;
+		"realm" :
+			realm := CStr( change );
+			break;
+	endcase
+
+	var result := MoveObjectToLocation( targ, x, y, z, realm, MOVEOBJECT_FORCELOCATION+MOVEITEM_IGNOREMOVABLE );
+	if( result.errortext )
+		GumpPrompt( mobile, "Movement Error: "+result.errortext );
+	endif
+
+	return 1;
+endfunction
+
+function MethodEdit( mobile, targ, input_info )
+
+	var value := ParseMembers( mobile, targ, input_info.name );
+	var change := RequestGump(mobile, "New value to assign "+input_info.name+" to.", "", CStr(value), CANCEL_BTN_ON);
+	if( change == error )
+		return 0;
+	endif
+
+	case( Lower( input_info.name ) )
+		0: // Just to remove compiler warnings until real cases are needed.
+		default:
+			GumpPrompt( mobile, "Dont know how to handle method '"+input_info.name+"'" );
+			break;
+	endcase
+
+	return 1;
+endfunction
+
+function AmountEdit( mobile, targ, input_info )
+
+	var value := ParseMembers( mobile, targ, input_info.name );
+	var change := RequestGump(mobile, "New value to assign "+input_info.name+" to.", "", CStr(value), CANCEL_BTN_ON);
+	if( !change )
+		SendSysMessage( mobile, "Cancelled.", 0x3, 0x32 );
+		return 0;
+	endif
+	change := CInt( change );
+	if( change > targ.amount )
+		AddAmount( targ, change-targ.amount );
+	else
+		SubtractAmount( targ, targ.amount-change );
+	endif
+	IncRevision( targ );
+
+	return 1;
+endfunction
+
+function VerifyCoordinateString( byref string_int )
+
+	var numerals := { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
+		i := 0;
+	if( TypeOfInt( string_int ) != OT_STRING )
+		string_int := CStr( string_int );
+	endif
+
+	for( i:=1; i<=Len( string_int ); i+=1 )
+		SleepMS( 2 );
+		if( !( string_int[i] in numerals ) )
+			return 0;
+		endif
+	endfor
+
+	return 1;
+endfunction
+
+function VerifyRealmName( byref realm_name )
+
+	return ( Lower( realm_name ) in Realms().Keys() );
+endfunction

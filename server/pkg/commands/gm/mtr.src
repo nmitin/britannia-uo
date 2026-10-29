@@ -1,0 +1,36 @@
+use uo;
+use polsys;
+use basic;
+
+include ":gumps:selectionGump";
+// Britannia 1461 1690 0
+// Britannia_alt 1461 1690 0
+// Ilshenar 821 1061 -30
+// Malas 985 481 -90
+// Tokuno 741 1261 30
+// Termur 487 1875 40
+
+program textcmd_bcast( who )
+
+	// By calling the Realms() function with no parameters we get a list of the realms.
+	// This list is in a dictionary.
+	var relms := Realms();
+	// Get the keys from the dictionary. The keys are the names of the realms.
+	// The keys are returned as an array. realm_names is an array of realm names.
+	var realm_names := relms.keys();
+	// We add the facet names to britannia and britannia_alt.
+	realm_names[1] := "felucca (britannia)";
+	realm_names[2] := "trammel (britannia_alt)";
+
+	var selection := SelectionGump( who, "Select the realm:", realm_names, BTN_TYPE_RADIO );
+	case(selection)
+		"felucca (britannia)":		MoveObjectToLocation(who, 1461, 1690, 0, "britannia", MOVEOBJECT_FORCELOCATION);
+		"trammel (britannia_alt)":	MoveObjectToLocation(who, 1461, 1690, 0, "britannia_alt", MOVEOBJECT_FORCELOCATION);
+		"ilshenar":					MoveObjectToLocation(who, 821, 1061, -30, "ilshenar", MOVEOBJECT_FORCELOCATION);
+		"malas":					MoveObjectToLocation(who, 985, 481, -90, "malas", MOVEOBJECT_FORCELOCATION);
+		"tokuno":					MoveObjectToLocation(who, 741, 1261, 30, "tokuno", MOVEOBJECT_FORCELOCATION);
+		"termur":					MoveObjectToLocation(who, 487, 1875, 40, "termur", MOVEOBJECT_FORCELOCATION);
+	endcase
+	return 1;
+
+endprogram

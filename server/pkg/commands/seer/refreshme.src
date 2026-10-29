@@ -1,0 +1,17 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+//  ".refreshme" - Restore Hits, Mana, Stamina
+//
+//  Thanks to The Writer, from our Dev Board, for this one.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+include ":attributes:attributes";
+
+program textcmd_refreshme( who )
+
+    AP_RefreshVitals( who );
+    who.SetLightLevel( 0, 86400 );
+
+    return 1;
+endprogram

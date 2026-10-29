@@ -1,0 +1,47 @@
+
+use uo;
+use util;
+use cliloc;
+
+include "include/client";
+include ":attributes:attributes";
+include "include/trainingskill";
+
+program skill_stealth( who )
+        var data := {};
+        data[1] := "stealth";
+        data[2] := ReadGameClock();
+        data[3] := 47;
+        SetObjProperty(who, "LastUsedSkill", data );
+        TrainingSkill(who, data[3]);
+
+  EraseObjProperty(who, "IsMeditating");
+  EraseObjProperty(who, "HealTimer");
+  if(GetAttribute(who, HIDING) < 80)
+    PrintTextAbovePrivateCL(who, who, 502726, color := 33); // You are not hidden well enough.  Become better at hiding.
+    return;
+  endif
+  if(!who.hidden)
+    PrintTextAbovePrivateCL(who, who, 502725, color := 33); // You must hide first
+    return;
+  endif
+  var mount := GetEquipmentByLayer(who, 25 );
+  if(mount)
+    who.hidden := 0;
+    PrintTextAbovePrivateCL(who, who, 1061089, color := 33); // You must dismount first.
+    return;
+  endif
+  var skill := CInt(GetAttribute(who, STEALTH) / 5);
+
+  if(skill > 35)
+    skill := 35;
+  endif
+  if(SkillCheck( who, STEALTH, -1, skill ) > 0)
+    skill := (skill / 10);
+    who.stealthsteps := skill + RandomInt(skill);
+    PrintTextAbovePrivateCL(who, who, 502730, color := 66); // You begin to move quietly.
+  else
+    who.hidden := 0;
+    PrintTextAbovePrivateCL(who, who, 500814, color := 33); // You have been revealed!
+  endif
+endprogram

@@ -1,0 +1,61 @@
+use os;
+use uo;
+use util;
+use cfgfile;
+
+include ":doors:doors";
+include ":doors:settings";
+
+program door_use_script( mobile, door )
+
+	var dismount_tile;
+	var settings := DP_GetSettingsCfgElem("Settings");
+	if( !CanUseDoor( mobile, door ) )
+		return 0;
+	endif
+
+	Detach();
+	if( door.IsOpen() )
+		while( door )
+			if( !IsOccupied( door ).Size() )
+				break;
+			endif
+			Sleep( 1 );
+		endwhile
+		door.DoorSound( 0 );
+		door.Close();
+	else
+		if( DoorIsLocked( mobile, door ) )
+			return 0;
+		endif
+		door.DoorSound( 1 );
+		// The code, if the setting is enabled, will create a DismountTile to be
+		// created at the door causing a mounted character
+		// to be dismounted upon passing through the door.
+		if(GetObjProperty(door, "SignSerial"));
+			if(CInt(settings.DismountCharacter))
+				dismount_tile := CreateItemAtLocation(door.x, door.y, door.z, "DismountTile", 1, door.realm);
+			endif
+		endif
+		door.Open();
+		if( door.IsOpen() )
+			Sleep( 10 );
+			if(CInt(settings.DismountCharacter))
+				DestroyItem(dismount_tile);
+			endif
+			while( door )
+				if( !IsOccupied( door ).Size() )
+					break;
+				endif
+				Sleep( 1 );
+			endwhile
+
+			if( door.IsOpen() )
+				door.DoorSound( 0 );
+				door.Close();
+			endif
+		endif
+	endif
+
+	return 1;
+endprogram

@@ -1,0 +1,43 @@
+/*
+        Maintened by the POL Distro Team
+*/
+use uo;
+use cliloc;
+
+include ":attributes:attributes";
+include ":traps:traps";
+include ":itemutils:itemUtil";
+
+program skill_RemoveTrap( mobile )
+
+        SendSysMessage( mobile, "Select a trapped container to disarm." );
+        var targ := Target( mobile ),
+            traps := GetTrapList( targ );
+
+        if( !targ )
+                SendSysMessage( mobile, "Cancelled." );
+                return 0;
+        elseif( !useItem_check( mobile, targ, DEFAULT_ITEM, 1 ))
+		return 0;
+        elseif( !targ.IsA( POLCLASS_CONTAINER ))
+                SendSysMessage( mobile, "You must select a trapped container!" );
+                return 0;
+        elseif( Len( traps ) < 1 )
+                SendSysMessageCL( mobile, 502373, color := 56 ); // That doesn't appear to be trapped
+                return 0;
+        elseif( !IsTrapRevealed( targ ))
+                SendSysMessage( mobile, "You must reveal the trap before being able to remove it!" );
+                return 0;
+        endif
+
+        if( SkillCheck( mobile, REMOVE_TRAP, -1 ) > 0 )
+               SendSysMessage( mobile, "You sucessfully disarmed "+targ.desc+".", color := 66 );
+        else
+               SendSysMessage( mobile, "You failed to disarm "+targ.desc+".", color := 33 );
+               RunTraps( targ, mobile );
+        endif
+
+        RemoveTrap( targ );
+
+	return 1;
+endprogram

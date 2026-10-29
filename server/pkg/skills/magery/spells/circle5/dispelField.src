@@ -1,0 +1,32 @@
+use uo;
+use os;
+
+include ":attributes:attributes";
+include ":magery:spells";
+
+program dispel_field( parms )
+  var caster := parms[1];
+  var info := parms[2];
+  var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessage (caster, "Cancelled.", color := 33);
+        return 0;
+    endif
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	var area_size := GetConfigInt(info.spell_config, "AreaSize");
+	var items := ListItemsNearLocation(cast_on.x, cast_on.y, cast_on.z, area_size, cast_on.realm);
+	
+	foreach item in items
+		if ( GetObjProperty(item, "SummonedField") )
+			DestroyItem(item);
+		endif
+	endforeach
+	
+	return 1;
+endprogram

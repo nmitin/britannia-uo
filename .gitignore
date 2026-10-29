@@ -1,0 +1,36 @@
+# Игровые данные и сторонние сборки (не коммитим)
+/client/
+/src/
+/downloads/
+/clientapp/*.dll
+/clientapp/*.so*
+/clientapp/*.bin.*
+/clientapp/*.exe
+/clientapp/Data/
+/clientapp/settings.json
+
+# Сгенерированные данные мира
+/server/realm/
+/server/data/
+/server/log/
+/server/*.ecl
+/server/**/*.ecl
+/server/**/*.dep
+/server/**/*.lst
+
+# Бинарники POL
+/server/pol
+/server/ecompile
+/server/uoconvert
+/server/uotool
+/server/poltool
+/server/runecl
+
+# Логи и временные файлы
+/logs/
+*.log
+*.tmp
+
+# Резервные копии, созданные при настройке
+/server/regions/*.orig
+/server/config/*.orig

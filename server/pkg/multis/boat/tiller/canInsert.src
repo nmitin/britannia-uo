@@ -1,0 +1,11 @@
+use uo;
+
+program canInsert( mobile, container, unused move_type, unused inserttype, adding_item, unused existing_stack, unused amount_to_add )
+	if( adding_item.IsA( POLCLASS_MAP ))
+		container.FollowMap( mobile, adding_item );
+	endif
+
+	MoveItemToContainer( adding_item, mobile.container );
+
+	return 1;
+endprogram

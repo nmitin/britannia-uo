@@ -1,0 +1,42 @@
+use uo;
+use cliloc;
+
+include ":gumps:selectionGump";
+include ":gumps:requestGump";
+
+program coun_message( who )
+	var recipient;
+	var message := "";
+	if(TypeOf(who) != "Array")
+		var players := EnumerateOnlineCharacters();
+		var players_names := {};
+		foreach player in players
+			players_names.append(player.name);
+		endforeach
+		var recipient_name := SelectionGump( who, "Select the player:", players_names, BTN_TYPE_RADIO );
+		if( recipient_name.errortext )
+			SendSysMessageCL( who, 1042023, color := 33 ); // Cancelled.
+			return 0;
+		endif
+		recipient := players[recipient_name in players_names];
+	else
+		recipient := who[2];
+		who := who[1];
+	endif
+
+	message := RequestGumpEx ( who, "Type your message to " + recipient + ":", "", "", CANCEL_BTN_ON );
+	if( !message )
+		SendSysMessageCL( who, 1042023, color := 33 ); // Cancelled.
+		return 0;
+	endif
+	GumpPromptEx( recipient, message, 1, 1153 );
+
+	message := RequestGumpEx ( recipient, "Type your message to " + who.name + ":", "You can respond or press cancel.", "", CANCEL_BTN_ON );
+	if( !message )
+		SendSysMessageCL( recipient, 1042023, color := 33 ); // Cancelled.
+		SendSysMessage( who, recipient.name + " did not choose to respond.", color := 66);
+		return 0;
+	endif
+	GumpPromptEx( who, message, 1, 1153 );
+
+endprogram

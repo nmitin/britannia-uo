@@ -1,0 +1,69 @@
+use os;
+use uo;
+use util;
+use cliloc;
+
+include ":magery:spells";
+include ":magery:fields";
+include ":attributes:attributes";
+
+program parafield( parms )
+  var caster := parms[1];
+  var info := parms[2];
+  var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.
+        return 0;
+    endif
+  if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )
+        return 0;
+  endif
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	var objtype;
+	var direction := GetDirectionByFacing(caster);
+	case ( direction )
+		FIELD_SHAPE_HORIZONTAL: objtype := "ParaFieldEW"; break;
+		FIELD_SHAPE_VERTICAL: objtype := "ParaFieldNS"; break;
+	endcase
+
+	// Duration: 33% Magery +3 seconds
+	var duration := CInt((AP_GetSkill(caster, MAGERY) * 0.33) + 3);
+	// Paralyze Duration: ((caster Eval Int/10) - ((target Resist Magic/10)) * 3 seconds
+	// Note: On OSI the duration max is 42.6, but we use damage dice, so max is 42. :(
+	var para_duration := CInt((AP_GetSkill(caster, EVALUATING_INTELLIGENCE) - (AP_GetSkill(cast_on, RESISTING_SPELLS) / 10)) * 3);
+	var area_size := GetConfigInt(info.spell_config, "AreaSize");
+
+	var coordinates := GetCoordinatesForField(cast_on.x, cast_on.y, direction, CInt(area_size/2));
+	foreach coord in ( coordinates )
+		var cast_on_z := cast_on.z;
+		var standing_z := struct;
+		standing_z := GetStandingHeight(coord.x, coord.y, cast_on.z, caster.realm);
+		if ( cast_on_z < standing_z )
+			cast_on_z := GetStandingHeight(coord.x, coord.y, cast_on.z, caster.realm);
+		endif
+
+		if ( CheckLosAt(caster, coord.x, coord.y, cast_on_z ) )
+			continue; // Only create a field piece if the caster has line of sight.
+		endif
+		var item := CreateItemAtLocation(coord.x, coord.y, cast_on_z.z, objtype, 1, caster.realm);
+		if ( item.errortext )
+			SendSysMessage(caster, "Error - "+item.errortext);
+			continue;
+		endif
+
+		SetObjProperty(item, "SummonedField", caster.serial);
+		SetObjProperty(item, "ParaDuration", "1d"+para_duration);
+		item.SetOwner(caster);
+		item.SetDuration(duration);
+
+		SleepMS(2);
+	endforeach
+
+	return 1;
+endprogram

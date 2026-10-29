@@ -1,0 +1,140 @@
+use uo;
+use os;
+use polsys;
+use util;
+
+include ":containers:storageAreas";
+include ":contextmenus:contextMenu";
+
+program Install()
+
+	Print( "Custom Character Class Methods Installed." );
+
+	return 1;
+endprogram
+
+exported function ClearCombatAbility( mobile )
+
+	var ability_reset := CreatePacket( 0xBF, 5 );
+		ability_reset.SetInt8( 2, 0x05 );
+		ability_reset.SetInt8( 4,0x21 );
+		ability_reset.SendPacket( mobile );
+
+	return 1;
+endfunction
+
+/*
+BF.17 - Display Help Topic
+byte	ID (BF)
+word	Packet Size
+word	0x17
+byte	0x01
+dword	Topic ID
+byte	Display (0x00 = no, 0x01 = yes)
+*/
+exported function DisplayHelpTopic( mobile, topic, show )
+
+	var packet := CreatePacket( 0xBF, MSGLEN_VARIABLE );
+	packet.SetInt16( 1, 11 );
+	packet.SetInt16( 3, 0x17 );
+	packet.SetInt8( 5, 0x01 );
+	packet.SetInt32( 6, topic );
+	packet.SetInt8( 10, show );
+
+	return packet.SendPacket( mobile );
+endfunction
+
+exported function BankBox( mobile )
+
+	return CP_GetStorageContainerForMobile( mobile, CP_BANK_AREA, CP_CREATE );
+endfunction
+
+/*
+ *
+ * PlayerSpeedBoost( mobile, toggle )
+ *
+ * Parameters:
+ * mobile - player char_ref
+ * toggle - integer flag which denotes the following movement types:
+ *			Disable := 0 (Move as normal)
+ *			MountSpeed := 1 (Run at mounted speed even if on foot)
+ *			WalkSpeed := 2 (Force walk)
+ *			WalkSpeedFast := 3 (Force unmounted running speed)
+ *			TeleportSpeed := 4 (Unknown at this time, just teleported flag?)
+ *
+ * Purpose:
+ * To allow for the control of player's movement types
+ *
+ * Date: 2019-05-07	20:50:30
+ * Shard Name: Pangaea
+ *
+ * Author: Oden (ThisIsMe)
+ * Email: DavidJSGardner@Gmail.com
+ * ICQ: 625-658-845
+ * Skype: DavidJSGardner
+ * Discord: ThisIsMe#7491
+ *
+ * Return Values:
+ * N/A
+ *
+ */
+exported function SpeedWalk( mobile, toggle := 0 )
+
+	var packet := CreatePacket( 0xBF, 6 );
+		packet.SetInt16( 1, 6 );
+		packet.SetInt16( 3, 0x26 );
+		packet.SetInt8( 5, CInt( toggle ) );
+		packet.SendPacket( mobile );
+
+	return 1;
+endfunction
+
+exported function ChangeCombatant( mobile, combatant:=0 )
+
+	var packet := CreatePacket( 0xAA, 5 );
+
+	if( !combatant.IsA( POLCLASS_MOBILE ) )
+		packet.SetInt32( 1, 0x0 );
+	else
+		packet.SetInt32( 1, combatant.serial );
+	endif
+
+	return packet.SendPacket( mobile );
+endfunction
+
+exported function IsPlayer( mobile )
+
+	return ( mobile.IsA( POLCLASS_MOBILE ) && !mobile.IsA( POLCLASS_NPC ) );
+endfunction
+
+// 0x11, 65 bytes
+exported function CloseStatusGump( mobile, serial )
+
+	var packet := CreatePacket( 0xBF, 13 );
+	packet.SetInt16( 1, 0x0D );
+	packet.SetInt16( 3, 0x16 );
+	packet.SetInt32( 5, 0x02 );
+	packet.SetInt32( 9, serial );
+
+	return packet.SendPacket( mobile );
+endfunction
+
+// For Ankh
+// 3006196 - Lock Karma
+// 3006197 - Unlock Karma
+// 3006198 - Tithe Gold
+exported function GetContextMenuEntries( mobile, player )
+
+// GetPackageByName(name)
+	var list := Array;
+	if( mobile == player )
+		ContextMenu_AddEntry( list, CM_CLILOC_OPEN_PAPERDOLL );
+		ContextMenu_AddEntry( list, CM_CLILOC_OPEN_BACKPACK );
+		ContextMenu_AddEntry( list, 1114299, 0xFFFF, Struct{ "Flags":=CM_DEAD_CHECK, "Mobile":=mobile } ); // Open Item Insurance Menu
+		ContextMenu_AddEntry( list, CM_CLILOC_TOGGLE_ITEM_INSURANCE, 0xFFFF, Struct{ "Flags":=CM_DEAD_CHECK, "Mobile":=mobile } ); // Toggle Item Insurance
+	else
+		ContextMenu_AddEntry( list, CM_CLILOC_OPEN_PAPERDOLL );
+	endif
+
+	return list;
+endfunction

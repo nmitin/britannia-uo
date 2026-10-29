@@ -1,0 +1,18 @@
+use uo;
+use os;
+use cfgfile;
+
+include ":itemutils:itemdesc";
+
+program Install()
+	return 1;
+endprogram
+
+exported function IsOre( unused item )
+	return 1;
+endfunction
+
+exported function IsSmeltable( unused item )
+	return 1;
+endfunction
+

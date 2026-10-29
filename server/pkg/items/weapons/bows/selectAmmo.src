@@ -1,0 +1,67 @@
+use uo;
+use cfgfile;
+
+var cWeapon := ReadConfigFile(":weapons:itemdesc");
+
+program selectammo(who, weapon)
+
+	if( TypeOfInt( who ) == OT_ARRAY )
+		weapon := who[2];
+		who := who[1];
+	endif
+
+	var weaponElement;
+	var arrowElement;
+	var valid_ammo := 0;
+	SendSysMessage(who, "Select the stack of ammunition you would like to use.");
+	var ammo := Target(who);
+	arrowElement := FindConfigElem(cWeapon, ammo.objtype);
+	weaponElement := FindConfigElem(cWeapon, weapon.objtype);
+
+	if (!arrowElement)
+		SendSysMessage(who, "Invalid selection.");
+		return 0;
+	endif
+	// Ammunition must be in the player's backpack.
+	if (ammo.container != who.backpack)
+		SendSysMessage(who, "The ammunition must be in the top layer of your backpack.");
+		return 0;
+	endif
+	// Check to see the ammunition type is matched to the weapon.
+	if (  arrowElement.WeaponType == "Bow" && weapon.IsBow() && CInt(arrowElement.ProjectileAnim) )
+		valid_ammo := 1;
+	elseif( arrowElement.WeaponType == "Crossbow"  && weapon.IsCrossbow() && CInt(arrowElement.ProjectileAnim) )
+		valid_ammo := 1;
+	endif
+	// If all is good switch to the new ammunition.
+	if( valid_ammo )
+		SetObjProperty(weapon, "ProjectileAnim", CInt(arrowElement.ProjectileAnim));
+		SetObjProperty(weapon, "AmmoType", CInt(ammo.objtype) );
+		SendSysMessage(who, "Now switching to " + CStr(ammo.desc) + ".");
+		DuplicateProps(ammo, weapon);
+		return 1;
+	else
+		SendSysMessage(who, "You cannot fire that type of missile from this weapon.");
+		return 0;
+	endif
+
+endprogram
+
+
+function DuplicateProps(oAmmo, oWeapon)
+
+	var CProps := GetObjPropertyNames(oAmmo);
+	var WCProps := GetObjPropertyNames(oWeapon);
+	foreach CProp in CProps
+		// if (CProp == "HitScripts")
+			// SetObjProperty(oWeapon, "HitScripts", GetObjProperty(oAmmo, CProp) );
+		// else
+			SetObjProperty(oWeapon, CProp, GetObjProperty(oAmmo, CProp) );
+		// endif
+	endforeach
+
+	foreach CProp in WCProps
+		EraseObjProperty( oWeapon, CProp );
+	endforeach
+
+endfunction

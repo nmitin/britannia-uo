@@ -1,0 +1,78 @@
+use uo;
+use cliloc;
+
+include ":containers:storageAreas";
+include ":keys:key";
+include ":gumps:gumpPrompt";
+
+program change_owner(who, deed)
+
+	if(deed.container != who.backpack)
+		SendSysMessageCL(who, 1042010, color := 33); // You must have the object in your backpack to use it.
+		return 0;
+	endif
+	// Begin sign CProps
+	var sign := SystemFindObjectBySerial(GetObjProperty(deed, "signserial"));
+	var old_owner_serial := GetObjProperty(sign, "ownerserial");
+	var old_owner := SystemFindObjectBySerial(old_owner_serial, SYSFIND_SEARCH_OFFLINE_MOBILES);
+	SetObjProperty(sign, "lastownername", old_owner.name);
+	var new_owner_bank := CP_GetStorageContainerForMobile( who, CP_BANK_AREA, CP_CREATE );
+	var new_lock_id := AllocateLockID();
+	SetObjProperty(sign, "LockID", new_lock_id);
+	var bank_key := CreateItemInContainer(new_owner_bank, "goldkey");
+	SetName(bank_key, "House Key");
+	var pack_key := CreateItemInContainer(who.backpack, "goldkey");
+	ReKey(sign, pack_key, new_lock_id);
+	SetName(pack_key, "House Key");
+	var MaxLockdowns := GetObjProperty(sign, "MaxLockdowns");
+	var MaxSecures := GetObjProperty(sign, "MaxSecures");
+	SetObjProperty(sign, "RemainingLockdowns", MaxLockdowns);
+	SetObjProperty(sign, "RemainingSecures", MaxSecures);
+	SetObjProperty(sign,"decay",ReadGameClock()+ 2592000); // Refreshed for 30 days.
+	SetObjProperty(sign, "owneracct", who.acctname);
+	SetObjProperty(sign, "ownerserial", who.serial);
+	SetObjProperty(sign, "signname", "a house");
+	EraseObjProperty(sign, "coowners");
+	EraseObjProperty(sign, "friendlist");
+	EraseObjProperty(sign, "banlist");
+	EraseObjProperty(sign, "Public");
+	// End sign CProps
+
+	// Begin multi CProps
+	var home := SystemFindObjectBySerial(GetObjProperty(sign, "houseserial"));
+	SetObjProperty(home, "RemainingLockdowns", MaxLockdowns);
+	SetObjProperty(home, "RemainingSecures", MaxSecures);
+	SetObjProperty(home, "owneracct", who.acctname);
+	SetObjProperty(home, "ownerserial", who.serial);
+	EraseObjProperty(home, "Public");
+	// End multi CProps
+	MoveItemToContainer(deed, new_owner_bank);
+	SendSysMessage(who, "Ownership has been transferred to you.", color := 66);
+	GumpPrompt(who, "The deed is in your bank. The locks have been changed and a key has been placed in your bank and backpack. Both are named 'House Key'.");
+endprogram
+
+function ReKey(byref sign, byref new_key, byref lock_id)
+
+	var addonitem;
+	var house := SystemFindObjectBySerial(CInt(GetObjProperty(sign, "houseserial")));
+	Print(GetObjProperty(sign, "houseserial"));
+	if(!house)
+		Print("no house found.   " + house.errortext);
+	endif
+	Print("components = " + house.components);
+	new_key.SetLockId(lock_id);
+	foreach item in(house.components)
+		if(item.IsA(POLCLASS_DOOR))
+		Print("It's a dorr.");
+			item.locked := 1;
+			SetObjProperty(item,"LockID",lock_id);
+		endif
+	endforeach
+	addonitem:=CInt(GetObjProperty(house,"component2"));
+	if(addonitem)
+		addonitem.locked:=1;
+		SetObjProperty(addonitem,"LockID",lock_id);
+	endif
+
+endfunction
+

@@ -1,0 +1,28 @@
+#
+#  Created by Version: 100.0.0 Never Gonna Give You Up
+#  Mobiles:		 696
+#  Top-level Items: 291
+#
+
+System
+{
+	CoreVersion	100.0.0
+	CoreVersionString	100.0.0 Never Gonna Give You Up
+	CompileDateTime	Oct 17 2020 17:19:17
+	LastItemSerialNumber	1073741824
+	LastCharSerialNumber	1
+}
+
+GlobalProperties
+{
+	CProp	DayPhase sDay
+	CProp	MaxPlayers i1
+	CProp	MaxUptime i0
+	CProp	NewDay i1
+	CProp	ShardDate i1
+	CProp	gameclock s1
+	CProp	nextlockid i1
+	CProp	orelist d0:
+	CProp	storagestart i1
+}
+

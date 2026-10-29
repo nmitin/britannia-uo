@@ -1,0 +1,466 @@
+use uo;
+use os;
+use npc;
+use util;
+use cliloc;
+use cfgfile;
+
+include "include/client";
+include "include/res";
+include "include/resPenalty";
+//include ":virtue:virtue";
+include ":virtue:noto";
+include "include/canAccess";
+include ":attributes:attributes";
+include ":timedScripts:poisonUtil";
+
+var clock := ReadGameClock();
+var healing;
+var Anatomy;
+
+program use_bandages(who, item)
+	healing := GetAttribute(who, HEALING);
+	Anatomy := GetAttribute(who, ANATOMY);
+	if(item.IsEnhancedBandage())
+		healing := healing + CInt(GetObjProperty(item, "HealingBonus"));
+	endif
+	// Check for First Aid Belt equipped.
+	var FAB_Bonus := GetObjProperty(GetEquipmentByLayer( who, 12 ), "HealingBonus");
+	if(FAB_Bonus)
+		healing := healing + (healing * FAB_Bonus);
+	endif
+	EraseObjProperty(who, "IsMeditating");
+	if(!can_access(who, item))
+		return;
+	endif
+	SendSysMessageCL(who, 500948, color := 88); // Who will you use the bandages on?
+	var patient := Target(who, TGTOPT_HELPFUL + TGTOPT_CHECK_LOS);
+	if(!patient)
+		SendSysMessageCL(who, 1042023, color := 33); // Cancelled.
+		return;
+	endif
+	var poisons := TS_GetTimerNames(patient, "P");
+	if(Distance(who, patient) > 1)
+		SendSysMessageCL(who, 500948, color := 33); // You are too far away to do that.
+		return;
+	elseif(!CheckLineOfSight(who,patient))
+		SendSysMessageCL(who, 500950, color := 33); // You cannot see that.
+		return;
+	elseif((AP_GetVital(patient, VITALID_LIFE) >= AP_GetVitalMaximumValue(patient, VITALID_LIFE)) and (poisons.size() == 0))
+		SendSysMessageCL(who, 500955, color := 88); // That being is not damaged!
+		return;
+	endif
+	detach();
+	SetObjProperty(who, "HealTimer", clock);
+
+	// If we're dealing with a person
+	//	Human male					  Human female					Elf male					  Elf female					GM Form
+	if((patient.graphic == 0x190) || (patient.graphic == 0x191) || (patient.graphic == 0x25D) || (patient.graphic == 0x25E) || (patient.graphic == 0x3DB)
+	|| (patient.graphic == 0x29A) || (patient.graphic == 0x29)) // Gargy male and Gargy female
+
+	// if the patient is the doctor
+		If(patient == who)
+			if(poisons.size() > 0)
+				SendSysMessageCL( who, 500956, color := 56 );// You begin applying the bandages.
+				SendSysMessage(who, "You start to cure yourself.", color := 56);
+				if(SubtractAmount(Item , 1))
+					cure(who, patient, 0, healing);
+					return;
+				endif
+			else
+				SendSysMessageCL(who, 500956, color := 56); // You begin applying the bandages.
+				if(SubtractAmount(Item , 1))
+					heal(who, patient, 0, healing);
+					return;
+				endif
+			endif
+
+	//if the patient is poisoned
+		elseif(poisons.size() > 0)
+			if(patient.dead)
+				if((healing < 80) && (anatomy < 80))
+					SendSysMessageCL(who, 500966, color := 33); // You are unable to resurrect your patient.
+				else
+					if(SubtractAmount(Item , 1))
+						resurrect_pc(who, patient, 0);
+					endif
+				endif
+			elseif(Distance(who, patient) > 1)
+				SendSysMessageCL(who, 500295, color := 33); // You are too far away to do that.
+			elseif(!CheckLineOfSight(who, patient))
+				SendSysMessage(who,"You can't see your patient.", color := 33);
+			elseif(SubtractAmount(item, 1))
+				if((healing < 80) || (anatomy < 80))
+					SendSysMessage(who, "You have no chance of curing your patient's poison.", color := 33);
+					SendSysMessage(patient, who.name + " has stopped curing you.", color := 33);
+				else
+					SendSysMessage(who,"You start to cure " + patient.name + ".", color := 56);
+					SendSysMessage(patient,who.name + " starts to cure you.", color := 56);
+					cure(who, patient, 0, healing);
+				endif
+			else
+				SendSysMessage(who, "You cannot use those bandages.", color := 33);
+			endif
+			return;
+		else
+
+	// routine heal
+			if(patient.dead)
+				if((healing < 80) || (anatomy < 80))
+					SendSysMessageCL(who, 500966, color := 33); // You are unable to resurrect your patient.
+				else
+					if(SubtractAmount(Item , 1))
+						resurrect_pc(who, patient, 0);
+					endif
+				endif
+			elseif(Distance(who, patient) > 1)
+				SendSysMessage(who, "Your Patient is too far away.", color := 33);
+			elseif(!CheckLineOfSight(who, patient))
+				SendSysMessage(who,"You cant see you patient.", color := 33);
+			elseif(SubtractAmount(item, 1))
+				SendSysMessage(who, "You start to heal " + patient.name, color := 56);
+				SendSysMessage(patient, who.name + " starts to heal you", color := 56);
+				heal(who, patient, 0, healing);
+			else
+				SendSysMessage(who, "You cannot use those bandages.", color := 33);
+			endif
+		endif
+		return;
+
+	//if we're dealing with a dead person
+	elseif(patient.dead)
+		if((healing < 80) or (anatomy < 80))
+			SendSysMessage(who, "You have no chance of reviving your patient", color := 33);
+		elseif(!CheckLineOfSight(who,patient))
+			SendSysMessage(who,"You can't see your patient anymore.", color := 33);
+		elseif(Distance(who, patient) > 1)
+			SendSysMessage(who, "Your patient is too far away.", color := 33);
+		elseif(SubtractAmount(item, 1))
+			resurrect_pc(who, patient, 0);
+		else
+			SendSysMessage(who, "You cannot use those bandages.", color := 33);
+		endif
+		return;
+
+	// Send the animals to vet.
+	elseif(patient.npctemplate)
+		if(Distance(who, patient) >= 2)
+			SendSysMessage(who, "Your patient is too far away.", color := 33);
+		elseif(SubtractAmount(Item, 1))
+			var parms := array(patient, who, item);
+			Start_Script(":veterinary:vet", parms);
+		else
+			SendSysMessage(who, "You cannot use those bandages.", color := 33);
+		endif
+	else
+		SendSysMessageCL(who , 500970, color := 33); // Bandages can not be used on that.
+	endif
+endprogram
+
+function heal(who, patient, counter, healing)
+
+	// var healamt := CInt(healing / 2) + CInt(anatomy / 5) + 10;  // amount to be considered for healing
+	var anat := GetAttribute( who, ANATOMY );
+	var hlng := GetAttribute( who, HEALING );
+	var min_heal_amt := CInt( (anat / 6) + (hlng / 6) ) + 3;
+	var max_heal_amt := CInt( (anat / 6) + (hlng / 3) ) + 10;
+	var healamt := RandomIntMinMax(min_heal_amt, max_heal_amt) + 1;
+	var basehealamt := healamt;
+	var cycles;
+	var count := 0;
+
+	// Determine how many attempts are made to heal.
+	if(patient == who)
+		var dexcheck := CInt((AP_GetTrueStat(who, DEXTERITY) / 20));
+		cycles := (15 - dexcheck);
+	else
+		if(AP_GetStat(who, DEXTERITY) <= 33)
+			cycles := 5;
+		elseif(AP_GetStat(who, DEXTERITY) <= 67)
+			cycles := 4;
+		else
+			cycles := 3;
+		endif
+	endif
+
+	// This loop has two functions:
+	//	1- provide wait-states for healing, during which, if it's interrupted, no healing occurs.
+	//	2- test for fumbles during the healing process and lower the amount of healing
+	// All healing occurs in the last pass of the loop.
+	while(counter <= cycles)
+		var chp := AP_GetVital(who, VITALID_LIFE);
+		sleep(1);
+		if (counter%4 == 0)
+		    if(who==patient)
+				SendSysMessage(who, "You continue to heal yourself.", color := 56);
+		    else
+				SendSysMessage(patient, who.name + " continues to heal you.", color := 56);
+		    endif
+		endif
+
+		// break out if anyone does anything that should cause heal to stop.
+		if(!GetObjProperty(who, "HealTimer"))
+		    if(who==patient)
+				SendSysMessage(who, "You stop healing yourself.", color := 33);
+				break;
+		    else
+				SendSysMessage(who, "You stop healing your patient.", color := 33);
+				break;
+		    endif
+		elseif(clock != GetObjProperty(who, "HealTimer"))
+			break;
+		elseif(Distance(who, patient) > 1)
+		    SendSysMessageCL(who, 500963, color := 33); // You did not stay close enough to heal your patient!
+		    SendSysMessage(patient, who.name + "has stopped healing you.", color := 33);
+		    break;
+		elseif(AP_GetVital(patient, VITALID_LIFE) >= AP_GetVitalMaximumValue(patient, VITALID_LIFE))
+		    if(who==patient)
+			SendSysMessage(who, "You are at full health.", color := 66);
+			break;
+		    else
+			SendSysMessage(who, "Your patient is at full health.", color := 56);
+			SendSysMessage(patient, who.name + " has stopped healing you.", color := 56);
+			break;
+		    endif
+		elseif((patient.dead) and (patient != who))
+		    SendSysMessage(who, "You start to resurrect " + patient.name + ".", color := 56);
+		    SendSysMessage(patient, who.name + " starts to resurrect you.", color := 56);
+		    resurrect_pc(who, patient, counter);
+		    break;
+		elseif(TS_GetTimerNames(patient, "P").size() > 0)
+		// can't heal a patient who is poisoned.
+		    if((healing < 60) or (anatomy < 60))
+				if(who==patient)
+					SendSysMessage(who, "You have no chance of curing yourself of poisoning.", color := 33);
+				else
+					SendSysMessage(who, "You have no chance of curing your patient's poison.", color := 33);
+					SendSysMessage(patient, who.name + " has stopped curing you.", color := 33);
+				endif
+		    else
+				if(who==patient)
+					SendSysMessage(who, "You start to cure yourself.", color := 56);
+				else
+					SendSysMessage(who,"You start to cure " + patient.name + ".", color := 56);
+				endif
+				if(patient != who)
+					SendSysMessage(patient, who.name + " starts to cure you.", color := 56);
+				endif
+				cure(who, patient, counter, healing);
+		    endif
+		    break;
+
+		// Testing to see if things are fumbled.  If they fumble too badly,
+		elseif(AP_GetVital(who, VITALID_LIFE) < chp)
+		    if((RandomInt(basehealamt) + 1) >= AP_GetStat(who, DEXTERITY))
+			    SendSysMessageCL(who, 500961, color := 33); // Your fingers slip!
+			    if(count >= 5)
+				    healamt := -1;
+			    else
+				    healamt := (healamt * 0.90);
+				    count := count + 1;
+			    endif
+		    endif
+
+		// The last cycle of the loop.  All actual healing is done here.
+		elseif(counter >= cycles)
+		    var diff := 100 - CInt((AP_GetVital(patient, VITALID_LIFE) * 100.0) / AP_GetVitalMaximumValue(patient, VITALID_LIFE));
+		    if((SkillCheck( who, HEALING, diff, 100 ) > 0) and (healamt != -1))
+			    var chkamt := CInt(AP_GetVitalMaximumValue(patient, VITALID_LIFE) - AP_GetVital(patient, VITALID_LIFE));
+			    if(healamt > chkamt)
+				    healamt := chkamt;
+				    if(who==patient)
+						SendSysMessage(who, "You have healed yourself completely.", color := 66);
+				    else
+						SendSysMessage(who, "You have healed your patient completely.", color := 66);
+						SendSysMessage(patient, who.name + " has healed you completely.", color := 66);
+				    endif
+			    else
+				    SendSysMessage(who, "You successfully heal " + patient.name +".", color := 66);
+				    SendSysMessage(patient, who.name + " has healed you.", color := 66);
+			    endif
+			    HealDamage(patient, healamt);
+				if(who == patient)
+					SendSysMessage(who, "You have healed " + CStr(healamt) + " of your damage.", color := 56);
+				else
+					SendSysMessage(patient, who.name + " has healed " + CStr(healamt) + " of damage.", color := 56);
+					SendSysMessage(who, "You have healed " + patient.name + " of " + CStr(healamt) + " of damage.", color := 56);
+				endif
+				SkillCheck( who, HEALING, ( CDbl( GetAttributeBaseValue( who, HEALING ) ) / 10.0 ), "", ADV_ALL );
+			    // AwardPoints(who, SKILLID_HEALING, (healamt * 2));
+			    break;
+		    else
+			    // Throw 'em a bone.  No chance of gain, though.
+			    SendSysMessageCL(who, 500968, color := 56); // You apply the bandages, but they barely help.
+			    if(who != patient)
+					SendSysMessage(patient, who.name + " has tried to heal you but had little effect.");
+			    endif
+				healamt := RandomInt(6)+1;
+			    HealDamage(patient, healamt);
+				if(who == patient)
+					SendSysMessage(who, "You have healed " + CStr(healamt) + " of your damage.", color := 56);
+				else
+					SendSysMessage(patient, who.name + " has healed " + CStr(healamt) + " of damage.", color := 56);
+					SendSysMessage(who, "You have healed " + patient.name + " of " + CStr(healamt) + " of damage.", color := 56);
+				endif
+			    break;
+		    endif
+		endif
+
+		counter := counter + 1;
+	endwhile
+endfunction
+
+function cure(who, patient, counter, healing)
+	var healamt := CInt(healing / 25) + CInt(anatomy / 50);
+	var cycles;
+	var count := 0;
+	if(patient == who)
+		var dexcheck := CInt((AP_GetTrueStat(who, DEXTERITY) / 33));
+		cycles := (15 - dexcheck);
+	else
+		if(AP_GetTrueStat(who, DEXTERITY) <= 33)
+			cycles := 5;
+		elseif(AP_GetTrueStat(who, DEXTERITY) <= 67)
+			cycles := 4;
+		else
+			cycles := 3;
+		endif
+	endif
+	while(counter <= cycles)
+		var chp := AP_GetVital(who, VITALID_LIFE);
+		sleep(1);
+		if(!GetObjProperty(who, "HealTimer"))
+			SendSysMessage(who, "You stop healing your patient.");
+			SendSysMessage(patient, who.name + " has stopped healing you.");
+			break;
+		elseif(clock != GetObjProperty(who, "HealTimer"))
+			break;
+		elseif(Distance(who, patient) > 1)
+			SendSysMessageCL(who, 500295); // You are too far away to do that.
+			SendSysMessage(patient, who.name + " has stopped healing you.");
+			break;
+		elseif((patient.dead) and (patient != who))
+			SendSysMessage(who, "You start to resurrect " + patient.name + ".");
+			SendSysMessage(patient, who.name + " starts to resurrect you.");
+			resurrect_pc(who, patient, counter);
+			break;
+		elseif(TS_GetTimerNames(patient, "P").size() == 0)
+			SendSysMessage(who,"You start to heal " + patient.name + ".");
+			if(patient != who)
+				SendSysMessage(patient, who.name + " starts to heal you.");
+			endif
+			heal(who, patient, counter, healing);
+			break;
+		elseif(AP_GetVital(who, VITALID_LIFE) < chp)
+			if((RandomInt(100)+1) > AP_GetTrueStat(who, DEXTERITY))
+				SendSysMessageCL( who, 500961, color := 40 ); // Your fingers slip!
+				healamt := (healamt - 1);
+				count := count + 1;
+				if(count >= 5)
+					healamt := 0;
+				endif
+			endif
+		endif
+		if(counter >= cycles)
+			if(SkillCheck( who, HEALING, 48, 100 ) > 0)
+				if(!healamt)
+				    healamt := 1;
+				endif
+				TS_CurePoison(patient, 120, "P", healamt);
+				if (TS_GetTimerNames(patient, "P").size() == 0)
+					SendSysMessageCL(who, 1010058, color := 66); // You have cured the target of all poisons.
+					SendSysMessageCL(patient, 1010059, color := 66); // You have been cured of all poisons.
+					SkillCheck( who, HEALING, ( CDbl( GetAttributeBaseValue( who, HEALING ) ) / 10.0 ), "", ADV_ALL );
+					// AwardPoints(who, SKILLID_HEALING, (healamt * 100));
+				else
+					SendSysMessageCL(who, 1010060, color := 40); // You have failed to cure your target!
+					SendSysMessage(patient, who.name + " has tried to cure your poison.");
+					SkillCheck( who, HEALING, ( CDbl( GetAttributeBaseValue( who, HEALING ) ) / 10.0 ), "", ADV_ALL );
+					// AwardPoints(who, SKILLID_HEALING, (CInt(healamt/2) * 100));
+				endif
+				break;
+			else
+				SendSysMessage( who , "You could not heal your patient." );
+			endif
+		endif
+		counter := counter + 1;
+	endwhile
+endfunction
+
+function resurrect_pc(who, patient, counter)
+	var healamt := 90;
+	SendSysMessage(who,"You start to resurrect " + patient.name + ".");
+	SendSysMessage(patient, who.name + " starts to resurrect you.");
+	while(counter <= 10)
+		var chp := AP_GetVital(who, VITALID_LIFE);
+		sleep(1);
+		if(!GetObjProperty(who, "HealTimer"))
+			SendSysMessage(who, "You stop reviving your patient.");
+			SendSysMessage(patient, who.name + " has stopped reviving you.");
+			break;
+		elseif(clock != GetObjProperty(who, "HealTimer"))
+			break;
+		elseif(Distance(who, patient) > 1)
+			SendSysMessage(who,"Your patient isn't close enough.");
+			SendSysMessage(patient, who.name + "has stopped healing you.");
+			break;
+		elseif(AP_GetVital(who, VITALID_LIFE) < chp)
+			if((RandomInt(100)+1) > AP_GetTrueStat(who, DEXTERITY))
+				SendSysMessageCL(who, 500961, color := 40); // Your fingers slip!
+				healamt := healamt + 5;
+			endif
+		elseif(!patient.dead)
+			SendSysMessage(who, "You start to heal " + patient.name + ".");
+			if(who != patient)
+				SendSysMessage(patient, who.name + " starts to heal you.");
+			endif
+			heal(who, patient, counter, healing);
+			break;
+		endif
+		if(counter >= 10)
+			if(SkillCheck( who, HEALING, healamt, 100 ) > 0)
+				SkillCheck( who, HEALING, ( CDbl( GetAttributeBaseValue( who, HEALING ) ) / 10.0 ), "", ADV_ALL );
+				// AwardPoints(who, SKILLID_HEALING, 400);
+				if(do_res(who, patient))
+				VS_AdjustVirtue(who, "Compassion", 1, 100);
+				var karma := CInt( GetObjProperty(who, "Karma") );
+					if (!karma)
+						karma := 0;
+					endif
+
+				if ( ( karma > -15) && (!patient.criminal) && (!patient.murderer) )
+					karma := karma + 20;
+					SetObjProperty(who, "Karma", karma);
+					SendGainMessage(who, "Karma", 20);
+					SetNotoTitle(who);
+				endif
+					SendSysMessageCL(who, 500965, color := 66); // You are able to resurrect your patient.
+				else
+					SendSysMessage(who, "The patient refused resurrection." );
+				endif
+			else
+				SendSysMessage(who, "You could not resurrect him.");
+			endif
+			break;
+		endif
+		counter := counter + 1;
+	endwhile
+endfunction
+
+function do_res(who, mobile)
+	who := who;
+	if(GetObjProperty(mobile, "#ResMenu"))
+		return 0;
+	else
+		SetObjProperty(mobile, "#ResMenu", 1);
+		if(ResNow(mobile) == 1)
+			Resurrect(mobile);
+			ResPenalties(mobile);
+			EraseObjProperty(mobile, "#ResMenu");
+			return 1;
+		else
+			EraseObjProperty(mobile, "#ResMenu");
+			return 0;
+		endif
+	endif
+endfunction

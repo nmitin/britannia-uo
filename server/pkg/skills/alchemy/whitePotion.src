@@ -1,0 +1,45 @@
+use cliloc;
+
+include ":alchemy:drinkPotion";
+include ":timedScripts:timedScripts";
+include ":itemUtils:itemdesc";
+
+program use_whitepotion(who, potion)
+
+	if( (!potion.movable) || !ReserveItem(potion) )
+		SendSysMessageCL(who, 501973, {}, 3, 33); // You cannot use that.
+		return 0;
+	elseif( !(potion in EnumerateItemsInContainer(who.backpack)) )
+		SendSysMessageCL(who, 1042593, {}, 3, 33); // That is not in your backpack.
+		return 0;
+	endif
+	var potion_info := GetItemDescInfo(GetObjtype( potion ));
+
+
+	EraseObjProperty(who, "#IsMeditating");
+	EraseObjProperty(who, "#HealTimer");
+
+	if( !CheckToDrink(who, "#white") )
+		return 0;
+	endif
+
+	// Prevents mod from being applied twice.
+	// Uses the same as Magery Strength, to keep them from stacking.
+	if ( GetObjProperty(who, "StrengthMod") )
+		SendSysMessage(who, "You are already under the influence.");
+		return 0;
+	endif
+
+	case(Lower(potion_info.Name))
+		"strengthpotion":  empty_bottle(who, potion);
+			 TS_StartTimer(who, "strengthpotion", 60, 10, who);
+		"greaterstrength":  empty_bottle(who, potion);
+			 TS_StartTimer(who, "strengthpotion", 180, 20, who);
+	endcase
+
+	PlaySoundEffect(who, 0x1ef);
+	PlayObjectCenteredEffect(who, 0x373a, 7,7);
+
+	return 1;
+
+endprogram

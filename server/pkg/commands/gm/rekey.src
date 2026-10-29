@@ -1,0 +1,30 @@
+use uo;
+
+include ":keys:key";
+
+program rekey( who )
+
+    SendSysMessage( who, "Target a DOOR to rekey." );
+    var lockeditem := Target( who, "" );
+
+    if(! lockeditem)
+       SendSysMessage( who, "Cancelled." );
+       return;
+    endif
+
+    if (lockeditem.isa(POLCLASS_DOOR) or lockeditem.isa(POLCLASS_CONTAINER))
+
+        var LockID := AllocateLockID();
+
+        SetObjProperty( lockeditem, "LockID", LockID );
+
+        var key := CreateItemInBackpack( who, 0x100f, 1 );
+		key.SetLockId(LockID);
+//        SetObjProperty( key, "LockID", LockID );
+
+        SendSysMessage( who, "Created a key in your pack.", color := 66 );
+    else
+        SendSysMessage( who, "That cannot be locked.", color := 33 );
+    endif
+
+endprogram

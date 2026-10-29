@@ -1,0 +1,13 @@
+// $Id: use.src 1804 2014-08-21 05:08:58Z austinheilman $
+//
+
+use uo;
+
+//include ":daynight:dayNight";
+include "include/clock";
+
+program UseScript(who, item)
+//	PrintTextAbovePrivate(item, GetGameHour()+":"+GetGameMinute(), who);
+	PrintTextAbovePrivate(item, ("Time of Day: " + GetTimeofDay()), who);
+	return 1;
+endprogram

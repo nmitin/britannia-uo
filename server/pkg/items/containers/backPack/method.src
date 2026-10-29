@@ -1,0 +1,85 @@
+use uo;
+use os;
+use polsys;
+
+include ":containers:containers";
+include ":itemutils:itemdesc";
+
+program Install()
+
+	return 1;
+endprogram
+
+exported function IsContainer( unused container )
+	// object.IsA(POLCLASS_CONTAINER) is more ideal but this allows for securable containers without checking for objtypes
+
+	return 1;
+endfunction
+
+exported function IsBackpack( unused container )
+
+	return 1;
+endfunction
+
+exported function IsSecured( container )
+
+	var secured := GetObjProperty( container, "secured" );
+	if( !secured )
+		secured := 0;
+	endif
+
+	return secured;
+endfunction
+
+exported function GetSecureLevel( container )
+
+	return IsSecured( container ).level;
+endfunction
+
+exported function IsLeatherContainer( item )
+
+	var item_info := GetItemDescInfo( item.objtype );
+
+	return ( item_info.BaseMaterial == CT_LEATHER );
+endfunction
+
+exported function IsMetalContainer( item )
+
+	var item_info := GetItemDescInfo( item.objtype );
+
+	return ( item_info.BaseMaterial == CT_METAL );
+endfunction
+
+exported function IsWoodContainer( item )
+
+	var item_info := GetItemDescInfo( item.objtype );
+
+	return ( item_info.BaseMaterial == CT_WOOD );
+endfunction
+
+exported function IsEngraved( item )
+
+	return GetObjProperty( item, "EngravedText" );
+endfunction
+
+exported function RemoveEngraving( item )
+
+	EraseObjProperty( item, "EngravedText" );
+	IncRevision( item );
+endfunction
+
+exported function SetEngraving( item, engraving )
+
+	SetObjProperty( item, "EngravedText", engraving );
+	IncRevision( item );
+endfunction
+
+exported function GetBaseMaterial( container )
+
+	var itemdesc := ReadConfigFile(":containers:itemdesc");
+	var object := FindConfigElem( itemdesc, container.objtype );
+	var BaseMaterial := object.BaseMaterial;
+	return BaseMaterial;
+
+endfunction
+

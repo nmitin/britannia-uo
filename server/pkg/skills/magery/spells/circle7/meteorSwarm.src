@@ -1,0 +1,44 @@
+use cfgfile;
+use uo;
+
+include ":attributes:attributes";
+include ":magery:spells";
+include ":damage:damage";
+
+program cast_meteor( parms )
+	var caster := parms[1];
+	var info := parms[2];
+	MS_PlaySpellSFX(info.spell_id, caster);
+
+	// Base damage is a decimal number in between min and max damage
+	var min_damage := GetConfigInt(info.spell_config, "MinBaseDamage");
+	var max_damage := GetConfigInt(info.spell_config, "MaxBaseDamage");
+	var base_damage := min_damage + (CDbl(RandomInt(CInt((max_damage - min_damage) * 10)) + 1) / 10);
+	var damage;
+
+	// Get all targets in area excluding party and self. Damaged is divided by number of valid targets.
+	var area_size := GetConfigInt(info.spell_config, "AreaSize");
+	var party_members := caster.party.members;
+	var excludes := {};
+	if ( party_members == error )
+			excludes := array{caster.serial};
+	else
+		foreach member in party_members
+			excludes.Append(member.serial);
+		endforeach
+	endif
+
+	var targs := MS_GetValidTargets(caster, area_size, 1, excludes);
+
+	if(targs.size() > 1)
+		base_damage := base_damage * 2;
+	endif
+
+	foreach vtarg in targs
+		damage := MS_GetSpellDamage(caster, vtarg, base_damage) / targs.Size();
+		MS_PlaySpellGFX(info.spell_id, vtarg, caster);
+		ApplySpellDamageEX(vtarg, damage, info.damage_type, caster, info.circle, "Meteor Storm");
+	endforeach
+
+	return 1;
+endprogram

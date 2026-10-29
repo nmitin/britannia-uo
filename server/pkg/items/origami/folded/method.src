@@ -1,0 +1,10 @@
+use uo;
+use os;
+
+program Install()
+	return 1;
+endprogram
+
+exported function IsOrigamiFolded( unused item )
+	return 1;
+endfunction

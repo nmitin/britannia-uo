@@ -1,0 +1,119 @@
+use uo;
+use os;
+
+include "include/startEqp";
+include ":traps:traps";
+include ":keys:key";
+
+var chestarray := {};
+
+program spawntest(item)
+  var rng := GetObjProperty(item,"range");
+  var amt := GetObjProperty(item,"amount");
+  var frq := GetObjProperty(item,"duration");
+  foreach thing in ListItemsNearLocation(cint(item.x), cint(item.y), cint(item.z), CInt(rng), item.realm)
+    if(GetObjProperty(thing,"link") == item.serial)
+      DestroyItem(thing);
+    endif
+  endforeach
+  if((!amt) or (!frq))
+    print("Chest Spawner " + item.serial + " at: " + item.x + ", " + item.y + " is improperly configured");
+    return;
+  endif
+  var current, newamt;
+  CreateTreasureChests(item, amt);
+  while(item)
+    sleep(frq);
+    CleanArray();
+    current := len(chestarray);
+    newamt := CInt(amt - current);
+    if(newamt > 0)
+      CreateTreasureChests(item, newamt);
+    endif
+    sleep(frq);
+  endwhile
+endprogram
+
+function cleanarray()
+  var newarray := {};
+  foreach chest in chestarray
+    if((chest.locked == 0) || (!chest))
+      DestroyItem(chest);
+    elseif(chest)
+      newarray.append(chest);
+    endif
+  endforeach
+  chestarray := newarray;
+endfunction
+
+function CreateTreasureChests(item, amt)
+  var lvl := GetObjProperty(item, "level");
+  var rng := GetObjProperty(item, "range");
+  var newx, newy, newz, checker, type, gfx, lootgroup, chest, LockID, strngth, junk;
+  var trap_types := {"Dart", "Gas", "Explosion"};
+  var trap_type := "";
+  var trap_strength := 1;
+  if(rng > 10)
+    rng := 10;
+  endif
+  var total := 0;
+  while(total < amt)
+    chest := 0;
+    checker  := 0;
+    while((checker == 0) && (item))
+      checker := 0;
+      newx := cint(item.x + RandomInt(rng) - RandomInt(rng));
+      newy := cint(item.y + RandomInt(rng) - RandomInt(rng));
+      newz:= cint(GetWorldHeight(newx, newy, item.realm));
+      if(len(ListItemsNearLocation(newx, newy, newz, 0, item.realm)) == 0)
+        type := RandomInt(5)+1;
+        case(type)
+          1: gfx := 0xE42;
+          2: gfx := 0xE43;
+          3: gfx := 0xE41;
+          4: gfx := 0xE40;
+          5: gfx := 0xE7C;
+        endcase
+        var chest_descr := GetItemDescriptor( gfx );
+		chest_descr.CProps.insert("NoKey","1");
+        chest := CreateItemAtLocation(newx, newy, newz, chest_descr, 1);
+        if(chest)
+          checker := 1;
+        else
+          checker := 0;
+        endif
+      endif
+      sleepms(50);
+    endwhile
+    SetObjProperty(chest,"link", item.serial);
+    LockID := AllocateLockID();
+    SetObjProperty(chest, "LockID", LockID);
+    SetObjProperty(chest, "level", lvl);
+    strngth := 0;
+    case(lvl)
+      1: lootgroup := 69;    strngth :=  20;
+      2: lootgroup := 70;    strngth :=  40;
+      3: lootgroup := 71;    strngth :=  60;
+      4: lootgroup := 72;    strngth :=  80;
+      5: lootgroup := 73;    strngth := 100;
+    endcase
+	case(strngth)
+		 20:
+		 40: trap_strength := 1;
+		 60:
+		 80: trap_strength := 2;
+		100: trap_strength := 2;
+	endcase
+    junk := RandomInt(3)+1;
+	trap_type := trap_types[junk];
+	AddTrap(chest, trap_type, trap_strength, 1);
+    SetObjProperty(chest, "LockPickDiff", (strngth - RandomInt(20)));
+    MakeLoot(chest, lootgroup);
+    CreateFromGroup(chest, lootgroup);
+    chestarray.append(chest);
+    total := total + 1;
+    chest.movable := 0;
+    chest.locked :=  1;
+    sleepms(10);
+  endwhile
+endfunction

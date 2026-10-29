@@ -1,0 +1,37 @@
+use uo;
+use util;
+use cliloc;
+use os;
+
+include ":magery:spells";
+include ":attributes:attributes";
+include ":damage:damage";
+
+program cast_lightning( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on;
+    cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	PlayLightningBoltEffect(cast_on);
+
+	// Base damage is a decimal number in between min and max damage
+	var min_damage := CInt(GetConfigInt(info.spell_config, "MinBaseDamage"));
+	var max_damage := CInt(GetConfigInt(info.spell_config, "MaxBaseDamage"));
+	var base_damage := min_damage + (CDbl(RandomInt(CInt((max_damage - min_damage) * 10)) + 1) / 10);
+	var damage := MS_GetSpellDamage(caster, cast_on, base_damage);
+
+	ApplySpellDamageEX(cast_on, damage, info.damage_type, caster, info.circle, "Lightning");
+
+	return 1;
+endprogram

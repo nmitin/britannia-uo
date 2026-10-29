@@ -1,0 +1,14 @@
+use uo;
+use os;
+
+program Install()
+	return 1;
+endprogram
+
+exported function IsCurtain ( unused item )
+	return 1;
+endfunction
+
+exported function CloseOpenCurtains ( unused curtain )
+
+endfunction

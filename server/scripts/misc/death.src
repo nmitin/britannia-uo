@@ -1,0 +1,244 @@
+use vitals;
+use uo;
+use os;
+use util;
+use cfgfile;
+
+include "include/client";
+include ":attributes:attributes";
+include ":merchantnodes:nodeEvents";
+include ":npcs:NPCBackpacks";
+include ":damage:damage";
+include ":virtue:noto";
+
+var npcdesc_cfg := ReadConfigFile( "npcdesc" );
+
+program npcdeath(corpse)
+
+	//if(GetObjProperty(corpse, "restockserial"))
+	//	var stocklist := SystemFindObjectBySerial(CInt(GetObjProperty(corpse, "restockserial")));
+	//	DestroyItem(stocklist);
+	//endif
+
+	var i;
+	var last_damage := GetObjProperty(corpse, "LastDamage");
+	var killer := last_damage.serial;
+	if (killer != error)
+		i := SystemFindObjectBySerial(killer);
+		AdjustNoto(i, corpse);
+		if (GetObjProperty(i, "CursedLoot") )
+			SetObjProperty(corpse, "guardkill", 1);
+		elseif (GetObjProperty(i, "BlessedLoot") )
+			SetObjProperty(corpse, "BlessedLoot", 1);
+		endif
+	endif
+	if((killer != error) && (!GetObjProperty(corpse, "guardkill")))
+		AdjustNoto((SystemFindObjectBySerial(killer)), corpse);
+	endif
+	var char;
+	var mounted_char;
+	var onchars := EnumerateOnlineCharacters();
+	if(GetObjProperty(corpse,"mounted"))
+		char := GetObjProperty(corpse,"mounted_on");
+		foreach person in onchars
+			if(person.serial == CInt(char))
+				mounted_char := person;
+				break;
+			endif
+		endforeach
+		dismountme(mounted_char, corpse);
+	endif
+	var elem := GetObjProperty(corpse, "npctemplate");
+	var deathsound := 0;
+	var grphic := npcdesc_cfg[elem]."ObjType";
+	SetObjProperty(corpse, "Graphic", grphic);
+	if((grphic != 0x190) && (grphic != 0x191))
+		deathsound := npcdesc_cfg[elem]."deathsound";
+		if (deathsound)
+			PlaySoundEffect(corpse, deathsound);
+		endif
+	endif
+	set_critical(1);
+	dismount(corpse);
+
+	Set_Critical(0);
+
+	var merchant_node := GetObjProperty( corpse, "MerchantNode" );
+	if( merchant_node )
+		var node := SystemFindObjectBySerial( merchant_node );
+		if( node.IsMerchantNode() && !GetObjProperty( corpse, "#Disabled" ) )
+			node.SendDeathEvent( corpse.ownerserial );
+		endif
+	endif
+
+	if (GetObjProperty(corpse, "totem"))
+		RemakeTotem(corpse, elem);
+		return;
+	endif
+
+
+	if(GetObjProperty(corpse, "guardkill"))
+		DestroyItem(corpse);
+		return;
+	endif
+	if(GetObjProperty(corpse,"npctemplate") == "employee")
+		foreach thing in EnumerateItemsInContainer(corpse)
+			if((thing.layer) && (thing.isa(POLCLASS_WEAPON) || thing.isa(POLCLASS_ARMOR)))
+				DestroyItem(thing);
+			endif
+		endforeach
+	endif
+	MoveBackpackToCorpse(corpse);
+	if(GetObjProperty(corpse, "npctemplate") == "playervendor")
+		var itemdesc := ReadConfigFile(":*:itemdesc");
+		var elm, dsc;
+		foreach thing in EnumerateItemsInContainer(corpse)
+			EraseObjProperty(thing, "Vendored");
+			if(GetObjProperty(thing, "Vendor"))
+				DestroyItem(thing);
+			else
+				var oldname := GetObjProperty(thing, "OldName");
+				if(oldname)
+					SetName(thing, oldname);
+				else
+					elm := FindConfigElem(itemdesc, thing.objtype);
+					dsc := itemdesc[thing.objtype].desc;
+					SetName(thing, dsc);
+				endif
+				EraseObjProperty(thing, "Master");
+				EraseObjProperty(thing, "OldName");
+				EraseObjProperty(thing, "price");
+			endif
+		endforeach
+	endif
+	if(GetObjProperty(corpse, "summoned"))
+		DestroyItem(corpse);
+	elseif(GetObjProperty(corpse, "nocorpse"))
+		foreach item in EnumerateItemsInContainer(corpse)
+			MoveObjectToLocation(item, corpse.x, corpse.y, corpse.z, corpse.realm, MOVEOBJECT_FORCELOCATION);
+		endforeach
+		DestroyItem(corpse);
+	else
+		var corpseof := GetObjProperty(corpse,"npctemplate");
+		corpseof := corpseof; // Added to stop the STUPID 'not used' warning from eCompile.
+	endif
+endprogram
+
+function dismount(corpse)
+	var mount := 0;GetEquipmentByLayer( corpse, 25 );
+	foreach item in EnumerateItemsInContainer(corpse)
+		if (item.objtype == 0x1F021)
+			mount := item;
+			break;
+		endif
+	endforeach
+	if (!mount)
+		return;
+	endif
+	var critter := "";
+	case (mount.graphic)
+		0x3ea2: critter := "horse";
+		0x3e9f: critter := "horse2";
+		0x3ea0: critter := "horse3";
+		0x3ea1: critter := "horse4";
+		0x3ea6:	critter := "llama";
+		0x3ea3:	critter := "desertostard";
+		0x3ea4:	critter := "frenziedostard";
+		0x3ea5:	critter := "forestostard";
+	endcase
+	if (mount.color == 1109)
+		critter := "nightmare";
+	endif
+	DestroyItem( mount );
+endfunction
+
+function dismountme(who, corpse)
+	var mount := GetEquipmentByLayer(who, 25 );
+	var clone := GetObjProperty(corpse,"npctemplate");
+	var newcorpse := CreateNpcFromTemplate(clone, corpse.x, corpse.y, corpse.z, 0, corpse.realm);
+	var serial := newcorpse.serial;
+	SetObjProperty(newcorpse,"myserial", serial);
+	newcorpse.color := corpse.color;
+	newcorpse.facing := who.facing;
+	MoveObjectToLocation(newcorpse, who.x, who.y, who.z, who.realm, MOVEOBJECT_FORCELOCATION);
+	var x := newcorpse.x;
+	var y := newcorpse.y;
+	var z := newcorpse.z;
+	newcorpse.facing := who.facing;
+	KillMobile(newcorpse);
+	var contain;
+	foreach cpse in ListItemsAtLocation(x, y, z, who.realm );
+		if(CInt(GetObjProperty(cpse,"myserial")) == serial)
+			contain := cpse;
+			break;
+		endif
+	endforeach
+	contain.name := corpse.name;
+	foreach item in EnumerateItemsInContainer(corpse, ENUMERATE_ROOT_ONLY)
+		MoveItemToContainer(item, contain);
+	endforeach
+	DestroyItem(corpse);
+	DestroyItem(mount);
+endfunction
+
+///////////////////
+//  if whatever died was a totem, this function (sometimes) makes another totem that can be repaired.
+//	Note: Totems are not (yet) implemented in the Distro. If/when they are they will probably
+//  be an optional package, if they can be implemented as their own package.
+///////////////////
+
+function RemakeTotem(corpse, npctemplate)
+
+	PlaySoundEffect(corpse, SFX_SPELL_DISPEL);
+	PlayStationaryEffect(corpse.x, corpse.y, corpse.z, FX_SMOKE, 0xa, 0xa );
+
+	if (RandomInt(10) == 1)
+		foreach item in EnumerateItemsInContainer(corpse, ENUMERATE_ROOT_ONLY)
+			MoveObjectToLocation(item, corpse.x, corpse.y, corpse.z, MOVEOBJECT_FORCELOCATION );
+		endforeach
+		DestroyItem(corpse);
+		return;
+	endif
+
+	var totemtype := GetObjProperty(corpse, "totem");
+	var totemcolor := GetObjProperty(corpse, "totemcolor");
+	var color := GetObjProperty(corpse, "color");
+
+	set_critical(1);
+	var totem := CreateItemAtLocation(corpse.x, corpse.y, corpse.z, totemtype, 1);
+	if (!totem)
+		foreach item in EnumerateItemsInContainer(corpse, ENUMERATE_ROOT_ONLY)
+			MoveObjectToLocation(item, corpse.x, corpse.y, corpse.z, corpse.realm, MOVEOBJECT_FORCELOCATION );
+		endforeach
+		DestroyItem(corpse);
+		return;
+		set_critical(0);
+	endif
+
+	var temp_string := corpse.desc;
+	temp_string["A corpse of "] := "";
+	totem.name := temp_string;
+
+	totem.decayAt := 0;
+	totem.movable := 1;
+	totem.usescript := ":magicitems:use_totem";
+
+	if (totemcolor)
+		totem.color := totemcolor;
+	endif
+	if (color)
+		SetObjProperty(totem, "critcolor", color);
+	endif
+	SetObjProperty(totem, "critgraphic", corpse.graphic);
+
+	SetObjProperty(totem, "critter", npctemplate);
+	SetObjProperty(totem, "totemhp", 170);
+	SetObjProperty(totem, "broken", RandomInt(20) + 20);
+
+	foreach item in EnumerateItemsInContainer(corpse, ENUMERATE_ROOT_ONLY)
+		MoveObjectToLocation(item, corpse.x, corpse.y, corpse.z, MOVEOBJECT_FORCELOCATION );
+	endforeach
+	DestroyItem(corpse);
+	set_critical(0);
+
+endfunction

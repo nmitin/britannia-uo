@@ -1,0 +1,21 @@
+use uo;
+
+program OnInsert( mobile, keyring, movetype, insert_type, adding_item, existing_stack, amt_to_add )
+
+	amt_to_add := amt_to_add;
+	existing_stack := existing_stack;
+	insert_type := insert_type;
+	movetype := movetype;
+
+	if( !adding_item.IsKey() )
+		SendSysMessage( mobile, "Only keys can be put on a keyring.", 0x3, 0x22 );
+		return 0;
+	elseif( EnumerateItemsInContainer( keyring ).Size() >= keyring.MaxItems() )
+		SendSysMessage( mobile, "This keyring is full.", 0x3, 0x22 );
+		return 0;
+	endif
+
+	SendSysMessage( mobile, "You put the key on the ring." );
+
+	return 1;
+endprogram

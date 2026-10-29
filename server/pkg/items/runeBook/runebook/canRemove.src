@@ -1,0 +1,11 @@
+use uo;
+
+program canRemove( mobile, unused container, unused item, move_type )
+	if( move_type == MOVETYPE_COREMOVE )
+		return 1;
+	elseif( mobile.cmdlevel > 2 )
+		return 1;
+	endif
+
+	return 0;
+endprogram

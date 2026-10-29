@@ -1,0 +1,43 @@
+diff --git a/cmake/Boost.cmake b/cmake/Boost.cmake
+index 4ec8a32..ef05964 100644
+--- a/cmake/Boost.cmake
++++ b/cmake/Boost.cmake
+@@ -136,12 +136,19 @@ if (${windows})
+         ${BOOST_STACKTRACE_LIB2}
+     )
+ else()
+-  set_property(TARGET libboost_stacktrace APPEND
+-      PROPERTY INTERFACE_LINK_LIBRARIES
+-        ${BOOST_STACKTRACE_LIB2}
+-        dl
+-        $<$<NOT:$<PLATFORM_ID:Darwin>>:backtrace>
+-    )
++  if (USE_BOOST_HEADER_STACKTRACE)
++    set_property(TARGET libboost_stacktrace APPEND
++        PROPERTY INTERFACE_LINK_LIBRARIES
++          dl
++      )
++  else()
++    set_property(TARGET libboost_stacktrace APPEND
++        PROPERTY INTERFACE_LINK_LIBRARIES
++          ${BOOST_STACKTRACE_LIB2}
++          dl
++          $<$<NOT:$<PLATFORM_ID:Darwin>>:backtrace>
++      )
++  endif()
+ endif()
+ if (boost_needs_build)
+   add_dependencies(libboost_stacktrace boost_build)
+diff --git a/cmake/Curl.cmake b/cmake/Curl.cmake
+index eebf824..e470d36 100644
+--- a/cmake/Curl.cmake
++++ b/cmake/Curl.cmake
+@@ -4,7 +4,7 @@ set(CURL_TAG "curl-8_14_1")
+ 
+ set(CURL_SOURCE_DIR "${EXT_DOWNLOAD_DIR}/${CURL_TAG}")
+ 
+-set(CURL_FLAGS -DBUILD_CURL_EXE=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF -DCURL_DISABLE_LDAP=ON -DUSE_LIBIDN2=OFF -DUSE_NGHTTP2=OFF -DCURL_USE_LIBPSL=OFF -DCURL_ZSTD=OFF -DCURL_BROTLI=OFF)
++set(CURL_FLAGS -DBUILD_CURL_EXE=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF -DCURL_DISABLE_LDAP=ON -DUSE_LIBIDN2=OFF -DUSE_NGHTTP2=OFF -DCURL_USE_LIBPSL=OFF -DCURL_ZSTD=OFF -DCURL_BROTLI=OFF -DCURL_USE_LIBSSH2=OFF)
+ if (${linux})
+   include(GNUInstallDirs)
+   set(CURL_INSTALL_DIR "${CURL_SOURCE_DIR}/INSTALL")

@@ -1,0 +1,37 @@
+use os;
+use uo;
+use util;
+
+include ":attributes:attributes";
+include ":timedScripts:timedScripts";
+include ":magery:spells";
+
+program cast_strength( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on;
+    cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HELPFUL);
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessage (caster, "Cancelled.", color := 33);
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	// Str increase % = (Eval / 10 + 1)
+	var percent := CDbl(AP_GetSkill(caster, EVALUATING_INTELLIGENCE) / 10) + 1;
+	var points := CInt(AP_GetStat(cast_on, STRENGTH) * (percent / 100));
+
+	// Duration: ((Evaluating Intelligence / 5) + 1) * 6 seconds.
+	var duration := CInt(((AP_GetSkill(caster, EVALUATING_INTELLIGENCE) / 5) + 1) * 6);
+	TS_StartTimer(cast_on, "Strength", duration, points, caster);
+
+	return 1;
+
+endprogram

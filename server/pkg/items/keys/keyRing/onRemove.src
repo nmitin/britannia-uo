@@ -1,0 +1,27 @@
+// This is here for purposes of future reference I suppose. I ran into an issue
+// where this was not or appeared to not fire when I expected it to fire and thus
+// the keyring graphic is updated in the actual keyring use script when a key is
+// removed from a keyring. Perhaps sometime I can find out what the issue is and
+// cut the use script by two lines of code but for now, this is not attached to the
+// keyring and as such does nothing.
+
+use uo;
+
+program keyring_onRemove( mobile, keyring, key, item_amount, movetype )
+    mobile := mobile;
+	key := key;
+	item_amount := item_amount;
+	movetype := movetype;
+	var key_count := Len( EnumerateItemsInContainer( keyring ) ) - 1;
+	if( key_count < 1 )
+		keyring.graphic := 0x1011;
+	elseif( key_count < 3 )
+		keyring.graphic := 0x1769;
+	elseif( key_count < 5 )
+		keyring.graphic := 0x176A;
+	else
+		keyring.graphic := 0x176B;
+	endif
+
+	return 1;
+endprogram

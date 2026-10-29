@@ -1,0 +1,11 @@
+
+use os;
+
+program hunger_logon(who)
+
+	if( who.cmdlevel <= 2 )
+		Start_Script("hunger", who);
+	endif
+
+endprogram
+

@@ -1,0 +1,74 @@
+use os;
+use uo;
+use cliloc;
+
+include "include/client";
+include "include/objtype";
+include ":help:textcmds";
+
+program make_a_tele( who, text )
+
+	if( (text == Lower( "help" )) || (text == Lower( "h" )) || (text == "?") )
+		SendCmdHelpWindow( who, ":commands:gm/maketele.chf" );
+		return;
+	endif
+
+
+    SendSysMessage( who, "Select a rune to gate from." );
+
+    var rune := Target( who, TGTOPT_NOCHECK_LOS );
+
+    if (!rune)
+            SendSysMessage(who, "Targetting cancelled.");
+            return;
+    endif
+
+    if (rune.objtype != UOBJ_RUNE)
+            SendSysMessage(who, "You can only use this on a rune!");
+            return;
+    endif
+	var dest := rune.GetDestination();
+	if(!dest == 0)
+		SendSysMessageCL(who, 501803, color := 33); // That rune is not yet marked.
+		return 0;
+	endif
+	var tox := CInt(dest.x);
+	var toy := CInt(dest.y);
+	var toz := CInt(dest.z);
+	var torealm := dest.realm;
+
+	set_critical( 1 );
+	var gate1 := CreateItemAtLocation( who.x, who.y, who.z, 0x16203, 1, who.realm );
+	gate1.facing := 29;
+	var gate2 := CreateItemAtLocation( tox, toy, toz, 0x16203, 1, torealm );
+	gate2.facing := 29;
+	if (!gate1 || !gate2)
+		DestroyItem(gate1);
+		DestroyItem(gate2);
+		SendSysMessage(who, "Creation of both gates failed.", color := 33);
+		return;
+	endif
+
+	SetObjProperty( gate1, "DestX", gate2.x );
+	SetObjProperty( gate1, "DestY", gate2.y );
+	SetObjProperty( gate1, "DestZ", gate2.z );
+	SetObjProperty( gate1, "DestRealm", gate2.realm );
+	SetObjProperty( gate2, "DestX", gate1.x );
+	SetObjProperty( gate2, "DestY", gate1.y );
+	SetObjProperty( gate2, "DestZ", gate1.z );
+	SetObjProperty( gate2, "DestRealm", gate1.realm );
+
+	Detach();
+
+	set_critical( 0 );
+
+	sleep(30);
+
+	set_critical(1);
+	// gate1.graphic := 1;
+	// gate2.graphic := 1;
+	gate1.invisible := 1;
+	gate2.invisible := 1;
+	set_critical(0);
+
+endprogram

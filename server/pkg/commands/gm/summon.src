@@ -1,0 +1,53 @@
+use uo;
+use basic;
+
+include ":gumps:selectionGump";
+
+program summon_player(who, whom)
+
+	var online_players := EnumerateOnlineCharacters();
+	// online_players are "byref'ed" so no need for a return value.
+	RemoveCharacter(who, online_players);
+	var online_players_names := {};
+	var char;
+	foreach person in online_players
+		online_players_names.append(person.name);
+	endforeach
+	if(!whom)
+		var selection := SelectionGump( who, "Select the player:", online_players_names, BTN_TYPE_RADIO );
+		foreach thing in online_players_names
+			if(thing == selection)
+				char := online_players[_thing_iter];
+				break;
+			endif
+		endforeach
+		MoveObjectToLocation(char, who.x, who.y, who.z, who.realm);
+		return;
+	else
+		foreach person in online_players
+			if(Lower(person.name) == Lower(whom))
+				MoveObjectToLocation(person, who.x, who.y, who.z, who.realm);
+				return;
+			endif
+		endforeach
+	endif
+
+	SendSysMessage(who, "The player could not be summoned.", color := 33);
+	SendSysMessage(who, "The player name might be misspelled.", color := 33);
+
+endprogram
+
+// Removes a character from the array of online characters.
+// Used primaarily to remove the user from the array.
+function RemoveCharacter(byref user, byref online_chars)
+
+	foreach player in online_chars
+		if(user == player)
+			online_chars.erase(_player_iter);
+			break;
+		endif
+	endforeach
+	return;
+
+endfunction
+

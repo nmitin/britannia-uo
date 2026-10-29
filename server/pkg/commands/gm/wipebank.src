@@ -1,0 +1,23 @@
+use uo;
+
+include ":containers:storageAreas";
+
+program textcmd_wipebank(who)
+
+    SendSysMessage( who, "Whos bank do you wish to wipe?", 0x3, 0x42 );
+    var whom := Target( who );
+    if( !whom )
+        SendSysmessage( who, "Cancelled action.", 0x3, 0x32 );
+        return 0;
+    endif
+
+    var bank_box := CP_GetStorageContainerForMobile( whom, CP_BANK_AREA, CP_NOCREATE );
+
+    bank_box.CloseContainer( whom );
+
+    if( CP_RemoveStorageAreaContainer( "Bankbox of "+whom.serial, CP_BANK_AREA ) )
+        SendSysMessage( who, who.name+"'s bankbox has been removed.", 0x3, 0x42 );
+    endif
+
+    return 1;
+endprogram

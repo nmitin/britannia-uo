@@ -1,0 +1,43 @@
+use uo;
+use os;
+
+include ":attributes:attributes";
+include ":timedScripts:timedScripts";
+include ":magery:spells";
+include ":virtue:noto";
+
+program cast_paralyze( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on := parms[4]; // If NPC casting there'll be something here.
+    if (!cast_on) // If no cast_on then this is being cast by a player.
+        cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+    endif
+    if (!cast_on)
+        SendSysMessage (caster, "Cancelled.", color := 33);
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+
+	// Tell spell starter to not wait for this script to finish
+	var spell_starter := GetProcess(info.pid);
+	spell_starter.SendEvent("continue");
+
+	SetObjProperty(cast_on, "LastHit", {caster.name,caster.serial, "paralyze" });
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	// Duration: ((caster Eval Int/10) - ((target Resist Magic/10)) * 3 seconds
+	var attack := AP_GetSkill(caster, EVALUATING_INTELLIGENCE) / 10;
+	var defense := AP_GetSkill(cast_on, RESISTING_SPELLS) / 10;
+	var duration := CInt((attack - defense) * 3);
+
+	// Commented out the virtue drop until I can find some practical way in scripts to
+	// provide a way to raise valor.
+	//VS_AdjustVirtue(caster, "valor", -1, 100);
+	TS_StartTimer(cast_on, "Paralysis", duration);
+
+	return 1;
+endprogram

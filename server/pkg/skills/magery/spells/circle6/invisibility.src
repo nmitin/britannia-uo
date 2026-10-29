@@ -1,0 +1,36 @@
+use uo;
+use os;
+
+include ":attributes:attributes";
+include ":timedScripts:timedScripts";
+include ":magery:spells";
+
+
+program cast_invis( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on;
+    cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HELPFUL);
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessage (caster, "Cancelled.", color := 33);
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+
+	// Tell spell starter to not wait for this script to finish
+	//var spell_starter := GetProcess(info.pid);
+	//spell_starter.SendEvent("continue");
+
+	// Duration: (Magery * 1.2) seconds
+	var duration := CInt((AP_GetSkill(caster, MAGERY) * 1.2) );
+	TS_StartTimer(cast_on, "Invisibility", duration, 0, caster);
+
+	return 1;
+endprogram

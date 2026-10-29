@@ -1,0 +1,55 @@
+use uo;
+use os;
+use cliloc;
+
+include ":magery:spells";
+include ":attributes:attributes";
+
+program cast_teleport( parms )
+  var caster := parms[1];
+  var info := parms[2];
+
+  var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+      if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.
+        return 0;
+    endif
+
+	if ( CoordinateDistance(caster.x, caster.y, cast_on.x, cast_on.y) > 11 )
+		SendSysMessageCL(caster, 501975, color := 33); // That is too far away.
+		return 0;
+	endif
+	
+	if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )
+		SendSysMessageCL(caster, 500876, color := 33); // You can't see that.
+		return 0;
+	endif
+	
+	// Have to add check for Static Housing.
+	
+	if ( cast_on.multi )
+		SendSysMessageCL(caster, 503361, color := 33); // This ability cannot be used to teleport in houses or boats.
+		return 0;
+	endif
+	
+	var orig_pos := struct;
+	orig_pos.+x := caster.x;
+	orig_pos.+y := caster.y;
+	orig_pos.+z := caster.z;
+	orig_pos.+realm := caster.realm;
+	
+	if ( !MoveObjectToLocation(caster, cast_on.x, cast_on.y, cast_on.z, cast_on.realm) );
+		SendSysMessageCL(caster, 502457, color := 33); // Not a supported teleporter location.
+		return 0;
+	endif
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, orig_pos, caster);
+	MS_PlaySpellGFX(info.spell_id, caster, caster);
+
+	//PlayStationaryEffect( caster.x, caster.y, caster.z, GFX_SMOKE, 10, 10, 0, caster.realm );
+
+endprogram

@@ -1,0 +1,47 @@
+use uo;
+use util;
+use cliloc;
+
+include ":attributes:attributes";
+include ":timedScripts:timedScripts";
+include ":magery:spells";
+
+
+program mana_drain ( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on;
+    cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+    
+	if ( caster.serial == cast_on.serial )
+		SendSysMessage(caster, "You cannot mana drain yourself!");
+		return 0;
+	endif
+	
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	// Mana drained = 40 + evaluating intelligence - target's resisting spells
+	var mana_drained := 40 + AP_GetSkill(caster, EVALUATING_INTELLIGENCE) - AP_GetSkill(cast_on, RESISTING_SPELLS);
+	var cast_on_mana := AP_GetVital(cast_on, MANA);
+
+	// Can not drain more mana than the target has
+	if ( mana_drained > cast_on_mana )
+		mana_drained := cast_on_mana;
+	endif
+	
+	// Drain mana from cast_on and restore lost points after 4 seconds
+	TS_StartTimer(cast_on, "ManaDrain", 4, mana_drained, caster);
+	
+	return 1;
+endprogram

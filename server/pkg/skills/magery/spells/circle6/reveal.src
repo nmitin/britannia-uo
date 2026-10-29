@@ -1,0 +1,49 @@
+/////////////////////////////////////////////////////////////////////////////
+// I chose to leave this spell as is rather than convert to the new Distro //
+// version of it.                                                          //
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use cliloc;
+
+include ":attributes:attributes";
+include ":magery:spells";
+include "include/client";
+
+
+program reveal_hider ( parms )
+  var caster := parms[1];
+  var info := parms[2];
+  var cast_on := MS_TargetCoordinates(caster, info.targ, "Select a target.");
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessageCL(caster, 1042023, color := 33); // Cancelled.
+        return 0;
+    endif
+  if ( !CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) )
+        return 0;
+  endif
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	var area_size := CInt(GetConfigInt(info.spell_config, "AreaSize"));
+	var targs := ListMobilesNearLocationEx(cast_on.x, cast_on.y, cast_on.z, area_size, LISTEX_FLAG_HIDDEN, cast_on.realm);
+
+	foreach targ in targs
+		if ( GetObjProperty(targ, "Invisibile") )
+			targ.hidden := 0;
+		else
+			// I just made these up. uo.stratics and uo.com didn't give any good info.
+			var caster_skill := AP_GetSkill(caster, MAGERY) + AP_GetSkill(caster, DETECTING_HIDDEN);
+			var hider_skill := AP_GetSkill(targ, HIDING) + AP_GetSkill(targ, STEALTH);
+			if ( caster_skill >= hider_skill )
+				targ.hidden := 0;
+			endif
+		endif
+	endforeach
+
+	return 1;
+endprogram

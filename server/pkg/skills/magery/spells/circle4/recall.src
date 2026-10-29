@@ -1,0 +1,156 @@
+use uo;
+use os;
+use cfgfile;
+use cliloc;
+
+include ":attributes:attributes";
+include ":magery:spells";
+include "include/client";
+include "include/objtype";
+include ":magery:isValidLoc";
+include ":virtue:virtue";
+
+program recall(parms)
+	var failure := 0;
+	var caster := parms[1];
+	var info := parms[2];
+	var success := 0;
+	var dest := struct;
+	var cast_on;
+	// If recalling from a runebook, do not give a target to the player.
+	if( !info.runebook )
+		cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_NEUTRAL);
+
+		if (!cast_on)
+			SendSysMessage (caster, "Cancelled.", color := 33);
+			return 0;
+		endif
+		if((cast_on.objtype != UOBJ_RUNE) && (cast_on.objtype != 0x22C5))
+			SendSysMessage(caster, "You can only cast that on a recall rune!");
+			return;
+		endif
+		if(!ReserveItem(cast_on))
+			SendSysMessage(caster, "That is in use right now.", color := 33);
+			return;
+		endif
+		if(Distance(caster, cast_on) > 2)
+			SendSysMessage(caster, "That is too far away!", color := 33);
+			return 0;
+		endif
+		if(!Accessible(caster, cast_on))
+			SendSysMessage(caster, "You can't use that right now.", color := 33);
+			return 0;
+		endif
+		if((!CheckLosAt(caster, cast_on.x, cast_on.y, cast_on.z) && !cast_on.container))
+			SendSysMessage(caster, "You can't see that!", color := 33);
+			return 0;
+		endif
+		if(GetObjProperty(cast_on, "Vendored"))
+			SendSysMessage(caster, "You cannot recall off of runes on a vendor");
+			return;
+		endif
+		dest := cast_on.GetDestination();
+		if(!dest)
+			SendSysMessage(caster, "That rune has not been marked with a location.", 2, 33);
+			return 0;
+		endif
+	else
+		dest := info.runebook[2];
+	endif // end of if( !info.no_target)
+	var tox := CInt(dest.x);
+	var toy := CInt(dest.y);
+	var toz := CInt(dest.z);
+	var torealm := dest.realm;
+	if (torealm)
+        if (torealm != caster.realm)
+            SendSysMessage (caster, "You do not have enough power to cross the boundary to that realm.");
+            return;
+        endif
+	endif
+	if(!tox)
+		SendSysMessage(caster, "The rune must be marked.");
+		return;
+	endif
+	if(!isValidLoc(tox,toy))
+		SendSysMessage(caster, "You may not recall into that area.");
+		if( !info.runebook );
+			DestroyItem(cast_on);
+		endif
+		return;
+	endif
+	PlaySoundEffect(caster, 0x210);
+	Detach();
+	var chk := 0;
+	if((caster.x >= 5120) && (caster.x <= 5375) && (caster.y >= 0) && (caster.y <= 255))
+		SendSysMessage(caster, "Your spell fails!");
+		if(cast_on.objtype == UOBJ_RUNE)
+			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		elseif(cast_on.objtype == 0x22C5)
+			SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		endif
+		// SendSysMessage(caster, "your spell fails and consumes the rune!");
+		// if(cast_on.objtype == UOBJ_RUNE)
+			// DestroyItem(cast_on);
+		// elseif(cast_on.objtype == 0x22C5)
+			// removeentry(cast_on);
+		// endif
+		chk := 1;
+	endif
+	// Cannot recall into/onto a multi
+	// var MultiCheck := ListMultisInBox(dest.x, dest.y, dest.z, dest.x, dest.y, dest.z, torealm.realm).size()>0;
+	if(GetStandingHeight( tox, toy, toz, torealm ).multi)
+		SendSysMessage(caster,"Something is blocking the location", 1, 33);
+		// if(cast_on.objtype == UOBJ_RUNE)
+			// DestroyItem(cast_on);
+		// elseif(cast_on.objtype == 0x22C5)
+			// removeentry(cast_on);
+		// endif
+		chk := 1;
+	endif
+
+	// Check for static houses
+    var signs := ListItemsNearLocation( dest.x, dest.y, dest.z, 30);
+	foreach sign in signs
+		if( sign.IsStaticHouseSign() )
+			if( sign.IsLocationInsideHouse(dest) )
+				SendSysMessage( caster, "Your spell fails and consumes the rune!" );
+				DestroyItem( cast_on );
+			endif
+		endif
+    endforeach
+	// End static house check.
+
+  if(chk == 1)
+    return;
+  endif
+  if (failure == 0);
+	MoveObjectToLocation( caster, tox, toy, toz, "britannia" );
+  elseif (failure == 2)
+    SendSysMessage(caster, "your spell fails and consumes the rune!");
+    if(cast_on.objtype == UOBJ_RUNE)
+      DestroyItem(cast_on);
+    endif
+  endif
+  PlaySoundEffect(caster, 0x1fd);
+endprogram
+
+
+// Legacy code for old style rune books.
+// Must be eliminated at some point.
+function removeentry(cast_on)
+  var tox := CInt(GetObjProperty( cast_on, "x" ));
+  var toy := CInt(GetObjProperty( cast_on, "y" ));
+  var toz := CInt(GetObjProperty( cast_on, "z" ));
+  var defs := GetObjProperty(cast_on, "runedefs");
+  var holder := {};
+  foreach thing in defs
+    if((Cint(thing[2]) != tox) or (Cint(thing[3]) != toy) or (Cint(thing[4]) != toz))
+      holder.append(thing);
+    endif
+  endforeach
+  SetObjProperty(cast_on, "runedefs", holder);
+  EraseObjProperty(cast_on, "x");
+  EraseObjProperty(cast_on, "y");
+  EraseObjProperty(cast_on, "z");
+  return;
+endfunction

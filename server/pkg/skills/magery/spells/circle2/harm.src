@@ -1,0 +1,47 @@
+use os;
+use uo;
+use util;
+
+include ":attributes:attributes";
+include ":magery:spells";
+include "include/client";
+include ":damage:damage";
+
+program cast_harm( parms )
+    var caster := parms[1];
+    var info := parms[2];
+    var cast_on := MS_Target(caster, info.targ, "Select a target.", TGTOPT_CHECK_LOS+TGTOPT_HARMFUL);
+    if (!cast_on) // If no cast_on then get cast_on from parms[4]. Used mostly for NPC casting.
+        cast_on := parms[4];
+    endif
+    if (!cast_on)
+        SendSysMessage (caster, "Cancelled.", color := 33);
+        return 0;
+    endif
+    if ( !MS_MobileCheck(caster, cast_on) )
+        return 0;
+    endif
+  PlaySoundEffect(cast_on, SFX_SPELL_HARM);
+  PlayObjectCenteredEffect( cast_on, FX_GLOW_SPIKE, 0x0a,0x1e);
+
+	MS_PlaySpellSFX(info.spell_id, cast_on);
+	MS_PlaySpellGFX(info.spell_id, cast_on, caster);
+
+	// Base damage is a decimal number in between min and max damage
+	var min_damage := CInt(GetConfigInt(info.spell_config, "MinBaseDamage"));
+	var max_damage := CInt(GetConfigInt(info.spell_config, "MaxBaseDamage"));
+	var base_damage := min_damage + (CDbl(RandomInt(CInt((max_damage - min_damage) * 10)) + 1) / 10);
+	var damage := MS_GetSpellDamage(caster, cast_on, base_damage);
+
+	// 1 tile = full damage, 2 tiles = half damage, >3 tiles = 1/4 damage
+	case ( Distance(caster, cast_on) )
+		0:
+		1: break;
+		2: damage := CDbl(damage) / 2;
+		default: damage := CDbl(damage) / 4;
+	endcase
+
+	ApplySpellDamageEX(cast_on, damage, info.damage_type, caster, info.circle, "Harm");
+
+	return 1;
+endprogram

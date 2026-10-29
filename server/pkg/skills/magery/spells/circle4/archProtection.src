@@ -1,0 +1,58 @@
+use uo;
+use os;
+
+
+include ":attributes:attributes";
+include ":timedScripts:timedScripts";
+include ":magery:spells";
+include ":damage:damage";
+
+var mods := struct;
+var ts_cfg_elem := TS_GetCfgElem("Protection");
+var buff_icon := CInt( ts_cfg_elem.BuffIcon );
+var cliloc_name :=  CInt(ts_cfg_elem.cliloc_name);
+var cliloc_desc :=  CInt(ts_cfg_elem.cliloc_desc);
+
+program cast_archprot( params )
+    var caster := params[1];
+    var info := params[2];
+
+	// Get all targets in area that are in party.
+	var area_size := GetConfigInt(info.spell_config, "AreaSize");
+	//var party_members := caster.party.members;
+	var includes := {};
+
+	if( !caster.party.errortext )
+		foreach member in (caster.party.members)
+			includes.Append(member);
+		endforeach
+	endif
+
+	var friendlies := MS_GetFriendlies(caster, area_size);
+	foreach friendly in friendlies
+		print( friendly.name );
+	endforeach
+
+	if ( friendlies.Size() )
+		foreach friend in friendlies
+			includes.Append( friend );
+		endforeach
+	endif
+
+	// var targs := MS_GetValidTargets(caster, area_size, 1, {}, includes);
+	foreach vtarg in includes
+		if ( !GetObjProperty(vtarg, "Protection") )
+			print("Arch " + vtarg.name + "Area size = " + CStr(area_size));
+			params[1] := vtarg;
+			params[2] := info;
+			Start_Script("spells/circle2/protection", params);
+		else
+			params[1] := vtarg;
+			params[2] := info;
+			Start_Script("spells/circle2/protection", params);
+		endif
+
+	endforeach
+
+	return 1;
+endprogram

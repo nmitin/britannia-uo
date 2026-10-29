@@ -1,0 +1,24 @@
+use uo;
+
+include ":traps:traps";
+
+program DartTrap(who, strngth)
+
+	if (!strngth)
+		strngth := "4d5";
+	endif
+	SendSysMessage(who,"Select the container you wish to place a trap on:", color := 88);
+	var chest := Target(who);
+	if (!chest)
+		SendSysMessage(who,"canceled");
+		return;
+	endif
+	if( !chest.IsA(POLCLASS_CONTAINER) )
+		SendSysMessage( who, "You can only set traps on a container.", color := 33 );
+		return;
+	endif
+	AddTrap(chest, "Explosion", strngth, 1);
+	SendSysMessage( who, "A explosion trap is set on " + chest.name, color := 66 );
+
+endprogram
+

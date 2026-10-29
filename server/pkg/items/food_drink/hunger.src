@@ -1,0 +1,97 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Hunger( player )
+//
+//	Author:
+//
+//	Description:	Causes the player to get "hungry" over time.
+//					Runs continuously on all players that are logged in.
+//					Currently, hunger is decremented by 1 every 30 minutes.
+//					Hunger range is 10, which is full, through 0, which is famished.
+//
+//	Parameters:		who::mobileref
+//
+//	Return Value:	none.
+//
+//	Modified: 2022-06-05 17:03:09 by Yukiko
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+use uo;
+use os;
+use util;
+use attributes;
+
+include ":attributes:attributes";
+
+const HUNGER_TIMER := 30; // How often, in minutes, do we decrement hunger.
+
+program Hunger(player)
+
+	var who;
+	// If started from a script.
+	if( TypeOf( player ) == "Array" )
+		who := player[1];
+	else
+		who := player;
+	endif
+
+	if( !GetObjProperty( who, "StaffScriptTester" ) && ( who.cmdlevel >= 2 ) )
+		return 0;
+	endif
+
+	SetObjProperty( who, "#HungerPID", GetPid() );
+
+	var hunger;
+	while( who )
+		// Hunger does not affect dead players.
+		while( who.dead )
+			Sleep( 10 );
+		endwhile
+
+		hunger := CInt(AP_GetVital(who, "Hunger"));
+		if(hunger >= 10)
+			hunger := 10;
+		elseif (!hunger)
+			hunger :=0;
+		endif
+
+		hunger -= 1;
+		AP_SetVital( who, HUNGER, hunger );
+		// Hunger affects stamina regen rate.
+		var regen := AP_GetVitalRegenRateMod(who, STAMINA);
+		// Hunger range is 10, which is full, through 0, which is famished.
+		case ( hunger )
+			10: regen := regen - 200; break;
+			9 : regen := regen + 100; break;
+			8 : regen := regen + 0; break;
+			7 : regen := regen + 0; break;
+			6 : regen := regen + 0; break;
+			5 : regen := regen + 0; break;
+			4 : regen := regen + 0; break;
+			3 : regen := regen - 100; break;
+			2 : regen := regen - 400; break;
+			1 : regen := regen - 600; break;
+			0 : regen := regen - 800; break;
+		endcase
+		AP_ModifyVitalRegenRateMod(who, STAMINA, regen);
+
+		if (hunger > 8)
+			if (AP_GetVital(who, "Stamina") > AP_GetVitalMaximumValue(who, "Stamina"))
+				AP_SetVital(who, "Stamina", AP_GetVitalMaximumValue(who, "Stamina"));
+				RecalcVitals(who);
+			endif
+		endif
+
+		// Hunger range is 10 which is full through 0 which is famished.
+		case (hunger)
+			5 : SendSysMessage( who, "You are hungry.", color := 44 );
+			4 : SendSysMessage( who, "You are very hungry.", color := 44 );
+			3 : SendSysMessage( who, "You're so hungry you feel light headed.", color := 44 );
+			2 : SendSysMessage( who, "Your body is fatigued from hunger.", color := 33 );
+			1 : SendSysMessage( who, "You are extremely hungry.", color := 33 );
+			0 : SendSysMessage( who, "You are desperately hungry!!!", color := 33 );
+		endcase
+
+		Sleep(60 * HUNGER_TIMER);
+	endwhile
+endprogram

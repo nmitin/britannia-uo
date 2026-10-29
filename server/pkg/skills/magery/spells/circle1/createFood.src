@@ -1,0 +1,28 @@
+use uo;
+use os;
+use util;
+
+include ":magery:spells";
+include ":attributes:attributes";
+include ":food_drink:food";
+
+
+program create_food(parms)
+
+
+    var caster := parms[1];
+    var info := parms[2];
+
+	var food_item := RandomFoodObjType("createfood");
+	var food := CreateItemInBackPack(caster, food_item, 1);
+	food.movable := 1;
+	
+	if ( food == error )
+		SendSysMessage(caster, "Error creating food ("+food_item+") ->"+food.errortext);
+	else
+		MS_PlaySpellSFX(info.spell_id, caster);
+		MS_PlaySpellGFX(info.spell_id, caster, caster);
+	endif
+	
+	return 1;
+endprogram
