@@ -22,12 +22,12 @@ program decode_map( who, map )
   var maplevel := GetConfigInt( elem, "Level" );
   var maxlevel := GetMaxMapLevel( who );
   if( maplevel > maxlevel )
-    SendSysMessage( who, "You cannot comprehend the map." );
+    SendSysMessage( who, "Вы не понимаете карту." );
   else
     if(SkillCheck( who, CARTOGRAPHY, (maplevel*20), (maplevel*100)) > 0)
       CreateTreasureMap( who, map, maplevel );
     else
-      SendSysMessage( who, "You understand the map, but fail to decode it." );
+      SendSysMessage( who, "Вы понимаете карту, но не можете её расшифровать." );
     endif
   endif
 endprogram
@@ -55,7 +55,7 @@ function CreateTreasureMap( who, oldmap, maplevel);
   SetObjProperty(map, "decoder", who.serial);
   map.name := "a treasure map [lvl " + maplevel + "] [decoded by " + who.name + "]";
   SetTreasureCoords(map);
-  SendSysMessage( who, "You successfully decode the map!" );
+  SendSysMessage( who, "Вы успешно расшифровали карту!" );
   DestroyItem( oldmap );
 endfunction
 

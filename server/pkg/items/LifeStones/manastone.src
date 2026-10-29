@@ -27,7 +27,7 @@ program use_manastone (who, stone)
 
         var what, mymana, maxmana, manadif, amt, capacity;
 	if (!InInventory(who.backpack, stone))
-		SendSysMessage(who, "The mana stone has to be in your backpack to use it!", color := 33);
+		SendSysMessage(who, "Камень маны должен быть в рюкзаке!", color := 33);
 		return;
 	endif
 	if (!ReserveItem(stone)) // If the item is in use already
@@ -38,11 +38,11 @@ program use_manastone (who, stone)
             Init(who, stone);
         endif
 	if (GetObjProperty(stone, "ownedby") != who.serial) // The stone was linked to someone else
-		SendSysMessage(who, "You can't use that mana stone. It isn't yours!", color := 33);
+		SendSysMessage(who, "Этот камень маны не ваш!", color := 33);
 		return;
 	endif
-        SendSysMessage(who, "Target the stone to transfer your mana to it or", color := 100);
-        SendSysMessage (who, "target yourself to transfer stored mana from the stone to you", color := 100);
+        SendSysMessage(who, "Укажите камень, чтобы передать ему ману, или", color := 100);
+        SendSysMessage (who, "укажите себя, чтобы забрать ману из камня.", color := 100);
 	what := Target(who);
 	if (!what) // If she presses escape or targets nothing
 		SendSysMessage(who, "Отменено.");
@@ -61,11 +61,11 @@ program use_manastone (who, stone)
         if (what == who)
             maxmana := AP_GetVitalMaximumValue(who, VITALID_MANA);
             if (!amt) //If the stone is bone dry of mana
-                SendSysMessage(who, "That stone has no stored mana.", color := 666);
+                SendSysMessage(who, "В камне нет запаса маны.", color := 666);
                 return;
             endif
             if (maxmana == mymana) // If she doesn't need any mana
-                SendSysMessage(who, "Your mental energy is at its peak already.", color := 666);
+                SendSysMessage(who, "Ваша ментальная энергия уже на пике.", color := 666);
                 return;
             endif
             manadif := maxmana - mymana; // How low is her mana? manadif contains that info
@@ -80,8 +80,8 @@ program use_manastone (who, stone)
 // If she targets the stone then transfer all but 1 of her mana to the stone
         elseif (what == stone)
             if (!GetObjProperty(stone, "Charges")) // If this Property is 0 then the stone cannot be charged again
-                SendSysMessage (who, "The stone cannot recieve any more mana. It has been used too many times.", color := 33);
-                SendSysMessage (who, "However there may still be more mana you can recover from the stone.", color := 44);
+                SendSysMessage (who, "Камень больше не принимает ману: слишком много использований.", color := 33);
+                SendSysMessage (who, "Но из камня ещё можно забрать ману.", color := 44);
                 return; // Done
             endif
 
@@ -89,9 +89,9 @@ program use_manastone (who, stone)
 // mana transferred is not to exceed her total mana -1 or the stones maximum capacity
 
             if (amt == capacity) // Is the stone already at max capacity?
-                SendSysMessage(who, "That Mana Stone cannot hold any more mana.", color := 44);
+                SendSysMessage(who, "Камень маны не вмещает больше маны.", color := 44);
             elseif (mymana < 2) // if her mana is less than 2 there ain't none to transfer
-                SendSysMessage(who, "Your mind is in need of meditation.", color := 33);
+                SendSysMessage(who, "Вашему разуму нужна медитация.", color := 33);
             else
 // Find out how much the stone needs to be fully charged - manadif
                 manadif := capacity - amt;
@@ -104,11 +104,11 @@ program use_manastone (who, stone)
                 ApplyManaDamage (who, manadif); // Take the mana from her
                 SetObjProperty (stone, "Amount", amt + manadif); // Place it "in" the stone
                 SetObjProperty(stone, "Charges", GetObjProperty(stone, "Charges") -1); // Lose a charge
-                SendSysMessage (who, "You transfer the mana.", color := 68);
+                SendSysMessage (who, "Вы передаёте ману.", color := 68);
                 PlaySoundEffect(who, 0x1EC); // Play a cool sound effect
             endif
         else // Well, she tried to target something other than herself.
-            SendSysMessage(who, "You can only use a Mana Stone for tranferring mana to or from yourself silly!", color := 33);
+            SendSysMessage(who, "Камень маны можно использовать только для передачи маны себе!", color := 33);
         endif
         Status (stone);
 endprogram

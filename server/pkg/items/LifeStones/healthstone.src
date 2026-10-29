@@ -28,7 +28,7 @@ program use_healthstone (who, stone)
 
         var what, myhp, maxhpts, hpdif, amt, capacity;
 	if (!InInventory(who.backpack, stone))
-		SendSysMessage(who, "The health stone has to be in your backpack to use it!", color := 33);
+		SendSysMessage(who, "Камень здоровья должен быть в рюкзаке!", color := 33);
 		return;
 	endif
 	if (!ReserveItem(stone)) // If the item is in use already
@@ -39,11 +39,11 @@ program use_healthstone (who, stone)
             Init(who, stone);
         endif
 	if (GetObjProperty(stone, "ownedby") != who.serial) // The stone was linked to someone else
-		SendSysMessage(who, "You can't use that health stone. It isn't yours!", color := 33);
+		SendSysMessage(who, "Этот камень здоровья не ваш!", color := 33);
 		return;
 	endif
-        SendSysMessage(who, "Target the stone to transfer your health to it or", color := 100);
-        SendSysMessage (who, "target yourself to transfer stored health from the stone to you", color := 100);
+        SendSysMessage(who, "Укажите камень, чтобы передать ему здоровье, или", color := 100);
+        SendSysMessage (who, "укажите себя, чтобы забрать здоровье из камня.", color := 100);
 	what := Target(who);
 	if (!what) // If she presses escape or targets nothing
 		SendSysMessage(who, "Отменено.", color := 44);
@@ -62,11 +62,11 @@ program use_healthstone (who, stone)
         if (what == who)
             maxhpts := AP_GetVitalMaximumValue(who, VITALID_LIFE);
             if (!amt) //If the stone is bone dry of HP
-                SendSysMessage(who, "That stone has no stored health.", color := 666);
+                SendSysMessage(who, "В камне нет запаса здоровья.", color := 666);
                 return;
             endif
             if (maxhpts == myhp) // If she doesn't need any hp
-                SendSysMessage(who, "You are in full health already.", color := 666);
+                SendSysMessage(who, "У вас уже полное здоровье.", color := 666);
                 return;
             endif
             hpdif := maxhpts - myhp; // How low is her hp? hpdif contains that info
@@ -74,15 +74,15 @@ program use_healthstone (who, stone)
                 hpdif := amt; // just give her all the hp left in the stone
             endif
             AP_SetVital (who, HITS, myhp + hpdif ); // Transfer the hp to her
-            SendSysMessage (who, "Your body feels stronger.", color := 68);
+            SendSysMessage (who, "Ваше тело становится крепче.", color := 68);
             SetObjProperty (stone, "Amount", amt - hpdif); // Take the hp "out of" the stone
             PlaySoundEffect(who, 0x1FB); // Play a cool sound effect
 
 // If she targets the stone then transfer all but 1 of her hp to the stone
         elseif (what == stone)
             if (!GetObjProperty(stone, "Charges")) // If this Property is 0 then the stone cannot be charged again
-                SendSysMessage (who, "The stone cannot recieve any more health. It has been used too many times.", color := 33);
-                SendSysMessage (who, "However there may still be more health you can recover from the stone.", color := 44);
+                SendSysMessage (who, "Камень больше не принимает здоровье: слишком много использований.", color := 33);
+                SendSysMessage (who, "Но из камня ещё можно забрать здоровье.", color := 44);
                 return; // Done
             endif
 
@@ -90,9 +90,9 @@ program use_healthstone (who, stone)
 // hp transferred is not to exceed her total hp -1 or the stones maximum capacity
 
             if (amt == capacity) // Is the stone already at max capacity?
-                SendSysMessage(who, "That Health Stone cannot hold any more life force.", color := 44);
+                SendSysMessage(who, "Камень здоровья не вмещает больше жизненной силы.", color := 44);
             elseif (myhp < 2) // if her hp is less than 2 there ain't none to transfer
-                SendSysMessage(who, "You are too weak to give any health to the stone.", color := 33);
+                SendSysMessage(who, "Вы слишком слабы, чтобы отдать здоровье камню.", color := 33);
             else
 // Find out how much the stone needs to be fully charged - hpdif
                 hpdif := capacity - amt;
@@ -105,11 +105,11 @@ program use_healthstone (who, stone)
                 ApplyDamage (who, hpdif); // Take the hp from her
                 SetObjProperty (stone, "Amount", amt + hpdif); // Place it "in" the stone
                 SetObjProperty(stone, "Charges", GetObjProperty(stone, "Charges") -1); // Lose a charge
-                SendSysMessage (who, "You transfer the health.", color := 68);
+                SendSysMessage (who, "Вы передаёте здоровье.", color := 68);
                 PlaySoundEffect(who, 0x1EC); // Play a cool sound effect
             endif
         else // Well, she tried to target something other than herself.
-            SendSysMessage(who, "You can only use a Health Stone for tranferring health to or from yourself silly!", color := 33);
+            SendSysMessage(who, "Камень здоровья можно использовать только для передачи здоровья себе!", color := 33);
         endif
         Status (stone);
 endprogram

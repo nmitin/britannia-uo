@@ -31,8 +31,8 @@ program removespawnshelf(who)
 	var doomed_shlf := 0;
 	while(1)
 		repeat
-			SendSysMessage(who, "Please target a bookshelf to remove from the spawn shelf data file:", color := 88);
-			SendSysMessage(who, "(Press <Esc> to cancel)", color := 88);
+			SendSysMessage(who, "Укажите книжную полку для удаления из файла спавна:", color := 88);
+			SendSysMessage(who, "(Нажмите <ESC> для отмены)", color := 88);
 			shelf_to_remove := Target(who);
 			if(!shelf_to_remove)
 				SendSysMessage(who, "Отменено.", color := 33);
@@ -45,11 +45,11 @@ program removespawnshelf(who)
 		doomed_shlf := bookshelves.FindElement(shelf_to_remove.serial);
 		if(!doomed_shlf.errortext)
 			bookshelf := bookshelves.DeleteElement(shelf_to_remove.serial);
-			SendSysMessage(who, "The bookshelf has been removed from the datafile.", color := 66);
+			SendSysMessage(who, "Полка удалена из файла данных.", color := 66);
 		elseif(doomed_shlf.errortext == "Element not found")
-			SendSysMessage(who, "That bookshelf is not in the spawn shelf data file.", color := 33);
+			SendSysMessage(who, "Этой полки нет в файле спавна.", color := 33);
 		else
-			SendSysMessage(who, "There was a problem - " + doomed_shlf.errortext, color := 33);
+			SendSysMessage(who, "Возникла проблема - " + doomed_shlf.errortext, color := 33);
 		endif
 	endwhile
 

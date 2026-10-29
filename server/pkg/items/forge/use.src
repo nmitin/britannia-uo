@@ -9,7 +9,7 @@ program Animate_Large_Forge_Items( mobile, forge )
 		forge_part := 0;
 
 	if( !items || items.errortext )
-		SendSysMessage( mobile, "This forge appears to be broken, please page a gm.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Похоже, горн сломан. Сообщите ГМ.", 0x3, 0x22 );
 		return 0;
 	endif
 
@@ -28,6 +28,6 @@ program Animate_Large_Forge_Items( mobile, forge )
 		endfor
 	endfor
 
-	SendSysMessage( mobile, "The forge appears to be extremely hot.", 0x3, 0x42 );
+	SendSysMessage( mobile, "Горн кажется раскалённым.", 0x3, 0x42 );
 	return 1;
 endprogram

@@ -36,7 +36,7 @@ program dyeable(who, dyetub)
     return;
   endif
   if(!ReserveItem(item))
-    SendSysMessage(who, "You cant use that!");
+    SendSysMessage(who, "Вы не можете это использовать!");
     return;
   elseif(!Accessible(who, item))
     SendSysMessage(who, "Вы не можете до этого дотянуться!");
@@ -46,14 +46,14 @@ program dyeable(who, dyetub)
   var dyeable  := GetConfigInt(element, "dyeable");
   if(dyeable == 1)
     if((item.objtype == 0xfab) && (dyetub.color == 1))
-      SendSysMessage(who, "You cannot duplicate black dye tubs");
+      SendSysMessage(who, "Нельзя дублировать чёрные чаны с краской");
       return;
     else
       item.color := dyetub.color;
       PlaySoundEffect(who, 0x23f);
     endif
   else
-    SendSysMessage( who, "that item cannot be dyed");
+    SendSysMessage( who, "этот предмет нельзя покрасить");
     return;
   endif
 endprogram

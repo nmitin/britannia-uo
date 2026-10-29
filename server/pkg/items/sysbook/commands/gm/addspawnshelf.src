@@ -39,7 +39,7 @@ program addspawnshelf(who, text)
 	while(1)
 		repeat
 			SendSysMessage(who, "Please target a bookshelf:", color := 88);
-			SendSysMessage(who, "(Press <Esc> to cancel)", color := 88);
+			SendSysMessage(who, "(Нажмите <ESC> для отмены)", color := 88);
 			shelf_to_add := Target(who);
 			if(!shelf_to_add)
 				SendSysMessage(who, "Отменено.", color := 33);

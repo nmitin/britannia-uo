@@ -11,12 +11,12 @@ program textcmd_redeed( mobile )
 	var house := GetStandingHeight( mobile.x, mobile.y, mobile.z ).multi;
 	if( house )
 		if( !house.CanCommand( mobile ))
-			SendSysMessage( mobile, "You cannot redeed anything in this house!" );
+			SendSysMessage( mobile, "В этом доме нельзя ничего свернуть в документ!" );
 			return 0;
 		endif
         else
                 if( mobile.cmdlevel < 3 )
-			SendSysMessage( mobile, "You must be in a house!" );
+			SendSysMessage( mobile, "Нужно находиться в доме!" );
 			return 0;
                 endif
 	endif
@@ -32,7 +32,7 @@ program textcmd_redeed( mobile )
 
 	var owner_serial := GetObjProperty( targ, "DeedOwnerSerial" );
 	if( !owner_serial )
-		SendSysMessage( mobile, "There is no deed for that!" );
+		SendSysMessage( mobile, "Для этого нет документа!" );
 		return 0;
 	endif
 
@@ -40,7 +40,7 @@ program textcmd_redeed( mobile )
 	    deed_objtype := GetObjProperty( targ, "DeedObjType" );
  
 	if( !the_serials || !deed_objtype )
-		SendSysMessage( mobile, "Error couldn't find serials or deed objtype." );
+		SendSysMessage( mobile, "Ошибка: не найдены серийные номера или тип документа." );
 		return 0;
 	endif
 
@@ -54,7 +54,7 @@ program textcmd_redeed( mobile )
 	endforeach
 
 	if( !Len( created ))
-		SendSysMessage( mobile, "Error couldn't find the serials to redeed." );
+		SendSysMessage( mobile, "Ошибка: не найдены серийные номера для сворачивания." );
 		return 0;
 	endif
  
@@ -81,7 +81,7 @@ program textcmd_redeed( mobile )
         
         var the_deed := CreateItemInBackpack( mobile, deed_objtype );
         if( the_deed.errortext )
-                SendSysMessage( mobile, "Error couldn't create deed in your backpack -->"+the_deed.errortext );
+                SendSysMessage( mobile, "Ошибка: не удалось создать документ в рюкзаке -->"+the_deed.errortext );
                 return 0;
         endif
 
@@ -100,7 +100,7 @@ program textcmd_redeed( mobile )
                 SetObjProperty( the_deed, "IDed", ided );
         endif
 
-        SendSysMessage( mobile, "You successfully place the deed in your backpack." );
+        SendSysMessage( mobile, "Документ успешно помещён в рюкзак." );
         
         return 1;
 endprogram

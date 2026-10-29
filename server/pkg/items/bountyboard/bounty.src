@@ -33,12 +33,12 @@ program Assign_Bounty(parms)
 	      endif
 	    endforeach
 	  elseif(bounty > mygold)
-	    SendSysMessage(who, "You do not have that much gold.", 3, 40);
+	    SendSysMessage(who, "У вас нет столько золота.", 3, 40);
 	  else
-	    SendSysMessage(who, "You have declined to place a bounty on " + mob.killer.name + "'s head");
+	    SendSysMessage(who, "Вы отказались назначить награду за " + mob.killer.name + "' голову");
 	  endif
 	else
-	  SendSysMessage(who, "You have no gold in your bank from which to place a bounty.", 3, 40);
+	  SendSysMessage(who, "В банке нет золота для награды.", 3, 40);
 	endif
   endforeach
 endprogram

@@ -6,7 +6,7 @@ function CreateCarpet(who, x1, y1, x2, y2, carpet_z, carpet_color, carpet_type, 
 		if(lockdowns > 0)
 			SetObjProperty(sign, "RemainingLockdowns", lockdowns - 1);
 		else
-			SendSysMessage(who, "You do not have encough lockdowns for this to be placed.");
+			SendSysMessage(who, "Недостаточно закреплений, чтобы это разместить.");
 		return;
 		endif
 	endif

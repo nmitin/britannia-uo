@@ -25,12 +25,12 @@ program use_sicle( mobile, sicle )
 	if( !useItem_check( mobile, sicle, ITEM_EQUIPPED ) )
 		return 0;
 	elseif( GetEquipmentByLayer( mobile, 25 ) )
-		SendSysMessage( mobile, "You cannot harvest fruits while mounted.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Нельзя собирать фрукты верхом.", 0x3, 0x22 );
 		return 0;
 	endif
 
 
-	SendSysMessage(mobile, "What do you wish to do with the sicle?", color := 88);
+	SendSysMessage(mobile, "Что вы хотите сделать серпом?", color := 88);
 
 	use_on := TargetCoordinates( mobile );
 	if( !use_on )
@@ -46,7 +46,7 @@ program use_sicle( mobile, sicle )
 //		Broadcast("Testvar: "+testvar);
 	
 		// Check if tree is a fruit tree!
-		SendSysMessage( mobile, "You can only use a sicle to harvest fruits from a tree.", 0x3, 0x22 );
+		SendSysMessage( mobile, "Серпом можно собирать фрукты с дерева.", 0x3, 0x22 );
 		return 0;
 	endif
 
@@ -80,7 +80,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 //	endif
 
 	if ( !cfg_file.FruitType )
-		SendSysMessage( mobile, "This kind of tree does not have fruits to harvest.");
+		SendSysMessage( mobile, "У этого дерева нет фруктов.");
 		return 0;
 	endif
 
@@ -192,7 +192,7 @@ function SICLE_HarvestResource( byref mobile, byref use_on, byref tool )
 		endif
 
 		if( quantity == 0 )
-			SendSysMessage( mobile, "You have harvested all the "+FormatItemDescription( item_desc, amount )+".", 0x3, 0x32 );
+			SendSysMessage( mobile, "Вы собрали всё: "+FormatItemDescription( item_desc, amount )+".", 0x3, 0x32 );
 		endif
 
 		data_elem.SetProp( "FruitHarvest", ReadGameClock() );

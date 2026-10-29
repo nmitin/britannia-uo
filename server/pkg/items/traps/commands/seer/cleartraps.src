@@ -4,7 +4,7 @@ include ":traps:traps";
 
 program RemoveAllTraps(who)
 
-	SendSysMessage( who, "Remove all traps from which item?", color := 88);
+	SendSysMessage( who, "С какого предмета убрать все ловушки?", color := 88);
 	var object := Target( who, TGTOPT_NOCHECK_LOS );
 	var traplist := GetTrapList(object);
 	foreach trap in traplist

@@ -24,16 +24,16 @@ program PocketDip( who, dummy )
 	elseif( !useItem_check( who, dummy, DEFAULT_ITEM ))
 		return 0;
         elseif( !HasThiefGloves( who ))
-                SendSysMessage( who, "You need to equip thief gloves to do that!" );
+                SendSysMessage( who, "Для этого нужны воровские перчатки!" );
 		return 0;
 	elseif( SkillCheck( who, "Stealing", -1, TP_CanAdvance( who, "Stealing" ) ) > 0 )
 		PlaySoundEffect( who, SUCCESS_SOUND );
-		SendSysMessage( who, "You successfully slip your hand into the bag." );
+		SendSysMessage( who, "Вы успешно запускаете руку в сумку." );
 		ReleaseItem( dummy );
 		SleepMS(3600);
 		return 1;
 	else
-		SendSysMessage( who, "You foolishly grip the bag." );
+		SendSysMessage( who, "Вы глупо хватаете сумку." );
 		PlaySoundEffect( who, FAIL_SOUND );
 
 		DummyRock( dummy );

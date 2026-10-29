@@ -30,10 +30,10 @@ program cast_mark( caster, text )
 		coords.+z := caster.z;
 		coords.+realm := caster.realm;
 		SetObjProperty(caster, "RecallDestination", coords);
-		SendSysMessage( caster, "You marked: yourself for " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
+		SendSysMessage( caster, "Вы отметили себя для " +  caster.x + " " + caster.y + " " + caster.z + " " + caster.realm );
 		return 1;
 	else
-		SendSysMessage(caster, "You must select a valid target.", 1, 33);
+		SendSysMessage(caster, "Нужно выбрать допустимую цель.", 1, 33);
 		return 0;
     endif
 

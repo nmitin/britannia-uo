@@ -25,7 +25,7 @@ program receivercontrol(crystal);
           while (i < LinkCount)
             placeholder := Cint(Links[i]);
             receiver := SystemFindObjectBySerial(placeholder);
-            PrintTextAbove(receiver, "Message from "+ev.source.name+": " + ev.text);
+            PrintTextAbove(receiver, "Сообщение от "+ev.source.name+": " + ev.text);
             i := i + 1;
           endwhile
         endif

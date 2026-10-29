@@ -12,7 +12,7 @@ program gump_CarpetSelection(who, carpet_deed)
 
 //	sign := IsInsieMultiHouseSign(who);
 	if (!sign.IsObjectInsideHouse(who))
-		SendSysMessage (who, "You must be in a house to use this deed.", color := 33);
+		SendSysMessage (who, "Чтобы использовать документ, нужно быть в доме.", color := 33);
 		return;
 	endif
 	// Now we determine whether the player is the owner
@@ -20,17 +20,17 @@ program gump_CarpetSelection(who, carpet_deed)
 	if(sign.IsCoOwnerOrOwner(who))
 		lockdowns := GetObjProperty(sign, "RemainingLockdowns");
 	else
-		SendSysMessage(who, "You must be the owner or co-owner to use the deed.", color := 33);
+		SendSysMessage(who, "Документ может использовать только владелец или совладелец.", color := 33);
 		return;
 	endif
 	// End of determination of player's status.
 
 	if (lockdowns <= 0)
-		SendSysMessage(who, "You do not have encough lockdowns for this to be placed.");
+		SendSysMessage(who, "Недостаточно закреплений, чтобы это разместить.");
 		return;
 	endif
 	if(!ReserveItem(carpet_deed))
-		SendSysMessage(who, "That item is already in use.");
+		SendSysMessage(who, "Этот предмет уже используется.");
 	return;
 	endif
 	ReserveItem(carpet_deed);
@@ -86,7 +86,7 @@ program gump_CarpetSelection(who, carpet_deed)
 	endif
 
 //Northwest Corner Selection
-    SendSysMessage( who, "Select northwest corner of area to be carpeted.");
+    SendSysMessage( who, "Укажите северо-западный угол ковра.");
     var target_one := TargetCoordinates(who);
 
     if ( !target_one )
@@ -105,7 +105,7 @@ program gump_CarpetSelection(who, carpet_deed)
     endif
 
 //Southeast Corner Selection
-    SendSysMessage(who, "Select southeast corner of area to be carpeted.");
+    SendSysMessage(who, "Укажите юго-восточный угол ковра.");
     var target_two := TargetCoordinates(who);
 
     if ( !target_two )
@@ -126,13 +126,13 @@ program gump_CarpetSelection(who, carpet_deed)
 //LOS Check between both targets, using player's current realm for confirmation, is this proper? Who knows?
 	var LOSCheck := CheckLosBetween(target_one.x, target_one.y, target_one.z, target_two.x, target_two.y, target_two.z, who.realm);
 	if (!LOSCheck)
-		SendSysMessage(who, "Your carpeted area must be within line of sight.");
+		SendSysMessage(who, "Область ковра должна быть в поле зрения.");
 	return;
 	endif
 
 //Check target_one.z & target_two.z level so they match
     if ( target_one.z != target_two.z )
-        SendSysMessage(who, "Both corners must be at same height.");
+        SendSysMessage(who, "Оба угла должны быть на одной высоте.");
     return;
     endif
     var carpet_z := target_one.z;
@@ -164,11 +164,11 @@ program gump_CarpetSelection(who, carpet_deed)
 	var X_Axis := x2 - x1;
 	var Y_Axis := y2 - y1;
     if ((X_Axis == 0) || (Y_Axis == 0))
-        SendSysMessage(who, "Carpet area too small.");
+        SendSysMessage(who, "Область ковра слишком мала.");
     return;
     endif
     if ((X_Axis > 8) || (Y_Axis > 8))
-        SendSysMessage(who, "Carpet area too big, can only be 8 tiles in each direction.");
+        SendSysMessage(who, "Область ковра слишком велика: не более 8 клеток в каждую сторону.");
     return;
     endif
 

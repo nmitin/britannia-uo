@@ -16,7 +16,7 @@ var origLoc := {};
     theManipulation := "up";
   endif
 
-  SendSysMessage(who, "What do you want to manipulate?");
+  SendSysMessage(who, "Что вы хотите изменить?");
   theTarget := Target(who, TGTOPT_NOCHECK_LOS);
 
   if ((theTarget == error) || (!theTarget))
@@ -41,7 +41,7 @@ var origLoc := {};
   endif
 
   if (theTarget.movable == 1)
-    SendSysMessage(who, "Target not locked down!");
+    SendSysMessage(who, "Цель не закреплена!");
     return;
   endif
 
@@ -72,7 +72,7 @@ function DoManipulation(who, theDecorator, theTarget)
 var theManipulation := GetObjProperty(theDecorator, "Manipulation");
 
   if (theManipulation == error)
-    SendSysMessage(who, "Must set decorator first.");
+    SendSysMessage(who, "Сначала нужно назначить декоратора.");
     return;
   endif
 
@@ -80,13 +80,13 @@ var theManipulation := GetObjProperty(theDecorator, "Manipulation");
 
   case (theManipulation)
     "up"    : if ((theTarget.z+1) > (who.z+20))
-                SendSysMessage(who, "Can't move that high.");
+                SendSysMessage(who, "Нельзя поднять так высоко.");
                 theTarget.movable := 0;
                 return;
               endif
               MoveObjectToLocation(theTarget, theTarget.x, theTarget.y, theTarget.z+1, who.realm, MOVEOBJECT_FORCELOCATION);
     "down"  : if ((theTarget.z-1) < (who.z-5))
-                SendSysMessage(who, "Can't move that low.");
+                SendSysMessage(who, "Нельзя опустить так низко.");
                 theTarget.movable := 0;
                 return;
               endif
@@ -293,12 +293,12 @@ var theHouse := theItem.multi;
 var theSign := GetHouseSign(theHouse);
 
   if (theSign == error)
-    SendSysMessage(who, "Can't find house sign!");
+    SendSysMessage(who, "Не удалось найти табличку дома!");
     return 0;
   endif
 
   if (!isCoOwner(who, theHouse))
-    SendSysMessage(who, "You aren't a co-owner here.");
+    SendSysMessage(who, "Вы здесь не совладелец.");
     return 0;
   endif
 

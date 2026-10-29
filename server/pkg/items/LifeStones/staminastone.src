@@ -29,7 +29,7 @@ program use_staminastone (who, stone)
 
         var what, mystamina, maxstamina, staminadif, amt, capacity;
 	if (!InInventory(who.backpack, stone))
-		SendSysMessage(who, "The stamina stone has to be in your backpack to use it!", color := 33);
+		SendSysMessage(who, "Камень выносливости должен быть в рюкзаке!", color := 33);
 		return;
 	endif
 	if (!ReserveItem(stone)) // If the item is in use already
@@ -40,11 +40,11 @@ program use_staminastone (who, stone)
             Init(who, stone);
         endif
 	if (GetObjProperty(stone, "ownedby") != who.serial) // The stone was linked to someone else
-		SendSysMessage(who, "You can't use that stamina stone. It isn't yours!", color := 33);
+		SendSysMessage(who, "Этот камень выносливости не ваш!", color := 33);
 		return;
 	endif
-        SendSysMessage(who, "Target the stone to transfer your stamina to it or", color := 100);
-        SendSysMessage (who, "target yourself to transfer stored stamina from the stone to you", color := 100);
+        SendSysMessage(who, "Укажите камень, чтобы передать ему выносливость, или", color := 100);
+        SendSysMessage (who, "укажите себя, чтобы забрать выносливость из камня.", color := 100);
 	what := Target(who);
 	if (!what) // If she presses escape or targets nothing
 		SendSysMessage(who, "Отменено.");
@@ -63,11 +63,11 @@ program use_staminastone (who, stone)
         if (what == who)
             maxstamina := AP_GetVitalMaximumValue(who, STAMINA);
             if (!amt) //If the stone is bone dry of stamina
-                SendSysMessage(who, "That stone has no stored stamina.", color := 666);
+                SendSysMessage(who, "В камне нет запаса выносливости.", color := 666);
                 return;
             endif
             if (maxstamina == mystamina) // If she doesn't need any stamina
-                SendSysMessage(who, "Your energy level is already at its peak.", color := 666);
+                SendSysMessage(who, "Ваш уровень энергии уже на пике.", color := 666);
                 return;
             endif
             staminadif := maxstamina - mystamina; // How low is her stamina? staminadif contains that info
@@ -82,8 +82,8 @@ program use_staminastone (who, stone)
 // If she targets the stone then transfer all but 1 of her stamina to the stone
         elseif (what == stone)
             if (!GetObjProperty(stone, "Charges")) // If this Property is 0 then the stone cannot be charged again
-                SendSysMessage (who, "The stone cannot recieve any more stamina. It has been used too many times.", color := 33);
-                SendSysMessage (who, "However there may still be more stamina you can recover from the stone.", color := 44);
+                SendSysMessage (who, "Камень больше не принимает выносливость: слишком много использований.", color := 33);
+                SendSysMessage (who, "Но из камня ещё можно забрать выносливость.", color := 44);
                 return; // Done
             endif
 
@@ -91,9 +91,9 @@ program use_staminastone (who, stone)
 // stamina transferred is not to exceed her total stamina -1 or the stones maximum capacity
 
             if (amt == capacity) // Is the stone already at max capacity?
-                SendSysMessage(who, "That Stamina Stone cannot hold any more stamina.", color := 44);
+                SendSysMessage(who, "Камень выносливости не вмещает больше выносливости.", color := 44);
             elseif (mystamina < 2) // if her stamina is less than 2 there ain't none to transfer
-                SendSysMessage(who, "You must rest before giving your stamina to the stone.", color := 33);
+                SendSysMessage(who, "Перед передачей выносливости нужно отдохнуть.", color := 33);
             else
 // Find out how much the stone needs to be fully charged - staminadif
                 staminadif := capacity - amt;
@@ -106,11 +106,11 @@ program use_staminastone (who, stone)
 				AP_SetVital(who, STAMINA, AP_GetVital(who, STAMINA) - staminadif); // Take the stamina from her
                 SetObjProperty (stone, "Amount", amt + staminadif); // Place it "in" the stone
                 SetObjProperty(stone, "Charges", GetObjProperty(stone, "Charges") -1); // Lose a charge
-                SendSysMessage (who, "You transfer the stamina.", color := 68);
+                SendSysMessage (who, "Вы передаёте выносливость.", color := 68);
                 PlaySoundEffect(who, 0x1EC); // Play a cool sound effect
             endif
         else // Well, she tried to target something other than herself.
-            SendSysMessage(who, "You can only use a Stamina Stone for tranferring stamina to or from yourself silly!", color := 33);
+            SendSysMessage(who, "Камень выносливости можно использовать только для передачи выносливости себе!", color := 33);
         endif
         Status (stone);
 endprogram

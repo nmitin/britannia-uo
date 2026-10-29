@@ -44,7 +44,7 @@ program set_trap( who, text )
 		if( cont.IsA(POLCLASS_CONTAINER) )
 			AddTrap( cont, trap_type, strngth, 1 );
 		else
-			SendSysMessage( who, "You can only place traps on a container.", color := 33 );
+			SendSysMessage( who, "Ловушки можно ставить только на контейнеры.", color := 33 );
 		endif
 
 	endwhile

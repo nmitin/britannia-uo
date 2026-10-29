@@ -45,11 +45,11 @@ program createshardbook(who)
 	selected_books := SelectionGumpEx(who, "List of " + CStr(book_keys.size()) + " books in the 'Library':", book_titles, BTN_TYPE_CHECKBOX);
 
 	if(selected_books.errortext == "No option was selected.")
-		SendSysMessage(who, "No books selected.", color := 33);
+		SendSysMessage(who, "Книги не выбраны.", color := 33);
 		return 0;
 	endif
 
-	SendSysMessage(who, "Target a container, or yourself to create the books in your backpack, or press <ESC> to cancel.", color := 88);
+	SendSysMessage(who, "Укажите контейнер или себя, чтобы создать книги в рюкзаке, или нажмите <ESC>.", color := 88);
 	var the_place := Target(who);
 
 	if(!the_place)
@@ -72,7 +72,7 @@ program createshardbook(who)
 		the_book.setprop("SysBook", 1);
 	endforeach
 
-	SendSysMessage(who, "The selected book or books have been created in " + the_place.name + ".", color := 66);
+	SendSysMessage(who, "Выбранные книги созданы в " + the_place.name + ".", color := 66);
 	return 0;
 
 endprogram

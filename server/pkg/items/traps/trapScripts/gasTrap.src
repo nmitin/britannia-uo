@@ -17,7 +17,7 @@ program trapScript(params)
 	var trap_index := params[4];
 	params := 0; // Not needed anymore.
 
-	SendSysMessage(mobile, "You set off a poison gas trap!", color := 33);
+	SendSysMessage(mobile, "Вы активировали ловушку с ядовитым газом!", color := 33);
 	PlaySoundEffect(object, 0x231);
 	PlayStationaryEffectEx( object.x, object.y, object.z, object.realm, 0x3709, 0x0a, 0x1e, 56, 4 );
 	SleepMS(1500);

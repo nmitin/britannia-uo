@@ -13,7 +13,7 @@ include "include/toolWear";
 program shears(who, shears)
 	var craftingbag := FindCraftingbag (who);
 	shears := shears;
-	SendSysMessage(who, "What sheep do you want to shear?", color := 88);
+	SendSysMessage(who, "Какую овцу стричь?", color := 88);
 	var sheep := TargetCoordinates(who);
 
 	if(!sheep)
@@ -22,7 +22,7 @@ program shears(who, shears)
 	endif
 
 	if(sheep.graphic != CID_SHEEP)
-		SendSysMessage(who, "You can only use shears on a sheep.", color := 33);
+		SendSysMessage(who, "Ножницы применимы только к овце.", color := 33);
 		return 0;
 	endif
 

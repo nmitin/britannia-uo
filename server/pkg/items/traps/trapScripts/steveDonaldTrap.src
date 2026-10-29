@@ -24,7 +24,7 @@ program trapScript(params)
 	
 	SleepMS(100);
 	
-	SendSysMessage(mobile, "You feel slightly aged...");
+	SendSysMessage(mobile, "Вы чувствуете себя немного старее...");
 	GetEquipmentByLayer(mobile, LAYER_HAIR).color := 1000;
 	GetEquipmentByLayer(mobile, LAYER_BEARD).color := 1000;
 	

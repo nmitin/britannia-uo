@@ -32,7 +32,7 @@ program PracticeDummy( who, dummy )
 	var miss_sound := CInt( CS_GetWeaponInfo( weapon, "MissSound" ));
 	var weapon_attribute := CS_GetWeaponInfo( weapon, "Attribute" );
 	if( weapon_attribute["Archery"] )
-		SendSysMessage( who, "You should use an archery butte." );
+		SendSysMessage( who, "Нужно использовать стрелковый тир." );
 		return 0;
 	endif
 

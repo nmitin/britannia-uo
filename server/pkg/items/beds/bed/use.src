@@ -3,7 +3,7 @@ use os;
 
 program change_bed (character, bed)
 	if (!GetObjProperty (bed, "OtherItems"))
-		SendSysMessage (character, "This bed is a tad broken.  Please redeed it and place it again.");
+		SendSysMessage (character, "Эта кровать сломана. Сверните её и поставьте заново.");
 		return;
 	endif
 

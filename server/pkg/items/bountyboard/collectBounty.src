@@ -18,12 +18,12 @@ program collectBounty(parms)
   var serial := GetObjProperty(item, "serial");
   var bounty := FindBounty(who, serial);
   if(!bounty)
-    PrintTextAbove(me, "I'm sorry, but there doesnt seem to be a bounty on that head.");
+    PrintTextAbove(me, "Извините, за эту голову награды, похоже, нет.");
     DestroyItem(item);
     return;
   else
-    PrintTextAbove(me, "You have brought in the head of " + bounty[1] + ". That fiend was responsible for " + bounty[3] + " murders.");
-    PrintTextAbove(me, "Lord British has offered a reward of " + bounty[2] + " gold pieces, which I shall place in your bankbox.");
+    PrintTextAbove(me, "Вы принесли голову " + bounty[1] + " . Этот изверг повинен в " + bounty[3] + " убийствах.");
+    PrintTextAbove(me, "Лорд Бритиш предлагает награду в " + bounty[2] + " золотых монет, которые я положу в ваш банковский ящик.");
     var gold := Cint(bounty[2]);
     var bank := CP_GetStorageContainerForMobile( who, CP_BANK_AREA, CP_CREATE );
     while(gold >= 60000)

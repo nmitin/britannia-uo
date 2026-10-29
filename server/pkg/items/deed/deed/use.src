@@ -85,7 +85,7 @@ function BuildandSendOrientGump ( who, deed, sign, targ )
 
 	var cfg	:= ReadConfigFile ( buildCFG );
     if ( cfg.errortext )
-        SendSysMessage ( who, "Error reading config Build CFG -->"+cfg.errortext );
+        SendSysMessage ( who, "Ошибка чтения конфигурации Build CFG -->"+cfg.errortext );
     return 0;
     endif
 
@@ -128,7 +128,7 @@ function BuildItem ( who, deed, sign, targ, buildCFG, RetainColor, direction )
 	    the_serials	:= {};
 	var cfg	:= ReadConfigFile ( buildCFG );
     if ( cfg.errortext )
-        SendSysMessage ( who, "Error reading config Build CFG -->"+cfg.errortext );
+        SendSysMessage ( who, "Ошибка чтения конфигурации Build CFG -->"+cfg.errortext );
     return 0;
     endif
 	var cfg_elem := FindConfigElem ( cfg, direction );

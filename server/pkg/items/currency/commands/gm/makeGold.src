@@ -4,13 +4,13 @@ use polsys;
 program makegold(mobile, amount)
 
 	if(!amount)
-		SendSysMessage(mobile, "Useage: .makegold [amount]");
+		SendSysMessage(mobile, "Использование: .makegold [количество]");
 		return;
 	endif
 
 	amount := CInt(amount);
 
-	SendSysMessage(mobile, "Target the container to hold the gold");
+	SendSysMessage(mobile, "Укажите контейнер для золота");
 	var cont := Target(mobile);
 
 	if(!cont)
@@ -19,7 +19,7 @@ program makegold(mobile, amount)
 	endif
 
 	if(!cont.IsContainer())
-		SendSysMessage(mobile, "That is not a container");
+		SendSysMessage(mobile, "Это не контейнер");
 		return;
 	endif
 
@@ -33,7 +33,7 @@ program makegold(mobile, amount)
 			stacks := stacks + 1;
 		else
 			SendSysMessage(mobile, "Контейнер полон!");
-			SendSysMessage(mobile, "Создано "+CStr(created)+", remaining: "+CStr(orgamount-created));
+			SendSysMessage(mobile, "Создано "+CStr(created)+", осталось: "+CStr(orgamount-created));
 			return;
 		endif
 	endwhile
@@ -43,10 +43,10 @@ program makegold(mobile, amount)
 			created := created + amount;
 		else
 			SendSysMessage(mobile, "Контейнер полон!");
-			SendSysMessage(mobile, "Создано "+CStr(created)+", remaining: "+CStr(orgamount-created));
+			SendSysMessage(mobile, "Создано "+CStr(created)+", осталось: "+CStr(orgamount-created));
 		endif
 	endif
 
-	SendSysMessage(mobile, "Done. Made "+CStr(stacks)+" stacks");
+	SendSysMessage(mobile, "Готово. Создано "+CStr(stacks)+" стопок");
 
 endprogram

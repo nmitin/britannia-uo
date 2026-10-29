@@ -10,7 +10,7 @@ program use_commcrystal(who, crystal)
   var Charges := GetObjProperty(crystal, "Charges");
   Charges := Cint(Charges);
   if ( Charges <= 0 )
-    SendSysMessage(who, "All charges have been used");
+    SendSysMessage(who, "Все заряды израсходованы");
     return;
   endif
 
@@ -19,21 +19,21 @@ program use_commcrystal(who, crystal)
   var LinkCount := Len(Links);
   var CrystalId := crystal.serial;
   var i, blank, placeholder, receiver;
-  SendSysMessage(who, "Select object.");
+  SendSysMessage(who, "Выберите предмет.");
   var TargetItem := target(who);
   if ( (TargetItem.objtype != CRYSTALOBJ) && (TargetItem.objtype != RECEIVEROBJ) )
-    SendSysMessage(who, "That is not a communication crystal.");
+    SendSysMessage(who, "Это не кристалл связи.");
     return;
   endif
   if (TargetItem.serial == crystal.serial)
     if (CrystalStatus == "OFF")
-      SendSysMessage(who, "Crystal activated.  You are linked to " + (LinkCount-1) + " receivers.");
+      SendSysMessage(who, "Кристалл активирован. Вы связаны с " + (LinkCount-1) + " получателями.");
       SetObjProperty(crystal, "Status", "ON");
       Charges := Charges -1;
       SetObjProperty( crystal, "Charges", Charges );
       return;
     else
-      SendSysMessage(who, "Crystal deactivated.");
+      SendSysMessage(who, "Кристалл деактивирован.");
       SetObjProperty(crystal, "Status", "OFF");
       return;
     endif
@@ -43,10 +43,10 @@ program use_commcrystal(who, crystal)
     Master := Cint(Master);
     if (Master == 0)
       If (LinkCount > 10)
-        SendSysMessage(who, "Too many receivers.   Aborted.");
+        SendSysMessage(who, "Слишком много получателей. Отменено.");
         return;
       endif
-      SendSysMessage(who, "Linked.");
+      SendSysMessage(who, "Связано.");
       SetObjProperty(TargetItem, "Master", CrystalId);
       LinkString := Cstr(LinkString) + " " + Cstr(TargetItem.serial);
       SetObjProperty(crystal, "Links", LinkString);
@@ -69,10 +69,10 @@ program use_commcrystal(who, crystal)
         i := i + 1;
       endwhile
       SetObjProperty(crystal, "Links", placeholder);
-      SendSysMessage(who, "Unlinked.");
+      SendSysMessage(who, "Связь снята.");
       return;
     else
-      SendSysMessage(who, "That receiver is in use.");
+      SendSysMessage(who, "Этот приёмник используется.");
       return;
     endif
   endif

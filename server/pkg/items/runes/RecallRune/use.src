@@ -6,7 +6,7 @@ program dblclick_rune(who, rune)
     return;
   endif
   if(GetObjProperty(rune, "Destination") == error)
-    SendSysMessage(who, "That rune is not marked.");
+    SendSysMessage(who, "Эта руна не отмечена.");
     return;
   endif
   var runedescription := RequestInput(who, rune, "Please enter a description for this rune.");
@@ -14,6 +14,6 @@ program dblclick_rune(who, rune)
 //  var descriptionlen := len(runedescription);
   if(runedescription)
 	rune.name := runedescription;
-	SendSysMessage(who, "Rune is renamed.");
+	SendSysMessage(who, "Руна переименована.");
   endif
 endprogram

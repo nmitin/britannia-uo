@@ -31,9 +31,9 @@ exported function Roll( item, mobile )
 	var one := RandomDiceRoll( "1d6" );
 	var two := RandomDiceRoll( "1d6" );
 
-	SendSysMessage( mobile, "The first die rolls to a stop and shows: "+one );
-	SendSysMessage( mobile, "The second die stops and shows: "+two );
-	SendSysMessage( mobile, "Total for this roll: "+CInt( one+two ) );
+	SendSysMessage( mobile, "Первая кость останавливается и показывает: "+one );
+	SendSysMessage( mobile, "Вторая кость останавливается и показывает: "+two );
+	SendSysMessage( mobile, "Итого за бросок: "+CInt( one+two ) );
 
 	return 1;
 endfunction

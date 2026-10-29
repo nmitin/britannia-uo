@@ -89,15 +89,15 @@ program OrderBoard (user, board )
  
   var text := GetObjProperty( board, "Text" + selected );
   if (text == error)
-    SendSysMessage( user, "Give a SHORT Subject" );
+    SendSysMessage( user, "Укажите КОРОТКУЮ тему" );
     topic := RequestInput( user, user.backpack, "(10 characters would be ideal )" );
     if ( !topic )
-      SendSysMessage( user, "Aborted" );
+      SendSysMessage( user, "Отменено" );
       return;
     endif       
     text := RequestInput( user, board, "Line 1:" );
     if ( !text )
-      SendSysMessage( user, "Aborted" );
+      SendSysMessage( user, "Отменено" );
       return;
     endif       
     for (i := 2; i <= 17; i := i + 1 )
@@ -111,7 +111,7 @@ program OrderBoard (user, board )
     SetObjProperty( board, "Topic"+selected, CStr(curday) + " " + topic );
     SetObjProperty( board, "Text"+selected, text );
     SetObjProperty( board, "Name"+selected, user.name );
-    SendSysMessage( user, "Aborted" );
+    SendSysMessage( user, "Отменено" );
     return;
   endif
 
@@ -155,11 +155,11 @@ program OrderBoard (user, board )
   oldday := topic[1,space-1];
   age := curday - CInt(oldday);
   if (age < 5)
-    SendSysMessage( user, "Message is only " + age + " Days old." );
-    SendSysMessage( user, "It was not deleted." );
+    SendSysMessage( user, "Сообщение всего " + age + " дней." );
+    SendSysMessage( user, "Оно не удалено." );
   else
     EraseObjProperty( board, "Text" + selected );
     EraseObjProperty( board, "Topic" + selected );
-    SendSysMessage( user, "Message " + selected + " deleted." );
+    SendSysMessage( user, "Сообщение " + selected + " удалено." );
   endif 
 endprogram

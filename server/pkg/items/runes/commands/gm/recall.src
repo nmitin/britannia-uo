@@ -7,7 +7,7 @@ program textcmd_recall( caster )
 
 
 	var dest := struct;
-	SendSysMessage( caster, "Select a target to recall from." );
+	SendSysMessage( caster, "Выберите цель для возврата." );
 	var cast_on := Target(caster);
 	if (!cast_on)
 		SendSysMessage(caster, "Отменено.", 1, 33);
@@ -17,7 +17,7 @@ program textcmd_recall( caster )
 	if(cast_on == caster)
 		dest := GetObjProperty(caster, "RecallDestination");
 		if(!dest)
-			SendSysMessage(caster, "You have not previously marked yourself with a location.", 1, 33);
+			SendSysMessage(caster, "Вы ещё не отмечали себя.", 1, 33);
 			return 0;
 		endif
 		MoveObjectToLocation( caster, dest.x, dest.y, dest.z, dest.realm, MOVEOBJECT_FORCELOCATION );

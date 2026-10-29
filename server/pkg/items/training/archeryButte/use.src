@@ -35,14 +35,14 @@ program ArcheryButte( who, butte )
 		RecoverAmmo( who, butte );
 		return 0;
 	elseif( !CS_GetWeaponInfo( weapon, "Projectile" ))
-		SendSysMessage( who, "You need to use a missile weapon." );
+		SendSysMessage( who, "Нужно использовать метательное оружие." );
 		return 0;
 	elseif( !TP_CheckRange( who, weapon, butte ))
 		return 0;
 	endif
 
 	if( !ConsumeSubstance( who.backpack, projectile_type, 1 ))
-		SendSysMessage( who, "You do not have any ammo for this weapon." );
+		SendSysMessage( who, "У вас нет боеприпасов для этого оружия." );
 		return 0;
 	endif
 
@@ -118,7 +118,7 @@ function RecoverAmmo( who, butte )
 				ammo["Ammo-"] := "";
 
 				CreateItemInBackPack( who, CInt( ammo ), CInt( GetObjProperty( butte, c_prop )));
-				SendSysMessage( who, "You recover some ammo." );
+				SendSysMessage( who, "Вы достаёте часть боеприпасов." );
 
 				EraseObjProperty( butte, c_prop );
 			endif
@@ -127,7 +127,7 @@ function RecoverAmmo( who, butte )
 
 		return 1;
 	else
-		SendSysMessage( who, "There is no ammunition to recover from this butte." );
+		SendSysMessage( who, "В этом тире нет боеприпасов для сбора." );
 		return 0;
 	endif
  
