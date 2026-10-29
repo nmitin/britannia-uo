@@ -104,10 +104,10 @@ program merchant()
                                           var res := SendSellWindow( ev.source, Self(), shop_sell, shop_buy, shop_resale, VENDOR_SEND_AOS_TOOLTIP );
 										  res := res;
                                         else
-                                          PrintTextAbovePrivate(me, "You dont have anything I would be interested in.", ev.source);
+                                          PrintTextAbovePrivate(me, "У тебя нет ничего, что меня бы заинтересовало.", ev.source);
                                         endif
                                       else
-                                        PrintTextAbovePrivate(me, "I cannot afford any more of that", ev.source );
+                                        PrintTextAbovePrivate(me, "Я больше не могу себе этого позволить.", ev.source );
                                       endif
                                     elseif (txt ["job"])
                                         var parms := { };
@@ -124,7 +124,7 @@ program merchant()
                                     endif
                                   endif
         SYSEVENT_MERCHANT_BOUGHT: TurnToward(ev.source);
-                                  PrintTextAbovePrivate(me, "The total of thy sale is " + ev.amount, ev.source);
+                                  PrintTextAbovePrivate(me, "Итого за продажу: " + ev.amount, ev.source);
                                   if(lower(merchant_type) != "appraiser")
                                     var mygold := GetObjProperty(shop_resale, "MyGold");
                                     mygold := mygold - ev.amount;
@@ -139,7 +139,7 @@ program merchant()
                                   endforeach
                                   PlaySoundEffect(me, 0x38);
         SYSEVENT_MERCHANT_SOLD:   TurnToward(ev.source);
-                                  PrintTextAbovePrivate(me, "The total of thy purchase is " + ev.amount, ev.source);
+                                  PrintTextAbovePrivate(me, "Итого за покупку: " + ev.amount, ev.source);
                                   foreach thing in EnumerateItemsInContainer((ev.source).backpack, ENUMERATE_ROOT_ONLY)
                                     EraseObjProperty(thing, "ClearRestock");
                                   endforeach
@@ -191,13 +191,13 @@ function PayForJobCompleted (byref ev)
 	var player := ev.source;
 
 	if (GetObjProperty (bag, "merchant") != me.serial)
-		say("I didn't ask for that.");
+		say("Я не просил об этом.");
 		return;
 	endif
 
 	var endtime := GetObjProperty (bag, "endtime");
 	if ( ReadGameClock() > endtime )
-		say("You didn't complete this order in time.");
+		say("Ты не выполнил заказ вовремя.");
 		DestroyItem (bag);
 		return;
 	endif
@@ -210,7 +210,7 @@ function PayForJobCompleted (byref ev)
 	endforeach
 
 	if (!count)
-		say ("Just what are you trying to pull?");
+		say ("Что ты пытаешься мне подсунуть?");
 		return;
 	endif
 
@@ -219,9 +219,9 @@ function PayForJobCompleted (byref ev)
 	var goldamount := count * CINT(GetAttribute (player, jobattribute)/5);
 	if (!goldamount)
 		goldamount := count;
-		say("This is some crappy workmanship.  I'll only pay " + goldamount + " gold for this.");
+		say("Работа так себе. Я заплачу за это только " + goldamount + " золота.");
 	else
-		say("Good job! Here is your " + goldamount + " gold.");
+		say("Хорошая работа! Вот твои " + goldamount + " золота.");
 	endif
 
 	CreateItemInContainer (player.backpack, UOBJ_GOLD_COIN, goldamount);
@@ -240,27 +240,27 @@ endfunction
 //  called by 'sell bag'
 ///////////////////
 function BuyBag (byref you)
-	PrintTextAbovePrivate ( me, "What bag of stuff would you like to sell me?", you );
+	PrintTextAbovePrivate ( me, "Какой мешок ты хочешь мне продать?", you );
 	var bag := Target (you);
 	if (!bag)
-		PrintTextAbovePrivate (me, "OK, never mind then.", you);
+		PrintTextAbovePrivate (me, "Ладно, забудь.", you);
 		return;
 	endif
 
 	if (!bag.isa (POLCLASS_CONTAINER))
-		PrintTextAbovePrivate (me, "But that's not even a bag!", you);
+		PrintTextAbovePrivate (me, "Но это же не мешок!", you);
 		return;
 	endif
 
 	if (bag != you.backpack)
 		if (!InInventory (you.backpack, bag) )
-			PrintTextAbovePrivate (me, "That bag isn't in your inventory.", you);
+			PrintTextAbovePrivate (me, "Этого мешка нет в твоём инвентаре.", you);
 			return;
 		endif
 	endif
 
 	if (!len (EnumerateItemsInContainer (bag)))
-		PrintTextAbovePrivate (me, "But that bag is empty!", you);
+		PrintTextAbovePrivate (me, "Но этот мешок пуст!", you);
 		return;
 	endif
 

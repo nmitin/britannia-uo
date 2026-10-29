@@ -34,3 +34,4 @@
 # Резервные копии, созданные при настройке
 /server/regions/*.orig
 /server/config/*.orig
+server/pol.pid

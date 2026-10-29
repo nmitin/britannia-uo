@@ -56,19 +56,19 @@ program banker();
 			if(ev.source.criminal == 1)
 				SetObjProperty(me, "OriginalSpeechColor", me.speech_color);
 				me.speech_color := 33;
-				say("I will not do business with criminals!");
+				say("Я не веду дела с преступниками!");
 				me.speech_color := GetObjProperty(me, "OriginalSpeechColor");
 				EraseObjProperty(me, "OriginalSpeechColor");
 				return 0;
 			endif
 			if(text["bankers note"] || text["banker's note"] || text["bankers order"] || text["banker's order"] || text["draft"])
-				PrintTextAbove(me, "" + ev.source.name + " one moment please.");
+				PrintTextAbove(me, "" + ev.source.name + " одну минуту, пожалуйста.");
 				Sleep(2);
 				BuyBankersNote(ev.source, me);
 			// elseif(text["balance"])
 			elseif(Find( text, "balance", 1 ))
 				if(ev.source.criminal == 1)
-					say("I will not do business with criminals!");
+					say("Я не веду дела с преступниками!");
 				else
 					var bankbox := ev.source.BankBox();
 					var contents := EnumerateItemsInContainer(bankbox);
@@ -108,18 +108,18 @@ endprogram
 
 // Using 'new' StorageAreas.inc
 function OpenBank(you, bank_region)
-	var item_word := "items";
+	var item_word := "предметов";
   TurnToward(you);
   var bankbox := CP_GetStorageContainerForMobile( you, bank_region, CP_CREATE );
   if(bankbox)
     var contents := EnumerateItemsInContainer( bankbox, ENUMERATE_ROOT_ONLY );
 		if( contents.Size() == 1 )
-			item_word := "item";
+			item_word := "предмет";
 		endif
-    PrintTextAbovePrivate(me, "Your bank box holds " + contents.Size() + " " + item_word + ".", you);
+    PrintTextAbovePrivate(me, "В вашем банковском ящике: " + contents.Size() + " " + item_word + ".", you);
     SendOpenSpecialContainer(you, bankbox);
   else
-    say("You don't seem to have a bank box, "+ you.name);
+    say("Похоже, у вас нет банковского ящика, "+ you.name);
   endif
 endfunction
 
@@ -189,7 +189,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 		amt := RequestGump(who,"For what amount shall I make the Banker's Order? The coins must be in your bank box.", "The maximum is 500 million coins");
 		amt := CInt(amt);
 		if(!amt)
-			PrintTextAbove(me, "Very well then. I see you've changed your mind.", 1, 39);
+			PrintTextAbove(me, "Хорошо. Вижу, вы передумали.", 1, 39);
 			return 0;
 		endif
 //	endwhile
@@ -207,8 +207,8 @@ function BuyBankersNote(who, me, currency := 0xEED)
 	endforeach
 
 	if(goldamt < (amt + 10))
-		PrintTextAbove(me, "I'm sorry. You don't have the funds available in your bank box.", 1, 39);
-		PrintTextAbove(me, "Please come back when you can deposit the amount needed.", 1, 39);
+		PrintTextAbove(me, "Извините, на вашем банковском счёте недостаточно средств.", 1, 39);
+		PrintTextAbove(me, "Возвращайтесь, когда сможете внести нужную сумму.", 1, 39);
 		return 0;
 	endif
 
@@ -216,19 +216,19 @@ function BuyBankersNote(who, me, currency := 0xEED)
 
 	var payee := RequestGump(who,"Whom shall I list as the payee?", "Please make sure the name is spelled correctly.");
 	if(!payee)
-		PrintTextAbove(me, "Very well then. I see you've changed your mind.", 1, 39);
+		PrintTextAbove(me, "Хорошо. Вижу, вы передумали.", 1, 39);
 		return 0;
 	endif
 
 	payeeserial := ACCT_FindValidPlayer(payee);
 	if(!payeeserial)
-		PrintTextAbove(me, "That person doesn't seem to have an account with any bank.", 1, 33);
+		PrintTextAbove(me, "Похоже, у этого человека нет счёта ни в одном банке.", 1, 33);
 		return 0;
 	endif
 
 	var agree := confirmationSizable(who, "There is a nominal fee of 10 coins additional charge for the Note. Do you accept?");
 	if(!agree)
-		PrintTextAbove(me, "Very well then. Perhaps later.", 1, 39);
+		PrintTextAbove(me, "Хорошо. Возможно, позже.", 1, 39);
 		return 0;
 	endif
 
@@ -236,8 +236,8 @@ function BuyBankersNote(who, me, currency := 0xEED)
 
 	var spentcoins := SpendCoin(who, amt + 10, box, CInt(currency));
 	if(!spentcoins)
-		SendSysMessage(who, "There was a problem extracting the coins from your bank box.", 1, 33);
-		SendSysMessage(who, "Please page a staff member and reprt this.", 1, 33);
+		SendSysMessage(who, "Не удалось извлечь монеты из вашего банковского ящика.", 1, 33);
+		SendSysMessage(who, "Пожалуйста, сообщите об этом администрации.", 1, 33);
 		Return 0;
 	endif
 
@@ -245,7 +245,7 @@ function BuyBankersNote(who, me, currency := 0xEED)
 
 	var created := CreateItemInBackpack(who, "bankersorder");
 	if(created.errortext == "That container is full")
-		PrintTextAbove(me, "Your backpack is full. Make room and come back later.", 1, 33);
+		PrintTextAbove(me, "Ваш рюкзак полон. Освободите место и возвращайтесь.", 1, 33);
 		return 0;
 	endif
 

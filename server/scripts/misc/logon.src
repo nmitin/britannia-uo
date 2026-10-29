@@ -121,7 +121,12 @@ program onlogon(who)
 			ApplyEquipmentMods(who, thing);
 		endif
 	endforeach
-	var time := FormatTime(GetTimeStruct(GetTime()), "<HH>:<MM>:<SS> on <DAY>-<MON>-<YY>");
+	var time := FormatTime(GetTimeStruct(GetTime()), "<HH>:<MM>:<SS> <DAY> <MON> <YY>");
+	var months := array{ "Jan", "января", "Feb", "февраля", "Mar", "марта", "Apr", "апреля", "May", "мая", "Jun", "июня", "Jul", "июля", "Aug", "августа", "Sep", "сентября", "Oct", "октября", "Nov", "ноября", "Dec", "декабря" };
+	var i;
+	for (i := 1; i < 24; i += 2)
+		time := StrReplace(time, months[i], months[i+1]);
+	endfor
 	SendSySMessage(who, "Вы вошли в игру в " + time + " по времени сервера.", color := 88);
 
 	var acct := who.acct;
