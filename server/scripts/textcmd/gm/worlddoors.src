@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// .worlddoors [place|remove|status] - управление мировыми дверями.
+// .worlddoors [place|rebuild|remove|status] - управление мировыми дверями.
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -18,6 +18,19 @@ program textcmd_worlddoors( who, text )
 			var removed := WorldDoorsRemove();
 			SendSysMessage( who, "Мировые двери: удалено " + removed.Destroyed +
 			               ", не найдено " + removed.Missing + "." );
+			return;
+
+		"rebuild":
+			var removed := WorldDoorsRemove();
+			var placed := WorldDoorsPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Мировые двери пересобраны: удалено " +
+				               removed.Destroyed + ", всего " + placed.Total +
+				               ", создано " + placed.Created +
+				               ", ошибок " + placed.Failed + "." );
+			endif
 			return;
 
 		"status":

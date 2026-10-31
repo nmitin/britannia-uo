@@ -4,8 +4,9 @@
 //
 // В клиентских файлах двери домов не хранятся как статики: на обычных
 // шардах они лежат в world save как динамические предметы. После конвертации
-// карты из client/ их нет, поэтому расставляем двери из конфигов дистрибутива
-// decoratefacets (данные ServUO/RunUO для Felucca).
+// карты из client/ их нет. Готовый список собран из сейва World of Dream и
+// конфига decoratefacets и проверен по патченным статикам:
+// `tools/merge_worlddoors.py` -> `config/worlddoors.cfg`.
 //
 // Расстановка идемпотентна: уже существующая дверь на месте не создаётся
 // повторно. Открытые двери при старте закрываются по реестру, чтобы вернуть
@@ -17,10 +18,12 @@ use uo;
 use os;
 use cfgfile;
 
-var WORLDOORS_CFG      := ":decoratefacets:decorations/britannia/doors";
-var WORLDOORS_ITEMDESC := ":doors:itemdesc";
-var WORLDOORS_REGISTRY := "WorldDoors.Serials";
-var WORLDOORS_CPROP    := "WorldDoor";
+var WORLDOORS_CFG            := "worlddoors";
+var WORLDOORS_ITEMDESC       := ":doors:itemdesc";
+var WORLDOORS_REGISTRY       := "WorldDoors.Serials";
+var WORLDOORS_VERSION_PROP   := "WorldDoors.Version";
+var WORLDOORS_DATA_VERSION   := 2;
+var WORLDOORS_CPROP          := "WorldDoor";
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -133,7 +136,19 @@ function WorldDoorsPlace()
 	endif
 
 	var registry := WorldDoorsLoadRegistry();
-	result.Closed := WorldDoorsCloseRegistered( registry );
+
+	// Один раз при смене набора дверей (например, после объединения с World of
+	// Dream) удаляем старые двери и расставляем новый список. Дальше — обычная
+	// идемпотентная проверка.
+	var installed_version := CInt( GetGlobalProperty( WORLDOORS_VERSION_PROP ) );
+	if( installed_version < WORLDOORS_DATA_VERSION )
+		var removed := WorldDoorsRemove();
+		Print( "WorldDoors: обновление набора дверей, удалено старых: " +
+		       removed.Destroyed );
+		registry := {};
+	else
+		result.Closed := WorldDoorsCloseRegistered( registry );
+	endif
 
 	// Реестр пересобираем заново: в нём останутся только реально найденные
 	// и созданные двери, без устаревших серийников.
@@ -197,6 +212,7 @@ function WorldDoorsPlace()
 	endforeach
 
 	WorldDoorsSaveRegistry( new_registry );
+	SetGlobalProperty( WORLDOORS_VERSION_PROP, WORLDOORS_DATA_VERSION );
 
 	return result;
 endfunction
