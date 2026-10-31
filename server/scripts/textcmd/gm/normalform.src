@@ -1,0 +1,30 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .normalform - вернуть обычный человеческий облик и воскресить, если мёртв.
+//
+// Нужна как надёжная замена .myform из seer-пакета: та команда иногда не
+// находится, если персонаж потерял cmdlevel или пакет seer не загрузился.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+program textcmd_normalform( who, text )
+
+	if( who.dead )
+		Resurrect( who );
+		SendSysMessage( who, "Персонаж воскрешён.", color := 88 );
+	endif
+
+	if( who.gender == 1 )
+		who.graphic := 0x191;
+	else
+		who.graphic := 0x190;
+	endif
+
+	EraseObjProperty( who, "MyForm" );
+	SendSysMessage( who, "Обычный облик восстановлен. Двери снова должны блокировать проход.", color := 88 );
+
+	return 1;
+endprogram
