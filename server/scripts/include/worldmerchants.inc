@@ -17,6 +17,8 @@ use polsys;
 
 var WM_XML          := ":merchantnodes:backups/nodes.xml";
 var WM_REGISTRY     := "WorldMerchants.Serials";
+var WM_VERSION_PROP := "WorldMerchants.Version";
+var WM_VERSION      := 2;
 var WM_CPROP        := "WorldMerchantNode";
 
 
@@ -76,6 +78,12 @@ function WMSeed()
 	if( xml.errortext )
 		result.Message := "не удалось открыть " + WM_XML + ": " + xml.errortext;
 		return result;
+	endif
+
+	var installed := CInt( GetGlobalProperty( WM_VERSION_PROP ) );
+	if( installed < WM_VERSION )
+		var removed := WMRemove();
+		Print( "WorldMerchants: обновление набора, удалено старых узлов: " + removed.Destroyed );
 	endif
 
 	var facet := xml["Facets"]["Felucca"];
@@ -148,5 +156,6 @@ function WMSeed()
 	endforeach
 
 	WMSaveRegistry( new_registry );
+	SetGlobalProperty( WM_VERSION_PROP, WM_VERSION );
 	return result;
 endfunction
