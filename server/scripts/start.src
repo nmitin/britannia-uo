@@ -4,6 +4,8 @@ use os;
 include "include/teleporters";
 include "include/worlddoors";
 include "include/worldteleporters";
+include "include/worldguards";
+include "include/worldmerchants";
 include ":containers:storageAreas";
 
 program world_start_up()
@@ -35,6 +37,24 @@ program world_start_up()
 	else
 		Print( "WorldTeleporters: всего " + teles.Total + ", создано " + teles.Created +
 		       ", уже было " + teles.Existing + ", ошибок " + teles.Failed );
+	endif
+
+	Print( "Размещение guard-постов" );
+	var guards := WGPlace();
+	if( guards.Message )
+		Print( "WorldGuards: " + guards.Message );
+	else
+		Print( "WorldGuards: всего " + guards.Total + ", создано " + guards.Created +
+		       ", уже было " + guards.Existing + ", ошибок " + guards.Failed );
+	endif
+
+	Print( "Размещение merchant-узлов" );
+	var merchants := WMSeed();
+	if( merchants.Message )
+		Print( "WorldMerchants: " + merchants.Message );
+	else
+		Print( "WorldMerchants: всего " + merchants.Total + ", создано " + merchants.Created +
+		       ", уже было " + merchants.Existing + ", ошибок " + merchants.Failed );
 	endif
 
 	return 1;

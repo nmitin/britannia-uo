@@ -1,0 +1,49 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worldmerchants [seed|rebuild|remove|status]
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worldmerchants";
+
+program textcmd_worldmerchants( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"remove":
+			var removed := WMRemove();
+			SendSysMessage( who, "Merchant-узлы: удалено " + removed.Destroyed + "." );
+			return;
+
+		"rebuild":
+			var removed := WMRemove();
+			var seeded := WMSeed();
+			if( seeded.Message )
+				SendSysMessage( who, "Ошибка: " + seeded.Message );
+			else
+				SendSysMessage( who, "Merchant-узлы пересобраны: удалено " + removed.Destroyed +
+				               ", всего " + seeded.Total + ", создано " + seeded.Created +
+				               ", ошибок " + seeded.Failed + "." );
+			endif
+			return;
+
+		"status":
+			SendSysMessage( who, "Merchant-узлов: " + WMCount() + "." );
+			return;
+
+		default:
+			var seeded := WMSeed();
+			if( seeded.Message )
+				SendSysMessage( who, "Ошибка: " + seeded.Message );
+			else
+				SendSysMessage( who, "Merchant-узлы: всего " + seeded.Total +
+				               ", создано " + seeded.Created + ", уже было " + seeded.Existing +
+				               ", ошибок " + seeded.Failed + "." );
+			endif
+			return;
+	endcase
+endprogram

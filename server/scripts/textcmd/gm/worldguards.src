@@ -1,0 +1,49 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worldguards [place|rebuild|remove|status]
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worldguards";
+
+program textcmd_worldguards( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"remove":
+			var removed := WGRemove();
+			SendSysMessage( who, "Guard-посты: удалено " + removed.Destroyed + "." );
+			return;
+
+		"rebuild":
+			var removed := WGRemove();
+			var placed := WGPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Guard-посты пересобраны: удалено " + removed.Destroyed +
+				               ", всего " + placed.Total + ", создано " + placed.Created +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+
+		"status":
+			SendSysMessage( who, "Guard-постов: " + WGCount() + "." );
+			return;
+
+		default:
+			var placed := WGPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Guard-посты: всего " + placed.Total +
+				               ", создано " + placed.Created + ", уже было " + placed.Existing +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+	endcase
+endprogram
