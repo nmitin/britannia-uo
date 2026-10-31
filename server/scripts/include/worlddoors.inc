@@ -22,8 +22,9 @@ var WORLDOORS_CFG            := "worlddoors";
 var WORLDOORS_ITEMDESC       := ":doors:itemdesc";
 var WORLDOORS_REGISTRY       := "WorldDoors.Serials";
 var WORLDOORS_VERSION_PROP   := "WorldDoors.Version";
-var WORLDOORS_DATA_VERSION   := 2;
+var WORLDOORS_DATA_VERSION   := 3;
 var WORLDOORS_CPROP          := "WorldDoor";
+var WORLDOORS_ORIGIN_CPROP   := "WorldDoorOrigin";
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,8 +77,9 @@ endfunction
 // Найти уже существующую дверь нужного типа в точке (x,y,z).
 //
 // Двери с XMod/YMod при открытии сдвигаются ядром на эти величины, поэтому
-// проверяем и исходную, и «открытую» позицию. Это страхует от дублей, даже
-// если реестр потерян.
+// проверяем и исходную, и «открытую» позицию. Но открытая позиция одной двери
+// может совпадать с соседней дверью (например, у двустворчатых дверей), поэтому
+// в сдвинутой позиции принимаем только дверь с совпадающим WorldDoorOrigin.
 /////////////////////////////////////////////////////////////////////////////
 function WorldDoorsFindExisting( objtype, x, y, z, realm, xmod, ymod )
 
@@ -89,13 +91,29 @@ function WorldDoorsFindExisting( objtype, x, y, z, realm, xmod, ymod )
 
 	if( xmod != 0 || ymod != 0 )
 		foreach item in ListItemsAtLocation( x + xmod, y + ymod, z, realm )
-			if( item.objtype == objtype )
-				return item;
+			if( item.objtype == objtype && GetObjProperty( item, WORLDOORS_CPROP ) )
+				var origin := GetObjProperty( item, WORLDOORS_ORIGIN_CPROP );
+				if( origin && CInt( origin.X ) == x && CInt( origin.Y ) == y &&
+				    CInt( origin.Z ) == z )
+					return item;
+				endif
 			endif
 		endforeach
 	endif
 
 	return 0;
+endfunction
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Запомнить исходные координаты двери (для поиска открытой двери).
+/////////////////////////////////////////////////////////////////////////////
+function WorldDoorsTag( door, x, y, z )
+
+	SetObjProperty( door, WORLDOORS_CPROP, 1 );
+	SetObjProperty( door, WORLDOORS_ORIGIN_CPROP,
+	                struct{ "X":=x, "Y":=y, "Z":=z } );
+	return door;
 endfunction
 
 
@@ -187,6 +205,7 @@ function WorldDoorsPlace()
 			if( existing.decayAt )
 				existing.decayAt := 0;
 			endif
+			WorldDoorsTag( existing, x, y, z );
 			new_registry.append( existing.serial );
 			result.Existing += 1;
 		else
@@ -198,7 +217,7 @@ function WorldDoorsPlace()
 			else
 				door.movable := 0;
 				door.decayAt := 0;
-				SetObjProperty( door, WORLDOORS_CPROP, 1 );
+				WorldDoorsTag( door, x, y, z );
 				new_registry.append( door.serial );
 				result.Created += 1;
 			endif
