@@ -1,0 +1,49 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worldteleporters [place|rebuild|remove|status]
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worldteleporters";
+
+program textcmd_worldteleporters( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"remove":
+			var removed := WorldTPRemove();
+			SendSysMessage( who, "Телепорты: удалено " + removed.Destroyed + "." );
+			return;
+
+		"rebuild":
+			var removed := WorldTPRemove();
+			var placed := WorldTPPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Телепорты пересобраны: удалено " + removed.Destroyed +
+				               ", всего " + placed.Total + ", создано " + placed.Created +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+
+		"status":
+			SendSysMessage( who, "Dungeon-телепортов: " + WorldTPCount() + "." );
+			return;
+
+		default:
+			var placed := WorldTPPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Телепорты: всего " + placed.Total +
+				               ", создано " + placed.Created + ", уже было " + placed.Existing +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+	endcase
+endprogram

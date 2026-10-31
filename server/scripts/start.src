@@ -3,6 +3,7 @@ use os;
 
 include "include/teleporters";
 include "include/worlddoors";
+include "include/worldteleporters";
 include ":containers:storageAreas";
 
 program world_start_up()
@@ -25,6 +26,15 @@ program world_start_up()
 		Print( "WorldDoors: всего " + doors.Total + ", создано " + doors.Created +
 		       ", уже было " + doors.Existing + ", ошибок " + doors.Failed +
 		       ", закрыто открытых " + doors.Closed );
+	endif
+
+	Print( "Размещение dungeon-телепортов" );
+	var teles := WorldTPPlace();
+	if( teles.Message )
+		Print( "WorldTeleporters: " + teles.Message );
+	else
+		Print( "WorldTeleporters: всего " + teles.Total + ", создано " + teles.Created +
+		       ", уже было " + teles.Existing + ", ошибок " + teles.Failed );
 	endif
 
 	return 1;
