@@ -2,6 +2,7 @@ use uo;
 use os;
 
 include "include/teleporters";
+include "include/worlddoors";
 include ":containers:storageAreas";
 
 program world_start_up()
@@ -15,6 +16,16 @@ program world_start_up()
 
 	Print( "Initializing teleporters" );
 	CreateTeleporters();
+
+	Print( "Размещение дверей мира" );
+	var doors := WorldDoorsPlace();
+	if( doors.Message )
+		Print( "WorldDoors: " + doors.Message );
+	else
+		Print( "WorldDoors: всего " + doors.Total + ", создано " + doors.Created +
+		       ", уже было " + doors.Existing + ", ошибок " + doors.Failed +
+		       ", закрыто открытых " + doors.Closed );
+	endif
 
 	return 1;
 endprogram

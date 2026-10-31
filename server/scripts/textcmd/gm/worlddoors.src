@@ -1,0 +1,39 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worlddoors [place|remove|status] - управление мировыми дверями.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worlddoors";
+
+program textcmd_worlddoors( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"remove":
+			var removed := WorldDoorsRemove();
+			SendSysMessage( who, "Мировые двери: удалено " + removed.Destroyed +
+			               ", не найдено " + removed.Missing + "." );
+			return;
+
+		"status":
+			SendSysMessage( who, "Мировых дверей в мире: " + WorldDoorsCount() + "." );
+			return;
+
+		default:
+			var placed := WorldDoorsPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Мировые двери: всего " + placed.Total +
+				               ", создано " + placed.Created +
+				               ", уже было " + placed.Existing +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+	endcase
+endprogram
