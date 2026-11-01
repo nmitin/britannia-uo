@@ -1,0 +1,70 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worldspecials [remove|rebuild|status|healers]
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worldspecials";
+
+program textcmd_worldspecials( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"remove":
+			var removed := WSRemove();
+			SendSysMessage( who, "Особые NPC: удалено узлов " + removed.Destroyed + "." );
+			return;
+
+		"rebuild":
+			var removed := WSRemove();
+			var placed := WSPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Особые NPC пересобраны: удалено " + removed.Destroyed +
+				               ", всего " + placed.Total + ", создано " + placed.Created +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+
+		"status":
+			SendSysMessage( who, "Особых узлов: " + WSCount() +
+			               ", бродячих лекарей: " + WSCountHealers() + "." );
+			return;
+
+		"healers":
+			var healers := WSSeedHealers();
+			if( healers.Message )
+				SendSysMessage( who, "Ошибка: " + healers.Message );
+			else
+				SendSysMessage( who, "Бродячие лекари: всего " + healers.Total +
+				               ", создано " + healers.Created +
+				               ", уже было " + healers.Existing +
+				               ", ошибок " + healers.Failed + "." );
+			endif
+			return;
+
+		default:
+			var placed := WSPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Особые NPC: всего " + placed.Total +
+				               ", создано " + placed.Created +
+				               ", уже было " + placed.Existing +
+				               ", ошибок " + placed.Failed + "." );
+			endif
+			var healers := WSSeedHealers();
+			if( healers.Message )
+				SendSysMessage( who, "Ошибка: " + healers.Message );
+			elseif( healers.Total )
+				SendSysMessage( who, "Бродячие лекари: всего " + healers.Total +
+				               ", создано " + healers.Created + "." );
+			endif
+			return;
+	endcase
+endprogram

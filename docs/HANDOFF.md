@@ -1,4 +1,4 @@
-# Передача состояния (2026-10-31)
+# Передача состояния (2026-11-01)
 
 Короткая точка входа для новой сессии. Полная история — в `docs/STATUS.md`.
 
@@ -6,7 +6,7 @@
 
 - GitHub: https://github.com/nmitin/britannia-uo
 - Ветка: `master`
-- Последний коммит на момент передачи: `f515d62`
+- Последний коммит на момент передачи: `04f0180`
 - `src/`, `client/`, `clientapp/`, `server/data/`, `server/realm/`,
   скомпилированные `.ecl` — не в git.
 
@@ -19,6 +19,8 @@
 - **Телепорты:** 732 dungeon-телепорта, `.worldteleporters status`.
 - **Гварды:** 117 guard-постов, `.worldguards status`.
 - **Торговцы/банкиры:** 230 merchant-узлов, `.worldmerchants status`.
+- **Особые NPC:** 15 узлов из WoD (11 лекарей, 4 стейблмастера) + 172
+  бродячих лекаря, `.worldspecials status`.
 - В сейве ~2720 NPC; торговцы видимы, контейнеры `ShopSell/ShopeResale/ShopBuy`
   создаются (`vendorbag` включён в `config/itemdesc.cfg`).
 
@@ -37,9 +39,10 @@ cd /projects/uo
 .worldteleporters status
 .worldguards status
 .worldmerchants status
+.worldspecials status
 ```
 
-Ожидаемо: 2078 / 732 / 117 / 230.
+Ожидаемо: 2078 / 732 / 117 / 230 / 15 узлов + 172 лекаря.
 
 ## Важные нюансы
 
@@ -55,6 +58,9 @@ cd /projects/uo
 - Активные конфиги спавна: `pkg/systems/spawnSystem/config/setup-britannia.cfg`
   и `defaultGroups.cfg`, а **не** `config/spawnregions.cfg`.
 - `WorldOfDream` — источник данных, не drop-in: POL 098, карта 6144×4096.
+- **Не запускать `.seednodes`** — без дедупликации засеет дубли merchant-узлов;
+  бродячие лекари уже засеяны через `WSSeedHealers()` (флаг
+  `WorldSpecials.HealersSeeded`), поддерживаются `verifySpecialNPCs`.
 
 ## Известные хвосты
 
@@ -66,7 +72,6 @@ cd /projects/uo
 
 ## Следующие шаги
 
-1. Специальные NPC: бродячие лекари, town healer, stablemaster.
-2. Мировые предметы/декор из WoD (осторожно, там есть мусор и дубли).
-3. Квесты и особые точки.
-4. Проверить ассортимент/рестокинг торговцев в Британии и Тринсике.
+1. Мировые предметы/декор из WoD (осторожно, там есть мусор и дубли).
+2. Квесты и особые точки.
+3. Проверить ассортимент/рестокинг торговцев в Британии и Тринсике.

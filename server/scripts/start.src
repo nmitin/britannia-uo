@@ -6,6 +6,7 @@ include "include/worlddoors";
 include "include/worldteleporters";
 include "include/worldguards";
 include "include/worldmerchants";
+include "include/worldspecials";
 include ":containers:storageAreas";
 
 program world_start_up()
@@ -55,6 +56,24 @@ program world_start_up()
 	else
 		Print( "WorldMerchants: всего " + merchants.Total + ", создано " + merchants.Created +
 		       ", уже было " + merchants.Existing + ", ошибок " + merchants.Failed );
+	endif
+
+	Print( "Размещение особых NPC" );
+	var specials := WSPlace();
+	if( specials.Message )
+		Print( "WorldSpecials: " + specials.Message );
+	else
+		Print( "WorldSpecials: всего " + specials.Total + ", создано " + specials.Created +
+		       ", уже было " + specials.Existing + ", ошибок " + specials.Failed );
+	endif
+
+	Print( "Посев бродячих лекарей" );
+	var healers := WSSeedHealers();
+	if( healers.Message )
+		Print( "WorldSpecials: " + healers.Message );
+	else
+		Print( "Бродячие лекари: всего " + healers.Total + ", создано " + healers.Created +
+		       ", уже было " + healers.Existing + ", ошибок " + healers.Failed );
 	endif
 
 	return 1;

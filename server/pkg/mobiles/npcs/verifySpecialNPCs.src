@@ -51,6 +51,7 @@ program VerifySpecialNPCs( )
 				continue;
 			endif
 			sn_elem := sn_df.CreateElement( sn.serial );
+			sn_elem.SetProp( "template", sn_template );
 			sn_elem.SetProp( "x", sn.x );
 			sn_elem.SetProp( "y", sn.y );
 			sn_elem.SetProp( "z", sn.z );
