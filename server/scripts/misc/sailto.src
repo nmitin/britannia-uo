@@ -20,14 +20,16 @@
 use uo;
 use os;
 
-// Точка стоянки корабля-парома: открытая вода юго-западнее Британии
-// (проверено по map0.mul/tiledata.mul: вода, z=-5, вокруг не меньше
-// 20 тайлов воды).
-const SHIP_X := 1440;
-const SHIP_Y := 1854;
+// Точка стоянки корабля-парома. Выбрана по realm/britannia/maptile.dat
+// (данные с учётом mapdif-патчей) как самое чистое место в открытой воде
+// к северо-востоку от Британии: в окне 51x51 вокруг только мелкие скалы,
+// до ближайшего берега ~20 тайлов (в морях Британии это максимум).
+const SHIP_X := 1638;
+const SHIP_Y := 1514;
 const SHIP_Z := -5;
 const SHIP_MULTI := 0x11010;       // LargeBoat (MultiID 0x10), нос на север
 const SHIP_CPROP := "FerryShip";
+const SHIP_REG := "FerryShip.Serial";
 const ABOARD_RADIUS := 6;          // докуда считаем, что игрок на корабле
 const LEASH_RADIUS := 14;          // дальше - значит ушёл магией
 
@@ -89,16 +91,22 @@ program SailToDestination( parms )
 endprogram
 
 
-// Находит корабль-паром или создаёт его.
+// Находит корабль-паром или создаёт его. Глобальное свойство хранит серийник,
+// поэтому при смене стоянки старый корабль убирается, а не плодится новый.
 function FerryShip()
 
-	foreach multi in ListMultisInBox( SHIP_X - 4, SHIP_Y - 4, SHIP_Z - 8,
-	                                  SHIP_X + 4, SHIP_Y + 4, SHIP_Z + 8, _DEFAULT_REALM )
-		if( GetObjProperty( multi, SHIP_CPROP ) )
-			return multi;
+	CleanupOldFerries();
+
+	var serial := CInt( GetGlobalProperty( SHIP_REG ) );
+	if( serial )
+		var old := SystemFindObjectBySerial( serial );
+		if( old && old.x == SHIP_X && old.y == SHIP_Y && old.z == SHIP_Z )
+			return old;
+		elseif( old )
+			DestroyMulti( old );
+			Print( "SailTo: старый корабль-паром убран со старой стоянки" );
 		endif
-		SleepMS( 2 );
-	endforeach
+	endif
 
 	var ship := CreateMultiAtLocation( SHIP_X, SHIP_Y, SHIP_Z, SHIP_MULTI, 0, _DEFAULT_REALM );
 	if( ship.errortext )
@@ -106,8 +114,29 @@ function FerryShip()
 	endif
 
 	SetObjProperty( ship, SHIP_CPROP, 1 );
+	SetGlobalProperty( SHIP_REG, ship.serial );
 	Print( "SailTo: корабль-паром поставлен в " + SHIP_X + "," + SHIP_Y );
 	return ship;
+endfunction
+
+
+// Убирает корабли, оставшиеся на прежних стоянках (до появления реестра).
+function CleanupOldFerries()
+
+	var legacy := { { 1440, 1854 } };
+	foreach spot in legacy
+		if( spot[1] == SHIP_X && spot[2] == SHIP_Y )
+			continue;
+		endif
+		foreach multi in ListMultisInBox( spot[1] - 6, spot[2] - 6, SHIP_Z - 10,
+		                                  spot[1] + 6, spot[2] + 6, SHIP_Z + 10, _DEFAULT_REALM )
+			if( GetObjProperty( multi, SHIP_CPROP ) )
+				DestroyMulti( multi );
+				Print( "SailTo: убран старый корабль-паром в " + multi.x + "," + multi.y );
+			endif
+			SleepMS( 2 );
+		endforeach
+	endforeach
 endfunction
 
 
