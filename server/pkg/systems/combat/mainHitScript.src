@@ -25,7 +25,6 @@ include ":damage:damage";
 var item_cfg := ReadConfigFile(":*:itemdesc");
 
 program MainHitScript(attacker, defender, weapon, armor, basedamage, rawdamage)
-	Print("In mainHitScript");
 	if( TypeOfInt( attacker ) == OT_ARRAY )
 		rawdamage := attacker[6];
 		basedamage := attacker[5];
@@ -145,13 +144,11 @@ function SkillChecks(attacker, defender, weapon, rawdamage)
 endfunction
 
 function NPCDamageMod(byref attacker, byref defender, damage)
-	Print("debug message - mainHitScript: unmodified damage = " + CStr(damage));
 	var NPCMod := CS_GetSettingsCfgElem("NPCMod");
 	var PlayerAdvantage := CInt(NPCMod.PlayerAdvantage);
 	if(defender.isA(POLCLASS_NPC))
 		damage := damage * PlayerAdvantage;
 	endif
-	Print("debug message - mainHitScript: modified damage = " + CStr(damage));
 	return damage;
 endfunction
 

@@ -73,7 +73,10 @@ program SailToDestination( parms )
 	Sleep( 3 );
 
 	if( StillAboard( you ) )
-		var res := MoveObjectToLocation( you, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
+		// Часть доков из WoD на нашей карте приходится на воду/стену -
+		// ищем ближайшую нормальную точку высадки.
+		var landing := FindLanding( sailto[1], sailto[2], sailto[3] );
+		var res := MoveObjectToLocation( you, landing.x, landing.y, landing.z, _DEFAULT_REALM,
 		                                 MOVEOBJECT_FORCELOCATION );
 		if( res.errortext )
 			Print( "SailTo: не удалось высадить " + you.name + ": " + res.errortext );
@@ -114,6 +117,31 @@ endfunction
 function FerryDeck( ship )
 
 	return struct{ "x":=SHIP_X, "y":=SHIP_Y, "z":=SHIP_Z };
+endfunction
+
+
+// Ближайшая точка, где персонаж реально может стоять (док, пирс, берег).
+function FindLanding( x, y, z )
+
+	var coords := GetStandingCoordinates( x, y, 10, z - 25, z + 25, _DEFAULT_REALM, "L", 0 );
+	if( coords.Size() == 0 )
+		coords := GetStandingCoordinates( x, y, 25, z - 50, z + 50, _DEFAULT_REALM, "L", 0 );
+	endif
+	if( coords.Size() == 0 )
+		return struct{ "x":=x, "y":=y, "z":=z };
+	endif
+
+	var best := coords[1];
+	var best_dist := 100000;
+	foreach coord in coords
+		var dist := CoordinateDistance( x, y, coord.x, coord.y );
+		if( dist < best_dist )
+			best_dist := dist;
+			best := coord;
+		endif
+		SleepMS( 2 );
+	endforeach
+	return best;
 endfunction
 
 
