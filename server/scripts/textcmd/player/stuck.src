@@ -1,0 +1,76 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// stuck.src - ".stuck": выбраться на берег, если персонаж оказался в воде
+// или застрял в геометрии.
+//
+// Ищет ближайшую клетку, где реально можно стоять (GetStandingCoordinates),
+// и переносит туда. На твёрдой земле ничего не делает. Кулдаун 30 секунд,
+// чтобы нельзя было использовать как телепорт в бою.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+const STUCK_COOLDOWN := 30;
+
+program stuck( who, text )
+
+	var ready_at := CInt( GetObjProperty( who, "StuckCooldown" ) );
+	if( ready_at > ReadGameClock() )
+		SendSysMessage( who, "Слишком часто. Подожди " + ( ready_at - ReadGameClock() ) + " сек." );
+		return;
+	endif
+
+	// Уже стоим на чём-то проходимом - помогать не нужно.
+	var here := GetStandingCoordinates( who.x, who.y, 0, who.z - 5, who.z + 15,
+	                                    who.realm, "L", 0 );
+	if( here.Size() > 0 )
+		SendSysMessage( who, "Ты и так на твёрдой земле." );
+		return;
+	endif
+
+	foreach radius in { 2, 4, 8, 12, 20, 30 }
+		var coords := GetStandingCoordinates( who.x, who.y, radius, who.z - 15, who.z + 25,
+		                                      who.realm, "L", 0 );
+		if( coords.Size() == 0 )
+			continue;
+		endif
+		var spot := 0;
+		foreach coord in coords
+			if( Landable( coord.x, coord.y ) )
+				spot := coord;
+				break;
+			endif
+			SleepMS( 2 );
+		endforeach
+		if( !spot )
+			continue;
+		endif
+		var res := MoveObjectToLocation( who, spot.x, spot.y, spot.z, who.realm,
+		                                 MOVEOBJECT_FORCELOCATION );
+		if( !res.errortext )
+			SetObjProperty( who, "StuckCooldown", ReadGameClock() + STUCK_COOLDOWN );
+			SendSysMessage( who, "Ты выбрался на берег." );
+			Print( "Stuck: " + who.name + " выбран из воды в " + spot.x + "," +
+			       spot.y + "," + spot.z );
+			return;
+		endif
+		SleepMS( 2 );
+	endforeach
+
+	SendSysMessage( who, "Рядом нет берега - позови ГМа." );
+endprogram
+
+
+// На чистой воде POL тоже отдаёт "стоячие" координаты, поэтому проверяем:
+// либо суша, либо над водой есть статика/мульти (пирс, палуба).
+function Landable( x, y )
+
+	var info := GetMapInfo( x, y, _DEFAULT_REALM );
+	if( !( info.landtile in { 0xA8, 0xA9, 0xAA, 0xAB, 0x244, 0x64 } ) )
+		return 1;
+	endif
+	return ( ListStaticsAtLocation( x, y, LIST_IGNORE_Z, 0, _DEFAULT_REALM ).Size() > 0 );
+
+endfunction

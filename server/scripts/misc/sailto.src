@@ -160,9 +160,12 @@ function FindLanding( x, y, z )
 		return struct{ "x":=x, "y":=y, "z":=z };
 	endif
 
-	var best := coords[1];
+	var best := 0;
 	var best_dist := 100000;
 	foreach coord in coords
+		if( !Landable( coord.x, coord.y ) )
+			continue;
+		endif
 		var dist := CoordinateDistance( x, y, coord.x, coord.y );
 		if( dist < best_dist )
 			best_dist := dist;
@@ -170,7 +173,23 @@ function FindLanding( x, y, z )
 		endif
 		SleepMS( 2 );
 	endforeach
+	if( !best )
+		Print( "SailTo: рядом с " + x + "," + y + " только вода, высаживаю в исходную точку" );
+		return struct{ "x":=x, "y":=y, "z":=z };
+	endif
 	return best;
+endfunction
+
+
+// На чистой воде POL тоже отдаёт "стоячие" координаты (плавание), поэтому
+// проверяем: либо суша, либо над водой есть статика/мульти (пирс, палуба).
+function Landable( x, y )
+
+	var info := GetMapInfo( x, y, _DEFAULT_REALM );
+	if( !( info.landtile in { 0xA8, 0xA9, 0xAA, 0xAB, 0x244, 0x64 } ) )
+		return 1;
+	endif
+	return ( ListStaticsAtLocation( x, y, LIST_IGNORE_Z, 0, _DEFAULT_REALM ).Size() > 0 );
 endfunction
 
 
