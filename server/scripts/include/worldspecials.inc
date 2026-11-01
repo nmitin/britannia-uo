@@ -22,7 +22,7 @@ use datafile;
 var WS_CFG           := "worldspecials";
 var WS_REGISTRY      := "WorldSpecials.Serials";
 var WS_VERSION_PROP  := "WorldSpecials.Version";
-var WS_VERSION       := 1;
+var WS_VERSION       := 2;
 var WS_CPROP         := "WorldSpecialNode";
 var WS_HEALERS_SEEDED := "WorldSpecials.HealersSeeded";
 var WS_HEALERS_CFG   := ":npcs:specialNPCs";

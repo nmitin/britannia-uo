@@ -27,7 +27,11 @@ STOCK_NODES = ROOT / "server/pkg/systems/merchantnodes/backups/nodes.xml"
 OUTPUT = ROOT / "server/config/worldspecials.cfg"
 
 # Шаблон WoD -> шаблон ModernDistro (npcdesc.cfg).
-ALLOWED = {":healer:healer": "healer", ":merchants:stablemaster": "stablemaster"}
+ALLOWED = {
+    ":healer:healer": "healer",
+    ":merchants:stablemaster": "stablemaster",
+    ":merchants:captain": "captain",
+}
 
 # Точка WoD отбрасывается, если в этом радиусе от неё уже есть штатный узел
 # того же шаблона.
@@ -57,12 +61,18 @@ def parse_wod(path: Path) -> list[SpecialNpc]:
         gender = re.search(r"^\s*Gender\s+(\d+)", body, re.M)
         if not (x and y and z and name):
             continue
+        # "Captain Anoush" -> "Anoush": имя = первое слово, не являющееся званием.
+        words = name.group(1).split()
+        if len(words) > 1 and words[0].lower() == "captain":
+            npc_name = words[1]
+        else:
+            npc_name = words[0]
         npcs.append(SpecialNpc(
             template=ALLOWED[template],
             x=int(x.group(1)),
             y=int(y.group(1)),
             z=int(z.group(1)),
-            name=name.group(1).split()[0],
+            name=npc_name,
             gender=int(gender.group(1)) if gender else 0,
         ))
     return npcs
@@ -104,7 +114,7 @@ def dedup(npcs: list[SpecialNpc], stock: dict[str, list[tuple[int, int]]]) -> li
 
 def write_config(path: Path, npcs: list[SpecialNpc], skipped: int) -> None:
     lines = [
-        "// Особые NPC Британии: лекари и стейблмастеры из World of Dream.",
+        "// Особые NPC Британии: лекари, стейблмастеры и капитаны из World of Dream.",
         "// Сгенерировано tools/import_specials.py; править вручную не нужно.",
         f"// Всего: {len(npcs)} (отброшено дублей рядом со штатными узлами: {skipped}).",
         "",

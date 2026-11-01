@@ -1,0 +1,63 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// sailto.src - "морское путешествие" с капитаном (порт из World of Dream).
+//
+// Игрока переносят на палубу корабля в открытом море (область чистой воды
+// 431-440 x 1499-1508, realm britannia — выбрана по maptile.dat нашей
+// карты), там он "плывёт" под звук волн, затем его переносят в порт
+// назначения. Выход с палубы во время плавания (реколл и т.п.) отменяет
+// поездку.
+//
+// Источник: src/WorldOfDream/scripts/misc/sailto.src (POL 098).
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+const DECK_X := 436;
+const DECK_Y := 1504;
+const DECK_Z := -5;
+// Прямоугольник палубы: если игрок покинул его — он сошёл с корабля.
+const DECK_X1 := 431;
+const DECK_X2 := 440;
+const DECK_Y1 := 1499;
+const DECK_Y2 := 1508;
+
+program SailToDestination( parms )
+
+	var you := parms[1];
+	var sailto := parms[2];
+
+	// sailto: [1]x [2]y [3]z [4]duration [5]name [6]cost
+	MoveObjectToLocation( you, DECK_X, DECK_Y, DECK_Z, _DEFAULT_REALM,
+	                      MOVEOBJECT_FORCELOCATION );
+
+	for i := 1 to CInt( sailto[4] )
+		Sleep( 2 );
+		PlaySoundEffect( you, 0x13 );
+		Sleep( 2 );
+		PlaySoundEffect( you, 0x14 );
+		if( !StillAboard( you ) )
+			EraseObjProperty( you, "sailto" );
+			return;
+		endif
+	endfor
+
+	Sleep( 3 );
+
+	if( StillAboard( you ) )
+		MoveObjectToLocation( you, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
+		                      MOVEOBJECT_FORCELOCATION );
+	endif
+	EraseObjProperty( you, "sailto" );
+
+endprogram
+
+
+function StillAboard( who )
+
+	return ( who.x >= DECK_X1 && who.x <= DECK_X2 &&
+	         who.y >= DECK_Y1 && who.y <= DECK_Y2 );
+
+endfunction

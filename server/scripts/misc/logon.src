@@ -135,6 +135,14 @@ program onlogon(who)
     SetObjProperty(who, "logontime",ReadGameClock());
     SetObjProperty(who, "Real_Life_login_Time", time);
 
+	// Вышел во время плавания с капитаном — доставляем в порт назначения.
+	var sailto := GetObjProperty( who, "sailto" );
+	if( sailto )
+		MoveObjectToLocation( who, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
+		                      MOVEOBJECT_FORCELOCATION );
+		EraseObjProperty( who, "sailto" );
+	endif
+
 endprogram
 
 function TrackIP(who)

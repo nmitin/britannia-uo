@@ -1,0 +1,171 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// shipCaptain.src - AI капитана корабля (порт из World of Dream).
+//
+// Стоит на берегу у дока. По слову "sail"/"плыви" показывает меню
+// направлений, берёт плату и передаёт игрока скрипту misc/sailto,
+// который "везёт" его морем до выбранного города.
+//
+// Источник: src/WorldOfDream/pkg/npcs/townfolk/merchants/captain.src
+// (POL 098); адаптировано под ModernDistro: русские фразы, наша карта
+// (доки сверены с realm britannia), outfits через Equipt/sPirate.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+use cfgfile;
+use math;
+
+include "include/speech";
+include "include/eventID";
+include "include/sysEvent";
+include ":gumps:yesNo";
+
+var me := Self();
+
+const CAPTAIN_RANGE := 4;
+const CAPTAIN_HOME_RANGE := 10;
+
+program ShipCaptain()
+
+	// Одежда (Equipt -> Habille) и имя — как у торговцев, через NPCKeeper.
+	Start_Script( "NPCKeeper", me );
+
+	EnableEvents( SYSEVENT_SPEECH + SYSEVENT_ITEM_GIVEN, CAPTAIN_RANGE );
+
+	var home := {me.x, me.y, me.z};
+
+	while( me )
+		var ev := os::wait_for_event( 60 );
+		if( ev )
+			case( ev.type )
+				SYSEVENT_SPEECH:
+					if( ev.source.IsA( POLCLASS_NPC ) )
+						continue;
+					endif
+					TurnToward( ev.source );
+					var text := Lower( ev.text );
+					if( text["sail"] || text["плыв"] || text["отплыв"] )
+						SailAway( ev.source, text );
+					elseif( text["buy"] || text["купить"] )
+						Say( "Я ничего не продаю. Хочешь [ПЛЫТЬ] куда-нибудь — только скажи." );
+					elseif( text["sell"] || text["продать"] )
+						Say( "Мне нужны только хорошее судно и открытое море!" );
+					endif
+				SYSEVENT_ITEM_GIVEN:
+					// Вручённый предмет возвращаем владельцу: капитан не торговец.
+					if( ev.item )
+						MoveItemToContainer( ev.item, ev.source.backpack );
+						Say( "Мне это не нужно, " + ev.source.name + "." );
+					endif
+			endcase
+		endif
+
+		// Держимся у своего дока.
+		if( Abs( me.x - home[1] ) + Abs( me.y - home[2] ) > CAPTAIN_HOME_RANGE )
+			WalkTowardLocation( home[1], home[2] );
+		endif
+	endwhile
+
+	return 1;
+endprogram
+
+
+function SailAway( byref who, text )
+
+	var sailto := GetDestination( who, text );
+	if( !sailto )
+		return;
+	endif
+
+	Say( "Значит, хочешь доплыть до " + sailto[5] + "?" );
+	Say( "Довезу за " + sailto[6] + " золотых." );
+
+	if( YesNo( who, "Плывём в " + sailto[5] + " за " + sailto[6] + " золотых?", "Да", "Нет" ) )
+		if( who.SpendGold( sailto[6] ) )
+			SetObjProperty( who, "sailto", sailto );
+			Start_Script( "misc/sailto", {who, sailto} );
+		else
+			Say( "Что-то маловато у тебя золота, приятель." );
+		endif
+	else
+		Say( "Ну нет так нет." );
+	endif
+endfunction
+
+
+function GetDestination( player, text )
+
+	// Просто "плыви" — показываем меню направлений.
+	if( text == "sail" || text == "плыви" || text == "отплыви" || text == "плыть" )
+		var travelmenu := CreateMenu( "Куда плывём?" );
+		AddMenuItem( travelmenu, 0, "Британия" );
+		AddMenuItem( travelmenu, 0, "Скара Бре" );
+		AddMenuItem( travelmenu, 0, "Мунглоу" );
+		AddMenuItem( travelmenu, 0, "Магинция" );
+		AddMenuItem( travelmenu, 0, "Веспер" );
+		AddMenuItem( travelmenu, 0, "Оккло" );
+		AddMenuItem( travelmenu, 0, "Ну'джельм" );
+		AddMenuItem( travelmenu, 0, "Тринсик" );
+		AddMenuItem( travelmenu, 0, "Джелом" );
+		AddMenuItem( travelmenu, 0, "Крепость Змеи" );
+		AddMenuItem( travelmenu, 0, "Коув" );
+		AddMenuItem( travelmenu, 0, "Бухта Пиратов" );
+
+		var selection := SelectMenuItem2( player, travelmenu );
+		if( !selection )
+			return 0;
+		endif
+		case( selection.index )
+			1: text := "британия";
+			2: text := "скара";
+			3: text := "мунглоу";
+			4: text := "магинция";
+			5: text := "веспер";
+			6: text := "оккло";
+			7: text := "нуджельм";
+			8: text := "тринсик";
+			9: text := "джелом";
+			10: text := "крепость";
+			11: text := "коув";
+			12: text := "бухта";
+			default: return 0;
+		endcase
+	endif
+
+	var parms := {};
+	// parms: [1]x [2]y [3]z [4]duration [5]name [6]cost
+	if( text["britain"] || text["британ"] )
+		parms := {1499, 1760, -2, 15, "Британии", 100};
+	elseif( text["skara"] || text["скара"] )
+		parms := {662, 2222, 0, 15, "Скара Бре", 100};
+	elseif( text["vesper"] || text["веспер"] )
+		parms := {3044, 818, -3, 15, "Веспера", 100};
+	elseif( text["moonglow"] || text["мунглоу"] )
+		parms := {4426, 1025, -2, 15, "Мунглоу", 100};
+	elseif( text["ocllo"] || text["occlo"] || text["оккло"] )
+		parms := {3662, 2680, -2, 20, "Оккло", 300};
+	elseif( text["nujel"] || text["нуджельм"] || text["ну'джельм"] )
+		parms := {3806, 1278, 5, 20, "Ну'джельма", 300};
+	elseif( text["den"] || text["бухта"] )
+		parms := {2760, 2160, -2, 22, "Бухты Пиратов", 500};
+	elseif( text["magincia"] || text["магинция"] )
+		parms := {3693, 2297, -2, 15, "Магинции", 100};
+	elseif( text["jhelom"] || text["джелом"] )
+		parms := {1512, 3707, -3, 15, "Джелома", 100};
+	elseif( text["hold"] || text["крепость"] || text["змеи"] )
+		parms := {2941, 3413, 1, 20, "Крепости Змеи", 200};
+	elseif( text["trinsic"] || text["тринсик"] )
+		parms := {2085, 2849, -3, 15, "Тринсика", 100};
+	elseif( text["cove"] || text["коув"] )
+		parms := {2256, 1171, -2, 15, "Коува", 250};
+	else
+		Say( "Я могу доплыть до Британии, Скара Бре, Веспера, Мунглоу, Оккло," );
+		SleepMS( 100 );
+		Say( "Ну'джельма, Бухты Пиратов, Магинции, Джелома, Крепости Змеи, Коува или Тринсика." );
+		return 0;
+	endif
+
+	return parms;
+endfunction

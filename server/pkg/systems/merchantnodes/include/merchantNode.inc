@@ -17,7 +17,7 @@ function MN_CreateNPC( byref ev, byref node )
 		props := MerchantSetup( node, ev.info );
 
 // Setup merchant storage, banker types do not get storage areas...
-	if( !( ev.info.Template in { "banker", "bucsbanker" } ) )
+	if( !( ev.info.Template in { "banker", "bucsbanker", "captain" } ) )
 		Create_Node_Merc( ev.info.Template, ev.info.Template+" "+ev.info.Anchor.X+" "+ev.info.Anchor.Y+" "+ev.info.Anchor.Z );
 	endif
 
