@@ -7,6 +7,7 @@ include "include/worldteleporters";
 include "include/worldguards";
 include "include/worldmerchants";
 include "include/worldspecials";
+include "include/testplayers";
 include ":containers:storageAreas";
 
 program world_start_up()
@@ -75,6 +76,15 @@ program world_start_up()
 		Print( "Бродячие лекари: всего " + healers.Total + ", создано " + healers.Created +
 		       ", уже было " + healers.Existing + ", ошибок " + healers.Failed );
 	endif
+
+	Print( "Подготовка тестовых персонажей" );
+	var testplayers := TPApply();
+	if( testplayers.Message )
+		Print( "TestPlayers: " + testplayers.Message );
+	endif
+	Print( "TestPlayers: всего " + testplayers.Total + ", подготовлено " +
+	       testplayers.Applied + ", уже было " + testplayers.Skipped +
+	       ", ещё не создано " + testplayers.Missing + ", ошибок " + testplayers.Failed );
 
 	return 1;
 endprogram

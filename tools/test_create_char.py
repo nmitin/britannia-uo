@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
-"""Минимальный UO-клиент: логин, выбор сервера, вход на игровой порт, создание персонажа."""
+"""Минимальный UO-клиент: логин, выбор сервера, вход на игровой порт, создание персонажа.
+
+Использование:
+    python3 tools/test_create_char.py [имя [аккаунт [пароль]]]
+
+Аккаунт должен существовать (его создаёт scripts/include/testplayers.inc
+при старте сервера) либо это admin/admin.
+"""
 import socket, struct, time, sys
 
 HOST, PORT = "127.0.0.1", 2593
-ACCOUNT, PASSWORD = "admin", "admin"
 NAME = sys.argv[1] if len(sys.argv) > 1 else "TestHero"
+ACCOUNT = sys.argv[2] if len(sys.argv) > 2 else "admin"
+PASSWORD = sys.argv[3] if len(sys.argv) > 3 else ACCOUNT
 
 def p80():
     return b"\x80" + ACCOUNT.encode().ljust(30, b"\0") + PASSWORD.encode().ljust(30, b"\0") + b"\x00"
@@ -23,6 +31,11 @@ def pF8():
     b[54] = 0
     b[70] = 0
     b[71], b[72], b[73] = 60, 10, 10
+    # Ровно 120 очков стартовых навыков, иначе POL рвёт соединение.
+    b[74], b[75] = 44, 50   # Lumberjacking
+    b[76], b[77] = 11, 30   # Carpentry
+    b[78], b[79] = 37, 20   # Tinkering
+    b[80], b[81] = 0, 20    # Alchemy (лишь бы сумма была 120)
     b[74], b[75] = 7, 50
     struct.pack_into(">H", b, 82, 0x03EA)
     struct.pack_into(">H", b, 84, 0x203C)
@@ -72,7 +85,7 @@ g = socket.create_connection((ip, port), timeout=5)
 g.sendall(p91(seed))
 data = read_until(g, b"\xA9", 8)
 print("game response", data[:1].hex() if data else None, len(data)); print(data[:60].hex())
-if b"\xA9" not in data:
+if b"\xA9" not in data and b"\xB3" not in data:
     print("no char list"); sys.exit(1)
 g.sendall(pF8())
 time.sleep(3)

@@ -6,7 +6,7 @@
 
 - GitHub: https://github.com/nmitin/britannia-uo
 - Ветка: `master`
-- Последний коммит на момент передачи: `04f0180`
+- Последний коммит на момент передачи: см. `git log -1`
 - `src/`, `client/`, `clientapp/`, `server/data/`, `server/realm/`,
   скомпилированные `.ecl` — не в git.
 
@@ -25,6 +25,13 @@
   у дока, 100–500 gp.
 - В сейве ~2720 NPC; торговцы видимы, контейнеры `ShopSell/ShopeResale/ShopBuy`
   создаются (`vendorbag` включён в `config/itemdesc.cfg`).
+- **Тестовый игрок:** аккаунт `drovosek` / `drovosek`, персонаж `Drovosek`
+  (дровосек: Lumberjacking 100, Carpentry 70, Tinkering 30, 500 gp в банке,
+  топорик и пила). Навыки/деньги выдаёт `scripts/include/testplayers.inc`
+  при старте сервера (конфиг `config/testplayers.cfg`), один раз — на
+  персонаже ставится CProp `TestPlayerPrepared`.
+- **Остановка сервера:** `./scripts/stop-server.sh` (SIGTERM → сохранение
+  мира → выход), Ctrl+C в терминале сервера или `systemctl --user stop uo-shard`.
 
 ## Быстрый запуск и проверка
 
@@ -74,6 +81,7 @@ cd /projects/uo
 
 ## Следующие шаги
 
-1. Мировые предметы/декор из WoD (осторожно, там есть мусор и дубли).
+1. Мировые предметы/декор из WoD (осторожно, там есть мусор и дубли) —
+   ближайшая задача, пользователь подтвердил направление.
 2. Квесты и особые точки.
 3. Проверить ассортимент/рестокинг торговцев в Британии и Тринсике.

@@ -54,9 +54,18 @@ logs/          логи
 ## Запуск
 
 ```bash
-./scripts/run-server.sh      # сервер (порт 2593)
+./scripts/run-server.sh      # сервер (порт 2593), работает в переднем плане
 ./scripts/run-client.sh      # клиент ClassicUO
 ```
+
+Остановка — `./scripts/stop-server.sh` (или Ctrl+C в терминале сервера,
+или `systemctl --user stop uo-shard`). POL по SIGINT/SIGTERM сохраняет мир
+в `server/data/*.txt` и только потом выходит, поэтому «убивать» процесс
+через `kill -9` нельзя — потеряется прогресс.
+
+Тестовый персонаж для проверки мира: аккаунт `drovosek` / `drovosek`
+(навыки, характеристики и 500 золотых в банке выдаёт
+`scripts/include/testplayers.inc`, конфиг — `config/testplayers.cfg`).
 
 Учётная запись администратора по умолчанию: `admin` / `admin` (сменить!).
 
