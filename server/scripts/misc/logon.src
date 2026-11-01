@@ -13,6 +13,7 @@ include ":attributes:attributes";
 include "include/clock";
 include ":timeutils:time";
 include ":equipment:equipment";
+include "include/testplayers";
 
 program onlogon(who)
 	TrackIP(who);
@@ -142,6 +143,9 @@ program onlogon(who)
 		                      MOVEOBJECT_FORCELOCATION );
 		EraseObjProperty( who, "sailto" );
 	endif
+
+	// Тестовым персонажам (config/testplayers.cfg) выдаём набор при входе.
+	TPApplyOnLogin( who );
 
 endprogram
 

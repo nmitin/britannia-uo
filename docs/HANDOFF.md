@@ -27,9 +27,9 @@
   создаются (`vendorbag` включён в `config/itemdesc.cfg`).
 - **Тестовый игрок:** аккаунт `drovosek` / `drovosek`, персонаж `Drovosek`
   (дровосек: Lumberjacking 100, Carpentry 70, Tinkering 30, 500 gp в банке,
-  топорик и пила). Навыки/деньги выдаёт `scripts/include/testplayers.inc`
-  при старте сервера (конфиг `config/testplayers.cfg`), один раз — на
-  персонаже ставится CProp `TestPlayerPrepared`.
+  топорик и пила). Аккаунт создаётся на старте, набор выдаётся при входе —
+  `scripts/include/testplayers.inc` (конфиг `config/testplayers.cfg`), один
+  раз: CProp `TestPlayerPrepared`. Править конфиг → поднять `TP_VERSION`.
 - **Остановка сервера:** `./scripts/stop-server.sh` (SIGTERM → сохранение
   мира → выход), Ctrl+C в терминале сервера или `systemctl --user stop uo-shard`.
 

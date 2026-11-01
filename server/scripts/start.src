@@ -77,14 +77,13 @@ program world_start_up()
 		       ", уже было " + healers.Existing + ", ошибок " + healers.Failed );
 	endif
 
-	Print( "Подготовка тестовых персонажей" );
-	var testplayers := TPApply();
+	Print( "Тестовые персонажи: проверка аккаунтов" );
+	var testplayers := TPEnsureAccounts();
 	if( testplayers.Message )
 		Print( "TestPlayers: " + testplayers.Message );
 	endif
-	Print( "TestPlayers: всего " + testplayers.Total + ", подготовлено " +
-	       testplayers.Applied + ", уже было " + testplayers.Skipped +
-	       ", ещё не создано " + testplayers.Missing + ", ошибок " + testplayers.Failed );
+	Print( "TestPlayers: аккаунтов создано " + testplayers.Created +
+	       ", уже было " + testplayers.Existing + ", ошибок " + testplayers.Failed );
 
 	return 1;
 endprogram
