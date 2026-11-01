@@ -2,11 +2,16 @@
 //
 // sailto.src - "морское путешествие" с капитаном (порт из World of Dream).
 //
-// Игрока переносят на палубу корабля в открытом море (область чистой воды
-// 431-440 x 1499-1508, realm britannia — выбрана по maptile.dat нашей
-// карты), там он "плывёт" под звук волн, затем его переносят в порт
-// назначения. Выход с палубы во время плавания (реколл и т.п.) отменяет
-// поездку.
+// Капитан отправляет игрока на свой корабль, стоящий в открытом море:
+//   * корабль (мульти 0x10, "long boat") создаётся один раз в точке
+//     SHIP_X/SHIP_Y и живёт в мире постоянно - он помечен CProp FerryShip,
+//     поэтому повторные плавания его переиспользуют, а не плодят флот;
+//   * игрок появляется на палубе (координата ищется по GetStandingCoordinates,
+//     чтобы реально стоять на палубе, а не висеть в воде);
+//   * 15-22 секунды звучат волны, затем игрок сходит в порту назначения.
+//
+// Если игрок сошёл с палубы рядом с кораблём - его возвращают на палубу,
+// а если ушёл магией/реколлом далеко - поездка отменяется.
 //
 // Источник: src/WorldOfDream/scripts/misc/sailto.src (POL 098).
 //
@@ -15,22 +20,35 @@
 use uo;
 use os;
 
-const DECK_X := 436;
-const DECK_Y := 1504;
-const DECK_Z := -5;
-// Прямоугольник палубы: если игрок покинул его — он сошёл с корабля.
-const DECK_X1 := 431;
-const DECK_X2 := 440;
-const DECK_Y1 := 1499;
-const DECK_Y2 := 1508;
+// Точка стоянки корабля-парома: открытая вода юго-западнее Британии
+// (проверено по map0.mul/tiledata.mul: вода, z=-5, вокруг не меньше
+// 20 тайлов воды).
+const SHIP_X := 1440;
+const SHIP_Y := 1854;
+const SHIP_Z := -5;
+const SHIP_MULTI := 0x11010;       // LargeBoat (MultiID 0x10), нос на север
+const SHIP_CPROP := "FerryShip";
+const ABOARD_RADIUS := 6;          // докуда считаем, что игрок на корабле
+const LEASH_RADIUS := 14;          // дальше - значит ушёл магией
 
 program SailToDestination( parms )
 
 	var you := parms[1];
 	var sailto := parms[2];
 
-	// sailto: [1]x [2]y [3]z [4]duration [5]name [6]cost
-	MoveObjectToLocation( you, DECK_X, DECK_Y, DECK_Z, _DEFAULT_REALM,
+	var ship := FerryShip();
+	if( ship.errortext )
+		Print( "SailTo: не удалось поставить корабль: " + ship.errortext );
+		MoveObjectToLocation( you, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
+		                      MOVEOBJECT_FORCELOCATION );
+		EraseObjProperty( you, "sailto" );
+		return;
+	endif
+
+	var deck := FerryDeck( ship );
+	Print( "SailTo: " + you.name + " на палубу " + deck.x + "," + deck.y + "," +
+	       deck.z + " (корабль " + ship.serial + ")" );
+	MoveObjectToLocation( you, deck.x, deck.y, deck.z, _DEFAULT_REALM,
 	                      MOVEOBJECT_FORCELOCATION );
 
 	for i := 1 to CInt( sailto[4] )
@@ -39,25 +57,68 @@ program SailToDestination( parms )
 		Sleep( 2 );
 		PlaySoundEffect( you, 0x14 );
 		if( !StillAboard( you ) )
-			EraseObjProperty( you, "sailto" );
-			return;
+			if( CoordinateDistance( you.x, you.y, SHIP_X, SHIP_Y ) <= LEASH_RADIUS )
+				// Шагнул за борт - возвращаем на палубу.
+				deck := FerryDeck( ship );
+				MoveObjectToLocation( you, deck.x, deck.y, deck.z, _DEFAULT_REALM,
+				                      MOVEOBJECT_FORCELOCATION );
+			else
+				// Реколл/гейт: поездка отменяется.
+				EraseObjProperty( you, "sailto" );
+				return;
+			endif
 		endif
 	endfor
 
 	Sleep( 3 );
 
 	if( StillAboard( you ) )
-		MoveObjectToLocation( you, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
-		                      MOVEOBJECT_FORCELOCATION );
+		var res := MoveObjectToLocation( you, sailto[1], sailto[2], sailto[3], _DEFAULT_REALM,
+		                                 MOVEOBJECT_FORCELOCATION );
+		if( res.errortext )
+			Print( "SailTo: не удалось высадить " + you.name + ": " + res.errortext );
+		else
+			Print( "SailTo: " + you.name + " высажен в " + you.x + "," + you.y + "," + you.z );
+		endif
 	endif
 	EraseObjProperty( you, "sailto" );
 
 endprogram
 
 
+// Находит корабль-паром или создаёт его.
+function FerryShip()
+
+	foreach multi in ListMultisInBox( SHIP_X - 4, SHIP_Y - 4, SHIP_Z - 8,
+	                                  SHIP_X + 4, SHIP_Y + 4, SHIP_Z + 8, _DEFAULT_REALM )
+		if( GetObjProperty( multi, SHIP_CPROP ) )
+			return multi;
+		endif
+		SleepMS( 2 );
+	endforeach
+
+	var ship := CreateMultiAtLocation( SHIP_X, SHIP_Y, SHIP_Z, SHIP_MULTI, 0, _DEFAULT_REALM );
+	if( ship.errortext )
+		return ship;
+	endif
+
+	SetObjProperty( ship, SHIP_CPROP, 1 );
+	Print( "SailTo: корабль-паром поставлен в " + SHIP_X + "," + SHIP_Y );
+	return ship;
+endfunction
+
+
+// Палуба корабля. В определении корпуса (config/multis.cfg, Boat 0x10)
+// первая deck-плитка стоит в относительных координатах 0,0,0, поэтому
+// центр мульти и есть палуба: z корабля = z палубы.
+function FerryDeck( ship )
+
+	return struct{ "x":=SHIP_X, "y":=SHIP_Y, "z":=SHIP_Z };
+endfunction
+
+
 function StillAboard( who )
 
-	return ( who.x >= DECK_X1 && who.x <= DECK_X2 &&
-	         who.y >= DECK_Y1 && who.y <= DECK_Y2 );
+	return ( CoordinateDistance( who.x, who.y, SHIP_X, SHIP_Y ) <= ABOARD_RADIUS );
 
 endfunction
