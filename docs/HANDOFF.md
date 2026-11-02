@@ -15,6 +15,9 @@
 - POL 100.2.0, мир Британия 7168×4096, ClassicUO подключается.
 - Русские серверные сообщения, `Cliloc.rus`.
 - **Двери:** 2078 динамических дверей, `.worlddoors status`.
+- **Декор мира:** 26 584 предмета обстановки (лавки, таверны, дома, доки,
+  светильники, вывески) из `decoratefacets`, `.worlddecor status`.
+  Генератор — `tools/import_worlddecor.py` -> `config/worlddecor.cfg`.
 - **Спавн:** 15 регионов из WoD (`wod_7...wod_155`), плюс штатные 108 регионов.
 - **Телепорты:** 732 dungeon-телепорта, `.worldteleporters status`.
 - **Гварды:** 117 guard-постов, `.worldguards status`.
@@ -54,13 +57,14 @@ cd /projects/uo
 
 ```
 .worlddoors status
+.worlddecor status
 .worldteleporters status
 .worldguards status
 .worldmerchants status
 .worldspecials status
 ```
 
-Ожидаемо: 2078 / 732 / 117 / 230 / 27 узлов + 172 лекаря.
+Ожидаемо: 2078 / 26 584 / 732 / 117 / 230 / 27 узлов + 172 лекаря.
 
 ## Важные нюансы
 
@@ -73,6 +77,12 @@ cd /projects/uo
 - `server/data` и `server/realm` не в git; бэкапы лежат в `backups/`.
 - SSH в песочнице: системный конфиг периодически ломается, для git использовать
   разово `GIT_SSH_COMMAND='ssh -F ~/.ssh/config'`.
+- Декор мира: `config/worlddecor.cfg` — сгенерированный файл (3,7 МБ),
+  руками не править. После перегенерации поднять `WORLDDECOR_DATA_VERSION`
+  в `scripts/include/worlddecor.inc`, иначе набор не пересоберётся.
+  Мировые предметы из `src/WorldOfDream/data/items.txt` для декора не
+  годятся: это сейв живого шарда (двери, трупы, лут, мунгейты), а не
+  обстановка.
 - Активные конфиги спавна: `pkg/systems/spawnSystem/config/setup-britannia.cfg`
   и `defaultGroups.cfg`, а **не** `config/spawnregions.cfg`.
 - `WorldOfDream` — источник данных, не drop-in: POL 098, карта 6144×4096.
@@ -90,9 +100,7 @@ cd /projects/uo
 
 ## Следующие шаги
 
-1. Мировые предметы/декор из WoD (осторожно, там есть мусор и дубли) —
-   ближайшая задача, пользователь подтвердил направление.
-2. Квесты и особые точки.
-3. Починить три merchant-якоря (`2874,662`, `3687,2253`, `3704,2248`):
+1. Квесты и особые точки.
+2. Починить три merchant-якоря (`2874,662`, `3687,2253`, `3704,2248`):
    правка `nodes.xml` + подъём `WM_VERSION`, иначе три строки
    `Unable to create npc` при каждом старте.

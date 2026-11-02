@@ -3,6 +3,7 @@ use os;
 
 include "include/teleporters";
 include "include/worlddoors";
+include "include/worlddecor";
 include "include/worldteleporters";
 include "include/worldguards";
 include "include/worldmerchants";
@@ -30,6 +31,15 @@ program world_start_up()
 		Print( "WorldDoors: всего " + doors.Total + ", создано " + doors.Created +
 		       ", уже было " + doors.Existing + ", ошибок " + doors.Failed +
 		       ", закрыто открытых " + doors.Closed );
+	endif
+
+	Print( "Размещение мирового декора" );
+	var decor := WDPlace();
+	if( decor.Message )
+		Print( "WorldDecor: " + decor.Message );
+	else
+		Print( "WorldDecor: всего " + decor.Total + ", создано " + decor.Created +
+		       ", уже было " + decor.Existing + ", ошибок " + decor.Failed );
 	endif
 
 	Print( "Размещение dungeon-телепортов" );

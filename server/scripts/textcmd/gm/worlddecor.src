@@ -1,0 +1,53 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// .worlddecor [status|place|rebuild|remove]
+//
+// Мировой декор Британии: обстановка домов, лавок, таверн и доков.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+
+include "include/worlddecor";
+
+program textcmd_worlddecor( who, text )
+
+	var command := lower( CStr( text ) );
+
+	case( command )
+		"status":
+			SendSysMessage( who, "Предметов декора: " + WDCount() + "." );
+			return;
+
+		"remove":
+			var removed := WDRemove();
+			SetGlobalProperty( "WorldDecor.Version", 0 );
+			SendSysMessage( who, "Декор: удалено " + removed.Destroyed +
+			                ", уже отсутствовало " + removed.Missing + "." );
+			return;
+
+		"rebuild":
+			var old := WDRemove();
+			var placed := WDPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Декор пересобран: удалено " + old.Destroyed +
+				                ", всего " + placed.Total + ", создано " + placed.Created +
+				                ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+
+		default:
+			var placed := WDPlace();
+			if( placed.Message )
+				SendSysMessage( who, "Ошибка: " + placed.Message );
+			else
+				SendSysMessage( who, "Декор: всего " + placed.Total +
+				                ", создано " + placed.Created + ", уже было " +
+				                placed.Existing + ", ошибок " + placed.Failed + "." );
+			endif
+			return;
+	endcase
+endprogram
