@@ -161,3 +161,116 @@ function Q_PickTarget( byref me, mytown )
 
 	return 0;
 endfunction
+
+/////////////////////////////////////////////////////////////////////////////
+// Направление и расстояние до цели по-русски.
+//
+// Возвращает фразу вида "совсем рядом, к северо-востоку".
+/////////////////////////////////////////////////////////////////////////////
+function Q_DirectionPhrase( from_x, from_y, to_x, to_y )
+
+	var ns := "";
+	var ew := "";
+	var ns_diff := 0;
+	var ew_diff := 0;
+
+	if( to_y < from_y )
+		ns := "север";
+		ns_diff := from_y - to_y;
+	elseif( to_y > from_y )
+		ns := "юг";
+		ns_diff := to_y - from_y;
+	endif
+
+	if( to_x < from_x )
+		ew := "запад";
+		ew_diff := from_x - to_x;
+	elseif( to_x > from_x )
+		ew := "восток";
+		ew_diff := to_x - from_x;
+	endif
+
+	// Диагональ только если обе составляющие сопоставимы.
+	if( ns != "" && ew != "" )
+		if( ns_diff > ew_diff * 2 )
+			ew := "";
+		elseif( ew_diff > ns_diff * 2 )
+			ns := "";
+		endif
+	endif
+
+	var direction := "";
+	if( ns == "север" && ew == "восток" )
+		direction := "северо-востоку";
+	elseif( ns == "север" && ew == "запад" )
+		direction := "северо-западу";
+	elseif( ns == "юг" && ew == "восток" )
+		direction := "юго-востоку";
+	elseif( ns == "юг" && ew == "запад" )
+		direction := "юго-западу";
+	elseif( ns == "север" )
+		direction := "северу";
+	elseif( ns == "юг" )
+		direction := "югу";
+	elseif( ew == "восток" )
+		direction := "востоку";
+	elseif( ew == "запад" )
+		direction := "западу";
+	else
+		direction := "";
+	endif
+
+	var dist := ns_diff;
+	if( ew_diff > dist )
+		dist := ew_diff;
+	endif
+	var distance_word := "совсем рядом";
+	if( dist > 15 )
+		distance_word := "неподалёку";
+	endif
+	if( dist > 60 )
+		distance_word := "далеко";
+	endif
+	if( dist > 150 )
+		distance_word := "очень далеко";
+	endif
+
+	if( direction == "" )
+		return distance_word;
+	endif
+
+	return distance_word + ", к " + direction;
+endfunction
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Объяснить игроку, куда нести посылку (для «не того» NPC).
+//
+// Возвращает 1, если подсказка выдана, и 0, если адресат не найден.
+/////////////////////////////////////////////////////////////////////////////
+function Q_ExplainDelivery( byref npc, byref player, byref parcel )
+
+	var dest_serial := CInt( GetObjProperty( parcel, "deliverto" ) );
+	if( !dest_serial )
+		return 0;
+	endif
+
+	var dest := SystemFindObjectBySerial( dest_serial );
+	if( !dest || dest.dead )
+		PrintTextAbovePrivate( npc, "Боюсь, ты уже не найдёшь, кому это отнести.", player );
+		return 1;
+	endif
+
+	var town := Q_TownAt( dest.x, dest.y, dest.realm );
+	var town_name := Q_TownName( town );
+	var phrase := Q_DirectionPhrase( npc.x, npc.y, dest.x, dest.y );
+
+	if( town_name != "" )
+		PrintTextAbovePrivate( npc, "Это не мне. " + dest.name + " сейчас в городе " +
+		                       town_name + ", это " + phrase + ".", player );
+	else
+		PrintTextAbovePrivate( npc, "Это не мне. Ищи " + dest.name + ", это " + phrase + ".", player );
+	endif
+
+	return 1;
+endfunction

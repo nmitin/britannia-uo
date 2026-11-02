@@ -86,6 +86,8 @@ program CastleGuard()
 									next_wander := ReadGameClock()+60;
 									if ( GetObjProperty( ev.item, "guardquesthead" ) )
 										start_script( ":quests:guardReward", { me, ev.source, ev.item } );
+									elseif ( GetObjProperty( ev.item, "deliverto" ) )
+										start_script( ":quests:merchantDeliver", { me, ev.source, ev.item } );
 									else
 										TakeItem(ev.source,ev.item);
 									endif

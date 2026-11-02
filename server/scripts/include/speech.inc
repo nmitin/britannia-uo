@@ -52,6 +52,12 @@ function TakeItem(you,it)
 	say(reply);
 	DestroyItem(it);
   else
+    // Посылка из курьерского квеста: любой NPC подскажет, куда её нести.
+    if(GetObjProperty(it,"deliverto"))
+      TurnToward(you);
+      start_script(":quests:merchantDeliver", { me, you, it });
+      return;
+    endif
     if(speech)
 	  if(GetObjProperty(it,"slave"))
 		TurnToward(you);

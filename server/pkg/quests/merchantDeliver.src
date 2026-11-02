@@ -29,7 +29,8 @@ program merchant_deliver( parms )
 
 	var dest := CInt( GetObjProperty( parcel, "deliverto" ) );
 	if( dest != merchant.serial )
-		PrintTextAbovePrivate( merchant, "Я этого не заказывал.", player );
+		// Не тот адресат: подсказываем, в какую сторону нести.
+		Q_ExplainDelivery( merchant, player, parcel );
 		return;
 	endif
 

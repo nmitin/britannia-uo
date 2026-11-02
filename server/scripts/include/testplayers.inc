@@ -157,6 +157,9 @@ function TPEnsureAccounts()
 		var elem := FindConfigElem( cfg, key );
 		var account := FindAccount( elem.Account );
 		if( !account.errortext )
+			// AoS-подсказки предметов (тултипы) работают только у аккаунтов
+			// с расширением AOS и новее.
+			account.Set_UO_Expansion( "TOL" );
 			result.Existing += 1;
 			continue;
 		endif
@@ -165,6 +168,7 @@ function TPEnsureAccounts()
 			result.Failed += 1;
 			result.Message += "аккаунт " + elem.Account + ": " + account.errortext + "; ";
 		else
+			account.Set_UO_Expansion( "TOL" );
 			result.Created += 1;
 			Print( "TestPlayers: создан аккаунт " + elem.Account );
 		endif
