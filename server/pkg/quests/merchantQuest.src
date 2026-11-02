@@ -26,10 +26,6 @@ program merchant_quest( parms )
 		return;
 	endif
 
-	if( !merchant.backpack )
-		return;
-	endif
-
 	// Один разговор за раз.
 	var busy := GetObjProperty( player, "#merchantquest" );
 	if( busy && GetProcess( busy ) )

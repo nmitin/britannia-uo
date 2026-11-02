@@ -87,6 +87,11 @@ cd /projects/uo
   Мировые предметы из `src/WorldOfDream/data/items.txt` для декора не
   годятся: это сейв живого шарда (двери, трупы, лут, мунгейты), а не
   обстановка.
+- Речь торговцев сначала фильтрует MerchantNode: он передаёт NPC только
+  слова из списков `MerchantSpeech`/`BankSpeech` в
+  `pkg/systems/merchantnodes/config/settings.cfg`. Новые ключевые слова
+  («quest», «посылка», «доставка») добавлены туда; без этого торговец
+  молчит, даже если AI их понимает.
 - Активные конфиги спавна: `pkg/systems/spawnSystem/config/setup-britannia.cfg`
   и `defaultGroups.cfg`, а **не** `config/spawnregions.cfg`.
 - `WorldOfDream` — источник данных, не drop-in: POL 098, карта 6144×4096.
