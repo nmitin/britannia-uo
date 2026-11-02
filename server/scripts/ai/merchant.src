@@ -114,6 +114,8 @@ program merchant()
                                         parms[1] := ev.source;
                                         parms[2] := me;
                                         start_script (":job:job", parms);
+                                    elseif (txt["quest"] || txt["посылка"] || txt["доставка"])
+                                        start_script (":quests:merchantQuest", { me, ev.source });
                                     elseif (txt["sell all"] || txt["продать все"])
                                             BuyAll(ev.source);
                                     elseif (txt["sell bag"] || txt["продать мешок"])
@@ -152,6 +154,8 @@ program merchant()
         SYSEVENT_ITEM_GIVEN:    TurnToward (ev.source);
                                 if ( GetObjProperty( ev.item, "merchant") )
                                         PayForJobCompleted ( ev );
+                                elseif ( GetObjProperty( ev.item, "deliverto") )
+                                        start_script( ":quests:merchantDeliver", { me, ev.source, ev.item } );
                                 elseif ( ev.item.objtype == UOBJ_GOLD_COIN )
                                         TrainSkill(me, ev.source, ev.item);
                                 endif

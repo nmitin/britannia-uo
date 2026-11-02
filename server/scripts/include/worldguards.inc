@@ -15,7 +15,7 @@ use cfgfile;
 var WG_CFG          := "worldguards";
 var WG_REGISTRY     := "WorldGuards.Serials";
 var WG_VERSION_PROP := "WorldGuards.Version";
-var WG_VERSION      := 1;
+var WG_VERSION      := 2;
 var WG_CPROP        := "WorldGuard";
 
 
@@ -96,6 +96,10 @@ function WGPlace()
 		if( !realm )
 			realm := "britannia";
 		endif
+		var node_type := CStr( elem.Type );
+		if( !node_type )
+			node_type := "townguard";
+		endif
 
 		var existing := 0;
 		foreach item in ListItemsAtLocation( x, y, z, realm )
@@ -106,7 +110,7 @@ function WGPlace()
 		endforeach
 
 		if( existing )
-			SetObjProperty( existing, "Type", "townguard" );
+			SetObjProperty( existing, "Type", node_type );
 			SetObjProperty( existing, "Amount", 1 );
 			existing.movable := 0;
 			if( existing.decayAt )
@@ -122,7 +126,7 @@ function WGPlace()
 				       ": " + item.errortext );
 			else
 				SetObjProperty( item, WG_CPROP, 1 );
-				SetObjProperty( item, "Type", "townguard" );
+				SetObjProperty( item, "Type", node_type );
 				SetObjProperty( item, "Amount", 1 );
 				item.movable := 0;
 				item.decayAt := 0;

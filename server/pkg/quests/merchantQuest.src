@@ -1,0 +1,109 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// merchantQuest - курьерский квест торговца: отнести посылку другому
+// торговцу в соседний город.
+//
+// Запускается из ai/merchant.src, когда игрок говорит торговцу
+// "quest" / "посылка" / "доставка".
+//
+// Параметры: parms[1] - торговец, parms[2] - игрок.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+use util;
+
+include ":quests:quests";
+include ":gumps:yesNo";
+
+program merchant_quest( parms )
+
+	var merchant := parms[1];
+	var player := parms[2];
+
+	if( !merchant || !player || !player.acctname )
+		return;
+	endif
+
+	if( !merchant.backpack )
+		return;
+	endif
+
+	// Один разговор за раз.
+	var busy := GetObjProperty( player, "#merchantquest" );
+	if( busy && GetProcess( busy ) )
+		return;
+	endif
+	SetObjProperty( player, "#merchantquest", GetPid() );
+
+	if( Q_FindParcel( player ) )
+		PrintTextAbovePrivate( merchant, "Ты уже несёшь посылку. Сначала доставь её.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	var cooldown := CInt( GetObjProperty( merchant, "#questtimer" ) );
+	if( cooldown + Q_Setting( "MerchantCooldown", 1800 ) > ReadGameClock() )
+		PrintTextAbovePrivate( merchant, "Мне пока нечего передать. Загляни попозже.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	var mytown := Q_TownAt( merchant.x, merchant.y, merchant.realm );
+	if( !mytown )
+		PrintTextAbovePrivate( merchant, "Я не в городе — отсюда посылки не ходят.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	var quest_target := Q_PickTarget( merchant, mytown );
+	if( !quest_target )
+		PrintTextAbovePrivate( merchant, "Не нашёл, кому передать посылку. Зайди позже.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	var target_town := Q_TownName( quest_target.Town );
+	var my_town := Q_TownName( mytown );
+	var cross_town := ( quest_target.Town != mytown );
+
+	PrintTextAbovePrivate( merchant, "У меня есть посылка для " + quest_target.Npc.name +
+	                       " в город " + target_town + ".", player );
+	sleep( 1 );
+	if( cross_town )
+		PrintTextAbovePrivate( merchant, "Это другой город, поэтому заплатят хорошо.", player );
+	else
+		PrintTextAbovePrivate( merchant, "Недалеко, но заплачу как договоримся.", player );
+	endif
+	sleep( 1 );
+
+	if( !YesNo( player, "Отнести посылку в " + target_town + "?", "Да", "Нет" ) )
+		PrintTextAbovePrivate( merchant, "Как хочешь. Заглядывай ещё.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	var parcel := CreateItemInContainer( player.backpack, 0x706C, 1 );
+	if( !parcel || parcel.errortext )
+		PrintTextAbovePrivate( merchant, "У тебя нет места в рюкзаке.", player );
+		EraseObjProperty( player, "#merchantquest" );
+		return;
+	endif
+
+	SetName( parcel, "a parcel for " + quest_target.Npc.name );
+	SetObjProperty( parcel, "deliverto", quest_target.Npc.serial );
+	SetObjProperty( parcel, "delivertoname", quest_target.Npc.name );
+	SetObjProperty( parcel, "sentfrom", merchant.serial );
+	SetObjProperty( parcel, "sentfromname", merchant.name );
+	SetObjProperty( parcel, "fromtown", mytown );
+	SetObjProperty( parcel, "fromtownname", my_town );
+	SetObjProperty( parcel, "questitem", 1 );
+	SetObjProperty( parcel, "nodecay", 1 );
+
+	SetObjProperty( merchant, "#questtimer", ReadGameClock() );
+
+	PrintTextAbovePrivate( merchant, "Передай лично в руки. И не потеряй — за это отвечают головой.", player );
+	EraseObjProperty( player, "#merchantquest" );
+	return;
+endprogram

@@ -1,0 +1,59 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// merchantDeliver - игрок отдал торговцу посылку из курьерского квеста.
+//
+// Запускается из ai/merchant.src на SYSEVENT_ITEM_GIVEN, если у предмета
+// есть свойство "deliverto".
+//
+// Параметры: parms[1] - торговец, parms[2] - игрок, parms[3] - посылка.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+use util;
+
+include ":quests:quests";
+include "include/objtype";
+include ":virtue:virtue";
+
+program merchant_deliver( parms )
+
+	var merchant := parms[1];
+	var player := parms[2];
+	var parcel := parms[3];
+
+	if( !merchant || !player || !parcel )
+		return;
+	endif
+
+	var dest := CInt( GetObjProperty( parcel, "deliverto" ) );
+	if( dest != merchant.serial )
+		PrintTextAbovePrivate( merchant, "Я этого не заказывал.", player );
+		return;
+	endif
+
+	var from_name := GetObjProperty( parcel, "sentfromname" );
+	if( !from_name )
+		from_name := "знакомого";
+	endif
+
+	PrintTextAbovePrivate( merchant, "А, это от " + from_name + ". Спасибо!", player );
+
+	var gold := Q_Setting( "MinGold", 100 ) + RandomDiceRoll( "3d75" );
+	var virtue := 2;
+	var from_town := GetObjProperty( parcel, "fromtown" );
+	var my_town := Q_TownAt( merchant.x, merchant.y, merchant.realm );
+	if( my_town && from_town && my_town != from_town )
+		gold := gold * Q_Setting( "CrossTownMultiplier", 5 );
+		virtue := 6;
+	endif
+
+	CreateItemInContainer( player.backpack, UOBJ_GOLD_COIN, gold );
+	PlaySoundEffect( player, 0x38 );
+	SendSysMessage( player, "Ты получил " + gold + " золотых." );
+	VS_AdjustVirtue( player, "compassion", virtue );
+
+	DestroyItem( parcel );
+	return;
+endprogram

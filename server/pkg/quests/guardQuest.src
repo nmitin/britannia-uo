@@ -1,0 +1,178 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// guardQuest - задание стражника: найти и убить монстра, принести голову.
+//
+// Запускается из ai/townGuard.src, когда игрок говорит стражнику
+// "quest" / "квест" / "задание".
+//
+// Параметры: parms[1] - стражник, parms[2] - игрок.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+use util;
+use cfgfile;
+
+include ":quests:quests";
+include ":gumps:yesNo";
+
+var GQ_CFG := ":quests:guardquests";
+
+
+program guard_quest( parms )
+
+	var guard := parms[1];
+	var player := parms[2];
+
+	if( !guard || !player || !player.acctname )
+		return;
+	endif
+
+	// Один разговор за раз.
+	var busy := GetObjProperty( player, "#guardquest" );
+	if( busy && GetProcess( busy ) )
+		return;
+	endif
+	SetObjProperty( player, "#guardquest", GetPid() );
+
+	// Уже есть активное задание.
+	var current := GetObjProperty( player, "GuardQuest" );
+	if( current )
+		var target_npc := SystemFindObjectBySerial( CInt( current.Npc ) );
+		if( target_npc && !target_npc.dead )
+			PrintTextAbovePrivate( guard, "Ты ещё не разобрался с " + current.Name +
+			                       " " + current.Place + "?", player );
+			sleep( 1 );
+			PrintTextAbovePrivate( guard, "Он был где-то у X=" + current.X +
+			                       " Y=" + current.Y + ".", player );
+		else
+			PrintTextAbovePrivate( guard, "Ты справился? Тогда принеси мне его голову.", player );
+		endif
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	var cooldown := CInt( GetObjProperty( guard, "#questtimer" ) );
+	if( cooldown + Q_Setting( "GuardCooldown", 1800 ) > ReadGameClock() )
+		PrintTextAbovePrivate( guard, "Сейчас вокруг спокойно, помощи не нужно.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	var cfg := ReadConfigFile( GQ_CFG );
+	if( cfg.errortext )
+		PrintTextAbovePrivate( guard, "Я не знаю, где искать trouble.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	var keys := GetConfigIntKeys( cfg );
+	if( Len( keys ) == 0 )
+		PrintTextAbovePrivate( guard, "Сейчас вокруг спокойно, помощи не нужно.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	// Регионы перебираем по кругу, чтобы задания не повторялись.
+	var region_index := CInt( GetGlobalProperty( "#guardquestregion" ) );
+	if( !region_index || region_index < 1 || region_index > Len( keys ) )
+		region_index := 1;
+	endif
+	SetGlobalProperty( "#guardquestregion", region_index + 1 );
+	var region_id := keys[region_index];
+
+	var elem := FindConfigElem( cfg, region_id );
+	if( !elem || elem.errortext )
+		PrintTextAbovePrivate( guard, "Сейчас вокруг спокойно, помощи не нужно.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	var monsters_elem := FindConfigElem( cfg, "Monsters" );
+	var monsters := GetConfigStringArray( monsters_elem, "npc" );
+	if( Len( monsters ) == 0 )
+		PrintTextAbovePrivate( guard, "Сейчас вокруг спокойно, помощи не нужно.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+	var template := monsters[RandomInt( Len( monsters ) ) + 1];
+
+	var range := SplitWords( elem.Region );
+	var x1 := CInt( range[1] );
+	var x2 := CInt( range[2] );
+	var y1 := CInt( range[3] );
+	var y2 := CInt( range[4] );
+
+	var spawn := GQ_FindSpawnPoint( x1, x2, y1, y2, guard.realm );
+	if( !spawn )
+		PrintTextAbovePrivate( guard, "Не могу найти подходящее место. Зайди позже.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	PrintTextAbovePrivate( guard, "Говорят, " + elem.Name + " завёлся опасный зверь.", player );
+	sleep( 1 );
+	PrintTextAbovePrivate( guard, "Сходи туда и принеси мне его голову. Заплачу.", player );
+	if( !YesNo( player, "Взяться за это дело?", "Да", "Нет" ) )
+		PrintTextAbovePrivate( guard, "Как хочешь. Заглядывай ещё.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	var npc := CreateNPCFromTemplate( template, spawn.X, spawn.Y, spawn.Z, 0, guard.realm );
+	if( !npc || npc.errortext )
+		PrintTextAbovePrivate( guard, "Не вышло отправить тебя туда. Зайди позже.", player );
+		EraseObjProperty( player, "#guardquest" );
+		return;
+	endif
+
+	// Голова с меткой: её и приносит игрок.
+	var npc_pack := CreateItemAtLocation( npc.x, npc.y, npc.z, "Backpack", 1, npc.realm );
+	if( npc_pack && !npc_pack.errortext )
+		EquipItem( npc, npc_pack );
+		var head := CreateItemInContainer( npc_pack, 0x1DAE, 1 );
+		if( head && !head.errortext )
+			SetName( head, "a head of " + npc.name );
+			SetObjProperty( head, "deliverto", guard.serial );
+			SetObjProperty( head, "guardquesthead", 1 );
+			SetObjProperty( head, "nodecay", 1 );
+		endif
+	endif
+
+	SetObjProperty( guard, "#questtimer", ReadGameClock() );
+	SetObjProperty( player, "GuardQuest", struct{
+		"Npc":=npc.serial,
+		"Name":=npc.name,
+		"Place":=elem.Name,
+		"X":=spawn.X,
+		"Y":=spawn.Y,
+		"Guard":=guard.serial
+	} );
+
+	PrintTextAbovePrivate( guard, npc.name + " " + elem.Name + ".", player );
+	sleep( 1 );
+	PrintTextAbovePrivate( guard, "Координаты: X=" + spawn.X + " Y=" + spawn.Y + ".", player );
+	EraseObjProperty( player, "#guardquest" );
+	return;
+endprogram
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Найти точку на суше внутри области, где можно поставить NPC.
+/////////////////////////////////////////////////////////////////////////////
+function GQ_FindSpawnPoint( x1, x2, y1, y2, realm )
+
+	var tries := 0;
+	while( tries < 60 )
+		var x := RandomInt( x2 - x1 ) + x1;
+		var y := RandomInt( y2 - y1 ) + y1;
+		var sh := GetStandingHeight( x, y, -128, realm );
+		if( sh && !sh.errortext && !sh.multi && sh.z > -100 )
+			return struct{ "X":=x, "Y":=y, "Z":=CInt( sh.z ) };
+		endif
+		tries += 1;
+	endwhile
+
+	return 0;
+endfunction

@@ -1,0 +1,48 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// guardReward - игрок принёс стражнику голову монстра из задания.
+//
+// Запускается из ai/townGuard.src на EVID_ITEM_GIVEN, если у предмета есть
+// свойство "guardquesthead".
+//
+// Параметры: parms[1] - стражник, parms[2] - игрок, parms[3] - голова.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+use uo;
+use os;
+use util;
+
+include ":quests:quests";
+include "include/objtype";
+include ":virtue:virtue";
+
+program guard_reward( parms )
+
+	var guard := parms[1];
+	var player := parms[2];
+	var head := parms[3];
+
+	if( !guard || !player || !head )
+		return;
+	endif
+
+	var dest := CInt( GetObjProperty( head, "deliverto" ) );
+	if( dest != guard.serial )
+		PrintTextAbovePrivate( guard, "Мне это не нужно.", player );
+		return;
+	endif
+
+	PrintTextAbovePrivate( guard, "Ты справился! Вот твоя награда.", player );
+	DestroyItem( head );
+
+	var gold := RandomIntMinMax( Q_Setting( "GuardMinGold", 200 ),
+	                             Q_Setting( "GuardMaxGold", 500 ) + 1 );
+	CreateItemInContainer( player.backpack, UOBJ_GOLD_COIN, gold );
+	PlaySoundEffect( player, 0x38 );
+	SendSysMessage( player, "Ты получил " + gold + " золотых." );
+	VS_AdjustVirtue( player, "valor", 4 );
+
+	EraseObjProperty( player, "GuardQuest" );
+	return;
+endprogram

@@ -20,7 +20,11 @@
   Генератор — `tools/import_worlddecor.py` -> `config/worlddecor.cfg`.
 - **Спавн:** 15 регионов из WoD (`wod_7...wod_155`), плюс штатные 108 регионов.
 - **Телепорты:** 732 dungeon-телепорта, `.worldteleporters status`.
-- **Гварды:** 117 guard-постов, `.worldguards status`.
+- **Гварды:** 126 guard-постов (117 townguard + 4 orderguard + 5 chaosguard),
+  `.worldguards status`.
+- **Квесты:** курьерские у торговцев («посылка»/«доставка»/quest) и охота
+  у стражников («задание»/«квест»/quest). Пакет `pkg/quests`, настройки —
+  `pkg/quests/config/quests.cfg` и `guardquests.cfg`.
 - **Торговцы/банкиры:** 230 merchant-узлов, `.worldmerchants status`.
 - **Особые NPC:** 27 узлов из WoD (11 лекарей, 4 стейблмастера, 12 капитанов)
   + 172 бродячих лекаря, `.worldspecials status`.
@@ -64,7 +68,7 @@ cd /projects/uo
 .worldspecials status
 ```
 
-Ожидаемо: 2078 / 26 584 / 732 / 117 / 230 / 27 узлов + 172 лекаря.
+Ожидаемо: 2078 / 26 584 / 732 / 126 / 230 / 27 узлов + 172 лекаря.
 
 ## Важные нюансы
 
@@ -100,7 +104,9 @@ cd /projects/uo
 
 ## Следующие шаги
 
-1. Квесты и особые точки.
+1. Квесты гильдии авантюристов из WoD (нужен порт guild ranking и
+   конфигов `:adventurers_guild:quests_*`) — самая большая из оставшихся
+   квестовых тем.
 2. Починить три merchant-якоря (`2874,662`, `3687,2253`, `3704,2248`):
    правка `nodes.xml` + подъём `WM_VERSION`, иначе три строки
    `Unable to create npc` при каждом старте.

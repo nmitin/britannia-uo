@@ -66,7 +66,11 @@ program CastleGuard()
 									if ( (evtext["guards"]) || (evtext["guards!"]) || (evtext["стража"]) || (evtext["стража!"]) )
 										look_around();
 									endif
-									check_speech(ev.text, ev.source);
+									if ( (evtext["quest"]) || (evtext["квест"]) || (evtext["задание"]) )
+										start_script( ":quests:guardQuest", { me, ev.source } );
+									else
+										check_speech(ev.text, ev.source);
+									endif
 				EVID_ENGAGED:
 				EVID_DAMAGED:		wanders := 0;
 									next_wander := ReadGameClock()+60;
@@ -80,7 +84,11 @@ program CastleGuard()
 									look_around();
 				EVID_ITEM_GIVEN:	wanders := 0;
 									next_wander := ReadGameClock()+60;
-									TakeItem(ev.source,ev.item);
+									if ( GetObjProperty( ev.item, "guardquesthead" ) )
+										start_script( ":quests:guardReward", { me, ev.source, ev.item } );
+									else
+										TakeItem(ev.source,ev.item);
+									endif
 			endcase
 		else
 			if ( (Abs(me.x - home[1]) >= 15) || (Abs(me.y - home[2]) >= 15) )
